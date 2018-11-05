@@ -1,0 +1,37 @@
+// Utility Mixins
+//
+// Mixins to help with writing repeated selectors
+
+// Disabled selectors
+@mixin disabled {
+  &:disabled,
+  &.disabled,
+  &.is-disabled {
+    @content;
+  }
+}
+
+// Selected Selectors
+@mixin selected {
+  &.selected,
+  &.is-selected {
+    @content;
+  }
+}
+
+// Selected Selectors
+@mixin active {
+  &:active,
+  &.active,
+  &.is-active {
+    @content;
+  }
+}
+
+// Error Selectors
+@mixin error {
+  &.error,
+  &.is-error {
+    @content;
+  }
+}
