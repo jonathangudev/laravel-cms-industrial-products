@@ -1,0 +1,192 @@
+// Header
+// 
+// Header styles
+
+// Variables
+
+$header-height:                   $leading * 4;
+
+$header-logo-height:              $leading * 2.5;
+$header-sm-logo-height:           $leading * 1.5;
+
+$header-padding-y:                ($header-height - $header-logo-height) / 2;
+
+
+$header-link-line-height:         $leading * 1.5;
+$header-border-width:             $border-width * 2;
+
+
+.c-header {
+  $block: &;
+
+  // Logged-Out Header
+  &--logged-out {
+
+    // Styles for open nav menu
+    &.is-open {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+
+      // Changed menu button to close button
+      #{$block}__menu-btn {
+        display: none;
+
+        &--close {
+          display: block;
+        }
+      }
+
+      // Display mobile menu
+      #{$block}__mobile-menu {
+        display: block;
+      }
+
+      // Display background
+      #{$block}__background {
+        display: block;
+      }
+    }
+    
+    #{$block}__menu {
+      position: relative;
+      z-index: 2;
+
+      &.is-open {
+        #{$block}__menu-btn {
+          display: none;
+
+          &--close {
+            display: block;
+          }
+        }
+      }
+    }
+
+    #{$block}__mobile-menu {
+      position: relative;
+      display: none;
+      margin-top: $leading * 1.5;
+      z-index: 2;
+    }
+
+    #{$block}__logo {
+      padding-top: $header-padding-y;
+      padding-bottom: $header-padding-y;
+
+      img {
+        height: $header-logo-height;
+
+        @include media-breakpoint-down(xs) {
+          height: $header-sm-logo-height;
+        }
+      }
+    }
+
+    #{$block}__phone {
+      text-align: right;
+      margin-bottom: $leading / 2;
+      color: $header-link-color;
+
+      @include media-breakpoint-down(md) {
+        text-align: center;
+      }
+
+      a {
+        color: $header-link-color;
+
+        &:hover {
+          color: $header-link-color;
+        }
+      }
+    }
+
+    #{$block}__list {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+
+      @include media-breakpoint-down(md) {
+        justify-content: flex-end;
+      }
+    }
+
+    #{$block}__mobile-list {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #{$block}__item {
+      position: relative;
+
+      @include media-breakpoint-down(md) {
+        text-align: center;
+      }
+    }
+
+    #{$block}__link {
+      display: inline-block;
+      color: $header-link-color;
+      font-weight: $font-weight-bold;
+      font-size: $h4-font-size;
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        height: 100%;
+        width: 0%;
+        top: 0;
+        border-bottom: $header-border-width solid $header-border-color;
+        transition: width $transition-duration-short ease-in-out;
+      }
+
+      &:hover {
+        color: $header-link-color;
+        text-decoration: none;
+
+        &:after {
+          width: 100%;
+        }
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: $h3-font-size;
+        margin-bottom: $leading;
+      }
+    }
+
+    // By default show menu button on mobile and hide close button
+    #{$block}__menu-btn {
+      color: $header-link-color;
+      padding-left: $grid-gutter-width-rem;
+      padding-right: 0;
+
+      &--close {
+        display: none;
+      }
+    }
+  }
+
+  // Dark background for mobile
+  #{$block}__background {
+    position: fixed;
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $header-menu-background;
+    z-index: 1;
+  }
+
+
+  // Logged-In Header
+
+}

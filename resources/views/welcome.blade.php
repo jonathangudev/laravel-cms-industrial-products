@@ -15,31 +15,96 @@
 	<link rel="stylesheet" href="{{ mix('/css/index.css') }}">
 
 	<!-- Favicons -->
-	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png" />
-	<link rel="icon" type="image/png" href="/images/favicons/favicon-196x196.png" sizes="196x196" />
-	<link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96" />
-	<link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32" />
-	<link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16" />
-	<link rel="icon" type="image/png" href="/images/favicons/favicon-128.png" sizes="128x128" />
-	<meta name="theme-color" content="#ffffff" />
-	<meta name="application-name" content="JMP Industries Inc." />
-	<meta name="msapplication-TileColor" content="#ffffff" />
-	<meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png" />
-	<meta name="msapplication-square70x70logo" content="/images/favicons/mstile-70x70.png" />
-	<meta name="msapplication-square150x150logo" content="/images/favicons/mstile-150x150.png" />
-	<meta name="msapplication-wide310x150logo" content="/images/favicons/mstile-310x150.png" />
-	<meta name="msapplication-square310x310logo" content="/images/favicons/mstile-310x310.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+	<link rel="icon" type="image/png" href="/images/favicons/favicon-196x196.png" sizes="196x196">
+	<link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="/images/favicons/favicon-128.png" sizes="128x128">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="application-name" content="JMP Industries Inc.">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+	<meta name="msapplication-square70x70logo" content="/images/favicons/mstile-70x70.png">
+	<meta name="msapplication-square150x150logo" content="/images/favicons/mstile-150x150.png">
+	<meta name="msapplication-wide310x150logo" content="/images/favicons/mstile-310x150.png">
+	<meta name="msapplication-square310x310logo" content="/images/favicons/mstile-310x310.png">
 </head>
 
-<body>
-    <header></header>
+<body style="background-color: gray;">
+    <header id="js-header" class="c-header c-header--logged-out">
+        <div class="c-header__menu">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-9">
+                        <div class="c-header__logo">
+                            <a href="/"><img src="/images/logo/JMP_Logo_white.svg" alt="JMP Logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-15">
+                        <div class="row">
+                            <div class="col">
+                                <div class="c-header__phone d-none d-lg-block">
+                                    <i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:216-749-6030">(216) 749-6030</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <nav class="c-header__nav">
+                                    <ul class="c-header__list">
+                                        <li class="c-header__item d-none d-lg-block"><a href="#" class="c-header__link">Home</a></li>
+                                        <li class="c-header__item d-none d-lg-block"><a href="#" class="c-header__link">About Us</a></li>
+                                        <li class="c-header__item d-none d-lg-block"><a href="#" class="c-header__link">Our Products &amp; Services</a></li>
+                                        <li class="c-header__item d-none d-lg-block"><a href="#" class="c-header__link">Contact Us</a></li>
+                                        <li class="c-header__item d-none d-sm-block"><a href="#" class="c-btn c-btn--primary">Log In</a></li>
+                                        <li class="c-header__item d-block d-lg-none">
+                                            <button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn"><i class="fas fa-fw fa-bars"></i></button>
+                                            <button id="js-header-menu-btn-close" type="button" class="c-btn c-header__menu-btn c-header__menu-btn--close"><i class="fas fa-fw fa-times"></i></button>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="c-header__mobile-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <nav class="c-header__nav">
+                            <ul class="c-header__mobile-list">
+                                <li class="c-header__item"><a href="#" class="c-header__link">Home</a></li>
+                                <li class="c-header__item"><a href="#" class="c-header__link">About Us</a></li>
+                                <li class="c-header__item"><a href="#" class="c-header__link">Our Products &amp; Services</a></li>
+                                <li class="c-header__item"><a href="#" class="c-header__link">Contact Us</a></li>
+                                <li class="c-header__item d-block d-sm-none"><a href="#" class="c-btn c-btn--primary">Log In</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="c-header__phone">
+                            <i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:216-749-6030">(216) 749-6030</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="c-header__background"></div>
+    </header>
 
     <main>
         <div class="container">
@@ -143,12 +208,12 @@
             <div class="row">
                 <div class="col-6">
                     <div class="c-panel">
-                        <div class="c-panel__body">
+                        <div class="c-panel__content">
                             <div class="c-panel__img">
-                                <img src="https://via.placeholder.com/300" alt="Image">
+                                <img src="https://via.placeholder.com/600x600" alt="Image">
                             </div>
                             <div class="c-panel__footer">
-                                <div class="c-panel__title">
+                                <div class="c-panel__title" title="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit">
                                     <strong>Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</strong>
                                 </div>
                                 <div class="c-panel__action">
@@ -162,7 +227,26 @@
         </div>
     </main>
 
-    <footer></footer>
+    <footer class="c-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-24 col-lg-10">
+                    <div class="row">
+                        <div class="col-12"></div>
+                        <div class="col-12"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                    </div>
+                </div>
+                <div class="col-24 col-lg-14">
+                    <div class="c-footer__copyright">
+                        <p>&copy; 2018 JMP Industries, Inc. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     
 
 	@if (Route::has('login'))
@@ -172,7 +256,18 @@
             <a href="{{ route('login') }}">Login</a>
             <a href="{{ route('register') }}">Register</a>
         @endauth
-	@endif
+    @endif
+    
+    <script>
+        // Toggle mobile menu
+        var headerEl = document.getElementById('js-header');
+        document.getElementById('js-header-menu-btn-open').addEventListener('click', function () {
+            headerEl.classList.add('is-open');
+        });
+        document.getElementById('js-header-menu-btn-close').addEventListener('click', function () {
+            headerEl.classList.remove('is-open');
+        });
+    </script>
 </body>
 
 </html>

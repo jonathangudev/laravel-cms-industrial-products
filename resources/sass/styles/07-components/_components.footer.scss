@@ -1,0 +1,17 @@
+// Footer
+// 
+// Footer styles
+
+$footer-border-width:             $border-width * 2;
+
+.c-footer {
+  background: $footer-background;
+  border-bottom: $footer-border-width solid $footer-border-color;
+
+  &__copyright {
+    p {
+      color: $footer-link-color;
+      margin-bottom: 0;
+    }
+  }
+}
