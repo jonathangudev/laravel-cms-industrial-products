@@ -113,10 +113,9 @@ $btn-ghost-hover-border:              darken($brand-primary-color, 10%);
 //
 // Colors for Panel
 
-$panel-border-color:                    $border-color;
-$panel-background-color:                #fbfbfb;
-$panel-title-background-color:          #efefef;
-
+$panel-border-color:                    $gray-1;
+$panel-background-color:                $white;
+$panel-title-background-color:          $gray-1;
 
 
 // Tables

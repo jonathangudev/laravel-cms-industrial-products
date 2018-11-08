@@ -1,0 +1,39 @@
+// Panel
+// 
+// Sytles for category panels
+
+.c-panel {
+  border: $border-width solid $panel-border-color;
+  display: flex;
+  margin-bottom: $grid-gutter-width-rem;
+
+  &:before {
+    content: '';
+    padding-bottom: 100%;
+  }
+
+  &__body {
+
+  }
+
+  &__img {
+    padding: $grid-gutter-width-rem;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  &__footer {
+    padding: ($leading / 4) $grid-gutter-width-rem;
+    background-color: $panel-title-background-color;
+    text-align: center;
+  }
+
+  &__title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

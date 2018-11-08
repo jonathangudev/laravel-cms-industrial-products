@@ -28,7 +28,7 @@
 	<link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32" />
 	<link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16" />
 	<link rel="icon" type="image/png" href="/images/favicons/favicon-128.png" sizes="128x128" />
-	<meta name="theme-color" content="#ffffff">
+	<meta name="theme-color" content="#ffffff" />
 	<meta name="application-name" content="JMP Industries Inc." />
 	<meta name="msapplication-TileColor" content="#ffffff" />
 	<meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png" />
@@ -137,6 +137,26 @@
                             <p class="o-form__error-text"><i class="fas fa-times"></i>&nbsp;&nbsp;<span>This is some error text.</strong></p>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="c-panel">
+                        <div class="c-panel__body">
+                            <div class="c-panel__img">
+                                <img src="https://via.placeholder.com/300" alt="Image">
+                            </div>
+                            <div class="c-panel__footer">
+                                <div class="c-panel__title">
+                                    <strong>Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</strong>
+                                </div>
+                                <div class="c-panel__action">
+                                    <a href="#">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
