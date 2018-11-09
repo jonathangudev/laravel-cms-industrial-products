@@ -46,4 +46,45 @@
     margin-top: $leading / 2;
     margin-bottom: 0;
   }
+
+  // Reverse color scheme
+  &--reverse {
+    label {
+      color: $input-reverse-color;
+    }
+
+    select {
+      background-color: $input-reverse-bg;
+    }
+
+    input,
+    textarea {
+      color: $input-reverse-color;
+      background-color: $input-reverse-bg;
+
+      &:focus {
+        border-bottom: $input-border-width solid $input-reverse-focus-border-color;
+      }
+    
+      &:hover {
+        background-color: $input-reverse-hover-bg;
+      }
+    
+      // Placeholder
+      &::placeholder {
+        color: $input-reverse-placeholder-color;
+      }
+    
+      // Readonly
+      &:readonly {
+        background-color: $disabled-reverse-input-bg;
+      }
+    
+      // Disabled
+      @include disabled {
+        color: $disabled-reverse-input-color;
+        background-color: $disabled-reverse-input-bg;
+      }
+    }
+  }
 }

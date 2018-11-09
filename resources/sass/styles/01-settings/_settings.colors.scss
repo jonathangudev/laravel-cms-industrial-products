@@ -74,12 +74,22 @@ $box-shadow-color:                $black;
 $input-color:                           $text-color;
 $input-placeholder-color:               rgba($text-color, 0.8);
 
-$input-bg:                              $gray-1;
-$input-hover-bg:                        $gray-2;
+$input-reverse-color:                   $white;
+$input-reverse-placeholder-color:       rgba($white, 0.6);
+
+$input-bg:                              rgba($brand-secondary-color, 0.05);
+$input-hover-bg:                        rgba($brand-secondary-color, 0.15);;
+
+$input-reverse-bg:                      rgba($white, 0.10);
+$input-reverse-hover-bg:                rgba($white, 0.20);;
 
 $input-border-color:                    $gray-5;
 $input-focus-border-color:              $input-border-color;
 $input-hover-border-color:              $input-border-color;
+
+$input-reverse-border-color:            $white;
+$input-reverse-focus-border-color:      $input-reverse-border-color;
+$input-reverse-hover-border-color:      $input-reverse-border-color;
 
 $checkbox-radio-color:                  $white;
 $checkbox-radio-bg:                     $white;
@@ -87,7 +97,10 @@ $checkbox-radio-border-color:           $input-border-color;
 $checkbox-radio-selected-bg:            $brand-primary-color;
 
 $disabled-input-color:                  $text-muted-color;
-$disabled-input-bg:                     $gray-2;
+$disabled-input-bg:                     $input-hover-bg;
+
+$disabled-reverse-input-color:          $input-reverse-placeholder-color;
+$disabled-reverse-input-bg:             $input-reverse-hover-bg;
 
 
 // Buttons
@@ -142,4 +155,5 @@ $header-menu-background:                $brand-secondary-gradient;
 $footer-background:                     $brand-secondary-gradient;
 $footer-border-color:                   $brand-primary-color;
 
-$footer-link-color:                     $white;
+$footer-color:                          $white;
+$footer-hover-color:                    $brand-primary-color;

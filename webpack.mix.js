@@ -11,4 +11,5 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/sass/index.scss', 'public/css');
+mix.sass('resources/sass/index.scss', 'public/css')
+    .js('resources/js/menu-toggle.js', 'public/js');
