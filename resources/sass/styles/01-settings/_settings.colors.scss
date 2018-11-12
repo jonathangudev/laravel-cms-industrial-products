@@ -142,7 +142,8 @@ $table-header-bg:                       #efefef;
 // 
 // Colors for Header
 
-$header-link-color:                     $white;
+$header-logged-out-link-color:         $white;
+$header-logged-in-link-color:          $text-color;
 
 $header-border-color:                   $brand-primary-color;
 $header-menu-background:                $brand-secondary-gradient;

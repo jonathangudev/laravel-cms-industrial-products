@@ -40,10 +40,10 @@
                     <div class="col-12 col-sm-8 col-md-6 col-lg-12 offset-md-3 offset-lg-2">
                         <nav class="c-footer__nav">
                             <ul class="c-footer__list">
-                                <li class="c-footer__item"><a href="#" class="c-footer__link">Home</a></li>
-                                <li class="c-footer__item"><a href="#" class="c-footer__link">About Us</a></li>
-                                <li class="c-footer__item"><a href="#" class="c-footer__link">Our Products &amp; Services</a></li>
-                                <li class="c-footer__item"><a href="#" class="c-footer__link">Contact Us</a></li>
+                                <li class="c-footer__item"><a href="/" class="c-footer__link">Home</a></li>
+                                <li class="c-footer__item"><a href="/about" class="c-footer__link">About Us</a></li>
+                                <li class="c-footer__item"><a href="/products-and-services" class="c-footer__link">Our Products &amp; Services</a></li>
+                                <li class="c-footer__item"><a href="/contact" class="c-footer__link">Contact Us</a></li>
                             </ul>
                         </nav>
                     </div>

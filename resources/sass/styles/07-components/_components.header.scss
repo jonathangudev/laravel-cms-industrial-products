@@ -66,7 +66,116 @@ $num-links:                       6;
 .c-header {
   $block: &;
 
-  // Logged-Out Header
+  &__logo-group	{
+    display: flex;
+    align-items: center;
+  }
+
+  // Jmp Logo
+  &__logo {
+    padding-top: $header-padding-y;
+    padding-bottom: $header-padding-y;
+
+    img {
+      height: $header-logo-height;
+
+      @include media-breakpoint-down(xs) {
+        height: $header-sm-logo-height;
+      }
+    }
+  }
+
+  // Company Logo
+  &__company-logo {
+    margin-left: $grid-gutter-width-rem;
+
+    img {
+      max-width: 100%;
+      max-height: $header-logo-height;
+      height: auto;
+    }
+  }
+
+  &__phone {
+    text-align: right;
+    margin-bottom: $leading / 2;
+
+    @include media-breakpoint-down(md) {
+      text-align: center;
+    }
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    @include media-breakpoint-down(md) {
+      justify-content: flex-end;
+    }
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__link {
+    position: relative;
+    text-transform: uppercase;
+    display: inline-block;
+    font-weight: $font-weight-bold;
+    font-size: $header-link-font-size;
+
+    &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 100%;
+      top: 0;
+      border-bottom: $header-border-width solid $header-border-color;
+      animation: linkHoverOut $transition-duration-short ease-in;
+
+      // Hide iniitial animation
+      transition: opacity 1ms $transition-duration-short;
+      opacity: 0;
+    }
+
+    &:hover {
+      text-decoration: none;
+
+      &:after {
+        animation: linkHoverIn $transition-duration-short ease-out;
+        animation-fill-mode: both;
+        transition: none;
+        opacity: 1;
+      }
+    }
+
+    @include active {
+      &:after {
+        animation: none;
+        left: 0;
+        right: 0;
+        opacity: 1;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      font-size: $h3-font-size;
+      padding-bottom: $leading / 2;
+    }
+  }
+
+  &__menu-btn {
+    padding-left: $grid-gutter-width-rem;
+    padding-right: 0;
+  }
+
+
+  // Logged-Out Header Styles
   &--logged-out {
     position: absolute;
     width: 100%;
@@ -108,6 +217,19 @@ $num-links:                       6;
         animation: mobileBackgroundFadeIn $transition-duration ease-out;
       }
     }
+
+    // Phone colors
+    #{$block}__phone {
+      color: $header-logged-out-link-color;
+  
+      a {
+        color: $header-logged-out-link-color;
+  
+        &:hover {
+          color: $header-logged-out-link-color;
+        }
+      }
+    }
     
     #{$block}__menu {
       position: relative;
@@ -131,120 +253,39 @@ $num-links:                       6;
       z-index: 2;
     }
 
-    #{$block}__logo {
-      padding-top: $header-padding-y;
-      padding-bottom: $header-padding-y;
-
-      img {
-        height: $header-logo-height;
-
-        @include media-breakpoint-down(xs) {
-          height: $header-sm-logo-height;
-        }
-      }
-    }
-
-    #{$block}__phone {
-      text-align: right;
-      margin-bottom: $leading / 2;
-      color: $header-link-color;
-
-      @include media-breakpoint-down(md) {
-        text-align: center;
-      }
-
-      a {
-        color: $header-link-color;
-
-        &:hover {
-          color: $header-link-color;
-        }
-      }
-    }
-
-    #{$block}__list {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 0;
-
-      @include media-breakpoint-down(md) {
-        justify-content: flex-end;
-      }
-    }
-
     #{$block}__mobile-list {
       display: flex;
       flex-direction: column;
       list-style: none;
       padding-left: 0;
     }
-
-    #{$block}__item {
-      position: relative;
-    }
-
+  
     #{$block}__mobile-item {
       position: relative;
       text-align: center;
       margin-bottom: $leading / 2;
     }
 
+    // Link colors
     #{$block}__link {
-      position: relative;
-      display: inline-block;
-      color: $header-link-color;
-      font-weight: $font-weight-bold;
-      font-size: $header-link-font-size;
-
-      &:after {
-        content: '';
-        position: absolute;
-        display: block;
-        height: 100%;
-        top: 0;
-        border-bottom: $header-border-width solid $header-border-color;
-        animation: linkHoverOut $transition-duration-short ease-in;
-
-        // Hide iniitial animation
-        transition: opacity 1ms $transition-duration-short;
-        opacity: 0;
-      }
-
+      color: $header-logged-out-link-color;
+  
       &:hover {
-        color: $header-link-color;
-        text-decoration: none;
-
-        &:after {
-          animation: linkHoverIn $transition-duration-short ease-out;
-          animation-fill-mode: both;
-          transition: none;
-          opacity: 1;
+        color: $header-logged-out-link-color;
+  
+        &:visited {
+          color: $header-logged-out-link-color;
         }
       }
-
-      @include active {
-        &:after {
-          animation: none;
-          left: 0;
-          right: 0;
-          opacity: 1;
-        }
-      }
-
-      @include media-breakpoint-down(md) {
-        font-size: $h3-font-size;
-        padding-bottom: $leading / 2;
+  
+      &:visited {
+        color: $header-logged-out-link-color;
       }
     }
 
     // By default show menu button on mobile and hide close button
     #{$block}__menu-btn {
-      color: $header-link-color;
-      padding-left: $grid-gutter-width-rem;
-      padding-right: 0;
+      color: $header-logged-out-link-color;
 
       &--close {
         display: none;
@@ -265,5 +306,55 @@ $num-links:                       6;
 
 
   // Logged-In Header
+  &--logged-in {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+
+    // Phone colors
+    #{$block}__phone {
+      color: $header-logged-in-link-color;
+  
+      a {
+        color: $header-logged-in-link-color;
+  
+        &:hover {
+          color: $header-logged-in-link-color;
+        }
+      }
+    }
+
+    // Link colors
+    #{$block}__link {
+      color: $header-logged-in-link-color;
+  
+      &:hover {
+        color: $header-logged-in-link-color;
+  
+        &:visited {
+          color: $header-logged-in-link-color;
+        }
+      }
+  
+      &:visited {
+        color: $header-logged-in-link-color;
+      }
+
+      // Log out link
+      &--log-out:hover {
+        color: $brand-primary-color;
+        &:visited {
+          color: $brand-primary-color;
+        }
+      }
+      &--log-out,
+      &--log-out:visited {
+        color: $text-muted-color;
+      }
+      &--log-out:after {
+        display: none;
+      }
+    }
+  }
 
 }
