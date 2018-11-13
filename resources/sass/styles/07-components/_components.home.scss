@@ -174,13 +174,4 @@
       margin-top: $leading * 3;
     }
   }
-
-  &__subtext {
-    color: $text-muted-color;
-    font-size: $font-size-lg;
-
-    @include media-breakpoint-down(md) {
-      text-align: center;
-    }
-  }
 }

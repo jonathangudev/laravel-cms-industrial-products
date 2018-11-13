@@ -12,4 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.sass('resources/sass/index.scss', 'public/css')
-    .js('resources/js/menu-toggle.js', 'public/js');
+    .js('resources/js/menu-toggle.js', 'public/js')
+    .copyDirectory('resources/fonts/fontawesome', 'public/fonts');
+
+if (mix.inProduction()) {
+    mix.version();
+}

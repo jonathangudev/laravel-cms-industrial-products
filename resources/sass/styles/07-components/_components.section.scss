@@ -1,0 +1,32 @@
+// Section Title
+//
+// Provides a fixed width red underline for headings
+
+.c-section {
+  &--center {
+    text-align: center;
+
+    h1, h2, h3 {
+      &:after {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  h1, h2, h3 {
+    &:after {
+      content: '';
+      display: block;
+      width: $grid-gutter-width-rem * 3;
+      height: $border-width * 2;
+      background-color: $brand-primary-color;
+    }
+  }
+
+  p {
+    color: $text-muted-color;
+    font-size: $font-size-lg;
+    line-height: $leading * 1.5;
+  }
+}

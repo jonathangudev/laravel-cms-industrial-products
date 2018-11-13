@@ -5,7 +5,7 @@
                 <div class="row h-100">
                     <div class="col-12 col-sm-7 col-md-6 col-lg-10">
                         <div class="c-footer__logo">
-                            <a href="/"><img src="/images/logo/JMP_Logo_white.svg" alt="JMP Logo"></a>
+                            <a href="{{ route('home') }}"><img src="{{ asset('images/logo/JMP_Logo_white.svg') }}" alt="JMP Logo"></a>
                         </div>
                         <div class="c-footer__address d-none d-lg-block">
                             <address>
@@ -40,10 +40,10 @@
                     <div class="col-12 col-sm-8 col-md-6 col-lg-12 offset-md-3 offset-lg-2">
                         <nav class="c-footer__nav">
                             <ul class="c-footer__list">
-                                <li class="c-footer__item"><a href="/" class="c-footer__link">Home</a></li>
-                                <li class="c-footer__item"><a href="/about" class="c-footer__link">About Us</a></li>
-                                <li class="c-footer__item"><a href="/products-and-services" class="c-footer__link">Our Products &amp; Services</a></li>
-                                <li class="c-footer__item"><a href="/contact" class="c-footer__link">Contact Us</a></li>
+                                <li class="c-footer__item"><a href="{{ route('home') }}" class="c-footer__link">Home</a></li>
+                                <li class="c-footer__item"><a href="{{ route('about') }}" class="c-footer__link">About Us</a></li>
+                                <li class="c-footer__item"><a href="{{ route('products-services') }}" class="c-footer__link">Our Products &amp; Services</a></li>
+                                <li class="c-footer__item"><a href="{{ route('contact') }}" class="c-footer__link">Contact Us</a></li>
                             </ul>
                         </nav>
                     </div>

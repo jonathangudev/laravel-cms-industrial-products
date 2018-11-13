@@ -19,6 +19,7 @@ $brand-primary-gradient:          linear-gradient(to top right, darken($brand-pr
 
 $brand-secondary-color:           #111;
 $brand-secondary-gradient:        radial-gradient(circle farthest-corner at -75% 125%, lighten($brand-secondary-color, 25%), $brand-secondary-color);
+$brand-subheader-gradient:   			radial-gradient(circle farthest-corner at -75% 125%, rgba(lighten($brand-secondary-color, 25%), 0.9), $brand-secondary-color);
 
 
 // Contextual

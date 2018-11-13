@@ -5,7 +5,7 @@
 				<div class="col-20 col-md-12 col-lg-9 col-xl-7">
 					<div class="c-header__logo-group">
 						<div class="c-header__logo">
-							<a href="/"><img src="/images/logo/JMP_Logo.svg" alt="JMP Logo"></a>
+							<a href="{{ route('home') }}"><img src="{{ asset('images/logo/JMP_Logo.svg') }}" alt="JMP Logo"></a>
 						</div>
 						<div class="c-header__company-logo">
 							<img src="https://via.placeholder.com/1600x300" alt="Company Logo">
@@ -35,9 +35,9 @@
 						<div class="col-lg-11 col-xl-10">
 							<nav class="c-header__nav d-none d-lg-block">
 								<ul class="c-header__list">
-									<li class="c-header__item"><a href="#" class="c-header__link">Home</a></li>
-									<li class="c-header__item"><a href="#" class="c-header__link">Contact Us</a></li>
-									<li class="c-header__item"><a href="#" class="c-header__link c-header__link--log-out"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out</a></li>
+									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link">Home</a></li>
+									<li class="c-header__item"><a href="{{ route('contact') }}" class="c-header__link">Contact Us</a></li>
+									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link c-header__link--log-out"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out</a></li>
 								</ul>
 							</nav>
 						</div>

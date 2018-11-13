@@ -8020,8 +8020,8 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
   font-weight: normal;
-  src: url(/fonts/fa-brands-400.eot?a31c967484b343189fc58bce914ed245);
-  src: url(/fonts/fa-brands-400.eot?a31c967484b343189fc58bce914ed245?#iefix) format("embedded-opentype"), url(/fonts/fa-brands-400.woff2?e4a6cecbe2bb89b0722b5dc85090af7c) format("woff2"), url(/fonts/fa-brands-400.woff?eef6051639f95300dbf0293ad216c6b0) format("woff"), url(/fonts/fa-brands-400.ttf?dec02372212aab5a2e5294f1a11756ed) format("truetype"), url(/fonts/fa-brands-400.svg?3f4d4ad447e748754e994a11ff8c6a6f#fontawesome) format("svg");
+  src: url("/fonts/fa-brands-400.eot");
+  src: url("/fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("/fonts/fa-brands-400.woff2") format("woff2"), url("/fonts/fa-brands-400.woff") format("woff"), url("/fonts/fa-brands-400.ttf") format("truetype"), url("/fonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 
 .fab {
@@ -8037,8 +8037,8 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Free';
   font-style: normal;
   font-weight: 400;
-  src: url(/fonts/fa-regular-400.eot?c38ef825039cbe8ec76d4f13854f767e);
-  src: url(/fonts/fa-regular-400.eot?c38ef825039cbe8ec76d4f13854f767e?#iefix) format("embedded-opentype"), url(/fonts/fa-regular-400.woff2?dd25437adf06f377113f5df3507423b2) format("woff2"), url(/fonts/fa-regular-400.woff?52899632324b722c9c7931bd38196afb) format("woff"), url(/fonts/fa-regular-400.ttf?0e2e26fb3527ae47f9eb1c217592b706) format("truetype"), url(/fonts/fa-regular-400.svg?b5a61b229c9c92a6ac21f5b0e3c6e9f1#fontawesome) format("svg");
+  src: url("/fonts/fa-regular-400.eot");
+  src: url("/fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("/fonts/fa-regular-400.woff2") format("woff2"), url("/fonts/fa-regular-400.woff") format("woff"), url("/fonts/fa-regular-400.ttf") format("truetype"), url("/fonts/fa-regular-400.svg#fontawesome") format("svg");
 }
 
 .far {
@@ -8055,8 +8055,8 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Free';
   font-style: normal;
   font-weight: 900;
-  src: url(/fonts/fa-solid-900.eot?baa1e2496e8c71f636587c32f4016ca4);
-  src: url(/fonts/fa-solid-900.eot?baa1e2496e8c71f636587c32f4016ca4?#iefix) format("embedded-opentype"), url(/fonts/fa-solid-900.woff2?fd531d212b567d6049f400165473589f) format("woff2"), url(/fonts/fa-solid-900.woff?09bc9e8c7d6dfdace635ea073974db13) format("woff"), url(/fonts/fa-solid-900.ttf?e143b57de78138e6d5963908afa7e393) format("truetype"), url(/fonts/fa-solid-900.svg?3f759796d3d16b8434841d61cd2c007a#fontawesome) format("svg");
+  src: url("/fonts/fa-solid-900.eot");
+  src: url("/fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("/fonts/fa-solid-900.woff2") format("woff2"), url("/fonts/fa-solid-900.woff") format("woff"), url("/fonts/fa-solid-900.ttf") format("truetype"), url("/fonts/fa-solid-900.svg#fontawesome") format("svg");
 }
 
 .fa,
@@ -8677,7 +8677,20 @@ input[type='radio'].is-error + label:before {
   pointer-events: none;
 }
 
-.c-section-title:after {
+.c-section--center {
+  text-align: center;
+}
+
+.c-section--center h1:after,
+.c-section--center h2:after,
+.c-section--center h3:after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c-section h1:after,
+.c-section h2:after,
+.c-section h3:after {
   content: '';
   display: block;
   width: 4.8rem;
@@ -8685,17 +8698,14 @@ input[type='radio'].is-error + label:before {
   background-color: #FF0402;
 }
 
-.c-section-title--center {
-  text-align: center;
-}
-
-.c-section-title--center:after {
-  margin-left: auto;
-  margin-right: auto;
+.c-section p {
+  color: #777;
+  font-size: 1.6rem;
+  line-height: 3.3rem;
 }
 
 .c-breadcrumbs {
-  margin-top: 1.1rem;
+  margin-top: 2.2rem;
   margin-bottom: 2.2rem;
 }
 
@@ -9268,6 +9278,30 @@ input[type='radio'].is-error + label:before {
   }
 }
 
+.c-subheader {
+  position: relative;
+  text-align: center;
+  padding-top: 17.6rem;
+  padding-bottom: 6.6rem;
+}
+
+.c-subheader:after {
+  content: '';
+  background: radial-gradient(circle farthest-corner at -75% 125%, rgba(81, 81, 81, 0.9), #111);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c-subheader h1 {
+  position: relative;
+  color: #fff;
+  margin-bottom: 0;
+  z-index: 1;
+}
+
 .c-home-hero {
   position: relative;
   height: 100vh;
@@ -9455,15 +9489,43 @@ input[type='radio'].is-error + label:before {
   }
 }
 
-.c-home-content__subtext {
-  color: #777;
-  font-size: 1.6rem;
+.c-home-about {
+  background: url("/images/about-hero.jpg") no-repeat center center;
+  background-size: cover;
 }
 
-@media (max-width: 991.98px) {
-  .c-home-content__subtext {
-    text-align: center;
-  }
+.c-about-content {
+  margin-bottom: 8.8rem;
+}
+
+.c-about-content__img {
+  position: relative;
+}
+
+.c-about-content__img:after {
+  content: '';
+  position: absolute;
+  top: 1.6rem;
+  left: 1.6rem;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle farthest-corner at -75% 125%, #515151, #111);
+  z-index: -1;
+}
+
+.c-about-content__img img {
+  max-width: 100%;
+}
+
+.c-about-testimonial {
+  background: radial-gradient(circle farthest-corner at -75% 125%, #515151, #111);
+  padding-top: 6.6rem;
+  padding-bottom: 6.6rem;
+  margin-bottom: 8.8rem;
+}
+
+.c-about-team {
+  margin-bottom: 8.8rem;
 }
 
 .d-none {

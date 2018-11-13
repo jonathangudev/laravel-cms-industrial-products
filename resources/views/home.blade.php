@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="col-12 col-md-8 col-lg-6 offset-6 offset-md-8 offset-lg-9">
 						<div class="c-home-hero__logo d-none d-sm-block">
-							<img src="/images/logo/JMP_Logo_white.svg" alt="JMP Logo">
+							<img src="{{ asset('images/logo/JMP_Logo_white.svg') }}" alt="JMP Logo">
 						</div>
 					</div>
 				</div>
@@ -28,7 +28,7 @@
 				<div class="row">
 					<div class="col-24">
 						<div class="c-home-hero__cta">
-							<a href="#" class="c-btn c-btn--primary c-btn--ghost c-btn--reverse">Learn More</a>
+							<a href="{{ route('about') }}" class="c-btn c-btn--primary c-btn--ghost c-btn--reverse">Learn More</a>
 						</div>
 						<img src="/images/arrow.svg" alt="Arrow" class="c-home-hero__arrow">
 					</div>
@@ -43,23 +43,23 @@
 		<div class="row">
 			<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-xl-2">
 				<div class="c-card c-home-cards__card text-center">
-					<h3 class="c-section-title c-section-title--center">Who We Are</h3>
+					<h3 class="c-section__title c-section__title--center">Who We Are</h3>
 					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
-					<a href="#" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
+					<a href="{{ route('about') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
 				</div>
 			</div>
 			<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-xl-1">
 				<div class="c-card c-home-cards__card text-center">
-					<h3 class="c-section-title c-section-title--center">What We Do</h3>
+					<h3 class="c-section__title c-section__title--center">What We Do</h3>
 					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
-					<a href="#" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
+					<a href="{{ route('products-services') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
 				</div>
 			</div>
 			<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-md-6 offset-lg-0 offset-xl-1">
 				<div class="c-card c-home-cards__card text-center">
-					<h3 class="c-section-title c-section-title--center">Contact Us</h3>
+					<h3 class="c-section__title c-section__title--center">Contact Us</h3>
 					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
-					<a href="#" class="c-btn c-btn--primary c-btn--ghost">Contact Us</a>
+					<a href="{{ route('contact') }}" class="c-btn c-btn--primary c-btn--ghost">Contact Us</a>
 				</div>
 			</div>
 		</div>
@@ -75,16 +75,13 @@
 				</div>
 			</div>
 			<div class="col-lg-11 col-xl-10 offset-lg-1 offset-xl-2">
-				<div class="c-home-content__text">
-					<h2 class="c-section-title d-none d-lg-block">
-						Lorem ipsum dolor sit amet
-					</h2>
-					<h2 class="c-section-title c-section-title--center d-lg-none">
-						Lorem ipsum dolor sit amet
-					</h2>
-					<p class="c-home-content__subtext">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.
-					</p>
+				<div class="c-section c-home-content__text d-none d-lg-block">
+					<h2>Lorem ipsum dolor sit amet</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+				</div>
+				<div class="c-section c-section--center c-home-content__text d-lg-none">
+					<h2>Lorem ipsum dolor sit amet</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
 				</div>
 			</div>
 		</div>
