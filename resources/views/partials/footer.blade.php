@@ -15,8 +15,8 @@
                                     <br/>Cleveland, OH 44115
                                 </p>
                                 <p>
-                                    <a href="tel:216-749-6030">(216) 749-6030</a>
-                                    <br/><a href="mailto:support@jmpind.com">support@jmpind.com</a>
+                                    <a href="tel:216-749-6030" target="_blank" rel="noopener">(216) 749-6030</a>
+                                    <br/><a href="mailto:support@jmpind.com" target="_blank" rel="noopener">support@jmpind.com</a>
                                 </p>
                             </address>
                         </div>
@@ -60,47 +60,50 @@
                         <h3>Get In Touch</h3>
                         <form action="#" class="c-footer__form o-form o-form--reverse">
                             @csrf
-                            <div class="row">
-                                <div class="col-24 col-md-12">
-                                    <div class="o-form__group">
-                                        <label for="footer-fullname">Full Name</label>
-                                        <input id="footer-fullname" type="text" placeholder="e.g. Wile E. Coyote" required>
+                            <fieldset>
+                                <legend>Contact Information</legend>
+                                <div class="row">
+                                    <div class="col-24 col-md-12">
+                                        <div class="o-form__group">
+                                            <label for="footer-fullname">Full Name</label>
+                                            <input id="footer-fullname" type="text" placeholder="e.g. Wile E. Coyote" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-24 col-md-12">
+                                        <div class="o-form__group">
+                                            <label for="footer-company">Company</label>
+                                            <input id="footer-company" type="text" placeholder="e.g. Acme Co." required>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-24 col-md-12">
-                                    <div class="o-form__group">
-                                        <label for="footer-company">Company</label>
-                                        <input id="footer-company" type="text" placeholder="e.g. Acme Co." required>
+                                <div class="row">
+                                    <div class="col-24 col-md-12">
+                                        <div class="o-form__group">
+                                            <label for="footer-email">Email Address</label>
+                                            <input id="footer-email" type="email" placeholder="e.g. wile.e.coyote@acme.com" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-24 col-md-12">
+                                        <div class="o-form__group">
+                                            <label for="footer-phone">Phone</label>
+                                            <input id="footer-phone" type="text" placeholder="e.g. 123-456-7890" required>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-24 col-md-12">
-                                    <div class="o-form__group">
-                                        <label for="footer-email">Email Address</label>
-                                        <input id="footer-email" type="email" placeholder="e.g. wile.e.coyote@acme.com" required>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="o-form__group">
+                                            <label for="footer-message">Add a Message</label>
+                                            <textarea name="footer-message" id="footer-message" rows="5" placeholder="e.g. Add your message here."></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-24 col-md-12">
-                                    <div class="o-form__group">
-                                        <label for="footer-phone">Phone</label>
-                                        <input id="footer-phone" type="text" placeholder="e.g. 123-456-7890" required>
+                                <div class="row justify-content-end">
+                                    <div class="col-24 col-md-6 col-lg-6">
+                                        <button type="submit" class="c-btn c-btn--primary c-btn--block">Submit</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="o-form__group">
-                                        <label for="footer-message">Add a Message</label>
-                                        <textarea name="footer-message" id="footer-message" rows="5" placeholder="e.g. Add your message here."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-end">
-                                <div class="col-24 col-md-6 col-lg-6">
-                                    <button type="submit" class="c-btn c-btn--primary c-btn--block">Submit</button>
-                                </div>
-                            </div>
+                            </fieldset>
                         </form>
                     </div>
                     <div class="col-24">

@@ -26,7 +26,7 @@
 						</div>
 						<div class="col-auto col-lg-12">
 							<div class="c-header__phone d-none d-lg-block">
-								<i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:216-749-6030">(216) 749-6030</a>
+								<i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:216-749-6030" target="_blank" rel="noopener">(216) 749-6030</a>
 							</div>
 							<button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn d-lg-none"><i class="fas fa-fw fa-bars"></i></button>
 						</div>

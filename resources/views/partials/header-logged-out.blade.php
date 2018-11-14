@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="c-header__phone d-none d-lg-block">
-                                <i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:216-749-6030">(216) 749-6030</a>
+                                <i class="fas fa-phone"></i>&nbsp;&nbsp;<a href="tel:216-749-6030" target="_blank" rel="noopener">(216) 749-6030</a>
                             </div>
                         </div>
                     </div>

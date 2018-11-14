@@ -3,6 +3,10 @@
 // Forms styles
 
 .o-form {
+  legend {
+    display: none;
+  }
+
   &__group {
     margin-bottom: $leading;
 

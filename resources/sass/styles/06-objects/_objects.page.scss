@@ -2,6 +2,10 @@
 // 
 // Global page styles
 
+.o-main {
+  overflow: hidden;
+}
+
 .container,
 .container-fluid {
   padding-left: $grid-gutter-width;

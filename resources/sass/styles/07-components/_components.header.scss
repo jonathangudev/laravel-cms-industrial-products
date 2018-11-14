@@ -5,6 +5,7 @@
 // Variables
 
 $header-height:                   $leading * 4;
+$header-sm-height:                $leading * 3;
 
 $header-logo-height:              $leading * 2.5;
 $header-sm-logo-height:           $leading * 1.5;
@@ -180,6 +181,7 @@ $num-links:                       6;
     position: absolute;
     width: 100%;
     top: 0;
+    z-index: 2;
 
     // Styles for open nav menu
     &.is-open {

@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ const mix = require('laravel-mix');
 
 mix.sass('resources/sass/index.scss', 'public/css')
     .js('resources/js/menu-toggle.js', 'public/js')
+    .purgeCss({
+        enabled: true
+    })
     .copyDirectory('resources/fonts/fontawesome', 'public/fonts');
 
 if (mix.inProduction()) {

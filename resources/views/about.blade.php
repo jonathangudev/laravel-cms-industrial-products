@@ -2,8 +2,12 @@
 
 @section('title', 'About Us | JMP')
 
+@section('head-preload-content')
+	<link rel="preload" href="{{ asset('images/about-hero.jpg') }}" as="image" type="image/jpeg">
+@endsection
+
 @section('content')
-	<section class="c-subheader c-home-about">
+	<section class="c-subheader c-about-hero">
 		<div class="container">
 			<div class="row">
 				<div class="col">
@@ -26,35 +30,76 @@
 	<section class="c-about-content">
 		<div class="container">
 			<div class="row">
-				<div class="col-24 col-lg-13">
-					<div class="c-section">
-						<h2 class="c-section__title">Our Company</h2>
-						<p class="c-section__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
-						<p class="c-section__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+				<div class="col-24 col-lg-12 col-xl-13">
+					<div class="c-about-content__text c-section">
+						<h2>Our Company</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
 	
-						<h2 class="c-section__title">Our Expertise</h2>
-						<p class="c-section__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+						<h2>Our Expertise</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
 						<a href="{{ route('products-services') }}" class="c-btn c-btn--primary c-btn--ghost">View Products &amp; Services</a>
 					</div>
 				</div>
-				<div class="col-24 col-md-14 col-lg-8 offset-lg-2">
+				<div class="col-24 col-md-14 col-lg-10 col-xl-9 offset-md-5 offset-lg-2">
 					<div class="c-about-content__img">
-						<img src="https://via.placeholder.com/900x1600" alt="Image">
+						<img src="https://via.placeholder.com/900x1400" alt="Image">
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="c-about-testimonial"></section>
+	<section class="c-about-testimonial">
+		<div class="c-about-testimonial__stripe-wrapper d-none d-sm-block">
+			<div class="c-about-testimonial__stripe c-about-testimonial__stripe--gray"></div>
+			<div class="c-about-testimonial__stripe c-about-testimonial__stripe--black"></div>
+			<div class="c-about-testimonial__stripe c-about-testimonial__stripe--gray"></div>
+			<div class="c-about-testimonial__stripe c-about-testimonial__stripe--black"></div>
+			<div class="c-about-testimonial__stripe c-about-testimonial__stripe--black"></div>
+			<div class="c-about-testimonial__stripe c-about-testimonial__stripe--gray"></div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-24 col-md-20 col-lg-14 offset-md-2 offset-lg-5">
+					<div class="c-about-testimonial__text">
+						<p>
+							" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ”
+						</p>
+						<h4>Firstname Lastname</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	
 	<section class="c-about-team">
 		<div class="container">
 			<div class="row">
-				<div class="col">
-					<div class="c-section c-section--center">
+				<div class="col-24 col-lg-18 offset-lg-3">
+					<div class="c-about-team__title c-section c-section--center">
 						<h2>Meet Our Senior Leadership</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-8 col-lg-5 offset-md-4 offset-lg-6">
+					<div class="c-about-team__img">
+						<img src="https://via.placeholder.com/300x300" alt="Sarah Viccarone">
+					</div>
+					<div class="c-about-team__text">
+						<h4>Sarah Viccarone</h4>
+						<p class="text-muted">President / CEO</p>
+					</div>
+				</div>
+				<div class="col-12 col-md-8 col-lg-5 offset-lg-2">
+					<div class="c-about-team__img">
+						<img src="https://via.placeholder.com/300x300" alt="Dan Lempke">
+					</div>
+					<div class="c-about-team__text">
+						<h4>Dan Lempke</h4>
+						<p class="text-muted">Vice President / Engineering</p>
 					</div>
 				</div>
 			</div>

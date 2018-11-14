@@ -7,17 +7,19 @@
 {{-- Fonts --}}
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i,600,700" rel="stylesheet" type="text/css">
 
-<link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-brands-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-brands-400.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
-
 <link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-regular-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-regular-400.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
+{{-- <link rel="preload" href="{{ asset('fonts/fa-regular-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('fonts/fa-regular-400.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous"> --}}
 
 <link rel="preload" href="{{ asset('fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-solid-900.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-solid-900.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
+{{-- <link rel="preload" href="{{ asset('fonts/fa-solid-900.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('fonts/fa-solid-900.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous"> --}}
+
+<link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+{{-- <link rel="preload" href="{{ asset('fonts/fa-brands-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('fonts/fa-brands-400.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous"> --}}
+
+@yield('head-preload-content')
 
 {{-- Styles --}}
 <link rel="stylesheet" href="{{ mix('/css/index.css') }}">

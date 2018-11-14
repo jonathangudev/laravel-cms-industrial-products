@@ -6,9 +6,11 @@
 	position: relative;
 	text-align: center;
 	padding-top: $header-height + ($leading * 4);
-	padding-bottom: $leading * 3;
-  // background: url('/images/technical-drawing.svg') no-repeat left center;
-  // background-size: cover;
+  padding-bottom: $leading * 3;
+
+  @include media-breakpoint-down(md) {
+    padding-top: $header-sm-height + ($leading * 3);
+  }
 
   &:after {
     content: '';
