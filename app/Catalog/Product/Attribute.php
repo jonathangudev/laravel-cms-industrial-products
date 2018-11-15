@@ -26,7 +26,7 @@ class Attribute extends Model
     /**
      * Get the value associated with the attribute
      *
-     * @return App\Catalog\AttributeValue
+     * @return App\Catalog\Product\AttributeValue
      */
     public function value()
     {

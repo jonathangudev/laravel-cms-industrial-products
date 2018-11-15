@@ -25,15 +25,16 @@ class Product extends Model
 
     /**
      * Get the type that owns the product.
+     *
+     * @return App\Catalog\ProductType
      */
     public function type()
     {
-        return $this->belongsTo('App\Catalog\ProductType');
+        return $this->belongsTo(ProductType::class);
     }
 
-    public function attributeValues()
+    public function attributes()
     {
-        return $this->hasMany('App\Catalog\AttributeValue')
-            ->using('App\Catalog\Pivots\ProductAttributeValue');
+        return $this->hasMany(Product\AttributeValue::class);
     }
 }

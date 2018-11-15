@@ -67,7 +67,7 @@ class AttributeValueTest extends TestCase
     }
 
     /**
-     * Test that a catalog product attribute value can get its related attribute
+     * Test that a catalog product attribute value can get its owning attribute
      *
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
@@ -79,5 +79,33 @@ class AttributeValueTest extends TestCase
 
         $this->assertInstanceOf(Attribute::class, $attribute);
         $this->assertEquals($attributeValue->attribute_id, $attribute->id);
+    }
+
+    /**
+     * Test that a catalog product attribute value gets its name from the owning attribute
+     *
+     * @return  void
+     * @author  Nevin Morgan <nevins.morgan@gmail.com
+     */
+    public function testItCanGetAnAttributeNameFromAnAttributeValue()
+    {
+        $attributeValue = factory(AttributeValue::class)->create();
+        $attribute = $attributeValue->attribute;
+
+        $this->assertEquals($attributeValue->name, $attribute->name);
+    }
+
+    /**
+     * Test that a catalog product attribute value gets its description from the owning attribute
+     *
+     * @return  void
+     * @author  Nevin Morgan <nevins.morgan@gmail.com
+     */
+    public function testItCanGetAnAttributeDescriptionFromAnAttributeValue()
+    {
+        $attributeValue = factory(AttributeValue::class)->create();
+        $attribute = $attributeValue->attribute;
+
+        $this->assertEquals($attributeValue->description, $attribute->description);
     }
 }
