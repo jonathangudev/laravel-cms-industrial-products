@@ -3,12 +3,11 @@
 
 	<head>
 		@include('partials.head')
-		@yield('head-content')
 	</head>
 
 	<body>
+		
 		@include('partials.header-logged-out')
-		{{-- @include('partials.header-logged-in') --}}
 
 		<main class="o-main">
 			@yield('content')

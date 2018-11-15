@@ -4,25 +4,22 @@
 
 <title>@yield('title')</title>
 
+{{-- Preloads --}}
+<link rel="preload" href="{{ mix('/css/index.css') }}" as="style" type="text/css">
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i,600,700" as="style" type="text/css">
+<link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+{{-- <link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous"> --}}
+@yield('head-preload-content')
+
+
 {{-- Fonts --}}
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i,600,700" rel="stylesheet" type="text/css">
 
-<link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-{{-- <link rel="preload" href="{{ asset('fonts/fa-regular-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-regular-400.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous"> --}}
-
-<link rel="preload" href="{{ asset('fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-{{-- <link rel="preload" href="{{ asset('fonts/fa-solid-900.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-solid-900.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous"> --}}
-
-<link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-{{-- <link rel="preload" href="{{ asset('fonts/fa-brands-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('fonts/fa-brands-400.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous"> --}}
-
-@yield('head-preload-content')
 
 {{-- Styles --}}
 <link rel="stylesheet" href="{{ mix('/css/index.css') }}">
+
 
 {{-- Favicons --}}
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('images/favicons/apple-touch-icon-57x57.png') }}">
@@ -46,3 +43,5 @@
 <meta name="msapplication-square150x150logo" content="{{ asset('images/favicons/mstile-150x150.png') }}">
 <meta name="msapplication-wide310x150logo" content="{{ asset('images/favicons/mstile-310x150.png') }}">
 <meta name="msapplication-square310x310logo" content="{{ asset('images/favicons/mstile-310x310.png') }}">
+
+@yield('head-content')

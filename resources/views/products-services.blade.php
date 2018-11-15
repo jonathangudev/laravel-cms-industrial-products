@@ -31,7 +31,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-lg-7">
-					<div class="c-section">
+					<div class="c-ps-section__title c-section">
 						<h2>Our Products</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</p>
 					</div>
@@ -82,7 +82,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-lg-7">
-					<div class="c-section">
+					<div class="c-ps-section__title c-section">
 						<h2>Our Services</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</p>
 					</div>

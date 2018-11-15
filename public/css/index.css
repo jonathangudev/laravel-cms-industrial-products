@@ -811,6 +811,10 @@ readers do not read off random characters that represent icons */
   content: "\F095";
 }
 
+.fa-plus:before {
+  content: "\F067";
+}
+
 .fa-search:before {
   content: "\F002";
 }
@@ -821,19 +825,6 @@ readers do not read off random characters that represent icons */
 
 .fa-times:before {
   content: "\F00D";
-}
-
-/*!
- * Font Awesome Free 5.4.2 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
- */
-
-@font-face {
-  font-family: 'Font Awesome 5 Brands';
-  font-style: normal;
-  font-weight: normal;
-  src: url("/fonts/fa-brands-400.eot");
-  src: url("/fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("/fonts/fa-brands-400.woff2") format("woff2"), url("/fonts/fa-brands-400.woff") format("woff"), url("/fonts/fa-brands-400.ttf") format("truetype"), url("/fonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 
 /*!
@@ -1255,6 +1246,20 @@ input[type='radio'].is-error + label:before {
   overflow: hidden;
 }
 
+.o-dashboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.o-dashboard__menu {
+  width: 32rem;
+}
+
+.o-dashboard__disclaimer {
+  font-size: 1.2rem;
+}
+
 .container,
 .container-fluid {
   padding-left: 16px;
@@ -1464,14 +1469,16 @@ input[type='radio'].is-error + label:before {
 
 .c-section--center h1:after,
 .c-section--center h2:after,
-.c-section--center h3:after {
+.c-section--center h3:after,
+.c-section--center h4:after {
   margin-left: auto;
   margin-right: auto;
 }
 
 .c-section h1:after,
 .c-section h2:after,
-.c-section h3:after {
+.c-section h3:after,
+.c-section h4:after {
   content: '';
   display: block;
   width: 4.8rem;
@@ -1484,6 +1491,13 @@ input[type='radio'].is-error + label:before {
   color: #777;
   font-size: 1.6rem;
   line-height: 3.3rem;
+}
+
+@media (max-width: 767.98px) {
+  .c-section p {
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+  }
 }
 
 .c-breadcrumbs {
@@ -1935,6 +1949,10 @@ input[type='radio'].is-error + label:before {
 }
 
 .c-header--logged-in {
+  border-bottom: 0.1rem solid #DBDBDB;
+}
+
+.c-header--logged-in .c-header__menu {
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
@@ -2587,6 +2605,10 @@ input[type='radio'].is-error + label:before {
   background-size: cover;
 }
 
+.c-ps-section__title {
+  margin-bottom: 3.3rem;
+}
+
 .c-ps-section__item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2634,11 +2656,34 @@ input[type='radio'].is-error + label:before {
   margin-bottom: 5.5rem;
 }
 
+@media (max-width: 767.98px) {
+  .c-ps-section--products {
+    margin-bottom: 2.2rem;
+  }
+}
+
 .c-ps-section--services {
   position: relative;
   padding-top: 13.2rem;
-  padding-bottom: 13.2rem;
+  padding-bottom: 11.0rem;
   background-color: #F2F2F2;
+}
+
+@media (max-width: 767.98px) {
+  .c-ps-section--services {
+    padding-top: 6.6rem;
+    padding-bottom: 4.4rem;
+  }
+}
+
+.c-category-menu {
+  height: 100%;
+  padding-right: 1.6rem;
+  border-right: 0.1rem solid #DBDBDB;
+}
+
+.c-category-menu__title {
+  padding-top: 1.1rem;
 }
 
 .d-none {

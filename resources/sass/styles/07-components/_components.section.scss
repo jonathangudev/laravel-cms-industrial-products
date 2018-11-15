@@ -2,11 +2,13 @@
 //
 // Provides a fixed width red underline for headings
 
+@import '../01-settings/index';
+
 .c-section {
   &--center {
     text-align: center;
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
       &:after {
         margin-left: auto;
         margin-right: auto;
@@ -14,7 +16,7 @@
     }
   }
 
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
     &:after {
       content: '';
       display: block;
@@ -29,5 +31,10 @@
     color: $text-muted-color;
     font-size: $font-size-lg;
     line-height: $leading * 1.5;
+
+    @include media-breakpoint-down(sm) {
+      font-size: $font-size-base;
+      line-height: $leading;
+    }
   }
 }

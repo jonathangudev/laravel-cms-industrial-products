@@ -6,6 +6,22 @@
   overflow: hidden;
 }
 
+.o-dashboard {
+  display: flex;
+
+  &__menu {
+    width: 32rem;
+  }
+
+  &__content {
+    
+  }
+
+  &__disclaimer {
+    font-size: $font-size-sm;
+  }
+}
+
 .container,
 .container-fluid {
   padding-left: $grid-gutter-width;

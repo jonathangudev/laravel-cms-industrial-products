@@ -1,0 +1,15 @@
+// Category Menu
+// 
+// Styles for logged in menu
+
+@import '../01-settings/index';
+
+.c-category-menu {
+	height: 100%;
+	padding-right: $grid-gutter-width-rem;
+	border-right: $border-width solid $border-color;
+
+	&__title {
+		padding-top: $leading / 2;
+	}
+}

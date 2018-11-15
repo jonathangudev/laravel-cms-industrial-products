@@ -1,0 +1,10 @@
+.c-category-menu {
+  height: 100%;
+  padding-right: 1.6rem;
+  border-right: 0.1rem solid #DBDBDB;
+}
+
+.c-category-menu__title {
+  padding-top: 1.1rem;
+}
+
