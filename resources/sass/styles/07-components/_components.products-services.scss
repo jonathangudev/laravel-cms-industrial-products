@@ -1,0 +1,63 @@
+// Products & Services
+// 
+// Styles for Products & Services page
+
+.c-ps-hero {
+	background: url('/images/products-services-hero.jpg') no-repeat center center;
+	background-size: cover;
+}
+
+.c-ps-section {
+	&__item {
+		display: flex;
+		margin-bottom: $leading * 1.5;
+	}
+
+	&__img {
+		margin-top: 0.6rem; // Make img appear lined up with text;
+		margin-right: $grid-gutter-width-rem;
+		
+		img {
+			max-width: 8rem;
+			box-shadow: $box-shadow;
+		}
+	}
+
+	&__text {
+		h3 {
+			margin-bottom: 0;
+		}
+
+		p {
+			color: $text-muted-color;
+			margin-bottom: 0;
+		}
+	}
+
+	&__border {
+		max-width: 100%;
+		position: absolute;
+
+		&--top {
+			top: 0;
+			left: 0;
+		}
+
+		&--bottom {
+			max-width: 50%;
+			bottom: 0;
+			right: 0;
+		}
+	}
+
+	&--products {
+		margin-bottom: $leading * 2.5;
+	}
+
+	&--services {
+		position: relative;
+		padding-top: $leading * 6;
+		padding-bottom: $leading * 6;
+		background-color: $gray-1;
+	}
+}

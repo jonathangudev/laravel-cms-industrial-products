@@ -1,0 +1,26 @@
+// Apply antialiasing to light colored fonts on dark background.
+// This is a fix for Mac OSX subpixel font rendering where
+// light colored text on a dark background appears bolder.
+
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light".
+// Acceptable values are between 0 and 255.
+$yiq-contrasted-threshold:    150;
+
+@mixin apply-font-antialiasing ( $text-color, $bg-color ) {
+  $text-r: red($text-color);
+  $text-g: green($text-color);
+  $text-b: blue($text-color);
+
+  $bg-r: red($bg-color);
+  $bg-g: green($bg-color);
+  $bg-b: blue($bg-color);
+
+  $text-yiq: (($text-r * 299) + ($text-g * 587) + ($text-b * 114)) / 1000;
+  $bg-yiq: (($bg-r * 299) + ($bg-g * 587) + ($bg-b * 114)) / 1000;
+
+  // Test if text is "light" colored and background is "dark" colored
+  @if ($text-yiq >= $yiq-contrasted-threshold and $bg-yiq <= $yiq-contrasted-threshold) {
+    -webkit-font-smoothing: antialiased; // sass-lint:disable-line no-vendor-prefixes
+    -moz-osx-font-smoothing: grayscale;  // sass-lint:disable-line no-vendor-prefixes
+  }
+}

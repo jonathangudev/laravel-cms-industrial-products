@@ -1,0 +1,15 @@
+// Assumes browser default font-size of 16px.
+// Sets the relative font-size for the rem unit to be 10px.
+// This allows for convenient rem math like 1.4rem = 14px.
+// Allows layouts to scale with user font size settings in the browser.
+
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  line-height: $leading;
+}

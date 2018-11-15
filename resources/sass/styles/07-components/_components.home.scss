@@ -1,0 +1,177 @@
+// Homepage
+// 
+// Styles for all homepage sections
+
+.c-home-hero {
+  position: relative;
+  height: 100vh;
+  padding-top: $header-height;
+  background: url('/images/technical-drawing.svg') no-repeat left center;
+  background-size: cover;
+
+  &:after {
+    content: '';
+    background: $brand-secondary-gradient;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+  &__logo {
+    margin-bottom: $leading * 2;
+  }
+
+  &__content {
+    text-align: center;
+    margin-bottom: $leading * 2.5;
+    color: $white;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: $leading * 1.5;
+    }
+
+    h1, h3 {
+      color: inherit;
+    }
+
+    h3 {
+      font-weight: $font-weight-normal;
+    }
+  }
+
+  &__highlight {
+    position: relative;
+    display: inline-block;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0.3rem;
+      bottom: -0.6rem;
+      left: -0.6rem;
+      right: -0.6rem;
+      background: $brand-primary-gradient;
+    }
+
+    span {
+      position: relative;
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    margin-bottom: $leading;
+  }
+
+  &__arrow {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: $leading * 2;
+  }
+}
+
+.c-home-cards {
+  margin-top: -$leading * 2.5;
+  margin-bottom: $leading * 7;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: $leading * 4;
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-top: $leading * 2;
+    margin-bottom: $leading;
+  }
+
+  &__card {
+    @include media-breakpoint-down(md) {
+      margin-bottom: $grid-gutter-width-rem;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: $leading * 2;
+    }
+  }
+}
+
+.c-home-content {
+  position: relative;
+  margin-bottom: $leading * 7;
+  overflow: hidden;
+
+  @include media-breakpoint-down(md) {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-bottom: $leading * 3;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    background: $brand-primary-gradient;
+    height: $leading * 2;
+    top: $leading * 2.5;
+    width: 17%;
+    z-index: 1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    background: $brand-secondary-gradient;
+    height: 80%;
+    top: 10%;
+    width: 51%;
+    z-index: -1;
+  }
+
+
+  &__img {
+    @include media-breakpoint-down(md) {
+      &:before {
+        content: '';
+        position: absolute;
+        background: $brand-primary-gradient;
+        height: $leading * 2;
+        top: $leading * 2.5;
+        width: 30%;
+        left: -$grid-gutter-width-rem * 4;
+        z-index: 1;
+      }
+    
+      &:after {
+        content: '';
+        position: absolute;
+        background: $brand-secondary-gradient;
+        height: 80%;
+        top: 10%;
+        left: -$grid-gutter-width-rem * 2;
+        right: -$grid-gutter-width-rem * 2;
+        z-index: -1;
+      }
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &__text {
+    @include media-breakpoint-down(md) {
+      margin-top: $leading * 4.5;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-top: $leading * 3;
+    }
+  }
+}
