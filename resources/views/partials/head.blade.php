@@ -39,7 +39,7 @@
 <link rel="icon" type="image/png" href="{{ asset('images/favicons/favicon-16x16.png') }}" sizes="16x16">
 <link rel="icon" type="image/png" href="{{ asset('images/favicons/favicon-128.png') }}" sizes="128x128">
 <meta name="theme-color" content="#ffffff">
-<meta name="application-name" content="JMP Industries Inc.">
+<meta name="application-name" content="{{ config('app.name') }}">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="{{ asset('images/favicons/mstile-144x144.png') }}">
 <meta name="msapplication-square70x70logo" content="{{ asset('images/favicons/mstile-70x70.png') }}">

@@ -16,7 +16,7 @@ class CreateCatalogProductAttributesTable extends Migration
         Schema::create('catalog_product_attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

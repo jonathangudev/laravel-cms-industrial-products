@@ -22,6 +22,8 @@ class AttributeValue extends Model
      */
     protected $fillable = [
         'value',
+        'product_id',
+        'attribute_id',
     ];
 
     /**

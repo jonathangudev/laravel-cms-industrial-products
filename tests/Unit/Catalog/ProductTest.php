@@ -77,7 +77,7 @@ class ProductTest extends TestCase
         $type = $product->type;
 
         $this->assertInstanceOf(ProductType::class, $type);
-        $this->assertEquals($product->type_id, $type->id);
+        $this->assertEquals($product->product_type_id, $type->id);
     }
 
     /**
