@@ -10,9 +10,11 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "jmp/product-attribute-manager": "*",
         "laravel/framework": "5.7.*",
         "laravel/nova": "^1.0@dev",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "spatie/laravel-permission": "^2.25"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -26,6 +28,10 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ProductAttributeManager"
         }
     ],
     "autoload": {

@@ -29,7 +29,7 @@ class AttributeValue extends Resource
      *
      * @var bool
      */
-    // public static $displayInNavigation = false;
+    public static $displayInNavigation = false;
 
     /**
      * The columns that should be searched.
