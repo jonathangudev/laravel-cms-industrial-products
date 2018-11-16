@@ -19,8 +19,8 @@
 								@csrf
 								<div class="o-form__search">
 									<label for="jmp-header-search">Search Products</label>
-									<input type="search" id="jmp-header-search" placeholder="Search products...">
-									<button type="submit" class="c-btn" ><i class="fas fa-search"></i></button>
+									<input type="search" id="jmp-header-search" placeholder="Search products..." aria-label="Search Products">
+									<button type="submit" class="c-btn" aria-label="Search"><i class="fas fa-search"></i></button>
 								</div>
 							</form>
 						</div>
@@ -46,4 +46,6 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="js-header-logged-in-bg" class="c-header__background"></div>
 </header>

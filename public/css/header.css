@@ -199,6 +199,7 @@
 }
 
 .c-header__link:active:after,
+.c-header__link.active:after,
 .c-header__link.is-active:after {
   -webkit-animation: none;
           animation: none;
@@ -352,7 +353,7 @@
   display: none;
 }
 
-.c-header .c-header__background {
+.c-header--logged-out .c-header__background {
   position: fixed;
   display: none;
   top: 0;
@@ -415,5 +416,15 @@
 
 .c-header--logged-in .c-header__link--log-out:after {
   display: none;
+}
+
+.c-header .c-header__background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 

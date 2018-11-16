@@ -10,14 +10,26 @@
   display: flex;
 
   &__menu {
-    width: 32rem;
-  }
-
-  &__content {
+    flex: 0 0 $category-menu-width;
+    padding-left: $grid-gutter-width-rem;
+    border-right: $border-width solid $border-color;
+    background-color: $white;
     
+    @include media-breakpoint-down(md) {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: -$category-menu-width;
+      width: $category-menu-width;
+      border-right: none;
+      // box-shadow: $box-shadow;
+      transition: left $transition-duration ease-in-out;
+      z-index: 1;
+    }
   }
 
   &__disclaimer {
+    margin-top: $leading * 3;
     font-size: $font-size-sm;
   }
 }

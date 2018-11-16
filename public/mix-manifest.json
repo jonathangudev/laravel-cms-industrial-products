@@ -13,5 +13,6 @@
     "/css/home.css": "/css/home.css",
     "/css/about.css": "/css/about.css",
     "/css/contact.css": "/css/contact.css",
-    "/css/products-services.css": "/css/products-services.css"
+    "/css/products-services.css": "/css/products-services.css",
+    "/js/category-menu-accordian.js": "/js/category-menu-accordian.js"
 }

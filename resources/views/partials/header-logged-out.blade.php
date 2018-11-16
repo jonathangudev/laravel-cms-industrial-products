@@ -33,8 +33,12 @@
                                     </li>
                                     <li class="c-header__item "><a href="#" class="c-btn c-btn--primary">Log In</a></li>
                                     <li class="c-header__item d-block d-lg-none">
-                                        <button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn"><i class="fas fa-fw fa-bars"></i></button>
-                                        <button id="js-header-menu-btn-close" type="button" class="c-btn c-header__menu-btn c-header__menu-btn--close"><i class="fas fa-fw fa-times"></i></button>
+                                        <button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn" aria-label="Open Menu">
+                                            <i class="fas fa-fw fa-bars"></i>
+                                        </button>
+                                        <button id="js-header-menu-btn-close" type="button" class="c-btn c-header__menu-btn c-header__menu-btn--close" aria-label="Close Menu">
+                                            <i class="fas fa-fw fa-times"></i>
+                                        </button>
                                     </li>
                                 </ul>
                             </nav>
