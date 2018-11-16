@@ -48,3 +48,4 @@ $this->get('email/verify/{id}', 'Auth\VerificationController@verify')->name('ver
 $this->get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 Route::get('/catalog', 'CatalogController@index')->name('catalog');
+Route::get('/catalog/asset/{company}/{path?}', 'RestrictedAssetController@getAsset')->where(['path' => '.*']);

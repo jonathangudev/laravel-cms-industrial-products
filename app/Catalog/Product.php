@@ -33,6 +33,11 @@ class Product extends Model
         return $this->belongsTo(ProductType::class, 'product_type_id');
     }
 
+    /**
+     * Get the attributes for the product.
+     *
+     * @return App\Catalog\Product\AttributeValue
+     */
     public function attributes()
     {
         return $this->hasMany(Product\AttributeValue::class);
