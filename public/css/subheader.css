@@ -1,1 +1,30 @@
-.c-subheader{position:relative;text-align:center;padding-top:17.6rem;padding-bottom:6.6rem}@media (max-width:991.98px){.c-subheader{padding-top:13.2rem}}.c-subheader:after{content:"";background:radial-gradient(circle farthest-corner at -75% 125%,rgba(81,81,81,.9),#111);position:absolute;top:0;left:0;right:0;bottom:0}.c-subheader h1{position:relative;color:#fff;margin-bottom:0;z-index:1}
+.c-subheader {
+  position: relative;
+  text-align: center;
+  padding-top: 17.6rem;
+  padding-bottom: 6.6rem;
+}
+
+@media (max-width: 991.98px) {
+  .c-subheader {
+    padding-top: 13.2rem;
+  }
+}
+
+.c-subheader:after {
+  content: '';
+  background: radial-gradient(circle farthest-corner at -75% 125%, rgba(81, 81, 81, 0.9), #111);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c-subheader h1 {
+  position: relative;
+  color: #fff;
+  margin-bottom: 0;
+  z-index: 1;
+}
+

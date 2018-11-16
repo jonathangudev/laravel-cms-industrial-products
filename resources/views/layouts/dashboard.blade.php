@@ -2,16 +2,20 @@
 <html lang="{{ app()->getLocale() }}">
 
 	<head>
-		@push('head-preload')
+		@prepend('head-preload')
 			<link rel="preload" href="{{ mix('/css/header.css') }}" as="style" type="text/css">
+			<link rel="preload" href="{{ mix('/css/buttons.css') }}" as="style" type="text/css">
+			<link rel="preload" href="{{ mix('/css/category-menu.css') }}" as="style" type="text/css">
+			<link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/footer.css') }}" as="style" type="text/css">
-		@endpush
+		@endprepend
 
 		@include('partials.head')
 	</head>
 
 	<body>
 		<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
+		<link rel="stylesheet" href="{{ mix('/css/buttons.css') }}">
 		@include('partials.header-logged-in')
 
 		<main class="o-main">
@@ -20,6 +24,8 @@
 					<div class="col">
 						<div class="o-dashboard">
 							<div class="o-dashboard__menu">
+								<link rel="stylesheet" href="{{ mix('/css/category-menu.css') }}">
+								<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 								@include('partials.category-menu')
 							</div>
 							<div class="o-dashboard__content">

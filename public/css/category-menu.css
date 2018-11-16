@@ -1,1 +1,110 @@
-.c-category-menu{height:100%;padding-right:1.6rem;border-right:.1rem solid #dbdbdb}.c-category-menu__title{padding-top:1.1rem}
+.c-category-menu {
+  height: 100%;
+  padding-right: 1.6rem;
+  border-right: 0.1rem solid #DBDBDB;
+}
+
+.c-category-menu__title {
+  padding-top: 1.1rem;
+}
+
+.c-category-menu__list,
+.c-category-menu__sublist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.c-category-menu__sublist {
+  overflow: hidden;
+  -webkit-transition: height 150ms ease-in;
+  transition: height 150ms ease-in;
+}
+
+.c-category-menu__item .is-open .c-category-menu__main {
+  background-color: #F2F2F2;
+  border-left: 0.2rem solid #FF0402;
+  padding-left: 1.4rem;
+}
+
+.c-category-menu__item .is-open .c-category-menu__icon--expand {
+  display: none;
+}
+
+.c-category-menu__item .is-open .c-category-menu__icon--collapse {
+  display: block;
+}
+
+.c-category-menu__item .is-open .c-category-menu__sublist {
+  border-left: 0.1rem solid #DBDBDB;
+  -webkit-transition: height 150ms ease-out;
+  transition: height 150ms ease-out;
+}
+
+.c-category-menu__subitem {
+  padding-left: 1.6rem;
+  margin-bottom: 0.55rem;
+}
+
+.c-category-menu__subitem:last-child {
+  margin-bottom: 0;
+}
+
+.c-category-menu__subitem:active,
+.c-category-menu__subitem.is-active {
+  padding-left: 1.4rem;
+  border-left: 0.2rem solid #FF0402;
+  font-weight: 700;
+}
+
+.c-category-menu__main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: -1.6rem;
+  margin-right: -1.6rem;
+  padding: 0.55rem 1.6rem;
+}
+
+.c-category-menu__main:hover {
+  background-color: #F2F2F2;
+}
+
+.c-category-menu__link {
+  padding-right: 1.6rem;
+}
+
+.c-category-menu__sublink {
+  font-weight: inherit;
+}
+
+.c-category-menu__icon {
+  cursor: pointer;
+}
+
+.c-category-menu__icon--collapse {
+  display: none;
+}
+
+.c-category-menu a {
+  color: #333;
+}
+
+.c-category-menu a:visited {
+  color: inherit;
+}
+
+.c-category-menu a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.c-category-menu a:hover:visited {
+  color: inherit;
+}
+
