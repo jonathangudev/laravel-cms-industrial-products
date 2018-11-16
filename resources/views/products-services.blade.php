@@ -1,12 +1,17 @@
 @extends('layouts.default')
 
-@section('title', 'Our Products & Services | JMP')
+@section('title', 'Our Products & Services')
 
-@section('head-preload-content')
+@push('head-preload')
+	<link rel="preload" href="{{ mix('/css/products-services.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ mix('/css/subheader.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
 	<link rel="preload" href="{{ asset('images/products-services-hero.jpg') }}" as="image" type="image/jpeg">
-@endsection
+@endpush
 
 @section('content')
+	<link rel="stylesheet" href="{{ mix('/css/products-services.css') }}">
+	<link rel="stylesheet" href="{{ mix('/css/subheader.css') }}">
 	<section class="c-subheader c-ps-hero">
 		<div class="container">
 			<div class="row">
@@ -27,11 +32,12 @@
 		</div>
 	</section>
 
+	<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 	<section class="c-ps-section c-ps-section--products">
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-lg-7">
-					<div class="c-section">
+					<div class="c-ps-section__title c-section">
 						<h2>Our Products</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</p>
 					</div>
@@ -82,7 +88,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-lg-7">
-					<div class="c-section">
+					<div class="c-ps-section__title c-section">
 						<h2>Our Services</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</p>
 					</div>

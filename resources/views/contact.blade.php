@@ -1,12 +1,17 @@
 @extends('layouts.default')
 
-@section('title', 'Contact Us | JMP')
+@section('title', 'Contact Us')
 
-@section('head-preload-content')
-<link rel="preload" href="{{ asset('images/contact-map.jpg') }}" as="image" type="image/jpeg">
-@endsection
+@push('head-preload')
+	<link rel="preload" href="{{ mix('/css/contact.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ mix('/css/subheader.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ asset('images/contact-map.jpg') }}" as="image" type="image/jpeg">
+@endpush
 
 @section('content')
+<link rel="stylesheet" href="{{ mix('/css/contact.css') }}">
+<link rel="stylesheet" href="{{ mix('/css/subheader.css') }}">
 <section class="c-subheader c-contact-hero">
 	<div class="container">
 		<div class="row">
@@ -27,6 +32,7 @@
 	</div>
 </section>
 
+<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 <div class="container">
 	<div class="row">
 		<div class="col-24 col-lg-14">

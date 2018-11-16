@@ -2,19 +2,25 @@
 // 
 // Styles for Products & Services page
 
+@import 'globals';
+
 .c-ps-hero {
 	background: url('/images/products-services-hero.jpg') no-repeat center center;
 	background-size: cover;
 }
 
 .c-ps-section {
+	&__title {
+		margin-bottom: $leading * 1.5;
+	}
+	
 	&__item {
 		display: flex;
 		margin-bottom: $leading * 1.5;
 	}
 
 	&__img {
-		margin-top: 0.6rem; // Make img appear lined up with text;
+		margin-top: (($leading * 1.5) - $h3-font-size) / 2; // Make img appear lined up with text;
 		margin-right: $grid-gutter-width-rem;
 		
 		img {
@@ -52,12 +58,21 @@
 
 	&--products {
 		margin-bottom: $leading * 2.5;
+		
+		@include media-breakpoint-down(sm) {
+			margin-bottom: $leading;
+		}
 	}
 
 	&--services {
 		position: relative;
 		padding-top: $leading * 6;
-		padding-bottom: $leading * 6;
+		padding-bottom: $leading * 5;
 		background-color: $gray-1;
+
+		@include media-breakpoint-down(sm) {
+			padding-top: $leading * 3;
+			padding-bottom: $leading * 2;
+		}
 	}
 }

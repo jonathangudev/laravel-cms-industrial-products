@@ -26,3 +26,8 @@ Route::get('/products-and-services', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+
+Route::get('/categories', function () {
+    return view('categories');
+})->name('categories');

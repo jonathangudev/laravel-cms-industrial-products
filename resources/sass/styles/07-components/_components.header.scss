@@ -2,10 +2,9 @@
 // 
 // Header styles
 
-// Variables
+@import 'globals';
 
-$header-height:                   $leading * 4;
-$header-sm-height:                $leading * 3;
+// Variables
 
 $header-logo-height:              $leading * 2.5;
 $header-sm-logo-height:           $leading * 1.5;
@@ -309,9 +308,13 @@ $num-links:                       6;
 
   // Logged-In Header
   &--logged-in {
-    max-width: 1440px;
-    margin-left: auto;
-    margin-right: auto;
+    border-bottom: $border-width solid $border-color;
+
+    #{$block}__menu {
+      max-width: 1440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     // Phone colors
     #{$block}__phone {

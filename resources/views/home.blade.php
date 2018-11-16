@@ -1,12 +1,16 @@
 @extends('layouts.default')
 
-@section('title', 'Home | JMP')
+@section('title', 'Home')
 
-@section('head-preload-content')
+@push('head-preload')
+	<link rel="preload" href="{{ mix('/css/home.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ mix('/css/card.css') }}" as="style" type="text/css">
+	<link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
 	<link rel="preload" href="{{ asset('images/technical-drawing.svg') }}" as="image" type="image/svg+xml">
-@endsection
+@endpush
 
 @section('content')
+	<link rel="stylesheet" href="{{ mix('/css/home.css') }}">
 	<section class="c-home-hero">
 		<div class="container h-100">
 			<div class="row align-items-center justify-content-center h-100">
@@ -41,26 +45,34 @@
 		</div>
 	</section>
 
+	<link rel="stylesheet" href="{{ mix('/css/card.css') }}">
+	<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 	<section class="c-home-cards">
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-xl-2">
 					<div class="c-card c-home-cards__card text-center">
-						<h3 class="c-section__title c-section__title--center">Who We Are</h3>
+						<div class="c-section c-section--center">
+							<h3>Who We Are</h3>
+						</div>
 						<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
 						<a href="{{ route('about') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
 					</div>
 				</div>
 				<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-xl-1">
 					<div class="c-card c-home-cards__card text-center">
-						<h3 class="c-section__title c-section__title--center">What We Do</h3>
+						<div class="c-section c-section--center">
+							<h3>What We Do</h3>
+						</div>
 						<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
 						<a href="{{ route('products-services') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
 					</div>
 				</div>
 				<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-md-6 offset-lg-0 offset-xl-1">
 					<div class="c-card c-home-cards__card text-center">
-						<h3 class="c-section__title c-section__title--center">Contact Us</h3>
+						<div class="c-section c-section--center">
+							<h3>Contact Us</h3>
+						</div>
 						<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
 						<a href="{{ route('contact') }}" class="c-btn c-btn--primary c-btn--ghost">Contact Us</a>
 					</div>
