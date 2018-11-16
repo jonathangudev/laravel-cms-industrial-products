@@ -2,11 +2,16 @@
 <html lang="{{ app()->getLocale() }}">
 
 	<head>
+		@push('head-preload')
+			<link rel="preload" href="{{ mix('/css/header.css') }}" as="style" type="text/css">
+			<link rel="preload" href="{{ mix('/css/footer.css') }}" as="style" type="text/css">
+		@endpush
+
 		@include('partials.head')
 	</head>
 
 	<body>
-		
+		<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
 		@include('partials.header-logged-in')
 
 		<main class="o-main">
@@ -27,11 +32,10 @@
 			</div>
 		</main>
 
+		<link rel="stylesheet" href="{{ mix('/css/footer.css') }}">
 		@include('partials.footer')
 		
-		{{-- End of Body Scripts --}}
 		@stack('body-scripts')
-
 	</body>
 
 </html>

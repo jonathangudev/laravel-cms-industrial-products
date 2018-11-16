@@ -2,7 +2,7 @@
 // 
 // Footer styles
 
-@import '../01-settings/index';
+@import 'globals';
 
 $footer-padding-y:                $leading * 2;
 $footer-mobile-padding-y:         $leading * 1.5;

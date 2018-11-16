@@ -77,7 +77,3 @@
 
     <div class="c-header__background d-lg-none"></div>
 </header>
-
-@push('body-scripts')
-    <script src="{{ mix('/js/menu-toggle.js') }}" defer></script>
-@endpush

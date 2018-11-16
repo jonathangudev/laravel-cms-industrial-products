@@ -2,7 +2,7 @@
 // 
 // Styles for boxes with drop shadow
 
-@import '../01-settings/index';
+@import 'globals';
 
 $card-padding-y:              $leading;
 $card-padding-x:              $grid-gutter-width-rem;
