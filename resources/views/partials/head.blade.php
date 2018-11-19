@@ -48,4 +48,9 @@
 <meta name="msapplication-square150x150logo" content="{{ asset('images/favicons/mstile-150x150.png') }}">
 <meta name="msapplication-wide310x150logo" content="{{ asset('images/favicons/mstile-310x150.png') }}">
 <meta name="msapplication-square310x310logo" content="{{ asset('images/favicons/mstile-310x310.png') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @stack('head-meta')
+
+
+{{-- Favicons + Meta --}}
+@stack('head-prefetch')

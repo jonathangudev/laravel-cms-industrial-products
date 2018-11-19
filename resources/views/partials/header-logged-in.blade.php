@@ -37,7 +37,7 @@
 								<ul class="c-header__list">
 									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link">Home</a></li>
 									<li class="c-header__item"><a href="{{ route('contact') }}" class="c-header__link">Contact Us</a></li>
-									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link c-header__link--log-out"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out</a></li>
+									<li class="c-header__item"><a href="{{ route('logout') }}" class="c-header__link c-header__link--log-out"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -46,6 +46,4 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id="js-header-logged-in-bg" class="c-header__background"></div>
 </header>

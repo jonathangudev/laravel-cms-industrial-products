@@ -6,6 +6,7 @@
     "/css/breadcrumbs.css": "/css/breadcrumbs.css",
     "/css/panel.css": "/css/panel.css",
     "/css/card.css": "/css/card.css",
+    "/css/alert.css": "/css/alert.css",
     "/css/header.css": "/css/header.css",
     "/css/footer.css": "/css/footer.css",
     "/css/subheader.css": "/css/subheader.css",
@@ -14,5 +15,7 @@
     "/css/about.css": "/css/about.css",
     "/css/contact.css": "/css/contact.css",
     "/css/products-services.css": "/css/products-services.css",
+    "/css/auth.css": "/css/auth.css",
+    "/js/category-menu-toggle.js": "/js/category-menu-toggle.js",
     "/js/category-menu-accordian.js": "/js/category-menu-accordian.js"
 }

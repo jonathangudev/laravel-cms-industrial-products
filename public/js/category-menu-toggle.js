@@ -60,45 +60,41 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 20:
+/***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(21);
+module.exports = __webpack_require__(19);
 
 
 /***/ }),
 
-/***/ 21:
+/***/ 19:
 /***/ (function(module, exports) {
 
-var elems = document.getElementsByClassName('js-category-menu-icon');
-for (var i = 0; i < elems.length; i++) {
+// Toggle category menu
 
-	// Give active item an iniital height so that it animates properly on the first collapse
-	if (elems[i].parentElement.parentElement.classList.contains('is-active')) {
-		var subList = elems[i].parentElement.nextElementSibling;
-		subList.style.height = subList.scrollHeight + 'px';
-	}
+var menuEl = document.getElementById('js-category-menu');
+var bodyEl = document.getElementsByTagName('body')[0];
 
-	// Attach event listeners for expanding/collapsing menu items
-	elems[i].addEventListener('click', function (event) {
-		var parentItem = event.currentTarget.parentElement.parentElement;
-		var subList = event.currentTarget.parentElement.nextElementSibling;
+document.getElementById('js-header-menu-btn-open').addEventListener('click', function () {
+	menuEl.classList.add('is-open');
+	bodyEl.style.overflow = 'hidden';
+});
 
-		if (parentItem.classList.contains('is-open')) {
-			parentItem.classList.remove('is-open');
-			subList.style.height = 0;
-		} else {
-			parentItem.classList.add('is-open');
-			subList.style.height = subList.scrollHeight + 'px';
-		}
-	});
-}
+document.getElementById('js-category-menu-btn-close').addEventListener('click', function () {
+	menuEl.classList.remove('is-open');
+	bodyEl.style.overflow = 'initial';
+});
+
+document.getElementById('js-category-menu-background').addEventListener('click', function () {
+	menuEl.classList.remove('is-open');
+	bodyEl.style.overflow = 'initial';
+});
 
 /***/ })
 

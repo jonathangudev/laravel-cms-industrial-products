@@ -3,21 +3,25 @@
 
 	<head>
 		@prepend('head-preload')
-			<link rel="preload" href="{{ mix('/css/header.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/buttons.css') }}" as="style" type="text/css">
+			<link rel="preload" href="{{ mix('/css/header.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/footer.css') }}" as="style" type="text/css">
 		@endprepend
 
 		@push('head-scripts')
 			<script src="{{ mix('/js/menu-toggle.js') }}" defer></script>
 		@endpush
+		
+		@push('head-prefetch')
+			<link rel="prefetch" href="{{ asset('images/logo/JMP_Logo.svg') }}">
+		@endpush
 
 		@include('partials.head')
 	</head>
 
 	<body>
-		<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
 		<link rel="stylesheet" href="{{ mix('/css/buttons.css') }}">
+		<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
 		@include('partials.header-logged-out')
 		
 		<main class="o-main">
@@ -29,7 +33,6 @@
 
 		@stack('body-scripts')
 	</body>
-
 </html>
 
 {{-- Styleguide Stuff --}}
