@@ -1,11 +1,11 @@
 <?php
 
-namespace Jmp\Company;
+namespace Jmp\CatalogManager;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
 
-class Company extends Tool
+class CatalogManagerTool extends Tool
 {
     /**
      * Perform any tasks that need to happen when the tool is booted.
@@ -14,8 +14,8 @@ class Company extends Tool
      */
     public function boot()
     {
-        Nova::script('company', __DIR__.'/../dist/js/tool.js');
-        Nova::style('company', __DIR__.'/../dist/css/tool.css');
+        Nova::script('catalog-manager', __DIR__ . '/../dist/js/tool.js');
+        Nova::style('catalog-manager', __DIR__ . '/../dist/css/tool.css');
     }
 
     /**
@@ -25,6 +25,6 @@ class Company extends Tool
      */
     public function renderNavigation()
     {
-        return view('company::navigation');
+        return view('catalog-manager::navigation');
     }
 }

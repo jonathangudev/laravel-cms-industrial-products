@@ -10,8 +10,10 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "build-product-attribute-manager": "cd nova-components/ProductAttributeManager && npm run dev",
         "build-product-attribute-manager-prod": "cd nova-components/ProductAttributeManager && npm run prod",
-        "build-company": "cd nova-components/Company && npm run dev",
-        "build-company-prod": "cd nova-components/Company && npm run prod"
+        "build-catalog-manager": "cd nova-components/CatalogManager && npm run dev",
+        "build-catalog-manager-prod": "cd nova-components/CatalogManager && npm run prod",
+        "build-company-manager": "cd nova-components/CompanyManager && npm run dev",
+        "build-company-manager-prod": "cd nova-components/CompanyManager && npm run prod",
     },
     "devDependencies": {
         "axios": "^0.18",

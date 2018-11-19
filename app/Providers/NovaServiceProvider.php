@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Jmp\CatalogManager\CatalogManagerTool;
+use Jmp\CompanyManager\CompanyManagerTool;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Spatie\TailTool\TailTool;
 use Vyuldashev\NovaPermission\NovaPermissionTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -70,6 +73,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             NovaPermissionTool::make(),
+            new CompanyManagerTool(),
+            new CatalogManagerTool(),
+            new TailTool(),
         ];
     }
 

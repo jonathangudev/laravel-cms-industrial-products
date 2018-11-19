@@ -1,8 +1,8 @@
 <?php
 
-namespace Jmp\Company\Http\Middleware;
+namespace Jmp\CatalogManager\Http\Middleware;
 
-use Jmp\Company\Company;
+use Jmp\CatalogManager\CatalogManager;
 
 class Authorize
 {
@@ -15,6 +15,6 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        return resolve(Company::class)->authorize($request) ? $next($request) : abort(403);
+        return resolve(CatalogManager::class)->authorize($request) ? $next($request) : abort(403);
     }
 }

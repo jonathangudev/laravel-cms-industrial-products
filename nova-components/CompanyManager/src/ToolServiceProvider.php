@@ -1,12 +1,12 @@
 <?php
 
-namespace Jmp\Company;
+namespace Jmp\CompanyManager;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Jmp\Company\Http\Middleware\Authorize;
+use Jmp\CompanyManager\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'company');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'company-manager');
 
         $this->app->booted(function () {
             $this->routes();
@@ -40,7 +40,7 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/company')
+                ->prefix('nova-vendor/company-manager')
                 ->group(__DIR__.'/../routes/api.php');
     }
 

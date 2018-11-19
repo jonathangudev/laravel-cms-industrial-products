@@ -1,5 +1,5 @@
 {
-    "name": "jmp/company",
+    "name": "jmp/company-manager",
     "description": "A Laravel Nova tool.",
     "keywords": [
         "laravel",
@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Jmp\\Company\\": "src/"
+            "Jmp\\CompanyManager\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Jmp\\Company\\ToolServiceProvider"
+                "Jmp\\CompanyManager\\ToolServiceProvider"
             ]
         }
     },

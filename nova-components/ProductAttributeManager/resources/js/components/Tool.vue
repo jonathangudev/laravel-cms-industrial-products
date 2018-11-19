@@ -1,15 +1,33 @@
 <template>
-    <div>
-        Product Attribute Manager
+  <div>
+    <p>{{ resourceName }}</p>
+    <p>{{ resourceId }}</p>
+    <p>{{ field }}</p>
+
+    <div class="flex items-center mb-3">
+      <div class="ml-auto flex">
+        <button class="btn btn-default btn-primary" dusk="create-button">
+          Add Attribute
+        </button>
+      </div>
     </div>
+    <div>
+      <create-attribute :fields="['name']" resourceName="attribute"></create-attribute>
+    </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        props: ['resourceName', 'resourceId', 'field'],
+import CreateAttribute from './CreateAttribute';
 
-        mounted() {
-            //
-        }
-    }
+export default {
+  props: ['resourceName', 'resourceId', 'field'],
+
+  mounted() {
+    //
+  },
+  components: {
+    CreateAttribute,
+  },
+};
 </script>
