@@ -42,7 +42,9 @@ class Company extends Model
      */
     protected function generateUuid()
     {
-        $this->attributes['uuid'] = (string) Uuid::uuid4();
+        if (empty($this->attributes['uuid'])) {
+            $this->attributes['uuid'] = (string) Uuid::uuid4();
+        }
 
         if (is_null($this->attributes['uuid'])) {
             return false;
@@ -60,5 +62,31 @@ class Company extends Model
     public function users()
     {
         return $this->hasMany(Company\User::class);
+    }
+
+    /**
+     * Return the Uuid for the company
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getUuidAttribute($value)
+    {
+        if (empty($value)) {
+            $this->generateUuid();
+        }
+
+        return $this->attributes['uuid'];
+    }
+
+    /**
+     * Set the Uuid for the company
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setUuidAttribute($value)
+    {
+        $this->generateUuid();
     }
 }

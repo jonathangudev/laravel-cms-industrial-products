@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class RestrictedAssetController extends Controller
@@ -24,12 +26,13 @@ class RestrictedAssetController extends Controller
      * @param string $path
      * @return void
      */
-    public function getAsset($company, $path)
+    public function getAsset($companyUuid, $path)
     {
         $user = Auth::user();
+        $company = Company::where('uuid', $companyUuid)->first();
 
         if (Gate::forUser($user)->allows('restricted-assets.view', $company)) {
-            return Storage::disk('restricted')->get($path);
+            return Storage::disk('restricted')->get($companyUuid . '/' . $path);
         }
     }
 }

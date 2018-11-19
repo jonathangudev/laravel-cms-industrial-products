@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
@@ -43,7 +44,10 @@ class Company extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('UUID'),
+            Text::make('UUID')
+                ->withMeta(['extraAttributes' => [
+                    'readonly' => true,
+                ]]),
 
             Text::make('Name')
                 ->sortable()
@@ -52,7 +56,18 @@ class Company extends Resource
                 ->updateRules('unique:companies,name,{{resourceId}}'),
 
             Image::make('Logo')
-                ->disk('restricted'),
+                ->store(function (Request $request, $model) {
+                    return [
+                        'logo' => $request->logo->store($model->uuid, 'restricted'),
+                    ];
+                })
+                ->thumbnail(function () {
+                    return Storage::disk('restricted')->url($this->resource->logo);
+                })
+                ->preview(function () {
+                    return Storage::disk('restricted')->url($this->resource->logo);
+                })
+                ->prunable(),
         ];
     }
 
