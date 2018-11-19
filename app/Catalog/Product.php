@@ -2,6 +2,9 @@
 
 namespace App\Catalog;
 
+use App\Catalog\ProductType;
+use App\Catalog\Product\AttributeSet;
+use App\Catalog\Product\AttributeValue;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -34,12 +37,22 @@ class Product extends Model
     }
 
     /**
+     * Get the attribute set for the product.
+     *
+     * @return App\Catalog\Product\AttributeSet
+     */
+    public function attributeSet()
+    {
+        return $this->belongsTo(AttributeSet::class, 'attribute_set_id');
+    }
+
+    /**
      * Get the attributes for the product.
      *
      * @return App\Catalog\Product\AttributeValue
      */
     public function attributes()
     {
-        return $this->hasMany(Product\AttributeValue::class);
+        return $this->hasMany(AttributeValue::class);
     }
 }

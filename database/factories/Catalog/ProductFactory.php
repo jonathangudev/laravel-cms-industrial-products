@@ -9,5 +9,8 @@ $factory->define(App\Catalog\Product::class, function (Faker $faker) {
         'product_type_id' => function () {
             return factory(App\Catalog\ProductType::class)->create()->id;
         },
+        'attribute_set_id' => function () {
+            return factory(App\Catalog\Product\AttributeSet::class)->create()->id;
+        },
     ];
 });

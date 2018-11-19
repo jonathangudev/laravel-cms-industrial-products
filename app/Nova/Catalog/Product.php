@@ -63,6 +63,7 @@ class Product extends Resource
             Text::make('Name')->creationRules('required'),
             Textarea::make('Description'),
             BelongsTo::make('Product Type', 'type', 'App\Nova\Catalog\ProductType')->creationRules('required'),
+            BelongsTo::make('Attribute Set', 'attributeSet', 'App\Nova\Catalog\Product\AttributeSet')->creationRules('required'),
             ProductAttributeManager::make(),
         ];
     }

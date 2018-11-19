@@ -23,7 +23,7 @@ class CreateCatalogProductAttributeValuesTable extends Migration
             $table->foreign('attribute_id')
                 ->references('id')->on('catalog_product_attributes')
                 ->onDelete('cascade');
-            $table->string('value');
+            $table->text('value');
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ class CreateCatalogProductAttributeValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_attribute_values');
+        Schema::dropIfExists('catalog_product_attribute_values');
     }
 }

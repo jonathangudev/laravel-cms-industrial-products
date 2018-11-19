@@ -2,6 +2,7 @@
 
 namespace App\Catalog;
 
+use App\Catalog\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductType extends Model
@@ -25,9 +26,11 @@ class ProductType extends Model
 
     /**
      * Get the products for the type.
+     *
+     * @return App\Catalog\Product
      */
     public function products()
     {
-        return $this->hasMany('App\Catalog\Product');
+        return $this->hasMany(Product::class);
     }
 }

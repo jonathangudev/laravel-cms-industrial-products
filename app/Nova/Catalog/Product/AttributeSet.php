@@ -4,18 +4,17 @@ namespace App\Nova\Catalog\Product;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
-class AttributeValue extends Resource
+class AttributeSet extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Catalog\Product\AttributeValue';
+    public static $model = 'App\Catalog\Product\AttributeSet';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -38,7 +37,7 @@ class AttributeValue extends Resource
      */
     public static $search = [
         'id',
-        'product',
+        'name',
     ];
 
     /**
@@ -51,8 +50,7 @@ class AttributeValue extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('value'),
-            BelongsTo::make('Product', 'product', 'App\Nova\Catalog\Product'),
+            Text::make('Name'),
         ];
     }
 
