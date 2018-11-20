@@ -46,12 +46,7 @@ class Company extends Model
             $this->attributes['uuid'] = (string) Uuid::uuid4();
         }
 
-        if (is_null($this->attributes['uuid'])) {
-            return false;
-        } else {
-            return true;
-        }
-
+        return true;
     }
 
     /**

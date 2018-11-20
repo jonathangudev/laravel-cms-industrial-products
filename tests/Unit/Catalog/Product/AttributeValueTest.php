@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Catalog\Product;
 
+use App\Catalog\Product;
 use App\Catalog\Product\Attribute;
 use App\Catalog\Product\AttributeValue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,10 +17,11 @@ class AttributeValueTest extends TestCase
     /**
      * Test that a catalog attribute value can be created
      *
+     * @test
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
      */
-    public function testItCanCreateAnAttributeValue()
+    public function itCanCreateAnAttributeValue()
     {
         $data = [
             'value' => $this->faker->text,
@@ -34,10 +36,11 @@ class AttributeValueTest extends TestCase
     /**
      * Test that a catalog product attribute value can be updated
      *
+     * @test
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
      */
-    public function testItCanUpdateAnAttributeValue()
+    public function itCanUpdateAnAttributeValue()
     {
         $value = $this->faker->text;
         $attributeValue = factory(AttributeValue::class)->create();
@@ -50,10 +53,11 @@ class AttributeValueTest extends TestCase
     /**
      * Test that a catalog product attribute can be deleted
      *
+     * @test
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
      */
-    public function testItCanDeleteAnAttributeValue()
+    public function itCanDeleteAnAttributeValue()
     {
         $attributeValue = factory(AttributeValue::class)->create();
         $attributeValueData = $attributeValue->toArray();
@@ -69,10 +73,11 @@ class AttributeValueTest extends TestCase
     /**
      * Test that a catalog product attribute value can get its owning attribute
      *
+     * @test
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
      */
-    public function testItCanGetAnAttributeFromAnAttributeValue()
+    public function itCanGetAnAttributeFromAnAttributeValue()
     {
         $attributeValue = factory(AttributeValue::class)->create();
         $attribute = $attributeValue->attribute;
@@ -84,10 +89,11 @@ class AttributeValueTest extends TestCase
     /**
      * Test that a catalog product attribute value gets its name from the owning attribute
      *
+     * @test
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
      */
-    public function testItCanGetAnAttributeNameFromAnAttributeValue()
+    public function itCanGetAnAttributeNameFromAnAttributeValue()
     {
         $attributeValue = factory(AttributeValue::class)->create();
         $attribute = $attributeValue->attribute;
@@ -98,14 +104,31 @@ class AttributeValueTest extends TestCase
     /**
      * Test that a catalog product attribute value gets its description from the owning attribute
      *
+     * @test
      * @return  void
      * @author  Nevin Morgan <nevins.morgan@gmail.com
      */
-    public function testItCanGetAnAttributeDescriptionFromAnAttributeValue()
+    public function itCanGetAnAttributeDescriptionFromAnAttributeValue()
     {
         $attributeValue = factory(AttributeValue::class)->create();
         $attribute = $attributeValue->attribute;
 
         $this->assertEquals($attributeValue->description, $attribute->description);
+    }
+
+    /**
+     * Test that a catalog product attribute value can get its owning product
+     *
+     * @test
+     * @return  void
+     * @author  Nevin Morgan <nevins.morgan@gmail.com
+     */
+    public function itCanGetAProductFromAnAttributeValue()
+    {
+        $attributeValue = factory(AttributeValue::class)->create();
+        $product = $attributeValue->product;
+
+        $this->assertInstanceOf(Product::class, $product);
+        $this->assertEquals($attributeValue->product_id, $product->id);
     }
 }

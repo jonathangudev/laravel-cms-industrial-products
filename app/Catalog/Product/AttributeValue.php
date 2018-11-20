@@ -53,11 +53,7 @@ class AttributeValue extends Model
      */
     public function getNameAttribute()
     {
-        if ($this->attribute) {
-            return $this->attribute->name;
-        }
-
-        return '';
+        return $this->attribute->name;
     }
 
     /**
@@ -67,10 +63,6 @@ class AttributeValue extends Model
      */
     public function getDescriptionAttribute()
     {
-        if ($this->attribute) {
-            return $this->attribute->description;
-        }
-
-        return '';
+        return $this->attribute->description;
     }
 }
