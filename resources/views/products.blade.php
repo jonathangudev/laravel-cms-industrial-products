@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Catalog')
+@section('title', 'Product Group')
 
 @section('content')
 @endsection

@@ -17,6 +17,8 @@
   -webkit-box-shadow: none;
           box-shadow: none;
   cursor: pointer;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
   -webkit-transition: color 150ms ease-in-out, opacity 150ms ease-in-out, background-color 150ms ease-in-out, border-color 150ms ease-in-out;
   transition: color 150ms ease-in-out, opacity 150ms ease-in-out, background-color 150ms ease-in-out, border-color 150ms ease-in-out;
 }

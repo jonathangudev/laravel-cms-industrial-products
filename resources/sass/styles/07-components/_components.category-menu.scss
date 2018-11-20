@@ -16,6 +16,8 @@ $category-menu-width:									30rem;
 .c-category-menu {
 	$block: &;
 
+	height: 100%;
+
 	@include media-breakpoint-down(md) {
 		position: fixed;
 		top: 0;
@@ -39,7 +41,7 @@ $category-menu-width:									30rem;
 	}
 
 	&__title {
-		padding-top: $leading / 2;
+		padding-top: $leading;
 	}
 
 	&__nav {

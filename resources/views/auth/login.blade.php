@@ -6,6 +6,12 @@
     <link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
 @endpush
 
+@push('head-prefetch')
+    <link rel="prefetch" href="{{ mix('/css/category-menu.css') }}">
+    <link rel="prefetch" href="{{ mix('/css/panel.css') }}">
+    <link rel="prefetch" href="{{ mix('/js/category-menu-toggle.js') }}">
+    <link rel="prefetch" href="{{ mix('/js/category-menu-accordian.js') }}">
+@endpush
 
 @section('content')
     @if ($errors->any())

@@ -6,6 +6,7 @@
 			<link rel="preload" href="{{ mix('/css/header.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/category-menu.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
+			<link rel="preload" href="{{ mix('/css/breadcrumbs.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/footer.css') }}" as="style" type="text/css">
 		@endprepend
 
@@ -27,13 +28,30 @@
 					<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 					@include('partials.category-menu')
 				</div>
+
 				<div class="o-dashboard__content">
 					<div class="container">
+						<div class="row">
+							<div class="col">
+								@include('partials.breadcrumbs')
+							</div>
+						</div>
+
+						{{-- Display company welcome message on only home dashboard --}}
+						@if (Route::currentRouteNamed('catalog'))
+							<div class="row">
+								<div class="col">
+									<h3>Welcome, ##INSERT COMPANY##</h3>
+								</div>
+							</div>
+						@endif
+
 						<div class="row">
 							<div class="col">
 								@yield('content')
 							</div>
 						</div>
+						
 						<div class="row">
 							<div class="col">
 								<div class="o-dashboard__disclaimer">

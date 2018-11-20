@@ -45,3 +45,8 @@ $this->get('email/verify/{id}', 'Auth\VerificationController@verify')->name('ver
 $this->get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 Route::get('/catalog', 'CatalogController@index')->name('catalog');
+
+// Sample for building product group css
+Route::get('/products', function () {
+    return view('products');
+})->name('products');

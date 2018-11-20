@@ -1,3 +1,7 @@
+.c-category-menu {
+  height: 100%;
+}
+
 @media (max-width: 991.98px) {
   .c-category-menu {
     position: fixed;
@@ -24,7 +28,7 @@
 }
 
 .c-category-menu__title {
-  padding-top: 1.1rem;
+  padding-top: 2.2rem;
 }
 
 .c-category-menu__nav a {

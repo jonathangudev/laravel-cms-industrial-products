@@ -6,7 +6,7 @@
 				<div class="col-20 col-md-12 col-lg-9 col-xl-7">
 					<div class="c-header__logo-group">
 						<div class="c-header__logo">
-							<a href="{{ route('home') }}"><img src="{{ asset('images/logo/JMP_Logo.svg') }}" alt="JMP Logo"></a>
+							<a href="{{ route('catalog') }}"><img src="{{ asset('images/logo/JMP_Logo.svg') }}" alt="JMP Logo"></a>
 						</div>
 						<div class="c-header__company-logo">
 							<img src="https://via.placeholder.com/1600x300" alt="Company Logo">
@@ -32,11 +32,11 @@
 							<button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn d-lg-none"><i class="fas fa-fw fa-bars"></i></button>
 						</div>
 					</div>
-					<div class="row justify-content-end">
-						<div class="col-lg-11 col-xl-10">
+					<div class="row">
+						<div class="col">
 							<nav class="c-header__nav d-none d-lg-block">
 								<ul class="c-header__list">
-									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link">{{ __('Home') }}</a></li>
+									<li class="c-header__item"><a href="{{ route('catalog') }}" class="c-header__link">{{ __('Home') }}</a></li>
 									<li class="c-header__item"><a href="{{ route('contact') }}" class="c-header__link">{{ __('Contact Us') }}</a></li>
 									<li class="c-header__item">
 										<a href="{{ route('logout') }}" class="c-header__link c-header__link--log-out" onclick="event.preventDefault(); document.getElementById('header-logout-form').submit();">

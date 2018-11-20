@@ -29,10 +29,12 @@ $panel-footer-padding-x:            $grid-gutter-width-rem;
 
   &__img {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: calc(100% - #{$panel-footer-height});
     padding: $panel-img-padding-y $panel-img-padding-x;
+
+    a {
+      margin: auto;
+    }
 
     img {
       max-width: 100%;

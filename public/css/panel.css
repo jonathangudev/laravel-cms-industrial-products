@@ -17,14 +17,12 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   height: calc(100% - 5.5rem);
   padding: 1.6rem 1.6rem;
+}
+
+.c-panel__img a {
+  margin: auto;
 }
 
 .c-panel__img img {

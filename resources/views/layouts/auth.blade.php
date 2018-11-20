@@ -6,13 +6,6 @@
 			<link rel="preload" href="{{ mix('/css/auth.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ asset('images/technical-drawing.svg') }}" as="image" type="image/svg+xml">
 		@endprepend
-
-		@push('head-prefetch')
-			<link rel="prefetch" href="{{ mix('/css/category-menu.css') }}">
-			<link rel="prefetch" href="{{ mix('/css/panel.css') }}">
-			<link rel="prefetch" href="{{ mix('/js/category-menu-toggle.js') }}">
-			<link rel="prefetch" href="{{ mix('/js/category-menu-accordian.js') }}">
-		@endpush
 		
 		@include('partials.head')
 	</head>
