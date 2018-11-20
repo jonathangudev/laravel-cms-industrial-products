@@ -1,0 +1,19 @@
+// Alert
+// 
+// Styles for alet boxes
+
+@import 'globals';
+
+$alert-height:					$leading * 2; // Intended height
+$alert-padding-y:				($alert-height - $leading) / 2;
+$alert-padding-x:				$grid-gutter-width-rem;
+
+.c-alert {
+	padding: $alert-padding-y $alert-padding-x;
+	border-bottom: 0.2rem solid $brand-primary-color;
+	box-shadow: $box-shadow;
+	
+	p {
+		margin-bottom: 0;
+	}
+}

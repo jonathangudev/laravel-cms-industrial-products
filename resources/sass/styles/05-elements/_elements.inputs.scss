@@ -88,6 +88,16 @@ input {
     border-bottom: $input-border-width solid $danger-color;
     padding-bottom: $input-padding-y - $input-border-width;
   }
+
+  & + p,
+  & + a {
+    margin-top: $leading / 4;
+  }
+
+  & + a {
+    font-size: $font-size-sm;
+    display: inline-block;
+  }
 }
 
 // Checkboxes

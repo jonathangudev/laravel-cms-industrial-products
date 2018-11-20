@@ -9,6 +9,11 @@
 	<link rel="preload" href="{{ asset('images/technical-drawing.svg') }}" as="image" type="image/svg+xml">
 @endpush
 
+@push('head-prefetch')
+	<link rel="prefetch" href="{{ mix('/css/breadcrumbs.css') }}">
+	<link rel="prefetch" href="{{ mix('/css/subheader.css') }}">
+@endpush
+
 @section('content')
 	<link rel="stylesheet" href="{{ mix('/css/home.css') }}">
 	<section class="c-home-hero">

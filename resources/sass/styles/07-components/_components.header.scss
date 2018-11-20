@@ -292,18 +292,19 @@ $num-links:                       6;
         display: none;
       }
     }
+
+    // Dark background for mobile
+    #{$block}__background {
+      position: fixed;
+      display: none;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: $header-menu-background;
+      z-index: 1;
+    }
   }
 
-  // Dark background for mobile
-  #{$block}__background {
-    position: fixed;
-    display: none;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: $header-menu-background;
-    z-index: 1;
-  }
 
 
   // Logged-In Header
@@ -361,5 +362,4 @@ $num-links:                       6;
       }
     }
   }
-
 }
