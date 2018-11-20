@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
 <header class="c-header c-header--logged-in">
 	<div class="c-header__menu">
 		<div class="container-fluid">
@@ -18,7 +19,7 @@
 							<form action="/" class="o-form d-none d-md-block">
 								@csrf
 								<div class="o-form__search">
-									<label for="jmp-header-search">Search Products</label>
+									<label for="jmp-header-search">{{ __('Search Products') }}</label>
 									<input type="search" id="jmp-header-search" placeholder="Search products..." aria-label="Search Products">
 									<button type="submit" class="c-btn" aria-label="Search"><i class="fas fa-search"></i></button>
 								</div>
@@ -35,9 +36,16 @@
 						<div class="col-lg-11 col-xl-10">
 							<nav class="c-header__nav d-none d-lg-block">
 								<ul class="c-header__list">
-									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link">Home</a></li>
-									<li class="c-header__item"><a href="{{ route('contact') }}" class="c-header__link">Contact Us</a></li>
-									<li class="c-header__item"><a href="{{ route('logout') }}" class="c-header__link c-header__link--log-out"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out</a></li>
+									<li class="c-header__item"><a href="{{ route('home') }}" class="c-header__link">{{ __('Home') }}</a></li>
+									<li class="c-header__item"><a href="{{ route('contact') }}" class="c-header__link">{{ __('Contact Us') }}</a></li>
+									<li class="c-header__item">
+										<a href="{{ route('logout') }}" class="c-header__link c-header__link--log-out" onclick="event.preventDefault(); document.getElementById('header-logout-form').submit();">
+											<i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;{{ __('Log Out') }}
+										</a>
+										<form id="header-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+											@csrf
+										</form>
+									</li>
 								</ul>
 							</nav>
 						</div>

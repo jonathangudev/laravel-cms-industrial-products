@@ -31,7 +31,6 @@
 											<img src="{{ asset('images/logo/JMP_Logo.svg') }}" alt="Logo">
 										</a>
 									</div>
-									@yield('alert-content')
 								</div>
 								<div class="col-24">
 									<div class="c-auth__content">
@@ -66,8 +65,6 @@
 				</div>
 			</div>
 		</main>
-
-		@stack('body-scripts')
 	</body>
 
 </html>

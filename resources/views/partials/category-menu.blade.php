@@ -8,20 +8,25 @@
 			<nav class="c-category-menu__header-nav">
 				<ul class="c-category-menu__header-list">
 					<li class="c-category-menu__header-item">
-						<a href="{{ route('home') }}" class="c-category-menu__header-link">Home</a>
+						<a href="{{ route('home') }}" class="c-category-menu__header-link">{{ __('Home') }}</a>
 					</li>
 					<li class="c-category-menu__header-item">
-						<a href="{{ route('contact') }}" class="c-category-menu__header-link">Contact Us</a>
+						<a href="{{ route('contact') }}" class="c-category-menu__header-link">{{ __('Contact Us') }}</a>
 					</li>
 					<li class="c-category-menu__header-item">
-						<a href="{{ route('logout') }}" class="c-category-menu__header-link c-category-menu__header-link--log-out"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Log Out</a>
+						<a href="{{ route('logout') }}" class="c-category-menu__header-link c-category-menu__header-link--log-out" onclick="event.preventDefault(); document.getElementById('category-menu-logout-form').submit();">
+							<i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;{{ __('Log Out') }}
+						</a>
+						<form id="category-menu-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>
 					</li>
 				</ul>
 			</nav>
 			<form action="/" class="c-category-menu__search o-form">
 				@csrf
 				<div class="o-form__search">
-					<label for="jmp-menu-search">Search Products</label>
+					<label for="jmp-menu-search">{{ __('Log Out') }}</label>
 					<input type="search" id="jmp-menu-search" placeholder="Search products..." aria-label="Search Products">
 					<button type="submit" class="c-btn" aria-label="Search"><i class="fas fa-search"></i></button>
 				</div>
@@ -30,7 +35,7 @@
 	
 		<div class="c-category-menu__title">
 			<div class="c-section">
-				<h4>Navigate By Category</h4>
+				<h4>{{ __('Navigate By Category') }}</h4>
 			</div>
 		</div>
 	
