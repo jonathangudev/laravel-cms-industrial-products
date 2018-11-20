@@ -32,9 +32,10 @@ mix.js('resources/js/menu-toggle.js', 'public/js')
    .sass('resources/sass/styles/07-components/_components.contact.scss', 'public/css/contact.css')
    .sass('resources/sass/styles/07-components/_components.products-services.scss', 'public/css/products-services.css')
    .sass('resources/sass/styles/07-components/_components.auth.scss', 'public/css/auth.css')
-//    .purgeCss({
-//        enabled: true
-//    })
+   .purgeCss({
+       enabled: true,
+       whitelist: ['c-alert']
+   })
    .copyDirectory('resources/fonts/fontawesome', 'public/fonts');
 
 if (mix.inProduction()) {

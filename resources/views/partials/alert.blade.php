@@ -7,7 +7,7 @@
 @endpush
 
 <link rel="stylesheet" href="{{ mix('/css/alert.css') }}">
-<div id="js-alert" class="c-alert c-alert--{{ $type }}" role="alert">
+<div id="js-alert" class="c-alert {{ 'c-alert--'.$type }}" role="alert">
 	<div class="c-alert__title">
 		@if ($type === 'danger')
 			<h5><i class="fas fa-exclamation-circle c-alert__icon"></i>&nbsp;&nbsp;<strong>Error</strong></h5>

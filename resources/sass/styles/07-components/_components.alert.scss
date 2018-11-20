@@ -11,6 +11,7 @@ $alert-padding-x:				$grid-gutter-width-rem;
 $alert-width:					50rem;
 $alert-width-sm:				32rem - ($grid-gutter-width-rem * 2);
 
+/* purgecss start ignore */
 .c-alert {
 	$block: &;
 
@@ -92,3 +93,4 @@ $alert-width-sm:				32rem - ($grid-gutter-width-rem * 2);
 		margin-bottom: 0;
 	}
 }
+/* purgecss end ignore */
