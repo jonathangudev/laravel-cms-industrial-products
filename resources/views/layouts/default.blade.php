@@ -3,7 +3,6 @@
 
 	<head>
 		@prepend('head-preload')
-			<link rel="preload" href="{{ mix('/css/buttons.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/header.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ mix('/css/footer.css') }}" as="style" type="text/css">
 		@endprepend
@@ -20,18 +19,13 @@
 	</head>
 
 	<body>
-		<link rel="stylesheet" href="{{ mix('/css/buttons.css') }}">
-		<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
 		@include('partials.header-logged-out')
 		
 		<main class="o-main">
 			@yield('content')
 		</main>
 		
-		<link rel="stylesheet" href="{{ mix('/css/footer.css') }}">
 		@include('partials.footer')
-
-		@stack('body-scripts')
 	</body>
 </html>
 

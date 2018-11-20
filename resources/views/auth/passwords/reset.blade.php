@@ -3,7 +3,6 @@
 @section('title', 'Reset Password')
 
 @push('head-preload')
-    <link rel="preload" href="{{ mix('/css/buttons.css') }}" as="style" type="text/css">
     <link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
 @endpush
 
@@ -49,7 +48,6 @@
                 <input id="reset-password-confirm" type="password" name="password_confirmation" required>
             </div>
     
-            <link rel="stylesheet" href="{{ mix('/css/buttons.css') }}">
             <button type="submit" class="c-btn c-btn--primary c-btn--block">{{ __('Reset Password') }}</button>
         </fieldset>
     </form>

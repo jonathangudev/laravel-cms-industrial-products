@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ mix('/css/header.css') }}">
 <header id="js-header" class="c-header c-header--logged-out">
     <div class="c-header__menu">
         <div class="container">
@@ -20,21 +21,21 @@
                             <nav class="c-header__nav">
                                 <ul class="c-header__list">
                                     <li class="c-header__item d-none d-lg-block">
-                                        <a href="{{ route('home') }}" class="c-header__link {{ Route::currentRouteNamed('home') ? 'is-active' : '' }}">Home</a>
+                                        <a href="{{ route('home') }}" class="c-header__link {{ Route::currentRouteNamed('home') ? 'is-active' : '' }}">{{ __('Home') }}</a>
                                     </li>
                                     <li class="c-header__item d-none d-lg-block">
-                                        <a href="{{ route('about') }}" class="c-header__link {{ Route::currentRouteNamed('about') ? 'is-active' : '' }}">About Us</a>
+                                        <a href="{{ route('about') }}" class="c-header__link {{ Route::currentRouteNamed('about') ? 'is-active' : '' }}">{{ __('About Us') }}</a>
                                     </li>
                                     <li class="c-header__item d-none d-lg-block">
-                                        <a href="{{ route('products-services') }}" class="c-header__link {{ Route::currentRouteNamed('products-services') ? 'is-active' : '' }}">Our Products &amp; Services</a>
+                                        <a href="{{ route('products-services') }}" class="c-header__link {{ Route::currentRouteNamed('products-services') ? 'is-active' : '' }}">{{ __('Our Products & Services') }}</a>
                                     </li>
                                     <li class="c-header__item d-none d-lg-block">
-                                        <a href="{{ route('contact') }}" class="c-header__link {{ Route::currentRouteNamed('contact') ? 'is-active' : '' }}">Contact Us</a>
+                                        <a href="{{ route('contact') }}" class="c-header__link {{ Route::currentRouteNamed('contact') ? 'is-active' : '' }}">{{ __('Contact Us') }}</a>
                                     </li>
                                     @guest
-                                        <li class="c-header__item "><a href="{{ route('login') }}" class="c-btn c-btn--primary">Log In</a></li>
+                                        <li class="c-header__item "><a href="{{ route('login') }}" class="c-btn c-btn--primary">{{ __('Log In') }}</a></li>
                                     @else
-                                        <li class="c-header__item "><a href="{{ route('catalog') }}" class="c-btn c-btn--primary">Log In</a></li>
+                                        <li class="c-header__item "><a href="{{ route('catalog') }}" class="c-btn c-btn--primary">{{ __('Log In') }}</a></li>
                                     @endguest
                                     <li class="c-header__item d-block d-lg-none">
                                         <button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn" aria-label="Open Menu">
@@ -60,16 +61,16 @@
                     <nav class="c-header__nav">
                         <ul class="c-header__mobile-list">
                             <li class="c-header__mobile-item">
-                                <a href="{{ route('home') }}" class="c-header__link {{ Route::currentRouteNamed('home') ? 'is-active' : '' }}">Home</a>
+                                <a href="{{ route('home') }}" class="c-header__link {{ Route::currentRouteNamed('home') ? 'is-active' : '' }}">{{ __('Home') }}</a>
                             </li>
                             <li class="c-header__mobile-item">
-                                <a href="{{ route('about') }}" class="c-header__link {{ Route::currentRouteNamed('about') ? 'is-active' : '' }}">About Us</a>
+                                <a href="{{ route('about') }}" class="c-header__link {{ Route::currentRouteNamed('about') ? 'is-active' : '' }}">{{ __('About Us') }}</a>
                             </li>
                             <li class="c-header__mobile-item">
-                                <a href="{{ route('products-services') }}" class="c-header__link {{ Route::currentRouteNamed('products-services') ? 'is-active' : '' }}">Our Products &amp; Services</a>
+                                <a href="{{ route('products-services') }}" class="c-header__link {{ Route::currentRouteNamed('products-services') ? 'is-active' : '' }}">{{ __('Our Products & Services') }}</a>
                             </li>
                             <li class="c-header__mobile-item">
-                                <a href="{{ route('contact') }}" class="c-header__link {{ Route::currentRouteNamed('contact') ? 'is-active' : '' }}">Contact Us</a>
+                                <a href="{{ route('contact') }}" class="c-header__link {{ Route::currentRouteNamed('contact') ? 'is-active' : '' }}">{{ __('Contact Us') }}</a>
                             </li>
                             <li class="c-header__mobile-item">
                                 <div class="c-header__phone">

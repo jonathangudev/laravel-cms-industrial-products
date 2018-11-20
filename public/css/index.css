@@ -836,12 +836,28 @@ readers do not read off random characters that represent icons */
   content: "\F0C9";
 }
 
+.fa-check-circle:before {
+  content: "\F058";
+}
+
 .fa-envelope:before {
   content: "\F0E0";
 }
 
+.fa-exclamation-circle:before {
+  content: "\F06A";
+}
+
+.fa-exclamation-triangle:before {
+  content: "\F071";
+}
+
 .fa-external-link-alt:before {
   content: "\F35D";
+}
+
+.fa-info-circle:before {
+  content: "\F05A";
 }
 
 .fa-map-marker-alt:before {
@@ -1132,8 +1148,8 @@ textarea.error,
 textarea.is-error,
 input.error,
 input.is-error {
-  color: #C71F1F;
-  border-bottom: 0.1rem solid #C71F1F;
+  color: #a90101;
+  border-bottom: 0.1rem solid #a90101;
   padding-bottom: 0.45rem;
 }
 
@@ -1223,7 +1239,7 @@ input[type='checkbox'].is-disabled + label:before {
 
 input[type='checkbox'].error + label:before,
 input[type='checkbox'].is-error + label:before {
-  border-color: #C71F1F;
+  border-color: #a90101;
 }
 
 input[type='radio'] {
@@ -1297,7 +1313,7 @@ input[type='radio'].is-disabled + label:before {
 
 input[type='radio'].error + label:before,
 input[type='radio'].is-error + label:before {
-  border-color: #C71F1F;
+  border-color: #a90101;
 }
 
 .o-main {
@@ -1342,7 +1358,7 @@ input[type='radio'].is-error + label:before {
 
 .o-form__group.error label,
 .o-form__group.is-error label {
-  color: #C71F1F;
+  color: #a90101;
 }
 
 .o-form__search {
@@ -1368,7 +1384,7 @@ input[type='radio'].is-error + label:before {
 }
 
 .o-form__error-text {
-  color: #C71F1F;
+  color: #a90101;
   margin-bottom: 0;
 }
 
@@ -1420,6 +1436,106 @@ input[type='radio'].is-error + label:before {
 .o-form--reverse textarea.is-disabled {
   color: rgba(255, 255, 255, 0.6);
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.c-btn {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1.4rem;
+  padding: 0.55rem 3.2rem;
+  border-radius: 999px;
+  border: none;
+  background: none;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: pointer;
+  -webkit-transition: color 150ms ease-in-out, opacity 150ms ease-in-out, background-color 150ms ease-in-out, border-color 150ms ease-in-out;
+  transition: color 150ms ease-in-out, opacity 150ms ease-in-out, background-color 150ms ease-in-out, border-color 150ms ease-in-out;
+}
+
+.c-btn:focus,
+.c-btn:hover {
+  outline: 0;
+  text-decoration: none;
+}
+
+.c-btn--block {
+  display: block;
+  width: 100%;
+}
+
+.c-btn--primary {
+  color: #fff;
+  background: -webkit-gradient(linear, left bottom, right top, from(#ce0200), to(transparent));
+  background: linear-gradient(to top right, #ce0200, transparent);
+  background-color: #FF0402;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c-btn--primary:focus,
+.c-btn--primary:hover {
+  color: #fff;
+  background-color: #ce0200;
+}
+
+.c-btn--primary:visited {
+  color: #fff;
+}
+
+.c-btn--primary:visited:focus,
+.c-btn--primary:visited:hover {
+  color: #fff;
+}
+
+.c-btn--ghost {
+  background: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+}
+
+.c-btn--ghost:focus,
+.c-btn--ghost:hover {
+  background: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.c-btn--ghost.c-btn--primary {
+  color: #333;
+  border: 0.2rem solid #FF0402;
+}
+
+.c-btn--ghost.c-btn--primary:focus,
+.c-btn--ghost.c-btn--primary:hover {
+  color: #333;
+  border-color: #ce0200;
+}
+
+.c-btn--ghost.c-btn--reverse {
+  color: #fff;
+}
+
+.c-btn--ghost.c-btn--reverse:focus,
+.c-btn--ghost.c-btn--reverse:hover {
+  color: #fff;
+}
+
+.c-btn:disabled,
+.c-btn.disabled,
+.c-btn.is-disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .d-none {

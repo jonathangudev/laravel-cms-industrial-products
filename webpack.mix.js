@@ -15,6 +15,7 @@ require('laravel-mix-purgecss');
 mix.js('resources/js/menu-toggle.js', 'public/js')
    .js('resources/js/category-menu-toggle.js', 'public/js')
    .js('resources/js/category-menu-accordian.js', 'public/js')
+   .js('resources/js/alert-toggle.js', 'public/js')
    .sass('resources/sass/index.scss', 'public/css')
    .sass('resources/sass/styles/07-components/_components.buttons.scss', 'public/css/buttons.css')
    .sass('resources/sass/styles/07-components/_components.section.scss', 'public/css/section.css')
@@ -32,7 +33,8 @@ mix.js('resources/js/menu-toggle.js', 'public/js')
    .sass('resources/sass/styles/07-components/_components.products-services.scss', 'public/css/products-services.css')
    .sass('resources/sass/styles/07-components/_components.auth.scss', 'public/css/auth.css')
    .purgeCss({
-       enabled: true
+       enabled: true,
+       whitelist: ['c-alert']
    })
    .copyDirectory('resources/fonts/fontawesome', 'public/fonts');
 

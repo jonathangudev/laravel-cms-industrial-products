@@ -3,24 +3,17 @@
 @section('title', 'Reset Password')
 
 @push('head-preload')
-    <link rel="preload" href="{{ mix('/css/buttons.css') }}" as="style" type="text/css">
     <link rel="preload" href="{{ mix('/css/section.css') }}" as="style" type="text/css">
 @endpush
 
-@section('alert-content')
-    @if (session('status'))
-        @push('head-preload')
-            <link rel="preload" href="{{ mix('/css/alert.css') }}" as="style" type="text/css">
-        @endpush
 
-        <link rel="stylesheet" href="{{ mix('/css/alert.css') }}">
-        @component('partials.alert')
+@section('content')
+    @if (session('status'))
+        @component('partials.alert', ['type' => 'info'])
             {{ session('status') }}
         @endcomponent
     @endif
-@endsection
-
-@section('content')
+    
     <link rel="stylesheet" href="{{ mix('/css/section.css') }}">
     <div class="c-section d-none d-md-block">
         <h3>Reset Password</h3>
@@ -45,7 +38,6 @@
                 @endif
             </div>
     
-            <link rel="stylesheet" href="{{ mix('/css/buttons.css') }}">
             <button type="submit" class="c-btn c-btn--primary c-btn--block">{{ __('Send Reset Link') }}</button>
         </fieldset>
     </form>
