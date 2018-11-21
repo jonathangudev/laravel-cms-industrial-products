@@ -12,19 +12,17 @@
 		@for ($i = 1; $i < 9; $i++)			
 			<div class="col-24 col-sm-12 col-md-8 col-xl-6">
 				<div class="c-panel">
-					<div class="c-panel__content">
-						<div class="c-panel__img">
-							<a href="#">
-								<img src="https://via.placeholder.com/600x600" alt="Image">
-							</a>
+					<div class="c-panel__img">
+						<a href="#">
+							<img src="https://via.placeholder.com/600x600" alt="Image" title="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit">
+						</a>
+					</div>
+					<div class="c-panel__footer">
+						<div class="c-panel__title" title="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit">
+							<strong>Category {{ $i }} - Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</strong>
 						</div>
-						<div class="c-panel__footer">
-							<div class="c-panel__title" title="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit">
-								<strong>Category {{ $i }} - Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</strong>
-							</div>
-							<div class="c-panel__action">
-								<a href="#">View</a>
-							</div>
+						<div class="c-panel__action">
+							<a href="#">View</a>
 						</div>
 					</div>
 				</div>

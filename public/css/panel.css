@@ -1,31 +1,21 @@
 .c-panel {
-  position: relative;
   border: 0.1rem solid #F2F2F2;
   margin-bottom: 1.6rem;
+}
+
+.c-panel__img {
+  position: relative;
   padding-bottom: 100%;
 }
 
-.c-panel__content {
+.c-panel__img img {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-}
-
-.c-panel__img {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: calc(100% - 5.5rem);
-  padding: 1.6rem 1.6rem;
-}
-
-.c-panel__img a {
   margin: auto;
-}
-
-.c-panel__img img {
+  padding: 1.6rem 1.6rem;
   max-width: 100%;
   max-height: 100%;
 }

@@ -2,8 +2,14 @@
 // 
 // Global page styles
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 .o-main {
-  overflow: hidden;
+  // overflow: hidden;
+  flex: 1;
 }
 
 .o-dashboard {

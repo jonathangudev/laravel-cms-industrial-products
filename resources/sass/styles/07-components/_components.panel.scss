@@ -14,29 +14,21 @@ $panel-footer-padding-y:            ($panel-footer-height - ($leading * 2)) / 2;
 $panel-footer-padding-x:            $grid-gutter-width-rem;
 
 .c-panel {
-  position: relative;
   border: $border-width solid $panel-border-color;
   margin-bottom: $grid-gutter-width-rem;
-  padding-bottom: 100%;
   
-  &__content {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-
   &__img {
-    display: flex;
-    height: calc(100% - #{$panel-footer-height});
-    padding: $panel-img-padding-y $panel-img-padding-x;
-
-    a {
-      margin: auto;
-    }
+    position: relative;
+    padding-bottom: 100%;
 
     img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      padding: $panel-img-padding-y $panel-img-padding-x;
       max-width: 100%;
       max-height: 100%;
     }
