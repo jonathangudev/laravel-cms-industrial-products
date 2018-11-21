@@ -27,22 +27,33 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-
 // Authentication Routes...
-$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
-$this->post('login', 'Auth\LoginController@login');
-$this->post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Password Reset Routes...
-$this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-$this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-$this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
 // Email Verification Routes...
-$this->get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-$this->get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
-$this->get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::get('/catalog', 'CatalogController@index')->name('catalog');
-Route::get('/catalog/asset/{company}/{path?}', 'RestrictedAssetController@getAsset')->where(['path' => '.*']);
+// Catalog Routes...
+Route::get('catalog', 'CatalogController@index')->name('catalog');
+Route::get('catalog/asset/fake/{path?}', function ($path) {
+    $client = new \GuzzleHttp\Client();
+    $res = $client->request('GET', 'https://placekitten.com/' . $path);
+    return $res->getBody();
+})->where(['path' => '.*']);
+Route::get('catalog/asset/{company}/{path?}', 'RestrictedAssetController@getAsset')->where(['path' => '.*']);
+
+// Email Preview Routes
+Route::get(
+    env('APP_BACKEND_PATH', '/nova') . '/emails/preview/welcome-user',
+    'EmailPreviewController@getUserWelcomePreview'
+);

@@ -24,7 +24,7 @@ class RestrictedAssetController extends Controller
      *
      * @param string $company
      * @param string $path
-     * @return void
+     * @return mixed
      */
     public function getAsset($companyUuid, $path)
     {
