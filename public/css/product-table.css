@@ -1,0 +1,75 @@
+.c-product-table table {
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+}
+
+.c-product-table thead {
+  background-color: #F2F2F2;
+  border-bottom: 0.1rem solid #333;
+}
+
+.c-product-table th,
+.c-product-table td {
+  padding: 0.55rem 0.8rem;
+}
+
+.c-product-table td {
+  border-bottom: 0.1rem solid #F2F2F2;
+}
+
+.c-product-table__img {
+  position: relative;
+}
+
+.c-product-table__img img {
+  max-width: 4.4rem;
+  max-height: 4.4rem;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transform-origin: left bottom;
+          transform-origin: left bottom;
+  -webkit-transition: -webkit-transform 150ms ease-in, -webkit-box-shadow 150ms ease-in;
+  transition: -webkit-transform 150ms ease-in, -webkit-box-shadow 150ms ease-in;
+  transition: transform 150ms ease-in, box-shadow 150ms ease-in;
+  transition: transform 150ms ease-in, box-shadow 150ms ease-in, -webkit-transform 150ms ease-in, -webkit-box-shadow 150ms ease-in;
+}
+
+.c-product-table__img img:hover {
+  -webkit-transform: scale(7);
+          transform: scale(7);
+  -webkit-box-shadow: 0 0 1.1rem 0 rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 1.1rem 0 rgba(0, 0, 0, 0.3);
+  -webkit-transition: -webkit-transform 150ms ease-out, -webkit-box-shadow 150ms ease-out;
+  transition: -webkit-transform 150ms ease-out, -webkit-box-shadow 150ms ease-out;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, -webkit-transform 150ms ease-out, -webkit-box-shadow 150ms ease-out;
+}
+
+.c-product-table__email {
+  text-align: right;
+}
+
+.c-product-table__email a {
+  display: inline-block;
+}
+
+.c-product-table__email a:after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  right: 0;
+  height: 5.5rem;
+  margin-top: -1.65rem;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(60%, #fff));
+  background: linear-gradient(to right, transparent, #fff 60%);
+  -webkit-transition: left 150ms ease-in;
+  transition: left 150ms ease-in;
+}
+
+.c-product-table__email a:hover:after {
+  left: 0;
+  -webkit-transition: left 150ms ease-out;
+  transition: left 150ms ease-out;
+}
+

@@ -110,7 +110,7 @@ ul,
 ol {
   list-style-position: inside;
   line-height: $leading;
-  padding-left: $leading;
+  padding-left: $grid-gutter-width-rem;
   margin-bottom: $leading;
   
   li {

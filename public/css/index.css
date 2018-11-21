@@ -148,6 +148,10 @@ caption {
   caption-side: bottom;
 }
 
+th {
+  text-align: inherit;
+}
+
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -370,6 +374,7 @@ html {
 .col-lg-17,
 .col-lg-18,
 .col-lg-24,
+.col-xl-5,
 .col-xl-6,
 .col-xl-7,
 .col-xl-8,
@@ -378,7 +383,9 @@ html {
 .col-xl-13,
 .col-xl-14,
 .col-xl-15,
-.col-xl-16 {
+.col-xl-16,
+.col-xl-19,
+.col-xl-24 {
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -712,6 +719,13 @@ html {
 
 @media (min-width: 1200px) {
 
+  .col-xl-5 {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 20.83333333%;
+            flex: 0 0 20.83333333%;
+    max-width: 20.83333333%;
+  }
+
   .col-xl-6 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 25%;
@@ -775,6 +789,26 @@ html {
     max-width: 66.66666667%;
   }
 
+  .col-xl-19 {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 79.16666667%;
+            flex: 0 0 79.16666667%;
+    max-width: 79.16666667%;
+  }
+
+  .col-xl-24 {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .order-xl-last {
+    -webkit-box-ordinal-group: 26;
+        -ms-flex-order: 25;
+            order: 25;
+  }
+
   .offset-xl-1 {
     margin-left: 4.16666667%;
   }
@@ -790,7 +824,8 @@ html {
  */
 
 
-.fas {
+.fas,
+.far {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block;
@@ -860,6 +895,10 @@ readers do not read off random characters that represent icons */
   content: "\F05A";
 }
 
+.fa-long-arrow-alt-up:before {
+  content: "\F30C";
+}
+
 .fa-map-marker-alt:before {
   content: "\F3C5";
 }
@@ -878,6 +917,10 @@ readers do not read off random characters that represent icons */
 
 .fa-search:before {
   content: "\F002";
+}
+
+.fa-search-plus:before {
+  content: "\F00E";
 }
 
 .fa-sign-out-alt:before {
@@ -899,6 +942,11 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
   src: url("/fonts/fa-regular-400.eot");
   src: url("/fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("/fonts/fa-regular-400.woff2") format("woff2"), url("/fonts/fa-regular-400.woff") format("woff"), url("/fonts/fa-regular-400.ttf") format("truetype"), url("/fonts/fa-regular-400.svg#fontawesome") format("svg");
+}
+
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
 }
 
 /*!
@@ -923,9 +971,23 @@ readers do not read off random characters that represent icons */
 html {
   font-size: 62.5%;
   height: 100%;
+  scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 100%;
   line-height: 2.2rem;
 }
@@ -1047,7 +1109,7 @@ a:visited:hover {
 ul {
   list-style-position: inside;
   line-height: 2.2rem;
-  padding-left: 2.2rem;
+  padding-left: 1.6rem;
   margin-bottom: 2.2rem;
 }
 
@@ -1314,16 +1376,6 @@ input[type='radio'].is-disabled + label:before {
 input[type='radio'].error + label:before,
 input[type='radio'].is-error + label:before {
   border-color: #a90101;
-}
-
-body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 .o-main {

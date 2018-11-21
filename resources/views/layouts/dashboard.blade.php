@@ -19,6 +19,7 @@
 	</head>
 
 	<body>
+		<div id="back-to-top"></div>
 		@include('partials.header-logged-in')
 
 		<main class="o-main">
@@ -37,7 +38,7 @@
 							</div>
 						</div>
 
-						{{-- Display company welcome message on only home dashboard --}}
+						{{-- Display company welcome message only on home dashboard --}}
 						@if (Route::currentRouteNamed('catalog'))
 							<div class="row">
 								<div class="col">

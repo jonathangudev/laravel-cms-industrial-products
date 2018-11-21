@@ -2,3 +2,82 @@
 // 
 // Styles for product table
 
+@import 'globals';
+
+$table-cell-height:						$leading * 2.5;
+$table-cell-padding-y:					$leading / 4;
+$table-cell-padding-x:					$grid-gutter-width-rem / 2;
+
+$table-img-size:						$leading * 2;
+
+
+.c-product-table {
+	$block: &;
+
+	table {
+		width: 100%;
+		background-color: $table-bg;
+		position: relative;
+	}
+
+	thead {
+		background-color: $table-header-bg;
+		border-bottom: $border-width solid $table-header-border-color;
+	}
+
+	th,
+	td {
+		padding: $table-cell-padding-y $table-cell-padding-x;
+	}
+
+	td {
+		border-bottom: $border-width solid $table-border-color;
+	}
+
+	&__img {
+		position: relative;
+
+		img {
+			max-width: $table-img-size;
+			max-height: $table-img-size;
+			box-shadow: none;
+			transform-origin: left bottom;
+			transition: transform $transition-duration-short ease-in,
+						box-shadow $transition-duration-short ease-in;
+
+			&:hover {
+				transform: scale(7);
+				box-shadow: $box-shadow;
+				transition: transform $transition-duration-short ease-out,
+							box-shadow $transition-duration-short ease-out;
+
+			}
+		}
+	}
+
+	&__email {
+		text-align: right;
+
+		a {
+			display: inline-block;
+			
+			&:after {
+				content: '';
+				position: absolute;
+				left: 100%;
+				right: 0;
+				height: $table-cell-height;
+				margin-top: -($table-cell-height - $leading) / 2;
+				background: linear-gradient(to right, transparent, $white 60%);
+				transition: left $transition-duration-short ease-in;
+			}
+
+			&:hover {
+				&:after {
+					left: 0;
+					transition: left $transition-duration-short ease-out;
+				}
+			}
+		}
+	}
+}

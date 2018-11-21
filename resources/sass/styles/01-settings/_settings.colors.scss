@@ -137,7 +137,11 @@ $panel-title-background-color:          $gray-1;
 // 
 // Colors for tables
 
-$table-header-bg:                       #efefef;
+$table-bg:								$white;
+$table-header-bg:                       $gray-1;
+
+$table-border-color:					$gray-1;
+$table-header-border-color:				$text-color;
 
 
 // Header

@@ -1,0 +1,27 @@
+// Product Jumps
+// 
+// Styles for product jump list
+
+@import 'globals';
+
+
+.c-product-jumps {
+	position: sticky;
+	top: $leading / 2;
+	z-index: 1;
+
+	&__group {
+		h5 {
+			margin-bottom: 0;
+		}
+	}
+
+	&__list {
+		list-style: none;
+		border-left: $border-width solid $border-color;
+	}
+
+	&__item {
+		margin-top: $leading / 4;
+	}
+}
