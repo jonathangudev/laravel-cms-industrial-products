@@ -21,8 +21,10 @@ $footer-link-font-size:           $h4-font-size;
 
   @include media-breakpoint-down(md) {
     padding-top: $footer-mobile-padding-y;
-  padding-bottom: $footer-mobile-padding-y;
+    padding-bottom: $footer-mobile-padding-y;
   }
+
+  @include apply-font-antialiasing($footer-color, $brand-secondary-color);
 
   h3 {
     color: inherit;

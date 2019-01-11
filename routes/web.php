@@ -50,3 +50,8 @@ Route::get('/catalog', 'CatalogController@index')->name('catalog');
 Route::get('/products', function () {
     return view('products');
 })->name('products');
+
+// Sample for building search results css
+Route::get('/search-results', function () {
+    return view('search-results');
+})->name('search-results');

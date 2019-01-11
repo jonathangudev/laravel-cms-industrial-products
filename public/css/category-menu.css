@@ -217,10 +217,15 @@
 
 .c-category-menu__background {
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
   opacity: 0;
   background: rgba(0, 0, 0, 0.7);
-  -webkit-transition: opacity 300ms linear;
-  transition: opacity 300ms linear;
+  -webkit-transition: opacity 300ms ease-in, visibility 0s linear 300ms;
+  transition: opacity 300ms ease-in, visibility 0s linear 300ms;
 }
 
 .c-category-menu.is-open {
@@ -230,10 +235,9 @@
 }
 
 .c-category-menu.is-open .c-category-menu__background {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  visibility: visible;
   opacity: 1;
+  -webkit-transition: opacity 300ms ease-out, visibility 0s linear;
+  transition: opacity 300ms ease-out, visibility 0s linear;
 }
 

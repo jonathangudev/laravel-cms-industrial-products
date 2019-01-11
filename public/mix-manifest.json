@@ -19,6 +19,8 @@
     "/css/contact.css": "/css/contact.css",
     "/css/products-services.css": "/css/products-services.css",
     "/css/auth.css": "/css/auth.css",
+    "/css/search-results.css": "/css/search-results.css",
+    "/js/sort-table.js": "/js/sort-table.js",
     "/js/category-menu-toggle.js": "/js/category-menu-toggle.js",
     "/js/category-menu-accordian.js": "/js/category-menu-accordian.js",
     "/js/alert-toggle.js": "/js/alert-toggle.js"

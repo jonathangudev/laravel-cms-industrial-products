@@ -11,6 +11,8 @@
 	padding-top: $header-height + ($leading * 4);
   padding-bottom: $leading * 3;
 
+  @include apply-font-antialiasing($white, $brand-secondary-color);
+
   @include media-breakpoint-down(md) {
     padding-top: $header-sm-height + ($leading * 3);
   }

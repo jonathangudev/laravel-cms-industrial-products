@@ -224,9 +224,15 @@ $category-menu-width:							30rem;
 
 	&__background {
 		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		visibility: hidden;
 		opacity: 0;
 		background: rgba(0, 0, 0, 0.7);
-		transition: opacity $transition-duration linear;
+		transition: opacity $transition-duration ease-in,
+					visibility 0s linear $transition-duration;
 	}
 
 	&.is-open {
@@ -234,11 +240,10 @@ $category-menu-width:							30rem;
 		box-shadow: $box-shadow;
 
 		#{$block}__background {
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
+			visibility: visible;
 			opacity: 1;
+			transition: opacity $transition-duration ease-out,
+						visibility 0s linear;
 		}
 	}
 }

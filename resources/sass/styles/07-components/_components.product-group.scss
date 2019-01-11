@@ -26,7 +26,7 @@ $product-group-padding-x:					$grid-gutter-width-rem;
 		padding: $product-group-padding-y $product-group-padding-x;
 		margin-bottom: $leading;
 		background-color: $gray-1;
-		z-index: 1;
+		z-index: 3;
 
 		@include media-breakpoint-down(sm) {
 			margin-left: -$grid-gutter-width-rem;
@@ -55,6 +55,7 @@ $product-group-padding-x:					$grid-gutter-width-rem;
 			border: $border-width solid $gray-1;
 			padding: $product-group-padding-y $product-group-padding-x;
 
+			&:focus,
 			&:hover {
 				text-decoration: none;
 				color: $brand-primary-color;

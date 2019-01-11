@@ -6,6 +6,13 @@
 	<link rel="preload" href="{{ mix('/css/panel.css') }}" as="style" type="text/css">
 @endpush
 
+@push('head-prefetch')
+	<link rel="prefetch" href="{{ mix('/css/product-group.css') }}">
+	<link rel="prefetch" href="{{ mix('/css/product-jumps.css') }}">
+	<link rel="prefetch" href="{{ mix('/css/product-table.css') }}">
+    <link rel="prefetch" href="{{ mix('/js/sort-table.js') }}">
+@endpush
+
 @section('content')
 	<div class="row">
 		<link rel="stylesheet" href="{{ mix('/css/panel.css') }}">

@@ -60,44 +60,75 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 24:
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(25);
+module.exports = __webpack_require__(29);
 
 
 /***/ }),
 
-/***/ 25:
+/***/ 29:
 /***/ (function(module, exports) {
 
-var elems = document.getElementsByClassName('js-category-menu-icon');
-for (var i = 0; i < elems.length; i++) {
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	// Give active item an iniital height so that it animates properly on the first collapse
-	if (elems[i].parentElement.parentElement.classList.contains('is-active')) {
-		var subList = elems[i].parentElement.nextElementSibling;
-		subList.style.height = subList.scrollHeight + 'px';
+// Attach event listeners to table headers
+var headers = document.getElementsByClassName('js-product-table-sortable-column');
+for (var i = 0; i < headers.length; i++) {
+	headers[i].addEventListener('click', sortTable);
+}
+
+function sortTable(event) {
+	var ASC = "asc";
+	var DESC = "desc";
+
+	var target = event.currentTarget;
+
+	// Get column index from clicked cell
+	var cellIndex = target.cellIndex;
+
+	// Swap sort order
+	var order = 1;
+	if (target.dataset.sort == ASC) {
+		order = -1;
+		target.dataset.sort = DESC;
+	} else {
+		order = 1;
+		target.dataset.sort = ASC;
 	}
 
-	// Attach event listeners for expanding/collapsing menu items
-	elems[i].addEventListener('click', function (event) {
-		var parentItem = event.currentTarget.parentElement.parentElement;
-		var subList = event.currentTarget.parentElement.nextElementSibling;
+	// Convert HTMLCollection to array for sorting
+	var table = target.parentElement.parentElement.parentElement;
+	var rows = [].concat(_toConsumableArray(table.tBodies[0].children));
 
-		if (parentItem.classList.contains('is-open')) {
-			parentItem.classList.remove('is-open');
-			subList.style.height = 0;
-		} else {
-			parentItem.classList.add('is-open');
-			subList.style.height = subList.scrollHeight + 'px';
+	// Sort rows
+	rows.sort(function (rowA, rowB) {
+		var dataA = rowA.children[cellIndex].innerText;
+		var dataB = rowB.children[cellIndex].innerText;
+
+		if (dataA < dataB) {
+			return -1 * order;
 		}
+
+		if (dataA > dataB) {
+			return 1 * order;
+		}
+
+		return 0;
 	});
+
+	// Add sorted nodes back to DOM
+	var parent = rows[0].parentElement;
+	for (var _i = 0; _i < rows.length; _i++) {
+		var detachedRow = parent.removeChild(rows[_i]);
+		parent.appendChild(detachedRow);
+	}
 }
 
 /***/ })
