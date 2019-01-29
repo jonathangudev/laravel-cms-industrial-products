@@ -4,6 +4,8 @@
   padding-bottom: 4.4rem;
   border-bottom: 0.2rem solid #FF0402;
   background: radial-gradient(circle farthest-corner at -75% 125%, #515151, #111);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @media (max-width: 991.98px) {

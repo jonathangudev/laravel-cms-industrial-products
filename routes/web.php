@@ -44,7 +44,7 @@ Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('ver
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 // Catalog Routes...
-Route::get('catalog', 'CatalogController@index')->name('catalog');
+Route::get('/catalog', 'CatalogController@index')->name('catalog');
 Route::get('catalog/asset/fake/{path?}', function ($path) {
     $client = new \GuzzleHttp\Client();
     $res = $client->request('GET', 'https://placekitten.com/' . $path);
@@ -57,3 +57,13 @@ Route::get(
     env('APP_BACKEND_PATH', '/nova') . '/emails/preview/welcome-user',
     'EmailPreviewController@getUserWelcomePreview'
 );
+
+// Sample for building product group css
+Route::get('/products', function () {
+    return view('products');
+})->name('products');
+
+// Sample for building search results css
+Route::get('/search-results', function () {
+    return view('search-results');
+})->name('search-results');

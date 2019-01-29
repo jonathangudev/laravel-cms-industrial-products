@@ -57,6 +57,7 @@ $about-stripe-width: 				15rem;
 	padding-bottom: $leading * 3;
 	margin-bottom: $leading * 4;
 
+	@include apply-font-antialiasing($white, $brand-secondary-color);
 
 	&:before,
 	&:after {

@@ -11,6 +11,8 @@
   background: url('/images/technical-drawing.svg') no-repeat left center;
   background-size: cover;
 
+  @include apply-font-antialiasing($white, $brand-secondary-color);
+
   &:after {
     content: '';
     background: $brand-secondary-gradient;

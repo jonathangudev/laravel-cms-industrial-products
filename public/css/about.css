@@ -44,6 +44,8 @@
   padding-top: 6.6rem;
   padding-bottom: 6.6rem;
   margin-bottom: 8.8rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .c-about-testimonial:before,

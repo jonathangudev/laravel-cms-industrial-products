@@ -4,6 +4,8 @@
   padding-top: 8.8rem;
   background: url("/images/technical-drawing.svg") no-repeat left center;
   background-size: cover;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .c-home-hero:after {

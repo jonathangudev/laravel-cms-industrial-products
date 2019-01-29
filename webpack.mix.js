@@ -16,6 +16,7 @@ mix.js('resources/js/menu-toggle.js', 'public/js')
    .js('resources/js/category-menu-toggle.js', 'public/js')
    .js('resources/js/category-menu-accordian.js', 'public/js')
    .js('resources/js/alert-toggle.js', 'public/js')
+   .js('resources/js/sort-table.js', 'public/js')
    .sass('resources/sass/index.scss', 'public/css')
    .sass('resources/sass/styles/07-components/_components.buttons.scss', 'public/css/buttons.css')
    .sass('resources/sass/styles/07-components/_components.section.scss', 'public/css/section.css')
@@ -27,14 +28,17 @@ mix.js('resources/js/menu-toggle.js', 'public/js')
    .sass('resources/sass/styles/07-components/_components.footer.scss', 'public/css/footer.css')
    .sass('resources/sass/styles/07-components/_components.subheader.scss', 'public/css/subheader.css')
    .sass('resources/sass/styles/07-components/_components.category-menu.scss', 'public/css/category-menu.css')
+   .sass('resources/sass/styles/07-components/_components.product-group.scss', 'public/css/product-group.css')
+   .sass('resources/sass/styles/07-components/_components.product-table.scss', 'public/css/product-table.css')
+   .sass('resources/sass/styles/07-components/_components.product-jumps.scss', 'public/css/product-jumps.css')
    .sass('resources/sass/styles/07-components/_components.home.scss', 'public/css/home.css')
    .sass('resources/sass/styles/07-components/_components.about.scss', 'public/css/about.css')
    .sass('resources/sass/styles/07-components/_components.contact.scss', 'public/css/contact.css')
    .sass('resources/sass/styles/07-components/_components.products-services.scss', 'public/css/products-services.css')
    .sass('resources/sass/styles/07-components/_components.auth.scss', 'public/css/auth.css')
+   .sass('resources/sass/styles/07-components/_components.search-results.scss', 'public/css/search-results.css')
    .purgeCss({
-       enabled: true,
-       whitelist: ['c-alert']
+       enabled: true
    })
    .copyDirectory('resources/fonts/fontawesome', 'public/fonts');
 

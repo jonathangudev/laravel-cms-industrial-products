@@ -42,6 +42,7 @@ $btn-transition:              color $transition-duration-short ease-in-out,
   text-transform: uppercase;
   box-shadow: none;
   cursor: pointer;
+  touch-action: manipulation;
   transition: $btn-transition;
 
   &:focus,

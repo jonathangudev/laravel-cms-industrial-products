@@ -7,8 +7,8 @@
 {{-- Preloads --}}
 <link rel="preload" href="{{ mix('/css/index.css') }}" as="style" type="text/css">
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i,600,700" as="style" type="text/css">
-<link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 <link rel="preload" href="{{ asset('fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 {{-- <link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous"> --}}
 @stack('head-preload')
 

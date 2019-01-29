@@ -14,10 +14,10 @@ $black:                           #000;
 //
 // Brand Colors
 
-$brand-primary-color:				#FF0402;
+$brand-primary-color:				  #FF0402;
 $brand-primary-gradient:			linear-gradient(to top right, darken($brand-primary-color, 10%), $brand-primary-color);
 
-$brand-secondary-color:				#111;
+$brand-secondary-color:				 #111;
 $brand-secondary-gradient:			radial-gradient(circle farthest-corner at -75% 125%, lighten($brand-secondary-color, 25%), $brand-secondary-color);
 $brand-subheader-gradient:			radial-gradient(circle farthest-corner at -75% 125%, rgba(lighten($brand-secondary-color, 25%), 0.9), $brand-secondary-color);
 
@@ -26,7 +26,7 @@ $brand-subheader-gradient:			radial-gradient(circle farthest-corner at -75% 125%
 //
 // Contextual Colors
 
-$info-color:             	      #0153a6;
+$info-color:             	        #0153a6;
 $success-color:                   #55a901;
 $warning-color:                   #e67401;
 $danger-color:                    #a90101;
@@ -137,15 +137,21 @@ $panel-title-background-color:          $gray-1;
 // 
 // Colors for tables
 
-$table-header-bg:                       #efefef;
+$table-bg:								              $white;
+$table-header-bg:                       $gray-1;
+
+$table-border-color:					          $gray-1;
+$table-header-border-color:				      $text-color;
 
 
 // Header
 // 
 // Colors for Header
 
-$header-logged-out-link-color:         $white;
-$header-logged-in-link-color:          $text-color;
+$header-logged-in-bg:					          $white;
+
+$header-logged-out-link-color:          $white;
+$header-logged-in-link-color:           $text-color;
 
 $header-border-color:                   $brand-primary-color;
 $header-menu-background:                $brand-secondary-gradient;

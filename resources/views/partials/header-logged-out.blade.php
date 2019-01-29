@@ -35,7 +35,7 @@
                                     @guest
                                         <li class="c-header__item "><a href="{{ route('login') }}" class="c-btn c-btn--primary">{{ __('Log In') }}</a></li>
                                     @else
-                                        <li class="c-header__item "><a href="{{ route('catalog') }}" class="c-btn c-btn--primary">{{ __('Log In') }}</a></li>
+                                        <li class="c-header__item "><a href="{{ route('catalog') }}" class="c-btn c-btn--primary">{{ __('Catalog') }}</a></li>
                                     @endguest
                                     <li class="c-header__item d-block d-lg-none">
                                         <button id="js-header-menu-btn-open" type="button" class="c-btn c-header__menu-btn" aria-label="Open Menu">
