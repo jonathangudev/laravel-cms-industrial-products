@@ -15,11 +15,12 @@
         "jmp/company-manager": "*",
         "jmp/product-attribute-manager": "*",
         "laravel/framework": "5.7.*",
-        "laravel/nova": "^1.0@dev",
+        "laravel/nova": "*",
         "laravel/tinker": "^1.0",
         "spatie/laravel-permission": "^2.25",
         "spatie/nova-tail-tool": "^1.0",
-        "vyuldashev/nova-permission": "^1.4"
+        "vyuldashev/nova-permission": "^1.4",
+        "jmp/product-category-manager": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -45,6 +46,10 @@
         {
             "type": "path",
             "url": "./nova-components/CompanyManager"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ProductCategoryManager"
         }
     ],
     "autoload": {

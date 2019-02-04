@@ -1,5 +1,6 @@
 <?php
 
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 | are loaded by the ServiceProvider of your tool. They are protected
 | by your tool's "Authorize" middleware by default. Now, go build!
 |
-*/
+ */
 
-// Route::get('/endpoint', function (Request $request) {
-//     //
-// });
+Route::get('/companies', function (Request $request) {
+    $companies = Company::all();
+
+    return response()->json($companies);
+});

@@ -30,6 +30,20 @@ class Action implements JsonSerializable
     public $availableForEntireResource = false;
 
     /**
+     * Determine where the action redirection should be without confirmation.
+     *
+     * @var bool
+     */
+    public $withoutConfirmation = false;
+
+    /**
+     * Indicates if this action is only available on the resource detail view.
+     *
+     * @var bool
+     */
+    public $onlyOnIndex = false;
+
+    /**
      * Indicates if this action is only available on the resource detail view.
      *
      * @var bool
@@ -225,6 +239,20 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Indicate that this action is only available on the resource index view.
+     *
+     * @param  bool  $value
+     * @return $this
+     */
+    public function onlyOnIndex($value = true)
+    {
+        $this->onlyOnIndex = $value;
+        $this->onlyOnDetail = ! $value;
+
+        return $this;
+    }
+
+    /**
      * Indicate that this action is only available on the resource detail view.
      *
      * @param  bool  $value
@@ -233,6 +261,7 @@ class Action implements JsonSerializable
     public function onlyOnDetail($value = true)
     {
         $this->onlyOnDetail = $value;
+        $this->onlyOnIndex = ! $value;
 
         return $this;
     }
@@ -297,6 +326,18 @@ class Action implements JsonSerializable
     }
 
     /**
+     * Set the action to execute instantly.
+     *
+     * @return string
+     */
+    public function withoutConfirmation()
+    {
+        $this->withoutConfirmation = true;
+
+        return $this;
+    }
+
+    /**
      * Prepare the action for JSON serialization.
      *
      * @return array
@@ -312,6 +353,8 @@ class Action implements JsonSerializable
             })->all(),
             'availableForEntireResource' => $this->availableForEntireResource,
             'onlyOnDetail' => $this->onlyOnDetail,
+            'onlyOnIndex' => $this->onlyOnIndex,
+            'withoutConfirmation' => $this->withoutConfirmation,
         ];
     }
 }

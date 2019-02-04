@@ -32,10 +32,7 @@
 
                             <div
                                 slot="option"
-                                slot-scope="{
-                                    option,
-                                    selected,
-                                }"
+                                slot-scope="{ option, selected }"
                                 class="flex items-center"
                             >
                                 <div v-if="option.avatar" class="mr-3">
@@ -96,17 +93,24 @@
 
                 <!-- Attach Button -->
                 <div class="bg-30 flex px-8 py-4">
-                    <button
+                    <progress-button
+                        class="ml-auto mr-3"
                         dusk="attach-and-attach-another-button"
-                        type="button" @click="attachAndAttachAnother"
-                        class="ml-auto btn btn-default btn-primary mr-3"
+                        @click.native="attachAndAttachAnother"
+                        :disabled="isWorking"
+                        :processing="submittedViaAttachAndAttachAnother"
                     >
-                        {{__('Attach & Attach Another')}}
-                    </button>
+                        {{ __('Attach & Attach Another') }}
+                    </progress-button>
 
-                    <button dusk="attach-button" class="btn btn-default btn-primary">
+                    <progress-button
+                        dusk="attach-button"
+                        type="submit"
+                        :disabled="isWorking"
+                        :processing="submittedViaAttachResource"
+                    >
                         {{ __('Attach') }} {{ relatedResourceLabel }}
-                    </button>
+                    </progress-button>
                 </div>
             </form>
         </card>
@@ -147,6 +151,8 @@ export default {
 
     data: () => ({
         loading: true,
+        submittedViaAttachAndAttachAnother: false,
+        submittedViaAttachResource: false,
         field: null,
         softDeletes: false,
         fields: [],
@@ -154,6 +160,10 @@ export default {
         selectedResource: null,
         selectedResourceId: null,
     }),
+
+    created() {
+        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' })
+    },
 
     /**
      * Mount the component.
@@ -257,8 +267,12 @@ export default {
          * Attach the selected resource.
          */
         async attachResource() {
+            this.submittedViaAttachResource = true
+
             try {
                 await this.attachRequest()
+
+                this.submittedViaAttachResource = false
 
                 this.$router.push({
                     name: 'detail',
@@ -268,6 +282,8 @@ export default {
                     },
                 })
             } catch (error) {
+                this.submittedViaAttachResource = false
+
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
                 }
@@ -278,12 +294,18 @@ export default {
          * Attach a new resource and reset the form
          */
         async attachAndAttachAnother() {
+            this.submittedViaAttachAndAttachAnother = true
+
             try {
                 await this.attachRequest()
+
+                this.submittedViaAttachAndAttachAnother = false
 
                 // Reset the form by refetching the fields
                 this.initializeComponent()
             } catch (error) {
+                this.submittedViaAttachAndAttachAnother = false
+
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
                 }
@@ -382,6 +404,13 @@ export default {
          */
         isSearchable() {
             return this.field.searchable
+        },
+
+        /**
+         * Determine if the form is being processed
+         */
+        isWorking() {
+            return this.submittedViaAttachResource || this.submittedViaAttachAndAttachAnother
         },
     },
 }

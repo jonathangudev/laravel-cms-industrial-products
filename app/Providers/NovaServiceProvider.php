@@ -21,6 +21,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::style('jmp-theme', asset('css/admin.css'));
     }
 
     /**

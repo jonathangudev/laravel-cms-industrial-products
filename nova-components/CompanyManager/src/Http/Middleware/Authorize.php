@@ -2,7 +2,7 @@
 
 namespace Jmp\CompanyManager\Http\Middleware;
 
-use Jmp\CompanyManager\CompanyManager;
+use Jmp\CompanyManager\CompanyManagerTool;
 
 class Authorize
 {
@@ -15,6 +15,6 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        return resolve(CompanyManager::class)->authorize($request) ? $next($request) : abort(403);
+        return resolve(CompanyManagerTool::class)->authorize($request) ? $next($request) : abort(403);
     }
 }
