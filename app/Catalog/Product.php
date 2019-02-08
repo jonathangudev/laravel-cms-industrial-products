@@ -55,4 +55,14 @@ class Product extends Model
     {
         return $this->hasMany(AttributeValue::class);
     }
+
+    /**
+     * Get the categories for the product.
+     *
+     * @return App\Catalog\Category
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'catalog_category__catalog_product');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Catalog;
 
+use App\Catalog\Category;
 use App\Catalog\Product;
 use App\Catalog\ProductType;
 use App\Catalog\Product\AttributeSet;
@@ -113,5 +114,26 @@ class ProductTest extends TestCase
 
         $this->assertEquals($attributeCount, count($attributes));
         $this->assertInstanceOf(Collection::class, $attributes);
+    }
+
+    /**
+     * Test that a catalog product can get its related categories
+     *
+     * @return  void
+     */
+    public function testItCanGetCategoriesFromAProduct()
+    {
+        $product = factory(Product::class)->create();
+
+        $categoryCount = rand(3, 12);
+
+        for ($i = 0; $i < $categoryCount; $i++) {
+            factory(Category::class)->create()->products()->attach($product);
+        }
+
+        $categories = $product->categories;
+
+        $this->assertInstanceOf(Collection::class, $categories);
+        $this->assertEquals($categoryCount, $categories->count());
     }
 }

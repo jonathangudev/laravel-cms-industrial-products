@@ -50,6 +50,16 @@ class Company extends Model
     }
 
     /**
+     * Get the categories for the company.
+     *
+     * @return App\Catalog\Category
+     */
+    public function categories()
+    {
+        return $this->hasMany(Catalog\Category::class);
+    }
+
+    /**
      * Get the users for the company.
      *
      * @return App\Company\User

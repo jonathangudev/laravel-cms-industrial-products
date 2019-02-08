@@ -17,7 +17,7 @@ class User extends AppUser
     /**
      * Get the company that owns the user.
      *
-     * @return App\Company\User
+     * @return App\Company
      */
     public function company()
     {

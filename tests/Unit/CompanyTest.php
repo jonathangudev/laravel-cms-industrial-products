@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Catalog\Category;
 use App\Company;
 use App\Company\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -57,5 +58,25 @@ class CompanyTest extends TestCase
         $this->assertEquals($uuidOriginal, $uuidAccessor);
         $this->assertEquals($uuidOriginal, $uuidMutator);
         $this->assertEquals($uuidAccessor, $uuidMutator);
+    }
+
+    /**
+     * Test that a company can get its related categories
+     *
+     * @return  void
+     */
+    public function testItCanGetCategoriesFromACompany()
+    {
+        $company = factory(Company::class)->create();
+        $categoryCount = rand(3, 12);
+
+        for ($i = 0; $i < $categoryCount; $i++) {
+            factory(Category::class)->create(['company_id' => $company->id]);
+        }
+
+        $categories = $company->categories;
+
+        $this->assertEquals($categoryCount, count($categories));
+        $this->assertInstanceOf(Collection::class, $categories);
     }
 }
