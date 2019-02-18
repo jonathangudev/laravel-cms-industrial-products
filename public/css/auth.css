@@ -1,1 +1,54 @@
-.c-auth__logo{padding-top:4.4rem;margin-bottom:2.2rem}@media (max-width:767.98px){.c-auth__logo{text-align:center;padding-top:2.2rem;margin-bottom:3.3rem}}.c-auth__logo img{max-width:100%;height:5.5rem}@media (max-width:767.98px){.c-auth__content{margin-bottom:4.4rem}}@media (max-width:767.98px){.c-auth__links{margin-bottom:2.2rem}.c-auth__links p{margin-bottom:.55rem}}.c-auth__background{position:relative;min-height:100vh;height:100%;margin-right:-16px;background:url("/images/technical-drawing.svg") no-repeat 0;background-size:cover}.c-auth__background:after{content:"";background:radial-gradient(circle farthest-corner at -75% 125%,#515151,#111);position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1}
+.c-auth__logo {
+  padding-top: 4.4rem;
+  margin-bottom: 2.2rem;
+}
+
+@media (max-width: 767.98px) {
+  .c-auth__logo {
+    text-align: center;
+    padding-top: 2.2rem;
+    margin-bottom: 3.3rem;
+  }
+}
+
+.c-auth__logo img {
+  max-width: 100%;
+  height: 5.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .c-auth__content {
+    margin-bottom: 4.4rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .c-auth__links {
+    margin-bottom: 2.2rem;
+  }
+
+  .c-auth__links p {
+    margin-bottom: 0.55rem;
+  }
+}
+
+.c-auth__background {
+  position: relative;
+  min-height: 100vh;
+  height: 100%;
+  margin-right: -16px;
+  background: url("/images/technical-drawing.svg") no-repeat left center;
+  background-size: cover;
+}
+
+.c-auth__background:after {
+  content: '';
+  background: radial-gradient(circle farthest-corner at -75% 125%, #515151, #111);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
