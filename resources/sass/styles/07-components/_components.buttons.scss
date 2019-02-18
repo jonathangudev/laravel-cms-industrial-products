@@ -1,0 +1,123 @@
+// Buttons
+//
+// Styles for buttons
+
+@import 'globals';
+
+// Variables
+$btn-font-weight:                     $font-weight-bold;
+
+$btn-font-size:                       $font-size-base;
+
+$btn-border-radius:                   999px;
+$btn-border-width:                    $border-width * 2;
+
+$btn-height:                          $leading * 1.5; // Intended height
+$btn-padding-y:                       ($btn-height - $leading) / 2;
+$btn-padding-x:                       $grid-gutter-width-rem * 2;
+
+// sass-lint:disable indentation
+$btn-transition:              color $transition-duration-short ease-in-out,
+                              opacity $transition-duration-short ease-in-out,
+                              background-color $transition-duration-short ease-in-out,
+                              border-color $transition-duration-short ease-in-out;
+// sass-lint:enable indentation
+
+
+// Classes
+.c-btn {
+  $block: &;
+
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  font-size: $btn-font-size;
+  padding: $btn-padding-y $btn-padding-x;
+  border-radius: $btn-border-radius;
+  border: none;
+  background: none;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: $btn-transition;
+
+  &:focus,
+  &:hover {
+    outline: 0;
+    text-decoration: none;
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
+  // Primary
+  &--primary {
+    color: $btn-primary-color;
+    background: linear-gradient(to top right, $btn-primary-hover-bg, transparent);
+    background-color: $btn-primary-bg;
+    @include apply-font-antialiasing($btn-primary-color, $btn-primary-bg);
+
+    &:focus,
+    &:hover {
+      color: $btn-primary-hover-color;
+      background-color: $btn-primary-hover-bg;
+    }
+
+    &:visited {
+      color: $btn-primary-color;
+
+      &:focus,
+      &:hover {
+        color: $btn-primary-hover-color;
+      }
+    }
+  }
+
+  // Ghost
+  &--ghost {
+    background: none;
+    box-shadow: none;
+    padding-top: $btn-padding-y - ($btn-border-width / 2);
+    padding-bottom: $btn-padding-y - ($btn-border-width / 2);
+
+    &:focus,
+    &:hover {
+      background: none;
+      box-shadow: none;
+    }
+
+    // Primary
+    &#{$block}--primary {
+      color: $btn-ghost-color;
+      border: $btn-border-width solid $btn-ghost-border;
+
+      &:focus,
+      &:hover {
+        color: $btn-ghost-hover-color;
+        border-color: $btn-ghost-hover-border;
+      }
+    }
+
+    // Reverse Ghost Button
+    &#{$block}--reverse {
+      color: $white;
+
+      &:focus,
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  // Disabled
+  @include disabled {
+    opacity: $disabled-opacity;
+    pointer-events: none;
+  }
+}

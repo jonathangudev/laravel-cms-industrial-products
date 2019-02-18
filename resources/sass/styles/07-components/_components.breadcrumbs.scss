@@ -1,0 +1,43 @@
+// Breadcrumbs
+// 
+// Styles for breadbrumbs
+
+@import 'globals';
+
+// Variables
+$breadcrumb-seperator:            '>';
+
+$breadcrumb-margin:         $grid-gutter-width-rem / 2;
+
+
+.c-breadcrumbs {
+  $block: &;
+
+  margin-top: $leading;
+  margin-bottom: $leading;
+
+  &__list {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-block;
+    margin-right: $breadcrumb-margin;
+
+    &:after {
+      content: $breadcrumb-seperator;
+      color: $text-color;
+      margin-left: $breadcrumb-margin;
+    }
+
+    &:last-child {
+      margin-right: 0;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\TrashedStatus;
 use Laravel\Nova\Rules\Relatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Http\Requests\ResourceIndexRequest;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class BelongsTo extends Field
 {
@@ -55,6 +57,13 @@ class BelongsTo extends Field
     public $display;
 
     /**
+     * Indicates if the field is nullable.
+     *
+     * @var bool
+     */
+    public $nullable = false;
+
+    /**
      * Indicates if this relationship is searchable.
      *
      * @var bool
@@ -74,6 +83,20 @@ class BelongsTo extends Field
      * @var string
      */
     public $inverse;
+
+    /**
+     * The displayable singular label of the relation.
+     *
+     * @var string
+     */
+    public $singularLabel;
+
+    /**
+     * The reverse relation for the related resource.
+     *
+     * @var string
+     */
+    public $reverseRelation;
 
     /**
      * Create a new field.
@@ -117,8 +140,58 @@ class BelongsTo extends Field
      */
     public function isNotRedundant(Request $request)
     {
-        return (! $request->isMethod('GET') || ! $request->viaResource) ||
-               ($this->resourceName !== $request->viaResource);
+        return ! $request instanceof ResourceIndexRequest || ! $this->isReverseRelation($request);
+    }
+
+    /**
+     * Determine if the field is the reverse relation of a showed index view.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return bool
+     */
+    public function isReverseRelation(Request $request)
+    {
+        if (! $request->viaResource || $this->resourceName !== $request->viaResource) {
+            return false;
+        }
+
+        $reverse = $this->getReverseRelation($request);
+
+        return $reverse === $request->viaRelationship;
+    }
+
+    /**
+     * Get reverse relation field name.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return string
+     */
+    public function getReverseRelation(NovaRequest $request)
+    {
+        if (is_null($this->reverseRelation)) {
+            $viaModel = forward_static_call(
+                [$resourceClass = $this->resourceClass, 'newModel']
+            );
+
+            $viaResource = new $resourceClass($viaModel);
+
+            $resource = $request->newResource();
+
+            $this->reverseRelation = $viaResource->availableFields($request)
+                    ->first(function ($field) use ($viaModel, $resource) {
+                        if (! isset($field->resourceName) || $field->resourceName !== $resource::uriKey()) {
+                            return false;
+                        }
+
+                        $relation = $viaModel->{$field->attribute}();
+
+                        $method = $relation instanceof HasOneOrMany ? 'getForeignKeyName' : 'getForeignKey';
+
+                        return $relation->{$method}() === $resource->model()->{$this->attribute}()->getForeignKey();
+                    })->attribute ?? '';
+        }
+
+        return $this->reverseRelation;
     }
 
     /**
@@ -152,7 +225,10 @@ class BelongsTo extends Field
         );
 
         return array_merge_recursive(parent::getRules($request), [
-            $this->attribute => [new Relatable($request, $query)],
+            $this->attribute => array_filter([
+                $this->nullable ? 'nullable' : 'required',
+                new Relatable($request, $query),
+            ]),
         ]);
     }
 
@@ -283,6 +359,31 @@ class BelongsTo extends Field
     }
 
     /**
+     * Indicate that the field should be nullable.
+     *
+     * @param  bool  $nullable
+     * @return $this
+     */
+    public function nullable($nullable = true)
+    {
+        $this->nullable = $nullable;
+
+        return $this;
+    }
+
+    /**
+     * Set the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public function singularLabel($singularLabel)
+    {
+        $this->singularLabel = $singularLabel;
+
+        return $this;
+    }
+
+    /**
      * Get additional meta information to merge with the field payload.
      *
      * @return array
@@ -292,10 +393,12 @@ class BelongsTo extends Field
         return array_merge([
             'resourceName' => $this->resourceName,
             'label' => forward_static_call([$this->resourceClass, 'label']),
-            'singularLabel' => forward_static_call([$this->resourceClass, 'singularLabel']),
+            'singularLabel' => $this->singularLabel ?? $this->name ?? forward_static_call([$this->resourceClass, 'singularLabel']),
             'belongsToRelationship' => $this->belongsToRelationship,
             'belongsToId' => $this->belongsToId,
+            'nullable' => $this->nullable,
             'searchable' => $this->searchable,
+            'reverseRelation' => $this->getReverseRelation(app(NovaRequest::class)),
         ], $this->meta);
     }
 }

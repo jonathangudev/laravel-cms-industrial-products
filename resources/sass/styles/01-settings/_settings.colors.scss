@@ -1,0 +1,168 @@
+// Grays
+//
+// 
+
+$white:                           #fff;
+$gray-1:                          #F2F2F2;
+$gray-2:                          #DBDBDB;
+$gray-3:                          #CACACA;
+$gray-4:                          #777;
+$gray-5:                          #333;
+$black:                           #000;
+
+// Brand
+//
+// Brand Colors
+
+$brand-primary-color:				  #FF0402;
+$brand-primary-gradient:			linear-gradient(to top right, darken($brand-primary-color, 10%), $brand-primary-color);
+
+$brand-secondary-color:				 #111;
+$brand-secondary-gradient:			radial-gradient(circle farthest-corner at -75% 125%, lighten($brand-secondary-color, 25%), $brand-secondary-color);
+$brand-subheader-gradient:			radial-gradient(circle farthest-corner at -75% 125%, rgba(lighten($brand-secondary-color, 25%), 0.9), $brand-secondary-color);
+
+
+// Contextual
+//
+// Contextual Colors
+
+$info-color:             	        #0153a6;
+$success-color:                   #55a901;
+$warning-color:                   #e67401;
+$danger-color:                    #a90101;
+
+
+// Typography
+//
+// Heading and text colors
+
+$headings-color:            $gray-5;
+
+$text-color:                $gray-5;
+
+$text-muted-color:          $gray-4;
+$text-muted:                $text-muted-color; // For Bootstrap Utilities
+
+
+// Body
+//
+// Body Colors
+
+$body-bg:                   $white;
+$body-color:                $text-color;
+
+
+// Links
+//
+// Hyperlink colors
+
+$link-color:                $brand-primary-color;
+$link-hover-color:          darken($brand-primary-color, 15%);
+$link-visited-color:        $brand-primary-color;
+
+
+// Utilities
+//
+// General component colors
+
+$border-color:                    $gray-2;
+$box-shadow-color:                $black;
+
+
+// Inputs
+// 
+// General input colors
+
+$input-color:                           $text-color;
+$input-placeholder-color:               rgba($text-color, 0.8);
+
+$input-reverse-color:                   $white;
+$input-reverse-placeholder-color:       rgba($white, 0.6);
+
+$input-bg:                              rgba($brand-secondary-color, 0.05);
+$input-hover-bg:                        rgba($brand-secondary-color, 0.15);;
+
+$input-reverse-bg:                      rgba($white, 0.10);
+$input-reverse-hover-bg:                rgba($white, 0.20);;
+
+$input-border-color:                    $gray-5;
+$input-focus-border-color:              $input-border-color;
+$input-hover-border-color:              $input-border-color;
+
+$input-reverse-border-color:            $white;
+$input-reverse-focus-border-color:      $input-reverse-border-color;
+$input-reverse-hover-border-color:      $input-reverse-border-color;
+
+$checkbox-radio-color:                  $white;
+$checkbox-radio-bg:                     $white;
+$checkbox-radio-border-color:           $input-border-color;
+$checkbox-radio-selected-bg:            $brand-primary-color;
+
+$disabled-input-color:                  $text-muted-color;
+$disabled-input-bg:                     $input-hover-bg;
+
+$disabled-reverse-input-color:          $input-reverse-placeholder-color;
+$disabled-reverse-input-bg:             $input-reverse-hover-bg;
+
+
+// Buttons
+// 
+// Button colors
+
+// Primary
+$btn-primary-color:                   $white;
+$btn-primary-hover-color:             $btn-primary-color;
+
+$btn-primary-bg:                      $brand-primary-color;
+$btn-primary-hover-bg:                darken($brand-primary-color, 10%);
+
+// Ghost
+$btn-ghost-color:                     $text-color;
+$btn-ghost-hover-color:               $btn-ghost-color;
+
+$btn-ghost-border:                    $brand-primary-color;
+$btn-ghost-hover-border:              darken($brand-primary-color, 10%);
+
+
+// Panel
+//
+// Colors for Panel
+
+$panel-border-color:                    $gray-1;
+$panel-background-color:                $white;
+$panel-title-background-color:          $gray-1;
+
+
+// Tables
+// 
+// Colors for tables
+
+$table-bg:								              $white;
+$table-header-bg:                       $gray-1;
+
+$table-border-color:					          $gray-1;
+$table-header-border-color:				      $text-color;
+
+
+// Header
+// 
+// Colors for Header
+
+$header-logged-in-bg:					          $white;
+
+$header-logged-out-link-color:          $white;
+$header-logged-in-link-color:           $text-color;
+
+$header-border-color:                   $brand-primary-color;
+$header-menu-background:                $brand-secondary-gradient;
+
+
+// Footer
+// 
+// Colors for Footer
+
+$footer-background:                     $brand-secondary-gradient;
+$footer-border-color:                   $brand-primary-color;
+
+$footer-color:                          $white;
+$footer-hover-color:                    $brand-primary-color;

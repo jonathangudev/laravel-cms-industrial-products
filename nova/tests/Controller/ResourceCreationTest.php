@@ -7,6 +7,7 @@ use Laravel\Nova\Tests\Fixtures\Post;
 use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\IntegrationTest;
 use Laravel\Nova\Tests\Fixtures\Address;
+use Laravel\Nova\Tests\Fixtures\CustomKey;
 use Laravel\Nova\Tests\Fixtures\UserPolicy;
 
 class ResourceCreationTest extends IntegrationTest
@@ -32,6 +33,33 @@ class ResourceCreationTest extends IntegrationTest
         $user = User::first();
         $this->assertEquals('Taylor Otwell', $user->name);
         $this->assertEquals('taylor@laravel.com', $user->email);
+    }
+
+    public function test_can_return_custom_pk()
+    {
+        $response = $this->withExceptionHandling()
+            ->postJson('/nova-api/custom-keys', [
+            ]);
+
+        $response->assertStatus(201);
+
+        $model = CustomKey::first();
+
+        $this->assertEquals($model->pk, $response->getData()->id);
+    }
+
+    public function test_can_create_resources_with_null_relation()
+    {
+        $response = $this->withExceptionHandling()
+                        ->postJson('/nova-api/posts', [
+                            'title' => 'Test Post',
+                        ]);
+
+        $response->assertStatus(201);
+
+        $post = Post::first();
+
+        $this->assertNull($post->user_id);
     }
 
     public function test_can_create_resource_fields_that_arent_authorized()
@@ -242,5 +270,19 @@ class ResourceCreationTest extends IntegrationTest
                         ]);
 
         $response->assertStatus(422);
+    }
+
+    public function test_related_resource_should_be_able_to_be_updated_even_when_full()
+    {
+        $user = factory(User::class)->create();
+        $user->address()->save($address = factory(Address::class)->make());
+
+        $response = $this->withExceptionHandling()
+                        ->putJson('/nova-api/addresses/'.$address->id.'?viaResource=users&viaResourceId=1&viaRelationship=address', [
+                            'user' => $user->id,
+                            'name' => 'Fake Name',
+                        ]);
+
+        $response->assertStatus(200);
     }
 }

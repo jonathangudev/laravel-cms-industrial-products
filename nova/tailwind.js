@@ -115,7 +115,7 @@ module.exports = {
 
     borderColors: global.Object.assign(
         {
-            default: colors['grey-light'],
+            default: colors['black'],
         },
         colors
     ),
@@ -162,6 +162,8 @@ module.exports = {
         full: '100%',
         screen: '100vw',
         error: '65rem',
+        action: '460px',
+        'action-fields': '767px',
     },
 
     height: {
@@ -174,6 +176,7 @@ module.exports = {
         '4': '1rem',
         '6': '1.5rem',
         '8': '2rem',
+        'dropdown-trigger': '2.25rem',
         '9': '2.25rem',
         // '10': '2.5rem',
         '12': '3rem',
@@ -198,7 +201,7 @@ module.exports = {
 
     minHeight: {
         '0': '0',
-        textarea: '8.375rem',
+        textarea: '4.875rem',
         full: '100%',
         screen: '100vh',
     },
@@ -321,6 +324,7 @@ module.exports = {
         minWidth: ['responsive'],
         negativeMargin: ['responsive'],
         opacity: ['responsive'],
+        outline: ['focus'],
         overflow: ['responsive'],
         padding: ['responsive'],
         pointerEvents: ['responsive'],

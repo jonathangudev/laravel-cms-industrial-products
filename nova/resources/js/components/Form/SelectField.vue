@@ -1,5 +1,5 @@
 <template>
-    <default-field :field="field">
+    <default-field :field="field" :errors="errors">
         <template slot="field">
             <select
                 :id="field.attribute"
@@ -7,9 +7,7 @@
                 class="w-full form-control form-select"
                 :class="errorClasses"
             >
-                <option value="" selected disabled>
-                    {{__('Choose an option')}}
-                </option>
+                <option value="" selected>{{ __('Choose an option') }}</option>
 
                 <option
                     v-for="option in field.options"
@@ -19,10 +17,6 @@
                     {{ option.label }}
                 </option>
             </select>
-
-            <p v-if="hasError" class="my-2 text-danger">
-                {{ firstError }}
-            </p>
         </template>
     </default-field>
 </template>

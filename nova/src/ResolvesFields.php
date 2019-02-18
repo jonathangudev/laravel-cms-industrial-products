@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova;
 
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\MorphTo;
 use Illuminate\Support\Collection;
@@ -32,8 +33,14 @@ trait ResolvesFields
                    ! $field->showOnIndex ||
                    ! $field->authorize($request);
         })->each(function ($field) use ($request) {
-            if ($field instanceof Resolvable) {
+            if ($field instanceof Resolvable && ! $field->pivot) {
                 $field->resolveForDisplay($this->resource);
+            }
+
+            if ($field instanceof Resolvable && $field->pivot) {
+                $accessor = $this->pivotAccessorFor($request, $request->viaResource);
+
+                $field->resolveForDisplay($this->{$accessor} ?? new Pivot);
             }
         });
     }
@@ -49,10 +56,15 @@ trait ResolvesFields
         return $this->resolveFields($request)->reject(function ($field) use ($request) {
             return ! $field->showOnDetail || ! $field->authorize($request);
         })->when(in_array(Actionable::class, class_uses_recursive(static::newModel())), function ($fields) {
-            return $fields->push(MorphMany::make('Actions', 'actions', ActionResource::class));
+            return $fields->push(MorphMany::make(__('Actions'), 'actions', ActionResource::class));
         })->each(function ($field) use ($request) {
-            if ($field instanceof Resolvable) {
+            if ($field instanceof Resolvable && ! $field->pivot) {
                 $field->resolveForDisplay($this->resource);
+            }
+            if ($field instanceof Resolvable && $field->pivot) {
+                $accessor = $this->pivotAccessorFor($request, $request->viaResource);
+
+                $field->resolveForDisplay($this->{$accessor} ?? new Pivot);
             }
         });
     }
@@ -93,7 +105,7 @@ trait ResolvesFields
         return $fields->reject(function ($field) {
             return $field instanceof ListableField ||
                    $field instanceof ResourceToolElement ||
-                   $field->attribute === $this->resource->getKeyName() ||
+                   ($field instanceof ID && $field->attribute === $this->resource->getKeyName()) ||
                    $field->attribute === 'ComputedField' ||
                    ! $field->showOnCreation;
         });
@@ -135,7 +147,7 @@ trait ResolvesFields
         return $fields->reject(function ($field) {
             return $field instanceof ListableField ||
                    $field instanceof ResourceToolElement ||
-                   $field->attribute === $this->resource->getKeyName() ||
+                   ($field instanceof ID && $field->attribute === $this->resource->getKeyName()) ||
                    $field->attribute === 'ComputedField' ||
                    ! $field->showOnUpdate;
         });
@@ -196,7 +208,7 @@ trait ResolvesFields
 
         $relatedResource = new $relatedResource($relatedResource::newModel());
 
-        return $relatedResource->availableFields($request)->reject(function ($f) use ($field) {
+        $result = $relatedResource->availableFields($request)->reject(function ($f) use ($field) {
             return isset($f->attribute) &&
                    isset($field->inverse) &&
                    $f->attribute !== $field->inverse;
@@ -204,6 +216,8 @@ trait ResolvesFields
             return isset($field->resourceClass) &&
                    $field->resourceClass == $request->resource();
         });
+
+        return $result;
     }
 
     /**
@@ -239,7 +253,7 @@ trait ResolvesFields
         $default = Panel::defaultNameFor($request->newResource());
 
         return $panels->when($panels->where('name', $default)->isEmpty(), function ($panels) use ($default) {
-            return $panels->push(new Panel($default));
+            return $panels->push((new Panel($default))->withToolbar());
         })->all();
     }
 
@@ -310,8 +324,10 @@ trait ResolvesFields
 
         if ($field && isset($field->fieldsCallback)) {
             return collect(array_values(
-                $this->filter(call_user_func($field->fieldsCallback, $request))
-            ));
+                $this->filter(call_user_func($field->fieldsCallback, $request, $this->resource))
+            ))->each(function ($field) {
+                $field->pivot = true;
+            });
         }
 
         return collect([]);

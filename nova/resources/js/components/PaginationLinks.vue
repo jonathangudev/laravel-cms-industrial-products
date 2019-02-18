@@ -1,6 +1,6 @@
 <template>
     <div class="bg-20 rounded-b">
-        <nav v-if="resources.length > 0" class="flex">
+        <nav v-if="resources.length > 0" class="flex justify-between items-center">
             <!-- Previous Link -->
             <button
                 :disabled="!hasPreviousPages"
@@ -13,13 +13,15 @@
                 @click.prevent="selectPreviousPage()"
                 dusk="previous"
             >
-                {{__('Previous')}}
+                {{ __('Previous') }}
             </button>
+
+            <slot />
 
             <!-- Next Link -->
             <button
                 :disabled="!hasMorePages"
-                class="ml-auto btn btn-link py-3 px-4"
+                class="btn btn-link py-3 px-4"
                 :class="{
                     'text-primary dim': hasMorePages,
                     'text-80 opacity-50': !hasMorePages,
@@ -28,7 +30,7 @@
                 @click.prevent="selectNextPage()"
                 dusk="next"
             >
-                {{__('Next')}}
+                {{ __('Next') }}
             </button>
         </nav>
     </div>

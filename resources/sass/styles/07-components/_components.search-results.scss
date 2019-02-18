@@ -1,0 +1,20 @@
+// Search Results
+// 
+// Styles for Search Results page
+
+@import 'globals';
+
+$search-results-group-padding-y:				$leading / 2;
+$search-results-group-padding-x:				$grid-gutter-width-rem;
+
+.c-search-results {
+	&__group {
+		border: $default-border;
+		padding: $search-results-group-padding-y $search-results-group-padding-x;
+		margin-bottom: $leading * 1.5;
+
+		h3 {
+			margin-bottom: $leading / 2;
+		}
+	}
+}

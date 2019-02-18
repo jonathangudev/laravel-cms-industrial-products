@@ -1,0 +1,90 @@
+// Footer
+// 
+// Footer styles
+
+@import 'globals';
+
+$footer-padding-y:                $leading * 2;
+$footer-mobile-padding-y:         $leading * 1.5;
+
+$footer-border-width:             $border-width * 2;
+
+$footer-link-font-size:           $h4-font-size;
+
+
+.c-footer {
+  color: $footer-color;
+  padding-top: $footer-padding-y;
+  padding-bottom: $footer-padding-y;
+  border-bottom: $footer-border-width solid $footer-border-color;
+  background: $footer-background;
+
+  @include media-breakpoint-down(md) {
+    padding-top: $footer-mobile-padding-y;
+    padding-bottom: $footer-mobile-padding-y;
+  }
+
+  @include apply-font-antialiasing($footer-color, $brand-secondary-color);
+
+  h3 {
+    color: inherit;
+  }
+  
+  &__logo {
+    margin-bottom: $leading;
+  }
+
+  &__address {
+    a {
+      color: $footer-color;
+      text-decoration: underline;
+
+      &:hover {
+        color: $footer-hover-color;
+        
+        &:visited {
+          color: $footer-hover-color;
+        }
+      }
+  
+      &:visited {
+        color: inherit;
+      }
+    }
+  }
+
+  &__list {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  &__item {
+    margin-bottom: $leading / 2;
+  }
+
+  &__link {
+    display: inline-block;
+    font-size: $footer-link-font-size;
+    color: $footer-color;
+    font-weight: $font-weight-bold;
+
+    &:hover {
+      color: $footer-hover-color;
+      text-decoration: none;
+      
+      &:visited {
+        color: $footer-hover-color;
+      }
+    }
+
+    &:visited {
+      color: inherit;
+    }
+  }
+
+  &__form {
+    @include media-breakpoint-down(md) {
+      margin-bottom: $leading;
+    }
+  }
+}

@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
+use Jmp\CatalogManager\CatalogManagerTool;
+use Jmp\CompanyManager\CompanyManagerTool;
+use Laravel\Nova\Cards\Help;
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Spatie\TailTool\TailTool;
+use Vyuldashev\NovaPermission\NovaPermissionTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -17,6 +21,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::style('jmp-theme', asset('css/admin.css'));
     }
 
     /**
@@ -27,9 +33,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
@@ -67,7 +73,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            NovaPermissionTool::make(),
+            new CompanyManagerTool(),
+            new CatalogManagerTool(),
+            new TailTool(),
+        ];
     }
 
     /**

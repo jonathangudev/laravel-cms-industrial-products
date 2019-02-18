@@ -1,0 +1,96 @@
+// Alert
+// 
+// Styles for alet boxes
+
+@import 'globals';
+
+$alert-height:					$leading * 2; // Intended height
+$alert-padding-y:				($alert-height - $leading) / 2;
+$alert-padding-x:				$grid-gutter-width-rem;
+
+$alert-width:					50rem;
+$alert-width-sm:				32rem - ($grid-gutter-width-rem * 2);
+
+/* purgecss start ignore */
+.c-alert {
+	$block: &;
+
+	position: fixed;
+	width: $alert-width;
+	margin-left: auto;
+	margin-right: auto;
+	right: $grid-gutter-width-rem;
+	bottom: $leading;
+	padding: $alert-padding-y $alert-padding-x;
+	background-color: $white;
+	border-left: 0.2rem solid $brand-primary-color;
+	box-shadow: $box-shadow;
+	opacity: 1;
+	z-index: 10;
+	transition: opacity $transition-duration ease-in,
+				right $transition-duration ease-in;
+
+	@include media-breakpoint-down(sm) {
+		width: $alert-width-sm;
+	}
+
+	&__title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: $leading / 2;
+
+		button {
+			color: $text-muted-color;
+			padding: 0;
+
+			&:hover {
+				color: $text-color;
+			}
+		}
+	}
+	
+	&--info {
+		border-left-color: $info-color;
+
+		#{$block}__icon {
+			color: $info-color;
+		}
+	}
+	&--success {
+		border-left-color: $success-color;
+
+		#{$block}__icon {
+			color: $success-color;
+		}
+	}
+	&--warning {
+		border-left-color: $warning-color;
+
+		#{$block}__icon {
+			color: $warning-color;
+		}
+	}
+	&--danger {
+		border-left-color: $danger-color;
+
+		#{$block}__icon {
+			color: $danger-color;
+		}
+	}
+
+	&.is-closed {
+		right: -$alert-width;
+		opacity: 0;
+
+		@include media-breakpoint-down(sm) {
+			right: -$alert-width-sm;
+		}
+	}
+
+	ul, p, h5 {
+		padding-left: 0;
+		margin-bottom: 0;
+	}
+}
+/* purgecss end ignore */

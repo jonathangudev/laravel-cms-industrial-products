@@ -7,7 +7,17 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "build-product-attribute-manager": "cd nova-components/ProductAttributeManager && npm run dev",
+        "build-product-attribute-manager-prod": "cd nova-components/ProductAttributeManager && npm run prod",
+        "build-catalog-manager": "cd nova-components/CatalogManager && npm run dev",
+        "build-catalog-manager-prod": "cd nova-components/CatalogManager && npm run prod",
+        "build-company-manager": "cd nova-components/CompanyManager && npm run dev",
+        "build-company-manager-prod": "cd nova-components/CompanyManager && npm run prod",
+        "build-product-category-manager": "cd nova-components/ProductCategoryManager && npm run dev",
+        "build-product-category-manager-prod": "cd nova-components/ProductCategoryManager && npm run prod",
+        "build-company-catalog-manager": "cd nova-components/CompanyCatalogManager && npm run dev",
+        "build-company-catalog-manager-prod": "cd nova-components/CompanyCatalogManager && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",
@@ -15,8 +25,15 @@
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
+        "laravel-mix-purgecss": "^3.0.0",
         "lodash": "^4.17.5",
-        "popper.js": "^1.12",
+        "popper.js": "^1.14.5",
+        "purify-css": "^1.2.5",
+        "purifycss-webpack": "^0.7.0",
         "vue": "^2.5.7"
-    }
+    },
+    "browserslist": [
+        "defaults",
+        "ie 10"
+    ]
 }

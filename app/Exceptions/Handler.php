@@ -31,6 +31,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Exception  $exception
      * @return void
+     * @codeCoverageIgnore // Ignore this laravel stub until we modify it
      */
     public function report(Exception $exception)
     {
@@ -43,6 +44,7 @@ class Handler extends ExceptionHandler
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
+     * @codeCoverageIgnore // Ignore this laravel stub until we modify it
      */
     public function render($request, Exception $exception)
     {

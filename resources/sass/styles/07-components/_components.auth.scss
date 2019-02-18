@@ -1,0 +1,60 @@
+// Auth
+// 
+// Styles for login and other auth pages
+
+@import 'globals';
+
+
+.c-auth {
+	&__logo {
+		padding-top: $leading * 2;
+		margin-bottom: $leading;
+
+		@include media-breakpoint-down(sm) {
+			text-align: center;
+			padding-top: $leading;
+			margin-bottom: $leading * 1.5;
+		}
+
+		img {
+		  max-width: 100%;
+		  height: 5.5rem;
+		}
+	}
+
+	&__content {
+		@include media-breakpoint-down(sm) {
+			margin-bottom: $leading * 2;
+		}
+	}
+
+	&__links {
+		@include media-breakpoint-down(sm) {
+			margin-bottom: $leading;
+
+			p {
+				margin-bottom: $leading / 4;
+			}
+		}
+	}
+	
+	&__background {
+		position: relative;
+		min-height: 100vh;
+    height: 100%;
+		margin-right: -$grid-gutter-width;
+		background: url('/images/technical-drawing.svg') no-repeat left center;
+		background-size: cover;
+	  
+		&:after {
+		  content: '';
+		  background: $brand-secondary-gradient;
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  z-index: -1;
+		}
+	}
+}

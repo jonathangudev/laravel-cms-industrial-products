@@ -1,0 +1,93 @@
+// Forms
+//
+// Forms styles
+
+.o-form {
+  legend {
+    display: none;
+  }
+
+  &__group {
+    margin-bottom: $leading;
+
+    @include disabled {
+      label {
+        color: $text-muted-color;
+      }
+    }
+
+    @include error {
+      label {
+        color: $danger-color;
+      }
+    }
+  }
+
+  &__search {
+    position: relative;
+
+    label {
+      display: none;
+    }
+
+    button {
+      position: absolute;
+      color: $text-color;
+      top: 0;
+      right: 0;
+      padding-left: $input-padding-x;
+      padding-right: $input-padding-x;
+  
+      &:focus,
+      &:hover {
+        color: $brand-primary-color;
+      }
+    }
+  }
+
+  &__error-text {
+    color: $danger-color;
+    margin-bottom: 0;
+  }
+
+  // Reverse color scheme
+  &--reverse {
+    label {
+      color: $input-reverse-color;
+    }
+
+    select {
+      background-color: $input-reverse-bg;
+    }
+
+    input,
+    textarea {
+      color: $input-reverse-color;
+      background-color: $input-reverse-bg;
+
+      &:focus {
+        border-bottom: $input-border-width solid $input-reverse-focus-border-color;
+      }
+    
+      &:hover {
+        background-color: $input-reverse-hover-bg;
+      }
+    
+      // Placeholder
+      &::placeholder {
+        color: $input-reverse-placeholder-color;
+      }
+    
+      // Readonly
+      &:readonly {
+        background-color: $disabled-reverse-input-bg;
+      }
+    
+      // Disabled
+      @include disabled {
+        color: $disabled-reverse-input-color;
+        background-color: $disabled-reverse-input-bg;
+      }
+    }
+  }
+}

@@ -1,0 +1,284 @@
+// Inputs
+//
+// Styles for inputs.
+
+// Variables
+$label-font-size:                   $font-size-base;
+$label-font-weight:                 $font-weight-bold;
+$label-margin-bottom:               $leading / 4;
+
+$checkbox-radio-label-font-size:    $label-font-size;
+$checkbox-radio-label-font-weight:  $font-weight-normal;
+$checkbox-radio-margin-right:       $grid-gutter-width-rem / 2;
+
+$input-placeholder-style:           italic;
+
+$input-font-size:                   $font-size-base;
+$input-line-height:                 $leading;
+
+$input-border-width:                $border-width;
+$input-border-radius:               $border-radius;
+
+$input-height:                      $leading * 1.5; // Set the desired input height so padding can be calculated
+$input-padding-y:                   ($input-height - $leading) / 2;
+$input-padding-x:                   $grid-gutter-width-rem / 2;
+
+$checkbox-radio-size:               $input-font-size; 
+$checkbox-radio-dot-size:           $checkbox-radio-size * 0.57142857142;
+
+
+label {
+  font-size: $label-font-size;
+  font-weight: $label-font-weight;
+  margin-bottom: $label-margin-bottom;
+}
+
+select {
+  height: $leading;
+  background-color: $input-bg;
+  vertical-align: middle;
+}
+
+textarea,
+input {
+  display: block;
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  font-size: $input-font-size;
+  line-height: $input-line-height;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  border: none;
+  transition: background-color $transition-duration-short;
+
+  &:focus {
+    border-bottom: $input-border-width solid $input-focus-border-color;
+    padding-bottom: $input-padding-y - $input-border-width;
+    outline: 0;
+  }
+
+  &:hover {
+    background-color: $input-hover-bg;
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: $input-placeholder-color;
+    font-style: $input-placeholder-style;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+  }
+
+  // Readonly
+  &:readonly {
+    background-color: $disabled-input-bg;
+    pointer-events: none;
+  }
+
+  // Disabled
+  @include disabled {
+    color: $disabled-input-color;
+    background-color: $disabled-input-bg;
+    pointer-events: none;
+  }
+
+  // Error
+  @include error {
+    color: $danger-color;
+    border-bottom: $input-border-width solid $danger-color;
+    padding-bottom: $input-padding-y - $input-border-width;
+  }
+
+  & + p,
+  & + a {
+    margin-top: $leading / 4;
+  }
+
+  & + a {
+    font-size: $font-size-sm;
+    display: inline-block;
+  }
+}
+
+// Checkboxes
+//
+// Styles for checkboxes.
+
+input[type='checkbox'] {
+  // Hide default checkbox
+  position: absolute;
+  opacity: 0;
+
+  & + label {
+    position: relative;
+    font-size: $checkbox-radio-label-font-size;
+    font-weight: $checkbox-radio-label-font-weight;
+    padding: 0;
+    cursor: pointer;
+
+    // Fix multiline labels so text doesn't wrap under checkbox
+    margin-left: $checkbox-radio-size + $checkbox-radio-margin-right;
+    text-indent: -($checkbox-radio-size + $checkbox-radio-margin-right);
+  }
+
+  // Checkbox
+  & + label:before {
+    content: '';
+    position: relative;
+    top: ($leading - $checkbox-radio-size) / 2;
+    display: inline-block;
+    margin-right: $checkbox-radio-margin-right;
+    width: $checkbox-radio-size;
+    height: $checkbox-radio-size;
+    background-color: $checkbox-radio-bg;
+    border: $input-border-width solid $input-border-color;
+    vertical-align: top;
+    transition: background-color $transition-duration-short;
+  }
+
+  // Box hover
+  &:hover + label:before {
+    background-color: $input-hover-bg;
+  }
+
+  // Box focus
+  &:focus + label:before {
+    background-color: $input-hover-bg;
+  }
+
+  // Box checked
+  &:checked + label:before {
+    background-color: $checkbox-radio-selected-bg;
+    border: none;
+  }
+
+  // Checkmark
+  // Could be replaced with an image
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 0.3rem - ($checkbox-radio-size + $checkbox-radio-margin-right);
+    top: 1rem;
+    width: 0.2rem;
+    height: 0.2rem;
+
+    // Create the checkmark
+    // Uses 2px background and box-shadow squares that form a rotated L
+    background-color: $checkbox-radio-color;
+    // sass-lint:disable indentation
+    box-shadow: 0.2rem 0 0 $checkbox-radio-color,
+                0.2rem -0.2rem 0 $checkbox-radio-color,
+                0.2rem -0.4rem 0 $checkbox-radio-color,
+                0.2rem -0.6rem 0 $checkbox-radio-color;
+    // sass-lint:enable indentation
+    transform: rotate(45deg);
+  }
+
+  // Disabled
+  @include disabled {
+    & + label {
+      color: $disabled-input-color;
+      pointer-events: none;
+    }
+
+    & + label:before {
+      background-color: $disabled-input-bg;
+      pointer-events: none;
+    }
+  }
+
+  // Error
+  @include error {
+    & + label:before {
+      border-color: $danger-color;
+    }
+  }
+}
+
+// Radio Buttons
+//
+// Styles for radio buttons.
+
+
+input[type='radio'] {
+  // Hide default radio
+  position: absolute;
+  opacity: 0;
+
+  & + label {
+    position: relative;
+    font-size: $checkbox-radio-label-font-size;
+    font-weight: $checkbox-radio-label-font-weight;
+    padding: 0;
+    cursor: pointer;
+
+    // Fix multiline labels so text doesn't wrap under radio
+    margin-left: $checkbox-radio-size + $checkbox-radio-margin-right;
+    text-indent: -($checkbox-radio-size + $checkbox-radio-margin-right);
+  }
+
+  // Radio
+  & + label:before {
+    content: '';
+    position: relative;
+    top: ($leading - $checkbox-radio-size) / 2;
+    display: inline-block;
+    margin-right: $checkbox-radio-margin-right;
+    width: $checkbox-radio-size;
+    height: $checkbox-radio-size;
+    background-color: $checkbox-radio-bg;
+    border: $input-border-width solid $input-border-color;
+    border-radius: 999px;
+    vertical-align: top;
+    transition: background-color $transition-duration-short;
+  }
+
+  // Radio hover
+  &:hover + label:before {
+    background-color: $input-hover-bg;
+  }
+
+  // Radio focus
+  &:focus + label:before {
+    background-color: $input-hover-bg;
+  }
+
+  // Radio checked
+  &:checked + label:before {
+    background-color: $checkbox-radio-selected-bg;
+    border: none;
+  }
+
+  // Radio Dot
+  // Could be replaced with an image
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: (($checkbox-radio-size - $checkbox-radio-dot-size) / 2)- ($checkbox-radio-size + $checkbox-radio-margin-right);
+    top: ($leading - $checkbox-radio-dot-size) / 2;
+    width: $checkbox-radio-dot-size;
+    height: $checkbox-radio-dot-size;
+    background-color: $checkbox-radio-color;
+    border-radius: 999px;
+  }
+
+  // Disabled
+  @include disabled {
+    & + label {
+      color: $disabled-input-color;
+      pointer-events: none;
+    }
+
+    & + label:before {
+      background-color: $disabled-input-bg;
+      pointer-events: none;
+    }
+  }
+
+  // Error
+  @include error {
+    & + label:before {
+      border-color: $danger-color;
+    }
+  }
+}

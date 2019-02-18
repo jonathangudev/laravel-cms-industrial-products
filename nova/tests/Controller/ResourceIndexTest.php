@@ -10,6 +10,8 @@ use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\IntegrationTest;
 use Laravel\Nova\Tests\Fixtures\IdFilter;
 use Laravel\Nova\Tests\Fixtures\UserPolicy;
+use Laravel\Nova\Tests\Fixtures\ColumnFilter;
+use Laravel\Nova\Tests\Fixtures\CustomKeyFilter;
 
 class ResourceIndexTest extends IntegrationTest
 {
@@ -215,6 +217,48 @@ class ResourceIndexTest extends IntegrationTest
         $filters = base64_encode(json_encode([
             [
                 'class' => IdFilter::class,
+                'value' => 2,
+            ],
+        ]));
+
+        $response = $this->withExceptionHandling()
+                        ->getJson('/nova-api/users?filters='.$filters);
+
+        $this->assertEquals(2, $response->original['resources'][0]['id']->value);
+
+        $response->assertJsonCount(1, 'resources');
+    }
+
+    public function test_can_filter_resources_with_a_custom_key()
+    {
+        factory(User::class)->create();
+        factory(User::class)->create();
+        factory(User::class)->create();
+
+        $filters = base64_encode(json_encode([
+            [
+                'class' => (new CustomKeyFilter)->key(),
+                'value' => 2,
+            ],
+        ]));
+
+        $response = $this->withExceptionHandling()
+                        ->getJson('/nova-api/users?filters='.$filters);
+
+        $this->assertEquals(2, $response->original['resources'][0]['id']->value);
+
+        $response->assertJsonCount(1, 'resources');
+    }
+
+    public function test_filters_can_have_constructor_parameters()
+    {
+        factory(User::class)->create();
+        factory(User::class)->create();
+        factory(User::class)->create();
+
+        $filters = base64_encode(json_encode([
+            [
+                'class' => ColumnFilter::class,
                 'value' => 2,
             ],
         ]));

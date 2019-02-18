@@ -1,0 +1,36 @@
+// Subheder
+// 
+// Subpage header styles
+
+@import 'globals';
+
+
+.c-subheader {
+	position: relative;
+	text-align: center;
+	padding-top: $header-height + ($leading * 4);
+  padding-bottom: $leading * 3;
+
+  @include apply-font-antialiasing($white, $brand-secondary-color);
+
+  @include media-breakpoint-down(md) {
+    padding-top: $header-sm-height + ($leading * 3);
+  }
+
+  &:after {
+    content: '';
+    background: $brand-subheader-gradient;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+	
+	h1 {
+		position: relative;
+		color: $white;
+		margin-bottom: 0;
+		z-index: 1;
+	}
+}

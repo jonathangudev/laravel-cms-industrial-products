@@ -1,0 +1,147 @@
+// Headings
+//
+// Heading styles
+//
+//
+// Styleguide: Typography.Headings
+
+
+// Headings
+//
+// Style the heading elements.
+
+// sass-lint:disable single-line-per-selector
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: $headings-color;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  letter-spacing: $headings-letter-spacing;
+  margin-bottom: $headings-margin-bottom;
+}
+
+h1, .h1 {
+  font-size: $h1-font-size;
+  line-height: $leading * 2.5;
+
+  @include media-breakpoint-down(sm) {
+    font-size: $h2-font-size;
+    line-height: $leading * 2;
+  }
+}
+h2, .h2 {
+  font-size: $h2-font-size;
+  line-height: $leading * 2;
+
+  @include media-breakpoint-down(sm) {
+    font-size: $h3-font-size;
+    line-height: $leading * 1.5;
+  }
+}
+h3, .h3 {
+  font-size: $h3-font-size;
+  line-height: $leading * 1.5;
+
+  @include media-breakpoint-down(sm) {
+    font-size: $h4-font-size;
+    line-height: $leading;
+  }
+}
+h4, .h4 {
+  font-size: $h4-font-size;
+  line-height: $leading;
+}
+h5, .h5 {
+  font-size: $h5-font-size;
+  line-height: $leading;
+}
+h6, .h6 {
+  font-size: $h6-font-size;
+  line-height: $leading;
+}
+
+// Add margin-top to any headings that follow a paragraph or list.
+p + h1, ul + h1, ol + h1,
+p + h2, ul + h2, ol + h2,
+p + h3, ul + h3, ol + h3,
+p + h4, ul + h4, ol + h4,
+p + h5, ul + h5, ol + h5,
+p + h6, ul + h6, ol + h6 {
+  margin-top: $leading * 2;
+}
+// sass-lint:enable single-line-per-selector
+
+
+// Paragraphs
+//
+// Style p element.
+
+p {
+  line-height: $leading;
+  
+  &:empty {
+    margin-bottom: 0;
+  }
+}
+
+
+// Links
+//
+// Style anchor elements.
+
+a {
+  font-weight: $link-font-weight;
+
+  &:visited {
+    color: $link-visited-color;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+}
+
+
+// Lists
+//
+// Style ul, ol elements
+
+ul,
+ol {
+  list-style-position: inside;
+  line-height: $leading;
+  padding-left: $grid-gutter-width-rem;
+  margin-bottom: $leading;
+  
+  li {
+    line-height: $leading;
+  }
+
+  // Nested lists
+  ul,
+  ol {
+    margin-bottom: 0;
+
+    li {
+      font-size: $nested-li-font-size;
+    }
+  }
+}
+
+
+// Horizontal Rule
+hr {
+  border: ($border-width / 2) solid $border-color;
+  margin-top: $leading;
+  margin-bottom: $leading;
+}
+
+
+// Text Selection
+// 
+// Style the background and color of text selection
+
+*::selection {
+  color: $white;
+  background-color: rgba($brand-primary-color, 0.9);
+}

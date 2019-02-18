@@ -1,0 +1,249 @@
+// Category Menu
+// 
+// Styles for logged in menu
+
+@import 'globals';
+
+$category-menu-border-left: 					0.2rem;
+
+$category-menu-item-height:						$leading * 1.5;
+$category-menu-item-padding-y:					($category-menu-item-height - $leading) / 2;
+$category-menu-item-padding-x:					$grid-gutter-width-rem;
+
+$category-menu-width:							30rem;
+
+
+.c-category-menu {
+	$block: &;
+
+	height: 100%;
+
+	@include media-breakpoint-down(md) {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: -$category-menu-width;
+		width: $category-menu-width;
+		border-right: none;
+		transition: left $transition-duration ease-in-out;
+		z-index: 5;
+	}
+
+	&__wrapper {
+		position: relative;
+		height: 100%;
+		width: $category-menu-width;
+		padding-left: $grid-gutter-width-rem;
+		padding-right: $grid-gutter-width-rem;
+		border-right: $border-width solid $border-color;
+		background-color: $white;
+		z-index: 1;
+	}
+
+	&__title {
+		padding-top: $leading;
+	}
+
+	&__nav {
+		// Reset anchor styles
+		a {
+			color: $text-color;
+
+			&:visited {
+				color: inherit;
+			}
+
+			&:hover {
+				color: $text-color;
+				text-decoration: none;
+
+				&:visited {
+					color: inherit;
+				}
+			}
+		}
+	}
+
+	&__list,
+	&__sublist {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	&__sublist {
+		overflow: hidden;
+		height: 0;
+		border-left: $border-width solid $border-color;
+		transition: height $transition-duration-short ease-in-out;
+	}
+
+	&__item {
+		&.is-open {
+			#{$block}__main {
+				background-color: $gray-1;
+			}
+
+			#{$block}__icon {
+				&--expand {
+					display: none;
+				}
+
+				&--collapse {
+					display: block;
+				}
+			}
+		}
+
+		&.is-active {
+			#{$block}__main {
+				background-color: $gray-1;
+				border-left: $category-menu-border-left solid $brand-primary-color;
+				padding-left: $grid-gutter-width-rem - $category-menu-border-left;
+			}
+
+			#{$block}__sublist {
+				height: auto;
+			}
+		}
+	}
+
+	&__subitem {
+		padding-left: $category-menu-item-padding-x;
+		margin-bottom: $category-menu-item-padding-y;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&.is-active {
+			padding-left: $category-menu-item-padding-x - $category-menu-border-left;
+			border-left: $category-menu-border-left solid $brand-primary-color;
+			font-weight: $font-weight-bold;
+		}
+	}
+
+	&__main {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-left: -$category-menu-item-padding-x;
+		margin-right: -$category-menu-item-padding-x;
+		padding: $category-menu-item-padding-y $category-menu-item-padding-x;
+
+		&:hover {
+			background-color: $gray-1;
+		}
+	}
+
+	&__link {
+		padding-right: $grid-gutter-width-rem;
+	}
+
+	&__sublink {
+		font-weight: inherit;
+	}
+
+	&__icon {
+		cursor: pointer;
+
+		// Default state is closed
+		&--collapse {
+			display: none;
+		}
+	}
+
+	&__top-bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: $border-width solid $border-color;
+		padding: $category-menu-item-padding-y $category-menu-item-padding-x;
+		margin-left: -$category-menu-item-padding-x;
+		margin-right: -$category-menu-item-padding-x;
+		margin-bottom: $leading;
+
+		p {
+			margin-bottom: 0;
+		}
+	}
+
+	&__mobile-header {
+		border-bottom: $border-width solid $border-color;
+		padding-left: $category-menu-item-padding-x;
+		padding-right: $category-menu-item-padding-x;
+		padding-bottom: $leading;
+		margin-left: -$category-menu-item-padding-x;
+		margin-right: -$category-menu-item-padding-x;
+		margin-bottom: $leading / 2;
+	}
+
+	&__header-list {
+		display: flex;
+		justify-content: space-between;
+		list-style: none;
+		padding-left: 0;
+	}
+
+	&__header-link {
+		text-transform: uppercase;
+    display: inline-block;
+    font-weight: $font-weight-bold;
+		font-size: $h4-font-size;
+		color: $text-color;
+  
+		&:hover {
+			color: $text-color;
+
+			&:visited {
+				color: $text-color;
+			}
+		}
+
+		&:visited {
+			color: $text-color;
+		}
+
+		// Log out link
+		&--log-out:hover {
+			color: $brand-primary-color;
+			&:visited {
+				color: $brand-primary-color;
+			}
+		}
+		&--log-out,
+		&--log-out:visited {
+			color: $text-muted-color;
+		}
+	}
+
+	&__btn {
+		color: $text-color;
+		padding-right: 0;
+		padding-left: $grid-gutter-width-rem;
+	}
+
+	&__background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		visibility: hidden;
+		opacity: 0;
+		background: rgba(0, 0, 0, 0.7);
+		transition: opacity $transition-duration ease-in,
+					visibility 0s linear $transition-duration;
+	}
+
+	&.is-open {
+		left: 0;
+		box-shadow: $box-shadow;
+
+		#{$block}__background {
+			visibility: visible;
+			opacity: 1;
+			transition: opacity $transition-duration ease-out,
+						visibility 0s linear;
+		}
+	}
+}

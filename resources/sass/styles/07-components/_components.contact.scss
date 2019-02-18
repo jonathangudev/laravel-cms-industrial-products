@@ -1,0 +1,59 @@
+// Contact Page
+// 
+// Styles for contact us page
+
+@import 'globals';
+
+.c-contact-hero {
+	background: url('/images/contact-map.jpg') no-repeat center 17%;
+	background-size: cover;
+}
+
+.c-contact-form {
+	margin-bottom: $leading * 3;
+
+	@include media-breakpoint-down(lg) {
+		margin-bottom: $leading * 2;
+	}
+}
+
+.c-contact-aside {
+	margin-bottom: $leading * 2;
+
+	&__img {
+		position: relative;
+		margin-bottom: $leading * 2;
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: $leading / 2;
+			left: $leading / 2;
+			width: 100%;
+			height: 100%;
+			border: ($border-width * 2) solid $brand-primary-color;
+			z-index: -1;
+		}
+
+		img {
+			max-width: 100%;
+		}
+	}
+
+	&__info {
+		display: flex;
+		font-size: $font-size-lg;
+		margin-bottom: $leading / 2;
+
+		&--phone,
+		&--email {
+			a {
+				color: $text-color;
+			}
+		}
+	}
+
+	&__info-icon {
+		margin-right: $grid-gutter-width-rem;
+	}
+}
