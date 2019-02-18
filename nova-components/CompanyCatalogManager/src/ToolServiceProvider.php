@@ -2,10 +2,10 @@
 
 namespace Jmp\CompanyCatalogManager;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
 class ToolServiceProvider extends ServiceProvider
 {
@@ -21,8 +21,8 @@ class ToolServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('company-catalog-manager', __DIR__.'/../dist/js/tool.js');
-            Nova::style('company-catalog-manager', __DIR__.'/../dist/css/tool.css');
+            Nova::script('company-catalog-manager', __DIR__ . '/../dist/js/tool.js');
+            Nova::style('company-catalog-manager', __DIR__ . '/../dist/css/tool.css');
         });
     }
 
@@ -38,8 +38,8 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/company-catalog-manager')
-                ->group(__DIR__.'/../routes/api.php');
+            ->prefix('nova-vendor/company-catalog-manager')
+            ->group(__DIR__ . '/../routes/api.php');
     }
 
     /**
