@@ -18,6 +18,13 @@ class Category extends Model
     protected $table = 'catalog_categories';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'company_id'];
+
+    /**
      * Get the company that owns the category.
      *
      * @return App\Company

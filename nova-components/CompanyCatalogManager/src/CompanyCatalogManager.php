@@ -13,7 +13,7 @@ class CompanyCatalogManager extends ResourceTool
      */
     public function name()
     {
-        return 'Company Catalog Manager';
+        return 'Catalog';
     }
 
     /**

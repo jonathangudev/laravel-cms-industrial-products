@@ -1,13 +1,29 @@
 <template>
-    <div>Company Catalog Manager</div>
+  <div>Company Catalog Manager
+    <tree></tree>
+  </div>
 </template>
 
 <script>
-export default {
-    props: ['resourceName', 'resourceId', 'field'],
+import Tree from "./Tree";
 
-    mounted() {
-        //
-    },
-}
+export default {
+  props: ["resourceName", "resourceId", "field"],
+  data() {
+    return {
+      categories: []
+    };
+  },
+
+  mounted() {
+    axios
+      .get(`/nova-vendor/company-catalog-manager/${this.resourceId}/categories`)
+      .then(response => {
+        this.categories = response.data;
+      });
+  },
+  components: {
+    Tree
+  }
+};
 </script>

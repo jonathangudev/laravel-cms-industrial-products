@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Jmp\CompanyCatalogManager\CompanyCatalogManager;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
@@ -75,6 +76,8 @@ class Company extends Resource
                     return Storage::disk('restricted')->url($this->resource->logo);
                 })
                 ->prunable(),
+
+            CompanyCatalogManager::make(),
         ];
     }
 
