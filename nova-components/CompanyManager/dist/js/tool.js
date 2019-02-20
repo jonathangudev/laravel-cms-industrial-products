@@ -696,7 +696,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              _vm.$router.push({
+              return _vm.$router.push({
                 name: "index",
                 params: { resourceName: "companies" }
               })
@@ -718,7 +718,7 @@ var render = function() {
               class: { "ml-2": index !== 0 },
               on: {
                 click: function($event) {
-                  _vm.$router.push({
+                  return _vm.$router.push({
                     name: "detail",
                     params: {
                       resourceName: "companies",
@@ -747,7 +747,8 @@ var render = function() {
             ],
             1
           )
-        })
+        }),
+        0
       )
     ],
     1
