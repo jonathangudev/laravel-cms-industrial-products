@@ -38,4 +38,14 @@ class CategoryController extends Controller
         Category::rebuildTree($request->all());
         return response()->json([]);
     }
+
+    /**
+     * delete a category by id
+     *
+     * @param   int $id Company id
+     */
+    public function deleteCategory($id)
+    {
+        Category::destroy($id);
+    }
 }

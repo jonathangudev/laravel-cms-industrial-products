@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{id}/categories', 'CategoryController@getCategories');
 Route::put('/{id}/categories', 'CategoryController@updateCategories');
+Route::delete('/category/{id}', 'CategoryController@deleteCategory');
