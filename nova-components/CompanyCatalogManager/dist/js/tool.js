@@ -3214,7 +3214,7 @@ exports = module.exports = __webpack_require__(57)(false);
 
 
 // module
-exports.push([module.i, "\n.he-tree svg {\n  display: block;\n}\n.tree-node-inner {\n  cursor: -webkit-grab;\n  cursor: grab;\n  max-width: 500px;\n}\n.tree-node-item {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.draggable-placeholder-inner {\n  border: 1px dashed #0088F8;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: rgba(0, 136, 249, 0.09);\n  color: #0088f9;\n  text-align: center;\n  padding: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n", ""]);
+exports.push([module.i, "\n.tree-node-inner {\n  cursor: -webkit-grab;\n  cursor: grab;\n  max-width: 500px;\n}\n.tree-node-item {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.draggable-placeholder-inner {\n  border: 1px dashed #0088F8;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: rgba(0, 136, 249, 0.09);\n  color: #0088f9;\n  text-align: center;\n  padding: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n", ""]);
 
 // exports
 
@@ -7729,46 +7729,8 @@ var render = function() {
                           },
                           [
                             data.open
-                              ? _c(
-                                  "svg",
-                                  {
-                                    attrs: {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      viewBox: "0 0 24 24",
-                                      width: "24",
-                                      height: "24"
-                                    }
-                                  },
-                                  [
-                                    _c("path", {
-                                      staticClass: "heroicon-ui",
-                                      attrs: {
-                                        d:
-                                          "M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"
-                                      }
-                                    })
-                                  ]
-                                )
-                              : _c(
-                                  "svg",
-                                  {
-                                    attrs: {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      viewBox: "0 0 24 24",
-                                      width: "24",
-                                      height: "24"
-                                    }
-                                  },
-                                  [
-                                    _c("path", {
-                                      staticClass: "heroicon-ui",
-                                      attrs: {
-                                        d:
-                                          "M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
-                                      }
-                                    })
-                                  ]
-                                )
+                              ? _c("strong", [_vm._v("-")])
+                              : _c("strong", [_vm._v("+")])
                           ]
                         )
                       : _vm._e(),
@@ -7813,30 +7775,17 @@ var render = function() {
                         }
                       },
                       [
-                        _c(
-                          "svg",
-                          {
-                            staticClass:
-                              "fill-current text-70 hover:text-primary",
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              width: "22",
-                              height: "18",
-                              viewBox: "0 0 22 16",
-                              "aria-labelledby": "view",
-                              role: "presentation"
-                            }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-                              }
-                            })
-                          ]
-                        )
-                      ]
+                        _c("icon", {
+                          staticClass: "block text-70 hover:text-primary",
+                          attrs: {
+                            type: "view",
+                            "view-box": "0 0 22 16",
+                            width: "22",
+                            height: "16"
+                          }
+                        })
+                      ],
+                      1
                     ),
                     _vm._v(" "),
                     _c(
@@ -7851,29 +7800,12 @@ var render = function() {
                         }
                       },
                       [
-                        _c(
-                          "svg",
-                          {
-                            staticClass:
-                              "fill-current text-70 hover:text-danger",
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 24 24",
-                              width: "24",
-                              height: "24"
-                            }
-                          },
-                          [
-                            _c("path", {
-                              staticClass: "heroicon-ui",
-                              attrs: {
-                                d:
-                                  "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"
-                              }
-                            })
-                          ]
-                        )
-                      ]
+                        _c("icon", {
+                          staticClass: "block text-70 hover:text-danger",
+                          attrs: { type: "delete" }
+                        })
+                      ],
+                      1
                     )
                   ]
                 )

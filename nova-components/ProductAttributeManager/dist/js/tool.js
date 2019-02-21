@@ -177,7 +177,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(2);
-module.exports = __webpack_require__(13);
+module.exports = __webpack_require__(9);
 
 
 /***/ }),
@@ -197,7 +197,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(4)
 /* template */
-var __vue_template__ = __webpack_require__(12)
+var __vue_template__ = __webpack_require__(8)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -241,8 +241,25 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Attribute__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -278,113 +295,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['resourceName', 'resourceId', 'field'],
   data: function data() {
     return {
-      attributes: [{ name: 'test name1', value: 'test value1' }, { name: 'test name2', value: 'test value2' }, { name: 'test name3', value: 'test value3' }]
+      selectedCompanyId: null,
+      companies: [{ id: 1, name: 'Company 1' }, { id: 2, name: 'Company 2' }, { id: 3, name: 'Company 3' }],
+      attributes: [{ id: 1, name: 'Default Name 1', isHidden: false }, { id: 2, name: 'Default Name 2', isHidden: false }, { id: 3, name: 'Default Name 3', isHidden: false }],
+      attributeValues: [{ id: 1, attributeId: 1, companyId: null, value: 'Default' }, { id: 2, attributeId: 2, companyId: null, value: 'Default' }, { id: 3, attributeId: 3, companyId: null, value: 'Default' }, { id: 4, attributeId: 1, companyId: 1, value: 'Modified' }, { id: 5, attributeId: 2, companyId: 1, value: 'Modified' }, { id: 6, attributeId: 3, companyId: 1, value: 'Modified' }]
     };
   },
   mounted: function mounted() {
-    //
+    Nova.$on('update:attribute', this.updateAttribute);
+    Nova.$on('delete:attribute', this.deleteAttribute);
   },
 
 
   methods: {
+    getValuesForAttribute: function getValuesForAttribute(id) {
+      return this.attributeValues.filter(function (element) {
+        return id === element.attributeId;
+      });
+    },
+    handleAddAttributeClick: function handleAddAttributeClick() {
+      this.attributes.push({
+        id: '4',
+        name: 'New Attribute',
+        value: 'Value'
+      });
+    },
     handleSaveClick: function handleSaveClick() {
       // Handle save click here
       console.log('handleSaveClick');
-      this.updateAttributes();
+      this.updateAttribute();
     },
-    updateAttributes: function updateAttributes() {
+    updateAttribute: function updateAttribute(attribute) {
+      this.attributes = this.attributes.map(function (item) {
+        if (item.id === attribute.id) {
+          item = _extends({}, item, { name: attribute.name, value: attribute.value });
+        }
+        return item;
+      });
+
       // Axios code goes here
-      console.log('handleSaveClick');
+      this.$toasted.show('Successfully updated attribute.', { type: 'success' });
+    },
+    deleteAttribute: function deleteAttribute(id) {
+      // Axios code goes here
+      this.$toasted.show('Successfully deleted attribute.', { type: 'success' });
     }
   },
+
   components: {
     Attribute: __WEBPACK_IMPORTED_MODULE_0__Attribute___default.a
   }
 });
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "flex pb-3 border-b border-40" }, [
-        _c("div", { staticClass: "ml-auto flex" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default btn-primary mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n        Add New Attribute\n      ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.handleSaveClick }
-            },
-            [_vm._v("\n        Save Attributes\n      ")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.attributes, function(attribute) {
-        return _c("attribute", {
-          key: attribute.name,
-          attrs: { attribute: attribute }
-        })
-      }),
-      _vm._v(" "),
-      _c("div")
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
-  }
-}
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(19)
+var __vue_script__ = __webpack_require__(6)
 /* template */
-var __vue_template__ = __webpack_require__(20)
+var __vue_template__ = __webpack_require__(7)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -423,7 +395,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 19 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -443,16 +415,99 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['attribute'],
+  props: ['attribute', 'attributeValues', 'selectedCompanyId'],
   data: function data() {
-    return {};
+    return {
+      isEditing: false,
+      localName: this.attribute.name
+    };
+  },
+
+
+  computed: {
+    localValue: function localValue() {
+      return this.getAttributeValue();
+    }
+  },
+
+  watch: {
+    selectedCompanyId: function selectedCompanyId() {
+      this.localValue = this.getAttributeValue();
+    }
+  },
+
+  methods: {
+    getAttributeValue: function getAttributeValue() {
+      var _this = this;
+
+      // Find attribute that matches currently selected company
+      var found = this.attributeValues.find(function (element) {
+        return _this.selectedCompanyId === element.companyId;
+      });
+
+      if (!found) {
+        // If not found, use default value
+        found = this.attributeValues.find(function (element) {
+          return element.companyId === null;
+        });
+      }
+
+      return found.value;
+    },
+    handleEditClick: function handleEditClick() {
+      this.isEditing = true;
+    },
+    handleDeleteClick: function handleDeleteClick() {
+      if (window.confirm('Are you sure you want to delete this attribute? This will delete the attribute for all companies.')) {
+        Nova.$emit('delete:attribute', this.attribute.id);
+      }
+    },
+    handleCancelClick: function handleCancelClick() {
+      this.isEditing = false;
+      this.localName = this.attribute.name;
+      this.localValue = this.getAttributeValue();
+    },
+    handleSaveClick: function handleSaveClick() {
+      this.isEditing = false;
+      Nova.$emit('update:attribute', {
+        id: attribute.id,
+        name: this.localName,
+        value: this.localValue,
+        companyId: this.selectedCompanyId
+      });
+    }
   }
 });
 
 /***/ }),
-/* 20 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -460,56 +515,122 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex items-center border-b border-40" }, [
-    _c("div", { staticClass: "w-1/4 py-4" }, [
-      _c("h4", { staticClass: "font-normal text-80" }, [
-        _vm._v(_vm._s(_vm.attribute.name))
-      ])
+    _c("div", { staticClass: "w-1/4 py-4 pr-3" }, [
+      _vm.isEditing && !_vm.selectedCompanyId
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.localName,
+                expression: "localName"
+              }
+            ],
+            staticClass: "w-full form-control form-input form-input-bordered",
+            attrs: { type: "text", placeholder: "Name" },
+            domProps: { value: _vm.localName },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.localName = $event.target.value
+              }
+            }
+          })
+        : _c("strong", [_vm._v(_vm._s(_vm.localName))])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "w-1/2 py-4" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.attribute.value,
-            expression: "attribute.value"
-          }
-        ],
-        staticClass: "w-full form-control form-input form-input-bordered",
-        attrs: { type: "text", placeholder: "Name" },
-        domProps: { value: _vm.attribute.value },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _vm.isEditing
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.localValue,
+                expression: "localValue"
+              }
+            ],
+            staticClass: "w-full form-control form-input form-input-bordered",
+            attrs: { type: "text", placeholder: "Value" },
+            domProps: { value: _vm.localValue },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.localValue = $event.target.value
+              }
             }
-            _vm.$set(_vm.attribute, "value", $event.target.value)
-          }
-        }
-      })
+          })
+        : _c("span", [_vm._v(_vm._s(_vm.localValue))])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "w-1/4 py-4 flex items-center justify-end" }, [
+      !_vm.isEditing
+        ? _c(
+            "button",
+            {
+              staticClass: "btn mr-3",
+              attrs: { type: "button", title: "Edit Value" },
+              on: { click: _vm.handleEditClick }
+            },
+            [
+              _c("icon", {
+                staticClass: "block fill-current text-70 hover:text-primary",
+                attrs: { type: "edit" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.isEditing
+        ? _c(
+            "button",
+            {
+              staticClass: "btn",
+              attrs: { type: "button", title: "Delete" },
+              on: { click: _vm.handleDeleteClick }
+            },
+            [
+              _c("icon", {
+                staticClass: "block fill-current text-70 hover:text-danger",
+                attrs: { type: "delete" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isEditing
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-danger mr-3",
+              attrs: { type: "button" },
+              on: { click: _vm.handleCancelClick }
+            },
+            [_vm._v("Cancel")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isEditing
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.handleSaveClick }
+            },
+            [_vm._v("Save")]
+          )
+        : _vm._e()
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/2 py-4 text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-default btn-primary",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Save")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -518,6 +639,132 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5148b27e", module.exports)
   }
 }
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "flex mb-6" }, [
+        _c("div", { staticClass: "w-1/4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "inline-block mb-1 text-80",
+              attrs: { for: "company-select" }
+            },
+            [_vm._v("Select a company to edit:")]
+          ),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedCompanyId,
+                  expression: "selectedCompanyId"
+                }
+              ],
+              staticClass: "w-full form-control form-select",
+              attrs: { id: "company-select" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedCompanyId = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "null" } }, [_vm._v("Default")]),
+              _vm._v(" "),
+              _vm._l(_vm.companies, function(company) {
+                return _c(
+                  "option",
+                  { key: company.id, domProps: { value: company.id } },
+                  [_vm._v("\n          " + _vm._s(company.name) + "\n        ")]
+                )
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-3/4 text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.handleAddAttributeClick }
+            },
+            [_vm._v("\n        Add New Attribute\n      ")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._l(_vm.attributes, function(attribute) {
+        return _c("attribute", {
+          key: attribute.id,
+          attrs: {
+            attribute: attribute,
+            attributeValues: _vm.getValuesForAttribute(attribute.id),
+            selectedCompanyId: _vm.selectedCompanyId
+          }
+        })
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex pb-3 border-b border-40" }, [
+      _c("div", { staticClass: "w-1/4" }, [
+        _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("NAME")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-3/4" }, [
+        _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("VALUE")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
+  }
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

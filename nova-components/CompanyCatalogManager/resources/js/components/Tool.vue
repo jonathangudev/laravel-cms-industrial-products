@@ -14,8 +14,8 @@
       <template slot-scope="{data, store}">
         <div class="card border border-50 py-2 px-3 tree-node-item">
           <div class="cursor-pointer pr-3" v-if="data.children &amp;&amp; data.children.length" @click="store.toggleOpen(data)">
-            <svg v-if="data.open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"/></svg>
+            <strong v-if="data.open">-</strong>
+            <strong v-else>+</strong>
           </div>
           
           <input type="text" name="name" class="appearance-none w-full mr-3" v-model="data.name" :title="data.name">
@@ -25,10 +25,10 @@
             class="btn mr-3"
             title="View"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 16" aria-labelledby="view" role="presentation" class="fill-current text-70 hover:text-primary"><path d="M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg>
+            <icon type="view" view-box="0 0 22 16" width="22" height="16" class="block text-70 hover:text-primary"/>
           </button>
           <button type="button" class="btn" @click="handleDeleteClick(data, store)" title="Delete">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="fill-current text-70 hover:text-danger"><path class="heroicon-ui" d="M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"/></svg>
+            <icon type="delete" class="block text-70 hover:text-danger"/>
           </button>
         </div>
       </template>
@@ -125,12 +125,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .he-tree{
-    svg {
-      display: block;
-    }
-  }
-
   .tree-node-inner{
     cursor: grab;
     max-width: 500px;
