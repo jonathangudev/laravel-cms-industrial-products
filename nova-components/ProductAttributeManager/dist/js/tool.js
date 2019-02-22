@@ -288,6 +288,57 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -295,17 +346,28 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   props: ['resourceName', 'resourceId', 'field'],
   data: function data() {
     return {
-      selectedCompanyId: null,
+      isModalOpen: false,
+      attributeToBeDeletedId: null,
+      isAddingNew: false,
+      newName: '',
+      newValue: '',
+      selectedCompanyId: 'default',
       companies: [{ id: 1, name: 'Company 1' }, { id: 2, name: 'Company 2' }, { id: 3, name: 'Company 3' }],
-      attributes: [{ id: 1, name: 'Default Name 1', isHidden: false }, { id: 2, name: 'Default Name 2', isHidden: false }, { id: 3, name: 'Default Name 3', isHidden: false }],
-      attributeValues: [{ id: 1, attributeId: 1, companyId: null, value: 'Default' }, { id: 2, attributeId: 2, companyId: null, value: 'Default' }, { id: 3, attributeId: 3, companyId: null, value: 'Default' }, { id: 4, attributeId: 1, companyId: 1, value: 'Modified' }, { id: 5, attributeId: 2, companyId: 1, value: 'Modified' }, { id: 6, attributeId: 3, companyId: 1, value: 'Modified' }]
+      attributes: [{ id: 1, name: 'Default Name 1' }, { id: 2, name: 'Default Name 2' }, { id: 3, name: 'Default Name 3' }],
+      attributeValues: [{ id: 1, attributeId: 1, companyId: null, value: 'Default', isHidden: false }, { id: 2, attributeId: 2, companyId: null, value: 'Default', isHidden: false }, { id: 3, attributeId: 3, companyId: null, value: 'Default', isHidden: false }, { id: 4, attributeId: 1, companyId: 1, value: 'Modified', isHidden: true }, { id: 5, attributeId: 2, companyId: 1, value: 'Modified', isHidden: false }, { id: 6, attributeId: 3, companyId: 1, value: 'Modified', isHidden: false }]
     };
   },
   mounted: function mounted() {
     Nova.$on('update:attribute', this.updateAttribute);
-    Nova.$on('delete:attribute', this.deleteAttribute);
+    Nova.$on('delete:attribute', this.handleDeleteAttribute);
   },
 
+
+  computed: {
+    isDefault: function isDefault() {
+      return this.selectedCompanyId === 'default';
+    }
+  },
 
   methods: {
     getValuesForAttribute: function getValuesForAttribute(id) {
@@ -314,21 +376,41 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       });
     },
     handleAddAttributeClick: function handleAddAttributeClick() {
-      this.attributes.push({
-        id: '4',
-        name: 'New Attribute',
-        value: 'Value'
-      });
+      this.isAddingNew = true;
     },
-    handleSaveClick: function handleSaveClick() {
-      // Handle save click here
-      console.log('handleSaveClick');
-      this.updateAttribute();
+    handleSaveAttributeClick: function handleSaveAttributeClick() {
+      this.isAddingNew = false;
+      this.addAttribute();
+    },
+    handleDeleteAttribute: function handleDeleteAttribute(id) {
+      this.isModalOpen = true;
+      this.attributeToBeDeletedId = id;
+    },
+    handleCloseModal: function handleCloseModal() {
+      this.isModalOpen = false;
+      this.attributeToBeDeletedId = null;
+    },
+    handleConfirmDelete: function handleConfirmDelete() {
+      this.isModalOpen = false;
+      this.deleteAttribute();
+    },
+    addAttribute: function addAttribute() {
+      // Axios code goes here
+      this.$toasted.show('Successfully added attribute.', { type: 'success' });
     },
     updateAttribute: function updateAttribute(attribute) {
+      window.alert(JSON.stringify(attribute));
+
       this.attributes = this.attributes.map(function (item) {
-        if (item.id === attribute.id) {
-          item = _extends({}, item, { name: attribute.name, value: attribute.value });
+        if (item.id === attribute.attributeId) {
+          return _extends({}, item, { name: attribute.name });
+        }
+        return item;
+      });
+
+      this.attributeValues = this.attributeValues.map(function (item) {
+        if (item.attributeId === attribute.attributeId && item.companyId === attribute.companyId) {
+          return _extends({}, item, { value: attribute.value, isHidden: attribute.isHidden });
         }
         return item;
       });
@@ -336,7 +418,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       // Axios code goes here
       this.$toasted.show('Successfully updated attribute.', { type: 'success' });
     },
-    deleteAttribute: function deleteAttribute(id) {
+    deleteAttribute: function deleteAttribute() {
+      window.alert(this.attributeToBeDeletedId);
+
       // Axios code goes here
       this.$toasted.show('Successfully deleted attribute.', { type: 'success' });
     }
@@ -440,31 +524,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['attribute', 'attributeValues', 'selectedCompanyId'],
+  props: ['attribute', 'attributeValues', 'selectedCompanyId', 'isDefault'],
   data: function data() {
     return {
       isEditing: false,
-      localName: this.attribute.name
+      localName: this.attribute.name,
+      localValue: this.getCompanyValues().value,
+      localIsHidden: this.getCompanyValues().isHidden
     };
   },
 
 
-  computed: {
-    localValue: function localValue() {
-      return this.getAttributeValue();
-    }
-  },
-
   watch: {
+    // Change values when selected company changes
     selectedCompanyId: function selectedCompanyId() {
-      this.localValue = this.getAttributeValue();
+      this.resetAttribute();
     }
   },
 
   methods: {
-    getAttributeValue: function getAttributeValue() {
+    getCompanyValues: function getCompanyValues() {
       var _this = this;
 
       // Find attribute that matches currently selected company
@@ -472,35 +562,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return _this.selectedCompanyId === element.companyId;
       });
 
+      // If not found, use default value
       if (!found) {
-        // If not found, use default value
         found = this.attributeValues.find(function (element) {
-          return element.companyId === null;
+          return !element.companyId;
         });
       }
 
-      return found.value;
+      return found;
+    },
+    resetAttribute: function resetAttribute() {
+      this.isEditing = false;
+      this.localName = this.attribute.name;
+      this.localValue = this.getCompanyValues().value;
+      this.localIsHidden = this.getCompanyValues().isHidden;
+    },
+    handleCheckbox: function handleCheckbox(checked) {
+      this.localIsHidden = checked;
     },
     handleEditClick: function handleEditClick() {
       this.isEditing = true;
     },
     handleDeleteClick: function handleDeleteClick() {
-      if (window.confirm('Are you sure you want to delete this attribute? This will delete the attribute for all companies.')) {
-        Nova.$emit('delete:attribute', this.attribute.id);
-      }
+      Nova.$emit('delete:attribute', this.attribute.id);
     },
     handleCancelClick: function handleCancelClick() {
-      this.isEditing = false;
-      this.localName = this.attribute.name;
-      this.localValue = this.getAttributeValue();
+      this.resetAttribute();
     },
     handleSaveClick: function handleSaveClick() {
       this.isEditing = false;
       Nova.$emit('update:attribute', {
-        id: attribute.id,
+        attributeId: this.attribute.id,
+        companyId: this.isDefault ? null : this.selectedCompanyId,
         name: this.localName,
         value: this.localValue,
-        companyId: this.selectedCompanyId
+        isHidden: this.localIsHidden
       });
     }
   }
@@ -516,7 +612,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex items-center border-b border-40" }, [
     _c("div", { staticClass: "w-1/4 py-4 pr-3" }, [
-      _vm.isEditing && !_vm.selectedCompanyId
+      _vm.isEditing && _vm.isDefault
         ? _c("input", {
             directives: [
               {
@@ -541,92 +637,134 @@ var render = function() {
         : _c("strong", [_vm._v(_vm._s(_vm.localName))])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "w-1/2 py-4" }, [
-      _vm.isEditing
-        ? _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.localValue,
-                expression: "localValue"
-              }
-            ],
-            staticClass: "w-full form-control form-input form-input-bordered",
-            attrs: { type: "text", placeholder: "Value" },
-            domProps: { value: _vm.localValue },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+    _c("div", { staticClass: "flex items-center w-3/4 py-4" }, [
+      _c("div", { staticClass: "w-2/3 pr-3" }, [
+        _vm.isEditing
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.localValue,
+                  expression: "localValue"
                 }
-                _vm.localValue = $event.target.value
+              ],
+              staticClass: "w-full form-control form-input form-input-bordered",
+              attrs: { type: "text", placeholder: "Value" },
+              domProps: { value: _vm.localValue },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.localValue = $event.target.value
+                }
               }
-            }
-          })
-        : _c("span", [_vm._v(_vm._s(_vm.localValue))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "w-1/4 py-4 flex items-center justify-end" }, [
-      !_vm.isEditing
-        ? _c(
-            "button",
-            {
-              staticClass: "btn mr-3",
-              attrs: { type: "button", title: "Edit Value" },
-              on: { click: _vm.handleEditClick }
-            },
-            [
-              _c("icon", {
-                staticClass: "block fill-current text-70 hover:text-primary",
-                attrs: { type: "edit" }
+            })
+          : _c("span", [_vm._v(_vm._s(_vm.localValue))])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "w-1/6 pr-3" },
+        [
+          !_vm.isDefault && _vm.isEditing
+            ? _c("checkbox", {
+                attrs: { checked: _vm.localIsHidden },
+                on: { input: _vm.handleCheckbox }
               })
-            ],
-            1
-          )
-        : _vm._e(),
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isDefault && !_vm.isEditing && _vm.localIsHidden
+            ? _c("span", { staticClass: "fill-current text-70" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "block",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 24 24",
+                      width: "24",
+                      height: "24"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      staticClass: "heroicon-ui",
+                      attrs: {
+                        d:
+                          "M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-2.3-8.7l1.3 1.29 3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.42z"
+                      }
+                    })
+                  ]
+                )
+              ])
+            : _vm._e()
+        ],
+        1
+      ),
       _vm._v(" "),
-      !_vm.isEditing
-        ? _c(
-            "button",
-            {
-              staticClass: "btn",
-              attrs: { type: "button", title: "Delete" },
-              on: { click: _vm.handleDeleteClick }
-            },
-            [
-              _c("icon", {
-                staticClass: "block fill-current text-70 hover:text-danger",
-                attrs: { type: "delete" }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.isEditing
-        ? _c(
-            "button",
-            {
-              staticClass: "btn btn-default btn-danger mr-3",
-              attrs: { type: "button" },
-              on: { click: _vm.handleCancelClick }
-            },
-            [_vm._v("Cancel")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.isEditing
-        ? _c(
-            "button",
-            {
-              staticClass: "btn btn-default btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.handleSaveClick }
-            },
-            [_vm._v("Save")]
-          )
-        : _vm._e()
+      _c("div", { staticClass: "w-1/6 flex items-center justify-end" }, [
+        !_vm.isEditing
+          ? _c(
+              "button",
+              {
+                staticClass: "btn mr-3",
+                attrs: { type: "button", title: "Edit Value" },
+                on: { click: _vm.handleEditClick }
+              },
+              [
+                _c("icon", {
+                  staticClass: "block fill-current text-70 hover:text-primary",
+                  attrs: { type: "edit" }
+                })
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        !_vm.isEditing
+          ? _c(
+              "button",
+              {
+                staticClass: "btn",
+                attrs: { type: "button", title: "Delete" },
+                on: { click: _vm.handleDeleteClick }
+              },
+              [
+                _c("icon", {
+                  staticClass: "block fill-current text-70 hover:text-danger",
+                  attrs: { type: "delete" }
+                })
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEditing
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-danger mr-3",
+                attrs: { type: "button" },
+                on: { click: _vm.handleCancelClick }
+              },
+              [_vm._v("Cancel")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEditing
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-primary",
+                attrs: { type: "button" },
+                on: { click: _vm.handleSaveClick }
+              },
+              [_vm._v("Save")]
+            )
+          : _vm._e()
+      ])
     ])
   ])
 }
@@ -651,88 +789,231 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "flex mb-6" }, [
-        _c("div", { staticClass: "w-1/4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "inline-block mb-1 text-80",
-              attrs: { for: "company-select" }
-            },
-            [_vm._v("Select a company to edit:")]
-          ),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedCompanyId,
-                  expression: "selectedCompanyId"
-                }
-              ],
-              staticClass: "w-full form-control form-select",
-              attrs: { id: "company-select" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedCompanyId = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { value: "null" } }, [_vm._v("Default")]),
+      _vm.isAddingNew
+        ? _c("div", [
+            _c("div", { staticClass: "flex items-center border-b border-40" }, [
+              _vm._m(0),
               _vm._v(" "),
-              _vm._l(_vm.companies, function(company) {
-                return _c(
-                  "option",
-                  { key: company.id, domProps: { value: company.id } },
-                  [_vm._v("\n          " + _vm._s(company.name) + "\n        ")]
+              _c("div", { staticClass: "w-1/2 pr-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newName,
+                      expression: "newName"
+                    }
+                  ],
+                  staticClass:
+                    "w-full form-control form-input form-input-bordered",
+                  attrs: { type: "text", placeholder: "Name" },
+                  domProps: { value: _vm.newName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.newName = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex items-center" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-1/2 pr-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newValue,
+                      expression: "newValue"
+                    }
+                  ],
+                  staticClass:
+                    "w-full form-control form-input form-input-bordered",
+                  attrs: { type: "text", placeholder: "Value" },
+                  domProps: { value: _vm.newValue },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.newValue = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "bg-30 flex -mx-6 -mb-3 px-8 py-4 justify-end" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.handleSaveAttributeClick }
+                  },
+                  [_vm._v("\n        Save Attribute\n      ")]
                 )
+              ]
+            )
+          ])
+        : _c(
+            "div",
+            [
+              _c("div", { staticClass: "flex mb-6" }, [
+                _c("div", { staticClass: "w-1/4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "inline-block mb-1 text-80",
+                      attrs: { for: "company-select" }
+                    },
+                    [_vm._v("Select a company to edit:")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedCompanyId,
+                          expression: "selectedCompanyId"
+                        }
+                      ],
+                      staticClass: "w-full form-control form-select",
+                      attrs: { id: "company-select" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.selectedCompanyId = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "default" } }, [
+                        _vm._v("Default")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.companies, function(company) {
+                        return _c(
+                          "option",
+                          { key: company.id, domProps: { value: company.id } },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(company.name) +
+                                "\n          "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 text-right" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-primary",
+                      attrs: { type: "button" },
+                      on: { click: _vm.handleAddAttributeClick }
+                    },
+                    [_vm._v("\n          Add New Attribute\n        ")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex pb-3 border-b border-40" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex w-3/4" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-1/6" }, [
+                    !_vm.isDefault
+                      ? _c("strong", { staticClass: "text-xs text-80" }, [
+                          _vm._v("HIDDEN")
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.attributes, function(attribute) {
+                return _c("attribute", {
+                  key: attribute.id,
+                  attrs: {
+                    attribute: attribute,
+                    attributeValues: _vm.getValuesForAttribute(attribute.id),
+                    selectedCompanyId: _vm.selectedCompanyId,
+                    isDefault: _vm.isDefault
+                  }
+                })
               })
             ],
             2
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-3/4 text-right" }, [
-          _c(
-            "button",
+          ),
+      _vm._v(" "),
+      _vm.isModalOpen
+        ? _c(
+            "delete-resource-modal",
             {
-              staticClass: "btn btn-default btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.handleAddAttributeClick }
+              on: {
+                close: _vm.handleCloseModal,
+                confirm: _vm.handleConfirmDelete
+              }
             },
-            [_vm._v("\n        Add New Attribute\n      ")]
+            [
+              _c(
+                "div",
+                { staticClass: "p-8" },
+                [
+                  _c("heading", { staticClass: "mb-6", attrs: { level: 2 } }, [
+                    _vm._v(_vm._s(_vm.__("Delete Attribute")))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-80 leading-normal" }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(
+                          _vm.__(
+                            "Are you sure you want to delete this attribute? It will be deleted for all companies."
+                          )
+                        ) +
+                        "\n      "
+                    )
+                  ])
+                ],
+                1
+              )
+            ]
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._l(_vm.attributes, function(attribute) {
-        return _c("attribute", {
-          key: attribute.id,
-          attrs: {
-            attribute: attribute,
-            attributeValues: _vm.getValuesForAttribute(attribute.id),
-            selectedCompanyId: _vm.selectedCompanyId
-          }
-        })
-      })
+        : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = [
@@ -740,14 +1021,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex pb-3 border-b border-40" }, [
-      _c("div", { staticClass: "w-1/4" }, [
-        _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("NAME")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-3/4" }, [
-        _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("VALUE")])
-      ])
+    return _c("div", { staticClass: "w-1/4 py-8 pr-3" }, [
+      _c("span", { staticClass: "text-80" }, [_vm._v("Name")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/4 py-8 pr-3" }, [
+      _c("span", { staticClass: "text-80" }, [_vm._v("Value")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/4" }, [
+      _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("NAME")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-2/3" }, [
+      _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("VALUE")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/6 text-right" }, [
+      _c("strong", { staticClass: "text-xs text-80" }, [_vm._v("ACTIONS")])
     ])
   }
 ]
