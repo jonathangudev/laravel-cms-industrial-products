@@ -4,7 +4,6 @@ namespace Tests\Unit\Catalog;
 
 use App\Catalog\Category;
 use App\Catalog\Product;
-use App\Catalog\ProductType;
 use App\Catalog\Product\AttributeSet;
 use App\Catalog\Product\AttributeValue;
 use Illuminate\Database\Eloquent\Collection;
@@ -66,20 +65,6 @@ class ProductTest extends TestCase
         $product->delete();
 
         $this->assertDatabaseMissing($productTable, $productData);
-    }
-
-    /**
-     * Test that a catalog product can get its related type
-     *
-     * @return  void
-     */
-    public function testItCanGetAProductTypeFromAProduct()
-    {
-        $product = factory(Product::class)->create();
-        $type = $product->type;
-
-        $this->assertInstanceOf(ProductType::class, $type);
-        $this->assertEquals($product->product_type_id, $type->id);
     }
 
     /**

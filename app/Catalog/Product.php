@@ -2,7 +2,6 @@
 
 namespace App\Catalog;
 
-use App\Catalog\ProductType;
 use App\Catalog\Product\AttributeSet;
 use App\Catalog\Product\AttributeValue;
 use Illuminate\Database\Eloquent\Model;
@@ -25,16 +24,6 @@ class Product extends Model
         'name',
         'description',
     ];
-
-    /**
-     * Get the type that owns the product.
-     *
-     * @return App\Catalog\ProductType
-     */
-    public function type()
-    {
-        return $this->belongsTo(ProductType::class, 'product_type_id');
-    }
 
     /**
      * Get the attribute set for the product.
