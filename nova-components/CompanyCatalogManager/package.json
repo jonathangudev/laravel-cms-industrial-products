@@ -11,10 +11,11 @@
     },
     "devDependencies": {
         "cross-env": "^5.0.0",
-        "imagemin-pngquant": "^5.0.1",
+        "imagemin-pngquant": "5.0.1",
         "laravel-mix": "^1.0"
     },
     "dependencies": {
-        "vue": "^2.5.0"
+        "vue": "^2.5.0",
+        "vue-draggable-nested-tree": "^2.2.7"
     }
 }

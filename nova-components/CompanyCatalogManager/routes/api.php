@@ -1,7 +1,5 @@
 <?php
 
-use App\Company;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/{id}/categories', function (Request $request) {
-    $company = Company::find($request->route('id'));
-    $categories = $company->categories;
-    $category = $categories->first();
-
-    return response()->json($category->get()->toTree());
-});
+Route::get('/{id}/categories', 'CategoryController@getCategories');
+Route::put('/{id}/categories', 'CategoryController@updateCategories');
+Route::delete('/category/{id}', 'CategoryController@deleteCategory');

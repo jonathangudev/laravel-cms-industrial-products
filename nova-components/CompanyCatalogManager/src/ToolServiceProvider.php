@@ -39,6 +39,7 @@ class ToolServiceProvider extends ServiceProvider
 
         Route::middleware(['nova'])
             ->prefix('nova-vendor/company-catalog-manager')
+            ->namespace('Jmp\CompanyCatalogManager\Http\Controllers')
             ->group(__DIR__ . '/../routes/api.php');
     }
 
