@@ -2,7 +2,7 @@
 
 namespace App\Catalog;
 
-use App\Catalog\Product\AttributeSet;
+use App\Catalog\Product\AttributeTemplate;
 use App\Catalog\Product\AttributeValue;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,13 +26,13 @@ class Product extends Model
     ];
 
     /**
-     * Get the attribute set for the product.
+     * Get the attribute template for the product.
      *
-     * @return App\Catalog\Product\AttributeSet
+     * @return App\Catalog\Product\AttributeTemplate
      */
-    public function attributeSet()
+    public function attributeTemplate()
     {
-        return $this->belongsTo(AttributeSet::class, 'attribute_set_id');
+        return $this->belongsTo(AttributeTemplate::class, 'attribute_template_id');
     }
 
     /**

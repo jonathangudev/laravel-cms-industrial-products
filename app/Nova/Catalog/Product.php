@@ -62,7 +62,7 @@ class Product extends Resource
             ID::make()->sortable(),
             Text::make('Name')->creationRules('required'),
             Textarea::make('Description'),
-            BelongsTo::make('Attribute Set', 'attributeSet', 'App\Nova\Catalog\Product\AttributeSet')->creationRules('required'),
+            BelongsTo::make('Attribute Template', 'attributeTemplate', 'App\Nova\Catalog\Product\AttributeTemplate')->nullable(),
             ProductAttributeManager::make(),
         ];
     }
