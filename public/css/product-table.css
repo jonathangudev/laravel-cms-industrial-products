@@ -124,10 +124,13 @@
 }
 
 .c-product-table__email-text {
-  display: none;
   position: absolute;
   right: 0.8rem;
   z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity 150ms ease-in-out, visibility 0s ease-in-out 150ms;
+  transition: opacity 150ms ease-in-out, visibility 0s ease-in-out 150ms;
 }
 
 .c-product-table__email a {
@@ -149,9 +152,17 @@
   z-index: 0;
 }
 
+.c-product-table__email a:focus,
+.c-product-table__email a:hover {
+  color: #FF0402;
+}
+
 .c-product-table__email a:focus .c-product-table__email-text,
 .c-product-table__email a:hover .c-product-table__email-text {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: opacity 150ms ease-in-out, visibility 0s ease-in-out 0s;
+  transition: opacity 150ms ease-in-out, visibility 0s ease-in-out 0s;
 }
 
 .c-product-table__email a:focus:before,

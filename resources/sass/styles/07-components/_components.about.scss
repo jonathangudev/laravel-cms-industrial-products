@@ -10,6 +10,10 @@ $about-stripe-height:				$leading / 2;
 $about-stripe-width: 				15rem;
 
 
+.c-about-wrapper {
+	overflow: hidden;
+}
+
 .c-about-hero {
 	background: url('/images/about-hero.jpg') no-repeat center center;
 	background-size: cover;

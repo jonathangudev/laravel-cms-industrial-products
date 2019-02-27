@@ -33,7 +33,7 @@
 								<h1>Certified craftsmanship.
 									<br/>World-class <span class="c-home-hero__highlight"><span>componentry.</span></span>
 								</h1>
-								<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</h3>
+								<h3>JMP custom tailors product lines using advanced materials, cost effective designs, and unmatched craftsmanship.</h3>
 							</div>
 						</div>
 					</div>
@@ -60,8 +60,10 @@
 						<div class="c-section c-section--center">
 							<h3>Who We Are</h3>
 						</div>
-						<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
-						<a href="{{ route('about') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
+						<p class="text-muted">Founded in 1989 - JMP is Dedicated to Craftsmanship, Innovation and Customer Service.</p>
+						<div class="c-home-cards__cta">
+							<a href="{{ route('about') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
+						</div>
 					</div>
 				</div>
 				<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-xl-1">
@@ -69,8 +71,10 @@
 						<div class="c-section c-section--center">
 							<h3>What We Do</h3>
 						</div>
-						<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
-						<a href="{{ route('products-services') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
+						<p class="text-muted">JMP offers cutting-edge products and services for Space and Defense Systems, Petrochemical Technologies and Alternative Energy Systems. </p>
+						<div class="c-home-cards__cta">
+							<a href="{{ route('products-services') }}" class="c-btn c-btn--primary c-btn--ghost">Learn More</a>
+						</div>
 					</div>
 				</div>
 				<div class="col-24 col-md-12 col-lg-8 col-xl-6 offset-md-6 offset-lg-0 offset-xl-1">
@@ -78,8 +82,10 @@
 						<div class="c-section c-section--center">
 							<h3>Contact Us</h3>
 						</div>
-						<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida. Nulla id dignissim erat. Donec nec vulputate mi.</p>
-						<a href="{{ route('contact') }}" class="c-btn c-btn--primary c-btn--ghost">Contact Us</a>
+						<p class="text-muted">For questions on our products or to place orders, please contact us below.</p>
+						<div class="c-home-cards__cta">
+							<a href="{{ route('contact') }}" class="c-btn c-btn--primary c-btn--ghost">Contact Us</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -96,12 +102,12 @@
 				</div>
 				<div class="col-lg-11 col-xl-10 offset-lg-1 offset-xl-2">
 					<div class="c-section c-home-content__text d-none d-lg-block">
-						<h2>Lorem ipsum dolor sit amet</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+						<h2>Specialists in High Performance Materials</h2>
+						<p>Designing exotic materials into world-class components.</p>
 					</div>
 					<div class="c-section c-section--center c-home-content__text d-lg-none">
-						<h2>Lorem ipsum dolor sit amet</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros. Vestibulum vel purus et diam consequat vulputate.</p>
+						<h2>Specialists in High Performance Materials</h2>
+						<p>Designing exotic materials into world-class components.</p>
 					</div>
 				</div>
 			</div>

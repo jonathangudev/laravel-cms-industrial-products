@@ -4,9 +4,23 @@
 
 <link rel="stylesheet" href="{{ mix('/css/breadcrumbs.css') }}">
 <nav class="c-breadcrumbs">
-	<ul class="c-breadcrumbs__list">
-		<li class="c-breadcrumbs__item"><a href="/">Home</a></li>
-		<li class="c-breadcrumbs__item"><a href="/">Previous Page</a></li>
-		<li class="c-breadcrumbs__item"><strong>Current Page</strong></li>
-	</ul>
+	<ol class="c-breadcrumbs__list">
+
+		@if (isset($type) && $type === 'catalog')
+			<li class="c-breadcrumbs__item"><a href="{{ route('catalog') }}">Home</a></li>
+		@else
+			<li class="c-breadcrumbs__item"><a href="{{ route('home') }}">Home</a></li>
+		@endif
+
+		@isset($categories)
+			@foreach ($categories as $category)
+				<li class="c-breadcrumbs__item"><a href="/">{{ $category }}</a></li>
+			@endforeach
+		@endisset
+
+		@isset($name)
+			<li class="c-breadcrumbs__item"><strong>{{ $name }}</strong></li>
+		@endif
+
+	</ol>
 </nav>

@@ -26,7 +26,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				@include('partials.breadcrumbs')
+				@include('partials.breadcrumbs', ['name' => 'Contact Us'])
 			</div>
 		</div>
 	</div>

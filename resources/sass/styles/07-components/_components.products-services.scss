@@ -10,6 +10,12 @@
 }
 
 .c-ps-section {
+	margin-bottom: $leading * 2.5;
+		
+	@include media-breakpoint-down(sm) {
+		margin-bottom: $leading;
+	}
+
 	&__title {
 		margin-bottom: $leading * 1.5;
 	}
@@ -41,7 +47,7 @@
 	}
 
 	&__border {
-		max-width: 100%;
+		width: 100%;
 		position: absolute;
 
 		&--top {
@@ -50,21 +56,12 @@
 		}
 
 		&--bottom {
-			max-width: 50%;
 			bottom: 0;
 			right: 0;
 		}
 	}
 
-	&--products {
-		margin-bottom: $leading * 2.5;
-		
-		@include media-breakpoint-down(sm) {
-			margin-bottom: $leading;
-		}
-	}
-
-	&--services {
+	&--gray {
 		position: relative;
 		padding-top: $leading * 6;
 		padding-bottom: $leading * 5;
