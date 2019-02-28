@@ -2,10 +2,10 @@
 
 namespace Jmp\ProductAttributeManager;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
 class ToolServiceProvider extends ServiceProvider
 {
@@ -21,8 +21,8 @@ class ToolServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('product-attribute-manager', __DIR__.'/../dist/js/tool.js');
-            Nova::style('product-attribute-manager', __DIR__.'/../dist/css/tool.css');
+            Nova::script('product-attribute-manager', __DIR__ . '/../dist/js/tool.js');
+            Nova::style('product-attribute-manager', __DIR__ . '/../dist/css/tool.css');
         });
     }
 
@@ -38,8 +38,9 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/product-attribute-manager')
-                ->group(__DIR__.'/../routes/api.php');
+            ->prefix('nova-vendor/product-attribute-manager')
+            ->namespace('Jmp\ProductAttributeManager\Http\Controllers')
+            ->group(__DIR__ . '/../routes/api.php');
     }
 
     /**

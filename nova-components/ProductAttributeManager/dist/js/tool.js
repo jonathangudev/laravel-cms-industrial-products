@@ -182,8 +182,9 @@ module.exports = __webpack_require__(9);
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 Nova.booting(function (Vue, router) {
     Vue.component('product-attribute-manager', __webpack_require__(3));
 });
@@ -243,8 +244,27 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Attribute__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -343,91 +363,125 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['resourceName', 'resourceId', 'field'],
+  props: ["resourceName", "resourceId", "field"],
   data: function data() {
     return {
       isModalOpen: false,
-      attributeToBeDeletedId: null,
+      attributeValueToBeDeletedId: null,
       isAddingNew: false,
-      newName: '',
-      newValue: '',
-      selectedCompanyId: 'default',
-      companies: [{ id: 1, name: 'Company 1' }, { id: 2, name: 'Company 2' }, { id: 3, name: 'Company 3' }],
-      attributes: [{ id: 1, name: 'Default Name 1' }, { id: 2, name: 'Default Name 2' }, { id: 3, name: 'Default Name 3' }],
-      attributeValues: [{ id: 1, attributeId: 1, companyId: null, value: 'Default', isHidden: false }, { id: 2, attributeId: 2, companyId: null, value: 'Default', isHidden: false }, { id: 3, attributeId: 3, companyId: null, value: 'Default', isHidden: false }, { id: 4, attributeId: 1, companyId: 1, value: 'Modified', isHidden: true }, { id: 5, attributeId: 2, companyId: 1, value: 'Modified', isHidden: false }, { id: 6, attributeId: 3, companyId: 1, value: 'Modified', isHidden: false }]
+      newName: "",
+      newValue: "",
+      selectedCompanyId: null,
+      companies: [],
+      attributes: [],
+      attributeValues: []
     };
-  },
-  mounted: function mounted() {
-    Nova.$on('update:attribute', this.updateAttribute);
-    Nova.$on('delete:attribute', this.handleDeleteAttribute);
   },
 
 
   computed: {
-    isDefault: function isDefault() {
-      return this.selectedCompanyId === 'default';
+    isDefaultCompany: function isDefaultCompany() {
+      return this.selectedCompanyId === null;
     }
   },
 
   methods: {
     getValuesForAttribute: function getValuesForAttribute(id) {
       return this.attributeValues.filter(function (element) {
-        return id === element.attributeId;
+        return id === element.attribute_id;
       });
     },
-    handleAddAttributeClick: function handleAddAttributeClick() {
+    handleAddAttribute: function handleAddAttribute() {
       this.isAddingNew = true;
     },
-    handleSaveAttributeClick: function handleSaveAttributeClick() {
+    handleSaveAttribute: function handleSaveAttribute() {
       this.isAddingNew = false;
       this.addAttribute();
     },
-    handleDeleteAttribute: function handleDeleteAttribute(id) {
+    handleCancelAttribute: function handleCancelAttribute() {
+      this.isAddingNew = false;
+      this.newName = "";
+      this.newValue = "";
+    },
+    handleDeleteAttributeValue: function handleDeleteAttributeValue(id) {
       this.isModalOpen = true;
-      this.attributeToBeDeletedId = id;
+      this.attributeValueToBeDeletedId = id;
     },
     handleCloseModal: function handleCloseModal() {
       this.isModalOpen = false;
-      this.attributeToBeDeletedId = null;
+      this.attributeValueToBeDeletedId = null;
     },
-    handleConfirmDelete: function handleConfirmDelete() {
+    handleConfirmDeleteAttributeValue: function handleConfirmDeleteAttributeValue() {
       this.isModalOpen = false;
-      this.deleteAttribute();
+      this.deleteAttributeValue();
     },
     addAttribute: function addAttribute() {
-      // Axios code goes here
-      this.$toasted.show('Successfully added attribute.', { type: 'success' });
+      var _this = this;
+
+      axios.post("/nova-vendor/product-attribute-manager/" + this.resourceId + "/attribute", {
+        name: this.newName,
+        value: this.newValue
+      }).then(function (response) {
+        _this.fetchData().then(function () {
+          _this.$toasted.show("Successfully added attribute.", {
+            type: "success"
+          });
+        });
+      }).catch(function (error) {
+        _this.$toasted.show(error.response.data.message, { type: "error" });
+      }).then(function () {
+        _this.newName = "";
+        _this.newValue = "";
+      });
     },
     updateAttribute: function updateAttribute(attribute) {
-      window.alert(JSON.stringify(attribute));
+      var _this2 = this;
 
-      this.attributes = this.attributes.map(function (item) {
-        if (item.id === attribute.attributeId) {
-          return _extends({}, item, { name: attribute.name });
-        }
-        return item;
+      axios.put("/nova-vendor/product-attribute-manager/attribute", attribute).then(function (response) {
+        _this2.fetchData().then(function () {
+          _this2.$toasted.show("Successfully updated attribute.", {
+            type: "success"
+          });
+        });
+      }).catch(function (error) {
+        _this2.$toasted.show(error.response.data.message, { type: "error" });
       });
-
-      this.attributeValues = this.attributeValues.map(function (item) {
-        if (item.attributeId === attribute.attributeId && item.companyId === attribute.companyId) {
-          return _extends({}, item, { value: attribute.value, isHidden: attribute.isHidden });
-        }
-        return item;
-      });
-
-      // Axios code goes here
-      this.$toasted.show('Successfully updated attribute.', { type: 'success' });
     },
-    deleteAttribute: function deleteAttribute() {
-      window.alert(this.attributeToBeDeletedId);
+    deleteAttributeValue: function deleteAttributeValue() {
+      var _this3 = this;
 
-      // Axios code goes here
-      this.$toasted.show('Successfully deleted attribute.', { type: 'success' });
+      axios.delete("/nova-vendor/product-attribute-manager/attribute-value/" + this.attributeValueToBeDeletedId).then(function (response) {
+        _this3.fetchData().then(function () {
+          _this3.$toasted.show("Successfully deleted attribute.", {
+            type: "success"
+          });
+        });
+      }).catch(function (error) {
+        _this3.$toasted.show(error.response.data.message, { type: "error" });
+      });
+    },
+    fetchData: function fetchData() {
+      var _this4 = this;
+
+      return axios.get("/nova-vendor/product-attribute-manager/" + this.resourceId + "/attribute-data").then(function (response) {
+        _this4.companies = response.data.companies;
+        _this4.attributes = response.data.attributes;
+        _this4.attributeValues = response.data.attributeValues;
+        _this4.$emit("reset-attributes");
+      }).catch(function (error) {
+        _this4.$toasted.show("There was an error fetching the data", {
+          type: "error"
+        });
+      });
     }
   },
 
   components: {
     Attribute: __WEBPACK_IMPORTED_MODULE_0__Attribute___default.a
+  },
+
+  mounted: function mounted() {
+    this.fetchData();
   }
 });
 
@@ -533,18 +587,139 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['attribute', 'attributeValues', 'selectedCompanyId', 'isDefault'],
+  props: ["attribute", "attributeValues", "selectedCompanyId", "isDefaultCompany"],
   data: function data() {
     return {
       isEditing: false,
-      localName: this.attribute.name,
-      localValue: this.getCompanyValues().value,
-      localIsHidden: this.getCompanyValues().isHidden
+      _name: null,
+      _value: null,
+      _isHidden: null,
+      _isDefaultValue: null
     };
   },
 
+
+  computed: {
+    values: function values() {
+      var _this = this;
+
+      return this.attributeValues.filter(function (element) {
+        return _this.attribute.id === element.attribute_id;
+      });
+    },
+    attributeValue: function attributeValue() {
+      var _this2 = this;
+
+      // Find attribute that matches currently selected company
+      var found = this.values.find(function (element) {
+        return _this2.selectedCompanyId === element.company_id;
+      });
+
+      // If not found, use default value
+      if (!found) {
+        found = this.values.find(function (element) {
+          return !element.company_id;
+        });
+
+        this.$data._isDefaultValue = true;
+      }
+
+      if (found.company_id === null) {
+        this.$data._isDefaultValue = true;
+      } else {
+        this.$data._isDefaultValue = false;
+      }
+
+      return found;
+    },
+
+
+    name: {
+      get: function get() {
+        return this.$data._name !== null ? this.$data._name : this.attribute.name;
+      },
+      set: function set(data) {
+        this.$data._name = data;
+      }
+    },
+
+    value: {
+      get: function get() {
+        return this.$data._value !== null ? this.$data._value : this.attributeValue.value;
+      },
+      set: function set(data) {
+        this.$data._value = data;
+      }
+    },
+
+    isHidden: {
+      get: function get() {
+        return this.$data._isHidden !== null ? this.$data._isHidden : this.attributeValue.is_hidden;
+      },
+      set: function set(data) {
+        this.$data._isHidden = data;
+      }
+    },
+
+    canDelete: function canDelete() {
+      return !this.isEditing && (this.isDefaultCompany && this.$data._isDefaultValue || !this.isDefaultCompany && !this.$data._isDefaultValue);
+    },
+    updateData: function updateData() {
+      var attribute = _.clone(this.attribute);
+      var attributeValue = _.clone(this.attributeValue);
+
+      attribute.name = this.name;
+
+      if (this.$data._isDefaultValue === true && this.selectedCompanyId !== attributeValue.company_id) {
+        delete attributeValue.id;
+        delete attributeValue.created_at;
+        delete attributeValue.updated_at;
+      }
+
+      attributeValue.value = this.value;
+      attributeValue.is_hidden = this.isHidden;
+      attributeValue.company_id = this.selectedCompanyId;
+      delete attributeValue.attribute;
+
+      return {
+        attribute: attribute,
+        attributeValue: attributeValue
+      };
+    }
+  },
 
   watch: {
     // Change values when selected company changes
@@ -554,51 +729,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    getCompanyValues: function getCompanyValues() {
-      var _this = this;
-
-      // Find attribute that matches currently selected company
-      var found = this.attributeValues.find(function (element) {
-        return _this.selectedCompanyId === element.companyId;
-      });
-
-      // If not found, use default value
-      if (!found) {
-        found = this.attributeValues.find(function (element) {
-          return !element.companyId;
-        });
-      }
-
-      return found;
-    },
     resetAttribute: function resetAttribute() {
       this.isEditing = false;
-      this.localName = this.attribute.name;
-      this.localValue = this.getCompanyValues().value;
-      this.localIsHidden = this.getCompanyValues().isHidden;
+      this.name = null;
+      this.value = null;
+      this.isHidden = null;
     },
     handleCheckbox: function handleCheckbox(checked) {
-      this.localIsHidden = checked;
+      this.isHidden = checked;
     },
-    handleEditClick: function handleEditClick() {
+    handleEdit: function handleEdit() {
       this.isEditing = true;
     },
-    handleDeleteClick: function handleDeleteClick() {
-      Nova.$emit('delete:attribute', this.attribute.id);
+    handleDelete: function handleDelete() {
+      this.$emit("attribute-delete", this.attributeValue.id);
     },
-    handleCancelClick: function handleCancelClick() {
+    handleCancel: function handleCancel() {
       this.resetAttribute();
     },
-    handleSaveClick: function handleSaveClick() {
+    handleSave: function handleSave() {
       this.isEditing = false;
-      Nova.$emit('update:attribute', {
-        attributeId: this.attribute.id,
-        companyId: this.isDefault ? null : this.selectedCompanyId,
-        name: this.localName,
-        value: this.localValue,
-        isHidden: this.localIsHidden
-      });
+      this.$emit("attribute-update", this.updateData);
     }
+  },
+
+  created: function created() {
+    this.$parent.$on("reset-attributes", this.resetAttribute);
   }
 });
 
@@ -612,29 +768,38 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex items-center border-b border-40" }, [
     _c("div", { staticClass: "w-1/4 py-4 pr-3" }, [
-      _vm.isEditing && _vm.isDefault
+      _vm.isEditing && _vm.isDefaultCompany
         ? _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.localName,
-                expression: "localName"
+                value: _vm.name,
+                expression: "name"
               }
             ],
             staticClass: "w-full form-control form-input form-input-bordered",
             attrs: { type: "text", placeholder: "Name" },
-            domProps: { value: _vm.localName },
+            domProps: { value: _vm.name },
             on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.handleSave($event)
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.localName = $event.target.value
+                _vm.name = $event.target.value
               }
             }
           })
-        : _c("strong", [_vm._v(_vm._s(_vm.localName))])
+        : _c("strong", [_vm._v(_vm._s(_vm.name))])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "flex items-center w-3/4 py-4" }, [
@@ -645,37 +810,55 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.localValue,
-                  expression: "localValue"
+                  value: _vm.value,
+                  expression: "value"
                 }
               ],
               staticClass: "w-full form-control form-input form-input-bordered",
               attrs: { type: "text", placeholder: "Value" },
-              domProps: { value: _vm.localValue },
+              domProps: { value: _vm.value },
               on: {
+                keyup: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.handleSave($event)
+                },
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.localValue = $event.target.value
+                  _vm.value = $event.target.value
                 }
               }
             })
-          : _c("span", [_vm._v(_vm._s(_vm.localValue))])
+          : _c(
+              "span",
+              {
+                class: {
+                  "text-70": _vm.$data._isDefaultValue && !_vm.isDefaultCompany
+                }
+              },
+              [_vm._v(_vm._s(_vm.value))]
+            )
       ]),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "w-1/6 pr-3" },
         [
-          !_vm.isDefault && _vm.isEditing
+          !_vm.isDefaultCompany && _vm.isEditing
             ? _c("checkbox", {
-                attrs: { checked: _vm.localIsHidden },
+                staticClass: "cursor-pointer",
+                attrs: { checked: _vm.isHidden },
                 on: { input: _vm.handleCheckbox }
               })
             : _vm._e(),
           _vm._v(" "),
-          !_vm.isDefault && !_vm.isEditing && _vm.localIsHidden
+          !_vm.isDefaultCompany && !_vm.isEditing && _vm.isHidden
             ? _c("span", { staticClass: "fill-current text-70" }, [
                 _c(
                   "svg",
@@ -711,7 +894,7 @@ var render = function() {
               {
                 staticClass: "btn mr-3",
                 attrs: { type: "button", title: "Edit Value" },
-                on: { click: _vm.handleEditClick }
+                on: { click: _vm.handleEdit }
               },
               [
                 _c("icon", {
@@ -723,13 +906,13 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        !_vm.isEditing
+        _vm.canDelete
           ? _c(
               "button",
               {
                 staticClass: "btn",
                 attrs: { type: "button", title: "Delete" },
-                on: { click: _vm.handleDeleteClick }
+                on: { click: _vm.handleDelete }
               },
               [
                 _c("icon", {
@@ -747,7 +930,7 @@ var render = function() {
               {
                 staticClass: "btn btn-default btn-danger mr-3",
                 attrs: { type: "button" },
-                on: { click: _vm.handleCancelClick }
+                on: { click: _vm.handleCancel }
               },
               [_vm._v("Cancel")]
             )
@@ -759,7 +942,7 @@ var render = function() {
               {
                 staticClass: "btn btn-default btn-primary",
                 attrs: { type: "button" },
-                on: { click: _vm.handleSaveClick }
+                on: { click: _vm.handleSave }
               },
               [_vm._v("Save")]
             )
@@ -809,6 +992,15 @@ var render = function() {
                   attrs: { type: "text", placeholder: "Name" },
                   domProps: { value: _vm.newName },
                   on: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.handleSaveAttribute($event)
+                    },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
@@ -838,6 +1030,15 @@ var render = function() {
                   attrs: { type: "text", placeholder: "Value" },
                   domProps: { value: _vm.newValue },
                   on: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.handleSaveAttribute($event)
+                    },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
@@ -856,11 +1057,21 @@ var render = function() {
                 _c(
                   "button",
                   {
+                    staticClass: "btn btn-default btn-danger mr-3",
+                    attrs: { type: "button" },
+                    on: { click: _vm.handleCancelAttribute }
+                  },
+                  [_vm._v("cancel")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
                     staticClass: "btn btn-default btn-primary",
                     attrs: { type: "button" },
-                    on: { click: _vm.handleSaveAttributeClick }
+                    on: { click: _vm.handleSaveAttribute }
                   },
-                  [_vm._v("\n        Save Attribute\n      ")]
+                  [_vm._v("Save Attribute")]
                 )
               ]
             )
@@ -909,7 +1120,7 @@ var render = function() {
                       }
                     },
                     [
-                      _c("option", { attrs: { value: "default" } }, [
+                      _c("option", { domProps: { value: null } }, [
                         _vm._v("Default")
                       ]),
                       _vm._v(" "),
@@ -917,13 +1128,7 @@ var render = function() {
                         return _c(
                           "option",
                           { key: company.id, domProps: { value: company.id } },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(company.name) +
-                                "\n          "
-                            )
-                          ]
+                          [_vm._v(_vm._s(company.name))]
                         )
                       })
                     ],
@@ -937,9 +1142,9 @@ var render = function() {
                     {
                       staticClass: "btn btn-default btn-primary",
                       attrs: { type: "button" },
-                      on: { click: _vm.handleAddAttributeClick }
+                      on: { click: _vm.handleAddAttribute }
                     },
-                    [_vm._v("\n          Add New Attribute\n        ")]
+                    [_vm._v("Add New Attribute")]
                   )
                 ])
               ]),
@@ -951,7 +1156,7 @@ var render = function() {
                   _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "w-1/6" }, [
-                    !_vm.isDefault
+                    !_vm.isDefaultCompany
                       ? _c("strong", { staticClass: "text-xs text-80" }, [
                           _vm._v("HIDDEN")
                         ])
@@ -967,9 +1172,13 @@ var render = function() {
                   key: attribute.id,
                   attrs: {
                     attribute: attribute,
-                    attributeValues: _vm.getValuesForAttribute(attribute.id),
+                    attributeValues: _vm.attributeValues,
                     selectedCompanyId: _vm.selectedCompanyId,
-                    isDefault: _vm.isDefault
+                    isDefaultCompany: _vm.isDefaultCompany
+                  },
+                  on: {
+                    "attribute-update": _vm.updateAttribute,
+                    "attribute-delete": _vm.handleDeleteAttributeValue
                   }
                 })
               })
@@ -983,7 +1192,7 @@ var render = function() {
             {
               on: {
                 close: _vm.handleCloseModal,
-                confirm: _vm.handleConfirmDelete
+                confirm: _vm.handleConfirmDeleteAttributeValue
               }
             },
             [
@@ -997,13 +1206,11 @@ var render = function() {
                   _vm._v(" "),
                   _c("p", { staticClass: "text-80 leading-normal" }, [
                     _vm._v(
-                      "\n          " +
-                        _vm._s(
-                          _vm.__(
-                            "Are you sure you want to delete this attribute? It will be deleted for all companies."
-                          )
-                        ) +
-                        "\n      "
+                      _vm._s(
+                        _vm.__(
+                          "Are you sure you want to delete this attribute?"
+                        )
+                      )
                     )
                   ])
                 ],

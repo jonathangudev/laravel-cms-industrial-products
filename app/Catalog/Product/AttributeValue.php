@@ -4,10 +4,24 @@ namespace App\Catalog\Product;
 
 use App\Catalog\Product;
 use App\Catalog\Product\Attribute;
+use App\Company;
+use App\Events\Catalog\Product\AttributeValueCreating;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class AttributeValue extends Model
 {
+    use Notifiable;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'creating' => AttributeValueCreating::class,
+    ];
+
     /**
      * The table associated with the model.
      *
@@ -24,6 +38,8 @@ class AttributeValue extends Model
         'value',
         'product_id',
         'attribute_id',
+        'company_id',
+        'is_hidden',
     ];
 
     /**
@@ -44,6 +60,16 @@ class AttributeValue extends Model
     public function attribute()
     {
         return $this->belongsTo(Attribute::class);
+    }
+
+    /**
+     * Get the company that owns the value.
+     *
+     * @return App\Company
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     /**

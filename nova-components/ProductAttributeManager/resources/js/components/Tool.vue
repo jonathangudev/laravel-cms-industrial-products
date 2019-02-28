@@ -10,7 +10,9 @@
             v-model="newName"
             type="text"
             placeholder="Name"
-            class="w-full form-control form-input form-input-bordered">
+            class="w-full form-control form-input form-input-bordered"
+            @keyup.enter="handleSaveAttribute"
+          >
         </div>
       </div>
       <div class="flex items-center">
@@ -22,13 +24,22 @@
             v-model="newValue"
             type="text"
             placeholder="Value"
-            class="w-full form-control form-input form-input-bordered">
+            class="w-full form-control form-input form-input-bordered"
+            @keyup.enter="handleSaveAttribute"
+          >
         </div>
       </div>
       <div class="bg-30 flex -mx-6 -mb-3 px-8 py-4 justify-end">
-        <button type="button" class="btn btn-default btn-primary" @click="handleSaveAttributeClick">
-          Save Attribute
-        </button>
+        <button
+          type="button"
+          class="btn btn-default btn-danger mr-3"
+          @click="handleCancelAttribute"
+        >cancel</button>
+        <button
+          type="button"
+          class="btn btn-default btn-primary"
+          @click="handleSaveAttribute"
+        >Save Attribute</button>
       </div>
     </div>
 
@@ -36,21 +47,25 @@
       <div class="flex mb-6">
         <div class="w-1/4">
           <label for="company-select" class="inline-block mb-1 text-80">Select a company to edit:</label>
-          <select id="company-select" class="w-full form-control form-select" v-model="selectedCompanyId">
-            <option value="default">Default</option>
+          <select
+            id="company-select"
+            class="w-full form-control form-select"
+            v-model="selectedCompanyId"
+          >
+            <option :value="null">Default</option>
             <option
               v-for="company in companies"
               :key="company.id"
               :value="company.id"
-            >
-              {{company.name}}
-            </option>
+            >{{company.name}}</option>
           </select>
         </div>
         <div class="w-3/4 text-right">
-          <button type="button" class="btn btn-default btn-primary" @click="handleAddAttributeClick">
-            Add New Attribute
-          </button>
+          <button
+            type="button"
+            class="btn btn-default btn-primary"
+            @click="handleAddAttribute"
+          >Add New Attribute</button>
         </div>
       </div>
 
@@ -63,7 +78,7 @@
             <strong class="text-xs text-80">VALUE</strong>
           </div>
           <div class="w-1/6">
-            <strong v-if="!isDefault" class="text-xs text-80">HIDDEN</strong>
+            <strong v-if="!isDefaultCompany" class="text-xs text-80">HIDDEN</strong>
           </div>
           <div class="w-1/6 text-right">
             <strong class="text-xs text-80">ACTIONS</strong>
@@ -75,136 +90,177 @@
         v-for="attribute in attributes"
         :key="attribute.id"
         :attribute="attribute"
-        :attributeValues="getValuesForAttribute(attribute.id)"
+        :attributeValues="attributeValues"
         :selectedCompanyId="selectedCompanyId"
-        :isDefault="isDefault">
-      </attribute>
+        :isDefaultCompany="isDefaultCompany"
+        @attribute-update="updateAttribute"
+        @attribute-delete="handleDeleteAttributeValue"
+      ></attribute>
     </div>
 
-    <delete-resource-modal v-if="isModalOpen" @close="handleCloseModal" @confirm="handleConfirmDelete">
+    <delete-resource-modal
+      v-if="isModalOpen"
+      @close="handleCloseModal"
+      @confirm="handleConfirmDeleteAttributeValue"
+    >
       <div class="p-8">
         <heading :level="2" class="mb-6">{{ __('Delete Attribute') }}</heading>
-        <p class="text-80 leading-normal">
-            {{ __('Are you sure you want to delete this attribute? It will be deleted for all companies.') }}
-        </p>
+        <p
+          class="text-80 leading-normal"
+        >{{ __('Are you sure you want to delete this attribute?') }}</p>
       </div>
     </delete-resource-modal>
   </div>
 </template>
 
 <script>
-import Attribute from './Attribute';
+import Attribute from "./Attribute";
 
 export default {
-  props: ['resourceName', 'resourceId', 'field'],
+  props: ["resourceName", "resourceId", "field"],
   data() {
     return {
       isModalOpen: false,
-      attributeToBeDeletedId: null,
+      attributeValueToBeDeletedId: null,
       isAddingNew: false,
-      newName: '',
-      newValue: '',
-      selectedCompanyId: 'default',
-      companies: [
-        { id: 1, name: 'Company 1' },
-        { id: 2, name: 'Company 2' },
-        { id: 3, name: 'Company 3' },
-      ],
-      attributes: [
-        { id: 1, name: 'Default Name 1', },
-        { id: 2, name: 'Default Name 2', },
-        { id: 3, name: 'Default Name 3', },
-      ],
-      attributeValues: [
-        { id: 1, attributeId: 1, companyId: null, value: 'Default',  isHidden: false },
-        { id: 2, attributeId: 2, companyId: null, value: 'Default',  isHidden: false },
-        { id: 3, attributeId: 3, companyId: null, value: 'Default',  isHidden: false },
-        { id: 4, attributeId: 1, companyId: 1,    value: 'Modified', isHidden: true  },
-        { id: 5, attributeId: 2, companyId: 1,    value: 'Modified', isHidden: false },
-        { id: 6, attributeId: 3, companyId: 1,    value: 'Modified', isHidden: false },
-      ]
+      newName: "",
+      newValue: "",
+      selectedCompanyId: null,
+      companies: [],
+      attributes: [],
+      attributeValues: []
     };
   },
 
-  mounted () {
-    Nova.$on('update:attribute', this.updateAttribute);
-    Nova.$on('delete:attribute', this.handleDeleteAttribute);
-  },
-
   computed: {
-    isDefault: function () {
-      return this.selectedCompanyId === 'default';
-    },
+    isDefaultCompany: function() {
+      return this.selectedCompanyId === null;
+    }
   },
 
   methods: {
-    getValuesForAttribute (id) {
-      return this.attributeValues.filter((element) => {
-        return id === element.attributeId;
+    getValuesForAttribute(id) {
+      return this.attributeValues.filter(element => {
+        return id === element.attribute_id;
       });
     },
 
-    handleAddAttributeClick () {
+    handleAddAttribute() {
       this.isAddingNew = true;
     },
 
-    handleSaveAttributeClick () {
+    handleSaveAttribute() {
       this.isAddingNew = false;
       this.addAttribute();
     },
 
-    handleDeleteAttribute (id) {
+    handleCancelAttribute() {
+      this.isAddingNew = false;
+      this.newName = "";
+      this.newValue = "";
+    },
+
+    handleDeleteAttributeValue(id) {
       this.isModalOpen = true;
-      this.attributeToBeDeletedId = id;
+      this.attributeValueToBeDeletedId = id;
     },
 
-    handleCloseModal () {
+    handleCloseModal() {
       this.isModalOpen = false;
-      this.attributeToBeDeletedId = null;
+      this.attributeValueToBeDeletedId = null;
     },
 
-    handleConfirmDelete () {
+    handleConfirmDeleteAttributeValue() {
       this.isModalOpen = false;
-      this.deleteAttribute();
+      this.deleteAttributeValue();
     },
 
-    addAttribute () {
-      // Axios code goes here
-      this.$toasted.show('Successfully added attribute.', { type: 'success' });
+    addAttribute() {
+      axios
+        .post(
+          `/nova-vendor/product-attribute-manager/${this.resourceId}/attribute`,
+          {
+            name: this.newName,
+            value: this.newValue
+          }
+        )
+        .then(response => {
+          this.fetchData().then(() => {
+            this.$toasted.show("Successfully added attribute.", {
+              type: "success"
+            });
+          });
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        })
+        .then(() => {
+          this.newName = "";
+          this.newValue = "";
+        });
     },
 
-    updateAttribute (attribute) {
-      window.alert(JSON.stringify(attribute));
-
-      this.attributes = this.attributes.map((item) => {
-        if (item.id === attribute.attributeId) {
-          return {...item, name: attribute.name};
-        }
-        return item;
-      });
-
-
-      this.attributeValues = this.attributeValues.map((item) => {
-        if (item.attributeId === attribute.attributeId && item.companyId === attribute.companyId) {
-          return {...item, value: attribute.value, isHidden: attribute.isHidden};
-        }
-        return item;
-      });
-
-      // Axios code goes here
-      this.$toasted.show('Successfully updated attribute.', { type: 'success' });
+    updateAttribute(attribute) {
+      axios
+        .put(`/nova-vendor/product-attribute-manager/attribute`, attribute)
+        .then(response => {
+          this.fetchData().then(() => {
+            this.$toasted.show("Successfully updated attribute.", {
+              type: "success"
+            });
+          });
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
     },
 
-    deleteAttribute () {
-      window.alert(this.attributeToBeDeletedId);
+    deleteAttributeValue() {
+      axios
+        .delete(
+          `/nova-vendor/product-attribute-manager/attribute-value/${
+            this.attributeValueToBeDeletedId
+          }`
+        )
+        .then(response => {
+          this.fetchData().then(() => {
+            this.$toasted.show("Successfully deleted attribute.", {
+              type: "success"
+            });
+          });
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
+    },
 
-      // Axios code goes here
-      this.$toasted.show('Successfully deleted attribute.', { type: 'success' });
+    fetchData() {
+      return axios
+        .get(
+          `/nova-vendor/product-attribute-manager/${
+            this.resourceId
+          }/attribute-data`
+        )
+        .then(response => {
+          this.companies = response.data.companies;
+          this.attributes = response.data.attributes;
+          this.attributeValues = response.data.attributeValues;
+          this.$emit("reset-attributes");
+        })
+        .catch(error => {
+          this.$toasted.show("There was an error fetching the data", {
+            type: "error"
+          });
+        });
     }
   },
 
   components: {
-    Attribute,
+    Attribute
   },
+
+  mounted() {
+    this.fetchData();
+  }
 };
 </script>
