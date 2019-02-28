@@ -97,7 +97,10 @@
 			<div class="row align-items-center">
 				<div class="col-lg-12">
 					<div class="c-home-content__img">
-						<img src="https://via.placeholder.com/1600x900" alt="Image">
+						<picture>
+							<source srcset="{{ asset('images/home_image.webp') }}" type="image/webp">
+							<img src="{{ asset('images/home_image.jpeg') }}" alt="Home Image">
+						</picture>
 					</div>
 				</div>
 				<div class="col-lg-11 col-xl-10 offset-lg-1 offset-xl-2">

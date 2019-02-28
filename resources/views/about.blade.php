@@ -36,7 +36,7 @@
 		<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 		<section class="c-about-content">
 			<div class="container">
-				<div class="row">
+				<div class="row align-items-center">
 					<div class="col-24 col-lg-12 col-xl-13">
 						<div class="c-about-content__text c-section">
 							<h2>Our Company</h2>
@@ -49,7 +49,10 @@
 					</div>
 					<div class="col-24 col-md-14 col-lg-10 col-xl-9 offset-md-5 offset-lg-2">
 						<div class="c-about-content__img">
-							<img src="https://via.placeholder.com/900x900" alt="Image">
+							<picture>
+								<source srcset="{{ asset('images/about_image.webp') }}" type="image/webp">
+								<img src="{{ asset('images/about_image.jpeg') }}" alt="About Us Image">
+							</picture>
 						</div>
 					</div>
 				</div>
