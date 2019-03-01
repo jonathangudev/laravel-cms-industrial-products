@@ -47,11 +47,13 @@ class AttributeController extends Controller
     {
         $name = $request->input('name');
         $value = $request->input('value');
+        $companyId = $request->input('company_id');
 
         $attribute = Attribute::firstOrCreate(['name' => $name]);
         $existingValue = AttributeValue::where([
             'product_id' => $productId,
             'attribute_id' => $attribute->id,
+            'company_id' => $companyId,
         ])->first();
 
         if ($existingValue) {
@@ -62,7 +64,7 @@ class AttributeController extends Controller
             'product_id' => $productId,
             'attribute_id' => $attribute->id,
             'value' => $value,
-            'company_id' => null,
+            'company_id' => $companyId,
         ]);
 
         return response()->json($value);

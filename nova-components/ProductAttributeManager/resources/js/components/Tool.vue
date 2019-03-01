@@ -104,10 +104,21 @@
       @confirm="handleConfirmDeleteAttributeValue"
     >
       <div class="p-8">
-        <heading :level="2" class="mb-6">{{ __('Delete Attribute') }}</heading>
-        <p
-          class="text-80 leading-normal"
-        >{{ __('Are you sure you want to delete this attribute?') }}</p>
+        <heading :level="2" class="mb-6">Delete Attribute</heading>
+        <p class="text-80 leading-normal">
+          Are you sure you want to delete this attribute?
+          <span v-if="isDefaultCompany"></span>
+        </p>
+        <p class="text-80 leading-normal text-xs mt-4" v-show="isDefaultCompany">
+          <span class="font-bold">Note:</span>
+          Removing a default attribute
+          <strong>will</strong> remove it from all companies that do not have a customized value
+        </p>
+        <p class="text-80 leading-normal text-xs mt-4" v-show="!isDefaultCompany">
+          <span class="font-bold">Note:</span>
+          Removing an attribute that has been customized for a specific company will
+          <strong>not</strong> remove it from any other company
+        </p>
       </div>
     </delete-resource-modal>
   </div>
@@ -127,7 +138,7 @@ export default {
       newValue: "",
       selectedCompanyId: null,
       companies: [],
-      attributes: [],
+      _attributes: [],
       attributeValues: []
     };
   },
@@ -135,6 +146,31 @@ export default {
   computed: {
     isDefaultCompany: function() {
       return this.selectedCompanyId === null;
+    },
+
+    companyAttributeIds() {
+      return _.map(this.companyAttributeValues, value => {
+        return value.attribute_id;
+      });
+    },
+
+    companyAttributeValues() {
+      return _.filter(this.attributeValues, value => {
+        if (this.selectedCompanyId !== null) {
+          return (
+            value.company_id === this.selectedCompanyId ||
+            value.company_id === null
+          );
+        } else {
+          return value.company_id === null;
+        }
+      });
+    },
+
+    attributes() {
+      return _.filter(this.$data._attributes, attribute => {
+        return _.includes(this.companyAttributeIds, attribute.id);
+      });
     }
   },
 
@@ -180,6 +216,7 @@ export default {
         .post(
           `/nova-vendor/product-attribute-manager/${this.resourceId}/attribute`,
           {
+            company_id: this.selectedCompanyId,
             name: this.newName,
             value: this.newValue
           }
@@ -243,7 +280,7 @@ export default {
         )
         .then(response => {
           this.companies = response.data.companies;
-          this.attributes = response.data.attributes;
+          this.$data._attributes = response.data.attributes;
           this.attributeValues = response.data.attributeValues;
           this.$emit("reset-attributes");
         })
