@@ -3,10 +3,17 @@
 return [
 
     /*
+     * The models which should have their media stored in the restricted disk.
+     */
+    'restricted_asset_models' => [
+        App\Catalog\Category::class,
+    ],
+
+    /*
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
-    'disk_name' => 'restricted',
+    'disk_name' => 'public',
 
     /*
      * The maximum file size of an item in bytes.
@@ -79,7 +86,7 @@ return [
     /*
      * The class that contains the strategy for determining a media file's path.
      */
-    'path_generator' => null,
+    'path_generator' => App\MediaLibrary\PathGenerator::class,
 
     /*
      * Medialibrary will try to optimize all converted images by removing

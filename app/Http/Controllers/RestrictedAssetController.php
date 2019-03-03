@@ -32,7 +32,10 @@ class RestrictedAssetController extends Controller
         $company = Company::where('uuid', $companyUuid)->first();
 
         if (Gate::forUser($user)->allows('restricted-assets.view', $company)) {
-            return Storage::disk('restricted')->get($companyUuid . '/' . $path);
+            $filePath = Storage::disk('restricted')->path($companyUuid . '/' . $path);
+            return response()->file($filePath);
         }
+
+        abort(404);
     }
 }

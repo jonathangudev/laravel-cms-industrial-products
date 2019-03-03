@@ -62,11 +62,11 @@ class Company extends Model
     /**
      * Get the users for the company.
      *
-     * @return App\Company\User
+     * @return App\User
      */
     public function users()
     {
-        return $this->hasMany(Company\User::class);
+        return $this->hasMany(User::class);
     }
 
     /**

@@ -3,11 +3,13 @@
 namespace App\Nova\Catalog;
 
 use App\Nova\Resource;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 
 class Category extends Resource
 {
@@ -30,7 +32,7 @@ class Category extends Resource
      *
      * @var bool
      */
-    public static $displayInNavigation = true;
+    public static $displayInNavigation = false;
 
     /**
      * The columns that should be searched.
@@ -60,8 +62,17 @@ class Category extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')->creationRules('required'),
-            BelongsTo::make('Company', 'company', 'App\Nova\Company')->creationRules('required'),
-            HasMany::make('Children', 'children', 'App\Nova\Catalog\Category'),
+            BelongsTo::make('Company', 'company', 'App\Nova\Company')->onlyOnDetail(),
+            Trix::make('Content'),
+            Images::make('Images', 'gallery') // second parameter is the media collection name
+                ->conversion('medium') // conversion used to display the "original" image
+                ->conversionOnView('thumb') // conversion used on the model's view
+                ->thumbnail('thumb') // conversion used to display the image on the model's index page
+                ->multiple() // enable upload of multiple images - also ordering
+                ->fullSize() // full size column
+                ->rules('') // validation rules for the collection of images
+                ->singleImageRules('dimensions:min_width=100'), // validation rules for the collection of images
+            BelongsToMany::make('Products', 'products', 'App\Nova\Catalog\Product')->searchable(),
         ];
     }
 

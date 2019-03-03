@@ -5,10 +5,8 @@ namespace App\Nova\Catalog;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Jmp\ProductAttributeManager\ProductAttributeManager;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 
 class Product extends Resource
 {
@@ -61,8 +59,6 @@ class Product extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')->creationRules('required'),
-            Textarea::make('Description'),
-            BelongsTo::make('Attribute Template', 'attributeTemplate', 'App\Nova\Catalog\Product\AttributeTemplate')->nullable(),
             ProductAttributeManager::make(),
         ];
     }

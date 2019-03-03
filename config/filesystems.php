@@ -59,7 +59,7 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/restricted'),
             'url' => env('APP_URL') . '/catalog/asset',
-            'visibility' => 'public',
+            'visibility' => 'private',
         ],
 
         's3' => [

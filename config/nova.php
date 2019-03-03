@@ -65,4 +65,16 @@ return [
         Authorize::class,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Nova Pagination
+    |--------------------------------------------------------------------------
+    |
+    | Set the pagination style to either 'simple' for previous / next links,
+    | or 'links' for a more traditional pagination style.
+    |
+     */
+
+    'pagination' => 'links',
+
 ];

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCatalogCategoriesTable extends Migration
+class AddCompanyToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateCatalogCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('company_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies')
-                ->onDelete('cascade');
-            $table->text('name');
-            $table->text('content')->nullable();
-            $table->nestedSet();
-            $table->timestamps();
+                ->onDelete('set null');
         });
     }
 
@@ -33,6 +28,9 @@ class CreateCatalogCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_categories');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['company_id']);
+            $table->dropColumn('company_id');
+        });
     }
 }
