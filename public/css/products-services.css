@@ -21,11 +21,13 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 3.3rem;
 }
 
 .c-ps-section__img {
-  margin-top: 0.6rem;
   margin-right: 1.6rem;
 }
 
@@ -44,25 +46,10 @@
   margin-bottom: 0;
 }
 
-.c-ps-section__border {
-  width: 100%;
-  position: absolute;
-}
-
-.c-ps-section__border--top {
-  top: 0;
-  left: 0;
-}
-
-.c-ps-section__border--bottom {
-  bottom: 0;
-  right: 0;
-}
-
 .c-ps-section--gray {
   position: relative;
-  padding-top: 13.2rem;
-  padding-bottom: 11.0rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
   background-color: #F2F2F2;
 }
 

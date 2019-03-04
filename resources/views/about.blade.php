@@ -59,7 +59,7 @@
 			</div>
 		</section>
 	
-		<section class="c-about-testimonial">
+		{{-- <section class="c-about-testimonial">
 			<div class="c-about-testimonial__stripe-wrapper d-none d-sm-block">
 				<div class="c-about-testimonial__stripe c-about-testimonial__stripe--gray"></div>
 				<div class="c-about-testimonial__stripe c-about-testimonial__stripe--black"></div>
@@ -80,9 +80,9 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --}}
 		
-		<section class="c-about-team">
+		{{-- <section class="c-about-team">
 			<div class="container">
 				<div class="row">
 					<div class="col-24 col-lg-18 offset-lg-3">
@@ -113,6 +113,6 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --}}
 	</div>
 @endsection
