@@ -31,7 +31,7 @@ class CategoryComposer
     public function compose(View $view)
     {
         if ($company = $this->user->company) {
-            $view->with('categories', $company->categories);
+            $view->with('categories', $company->categories->toTree());
         }
     }
 }
