@@ -25,7 +25,6 @@ class CatalogController extends Controller
      */
     public function index()
     {
-
         $userCompany = Auth::user()->company_id; 
 
         if(empty($userCompany))
@@ -34,9 +33,39 @@ class CatalogController extends Controller
         }
         
         $categories = Category::whereisRoot()
-            ->where('company_id', 1)
+            ->where('company_id', $userCompany)
             ->get();
 
         return view('categories', ['categories' => $categories]);
     }
+
+    /**
+     * Show a specific category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCategory($id)
+    {
+        $userCompany = Auth::user()->company_id; 
+
+        // Users without a company assigned can not access ANY categories
+        if(empty($userCompany))
+        {
+            abort(403);
+        }
+
+        // Only get the category by id if the user's assigned company has that category
+        $category = Category::where('company_id', $userCompany)
+            ->find($id)
+            ->get();
+
+        if(empty($category)) 
+        {
+            abort(403);
+        }
+
+        return view('categories', ['categories' => $category->toTree()]);
+
+    }
+
 }
