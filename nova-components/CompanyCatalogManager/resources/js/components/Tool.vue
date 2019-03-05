@@ -18,7 +18,13 @@
             <strong v-else>+</strong>
           </div>
           
-          <input type="text" name="name" class="appearance-none w-full mr-3" v-model="data.name" :title="data.name">
+          <input
+            type="text"
+            name="name"
+            class="appearance-none w-full mr-3"
+            :title="data.name"
+            v-model="data.name"
+            @keyup.enter="handleSaveClick">
 
           <button @click="$router.push({name: 'detail', params: { resourceName: 'categories', resourceId: data.id }})"
             type="button"
