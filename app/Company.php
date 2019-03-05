@@ -103,6 +103,6 @@ class Company extends Model
      */
     public function getLogoUrl()
     {
-        return Storage::disk('restricted')->url($this->logo);
+        return Storage::disk('restricted')->url($this->uuid . '/' . $this->logo);
     }
 }
