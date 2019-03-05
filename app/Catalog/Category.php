@@ -37,20 +37,24 @@ class Category extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
-            ->width(250)
-            ->height(250)
+            ->width(300)
+            ->height(300)
             ->extractVideoFrameAtSecond(1);
 
         $this->addMediaConversion('medium')
-            ->width(500)
-            ->height(500)
+            ->width(600)
+            ->height(600)
             ->extractVideoFrameAtSecond(1);
     }
 
     public function registerMediaCollections()
     {
         $this
-            ->addMediaCollection('gallery')
+            ->addMediaCollection('category-thumbnail')
+            ->useDisk('restricted');
+
+        $this
+            ->addMediaCollection('category-gallery')
             ->useDisk('restricted');
     }
 

@@ -64,13 +64,12 @@ class Category extends Resource
             Text::make('Name')->creationRules('required'),
             BelongsTo::make('Company', 'company', 'App\Nova\Company')->onlyOnDetail(),
             Trix::make('Content'),
-            Images::make('Images', 'gallery') // second parameter is the media collection name
-                ->conversion('medium') // conversion used to display the "original" image
-                ->conversionOnView('thumb') // conversion used on the model's view
+            Images::make('Thumbnail', 'category-thumbnail') // second parameter is the media collection name
+                ->thumbnail('thumb'), // conversion used to display the image
+            Images::make('Images', 'category-gallery') // second parameter is the media collection name
                 ->thumbnail('thumb') // conversion used to display the image on the model's index page
                 ->multiple() // enable upload of multiple images - also ordering
                 ->fullSize() // full size column
-                ->rules('') // validation rules for the collection of images
                 ->singleImageRules('dimensions:min_width=100'), // validation rules for the collection of images
             BelongsToMany::make('Products', 'products', 'App\Nova\Catalog\Product')->searchable(),
         ];
