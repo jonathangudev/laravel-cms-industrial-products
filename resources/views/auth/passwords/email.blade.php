@@ -22,7 +22,9 @@
         <h2>Reset Password</h2>
     </div>
 
-    <form method="POST" action="{{ route('password.email') }}" class="o-form">
+    <p>Please contact us at <a href="tel:216-749-6030">216-749-6030</a> to reset your password.</p>
+
+    {{-- <form method="POST" action="{{ route('password.email') }}" class="o-form">
         @csrf
 
         <fieldset>
@@ -40,5 +42,5 @@
     
             <button type="submit" class="c-btn c-btn--primary c-btn--block">{{ __('Send Reset Link') }}</button>
         </fieldset>
-    </form>
+    </form> --}}
 @endsection

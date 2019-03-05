@@ -26,20 +26,19 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					@include('partials.breadcrumbs')
+					@include('partials.breadcrumbs', ['name' => 'Products & Services'])
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
-	<section class="c-ps-section c-ps-section--products">
+	<section class="c-ps-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-lg-7">
 					<div class="c-ps-section__title c-section">
-						<h2>Our Products</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</p>
+						<h2>Space &amp; Defense Systems</h2>
 					</div>
 				</div>
 				<div class="col-24 col-lg-17 col-xl-16 offset-xl-1">
@@ -47,33 +46,40 @@
 						<div class="col-24 col-md-12">
 							<div class="c-ps-section__item">
 								<div class="c-ps-section__img">
-									<img src="https://via.placeholder.com/300x300" alt="Product">
+									<img src="{{ asset('images/008.jpg') }}" alt="Product">
 								</div>
 								<div class="c-ps-section__text">
-									<h3>Product Name</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida.</p>
+									<h3>Rocket Engine Systems &amp; Fuels</h3>
 								</div>
 							</div>
 						</div>
 						<div class="col-24 col-md-12">
 							<div class="c-ps-section__item">
 								<div class="c-ps-section__img">
-									<img src="https://via.placeholder.com/300x300" alt="Product">
+									<img src="{{ asset('images/mvc-503f.jpg') }}" alt="Product">
 								</div>
 								<div class="c-ps-section__text">
-									<h3>Product Name</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida.</p>
+									<h3>Combustion Chambers &amp; Heat Transfer</h3>
 								</div>
 							</div>
 						</div>
 						<div class="col-24 col-md-12">
 							<div class="c-ps-section__item">
 								<div class="c-ps-section__img">
-									<img src="https://via.placeholder.com/300x300" alt="Product">
+									<img src="{{ asset('images/005.jpg') }}" alt="Product">
 								</div>
 								<div class="c-ps-section__text">
-									<h3>Product Name</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida.</p>
+									<h3>Fuel Injectors</h3>
+								</div>
+							</div>
+						</div>
+						<div class="col-24 col-md-12">
+							<div class="c-ps-section__item">
+								<div class="c-ps-section__img">
+									<img src="{{ asset('images/006.jpg') }}" alt="Product">
+								</div>
+								<div class="c-ps-section__text">
+									<h3>Microgravity Systems</h3>
 								</div>
 							</div>
 						</div>
@@ -83,14 +89,12 @@
 		</div>
 	</section>
 
-	<section class="c-ps-section c-ps-section--services">
-		<img src="{{ asset('images/products-services-border-top.svg') }}" alt="Border Top" class="c-ps-section__border c-ps-section__border--top">
+	<section class="c-ps-section c-ps-section--gray">
 		<div class="container">
 			<div class="row">
 				<div class="col-24 col-lg-7">
 					<div class="c-ps-section__title c-section">
-						<h2>Our Services</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim nec est ac blandit. Ut sit amet enim eros.</p>
+						<h2>Petrochemical Technologies</h2>
 					</div>
 				</div>
 				<div class="col-24 col-lg-17 col-xl-16 offset-xl-1">
@@ -98,33 +102,20 @@
 						<div class="col-24 col-md-12">
 							<div class="c-ps-section__item">
 								<div class="c-ps-section__img">
-									<img src="https://via.placeholder.com/300x300" alt="Service">
+									<img src="{{ asset('images/003.jpg') }}" alt="Product">
 								</div>
 								<div class="c-ps-section__text">
-									<h3>Service Name</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida.</p>
+									<h3>Systems &amp; Components Used in High Performance Catalyst Production</h3>
 								</div>
 							</div>
 						</div>
 						<div class="col-24 col-md-12">
 							<div class="c-ps-section__item">
 								<div class="c-ps-section__img">
-									<img src="https://via.placeholder.com/300x300" alt="Service">
+									<img src="{{ asset('images/mvc-862f.jpg') }}" alt="Product">
 								</div>
 								<div class="c-ps-section__text">
-									<h3>Service Name</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-24 col-md-12">
-							<div class="c-ps-section__item">
-								<div class="c-ps-section__img">
-									<img src="https://via.placeholder.com/300x300" alt="Service">
-								</div>
-								<div class="c-ps-section__text">
-									<h3>Service Name</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis blandit gravida.</p>
+									<h3>Microreactor Systems &amp; Subsystems</h3>
 								</div>
 							</div>
 						</div>
@@ -132,7 +123,43 @@
 				</div>
 			</div>
 		</div>
-		<img src="{{ asset('images/products-services-border-bottom.svg') }}" alt="Border Bottom" class="c-ps-section__border c-ps-section__border--bottom">
+	</section>
+
+	<section class="c-ps-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-24 col-lg-7">
+					<div class="c-ps-section__title c-section">
+						<h2>Alternative Energy Systems</h2>
+					</div>
+				</div>
+				<div class="col-24 col-lg-17 col-xl-16 offset-xl-1">
+					<div class="row">
+						<div class="col-24 col-md-12">
+							<div class="c-ps-section__item">
+								<div class="c-ps-section__text">
+									<h3>On-demand Methanol Synthesis</h3>
+								</div>
+							</div>
+						</div>
+						<div class="col-24 col-md-12">
+							<div class="c-ps-section__item">
+								<div class="c-ps-section__text">
+									<h3>Combustor/Electrolyzer Co-Generation</h3>
+								</div>
+							</div>
+						</div>
+						<div class="col-24 col-md-12">
+							<div class="c-ps-section__item">
+								<div class="c-ps-section__text">
+									<h3>CO2 Absorption Sequestration</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 @endsection

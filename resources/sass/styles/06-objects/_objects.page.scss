@@ -4,7 +4,7 @@
 
 
 .o-main {
-  overflow-x: hidden;
+  // overflow-x: hidden;
   // flex: 1;
 }
 
@@ -13,6 +13,10 @@
 
   &__content {
     width: 100%;
+  }
+
+  &__message {
+    margin-top: $leading;
   }
 
   &__disclaimer {

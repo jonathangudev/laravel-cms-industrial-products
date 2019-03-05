@@ -1,3 +1,7 @@
+.c-about-wrapper {
+  overflow: hidden;
+}
+
 .c-about-hero {
   background: url("/images/about-hero.jpg") no-repeat center center;
   background-size: cover;
