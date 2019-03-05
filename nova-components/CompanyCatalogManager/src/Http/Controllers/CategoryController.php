@@ -36,7 +36,7 @@ class CategoryController extends Controller
     public function updateCategories(Request $request, $id)
     {
         Category::rebuildTree($request->all());
-        return response()->json([]);
+        return $this->getCategories($id);
     }
 
     /**

@@ -100,6 +100,7 @@ export default {
       const newData = this.mapCategories(data);
       return axios.put(`/nova-vendor/company-catalog-manager/${this.resourceId}/categories`, newData)
         .then(response => {
+          this.categories = response.data;         
           this.$toasted.show('Successfully updated categories.', {type: 'success'});
         })
         .catch(error => {         
