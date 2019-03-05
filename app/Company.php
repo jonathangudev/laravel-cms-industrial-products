@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Storage;
+use Ramsey\Uuid\Uuid;
 
 /**
  * The companies JMP serves
@@ -103,6 +103,6 @@ class Company extends Model
      */
     public function getLogoUrl()
     {
-        return Storage::disk('restricted')->url($this->logo)
+        return Storage::disk('restricted')->url($this->logo);
     }
 }
