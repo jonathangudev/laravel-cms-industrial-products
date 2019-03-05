@@ -3,6 +3,16 @@
   background-size: cover;
 }
 
+.c-ps-section {
+  margin-bottom: 5.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .c-ps-section {
+    margin-bottom: 2.2rem;
+  }
+}
+
 .c-ps-section__title {
   margin-bottom: 3.3rem;
 }
@@ -11,11 +21,13 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 3.3rem;
 }
 
 .c-ps-section__img {
-  margin-top: 0.6rem;
   margin-right: 1.6rem;
 }
 
@@ -34,41 +46,15 @@
   margin-bottom: 0;
 }
 
-.c-ps-section__border {
-  max-width: 100%;
-  position: absolute;
-}
-
-.c-ps-section__border--top {
-  top: 0;
-  left: 0;
-}
-
-.c-ps-section__border--bottom {
-  max-width: 50%;
-  bottom: 0;
-  right: 0;
-}
-
-.c-ps-section--products {
-  margin-bottom: 5.5rem;
-}
-
-@media (max-width: 767.98px) {
-  .c-ps-section--products {
-    margin-bottom: 2.2rem;
-  }
-}
-
-.c-ps-section--services {
+.c-ps-section--gray {
   position: relative;
-  padding-top: 13.2rem;
-  padding-bottom: 11.0rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
   background-color: #F2F2F2;
 }
 
 @media (max-width: 767.98px) {
-  .c-ps-section--services {
+  .c-ps-section--gray {
     padding-top: 6.6rem;
     padding-bottom: 4.4rem;
   }

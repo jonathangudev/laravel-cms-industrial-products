@@ -15,12 +15,7 @@ class CreateCatalogProductsTable extends Migration
     {
         Schema::create('catalog_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('product_type_id');
-            $table->foreign('product_type_id')
-                ->references('id')->on('catalog_product_types')
-                ->onDelete('cascade');
             $table->string('name');
-            $table->text('description');
             $table->timestamps();
         });
     }

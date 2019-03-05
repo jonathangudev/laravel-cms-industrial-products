@@ -32,17 +32,22 @@
 
 				<div class="o-dashboard__content">
 					<div class="container">
-						<div class="row">
-							<div class="col">
-								@include('partials.breadcrumbs')
+						{{-- Do not display breadcrumbs on first page of catalog --}}
+						@if (!Route::currentRouteNamed('catalog'))
+							<div class="row">
+								<div class="col">
+									@yield('breadcrumbs')
+								</div>
 							</div>
-						</div>
+						@endif
 
 						{{-- Display company welcome message only on home dashboard --}}
 						@if (Route::currentRouteNamed('catalog'))
 							<div class="row">
 								<div class="col">
-									<h3>Welcome, ##INSERT COMPANY##</h3>
+									<div class="o-dashboard__message">
+										<h3>Welcome, ##INSERT COMPANY##</h3>
+									</div>
 								</div>
 							</div>
 						@endif

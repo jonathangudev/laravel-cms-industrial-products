@@ -73,14 +73,16 @@ address {
   line-height: inherit;
 }
 
-
+ol,
 ul {
   margin-top: 0;
   margin-bottom: 1rem;
 }
 
-
-ul ul {
+ol ol,
+ul ul,
+ol ul,
+ul ol {
   margin-bottom: 0;
 }
 
@@ -1066,16 +1068,22 @@ h6,
 
 p + h1,
 ul + h1,
+ol + h1,
 p + h2,
 ul + h2,
+ol + h2,
 p + h3,
 ul + h3,
+ol + h3,
 p + h4,
 ul + h4,
+ol + h4,
 p + h5,
 ul + h5,
+ol + h5,
 p + h6,
-ul + h6 {
+ul + h6,
+ol + h6 {
   margin-top: 4.4rem;
 }
 
@@ -1099,22 +1107,30 @@ a:visited:hover {
   color: #b50100;
 }
 
-ul {
+ul,
+ol {
   list-style-position: inside;
   line-height: 2.2rem;
   padding-left: 1.6rem;
   margin-bottom: 2.2rem;
 }
 
-ul li {
+ul li,
+ol li {
   line-height: 2.2rem;
 }
 
-ul ul {
+ul ul,
+ul ol,
+ol ul,
+ol ol {
   margin-bottom: 0;
 }
 
-ul ul li {
+ul ul li,
+ul ol li,
+ol ul li,
+ol ol li {
   font-size: 1.2rem;
 }
 
@@ -1371,10 +1387,6 @@ input[type='radio'].is-error + label:before {
   border-color: #a90101;
 }
 
-.o-main {
-  overflow-x: hidden;
-}
-
 .o-dashboard {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1383,6 +1395,10 @@ input[type='radio'].is-error + label:before {
 
 .o-dashboard__content {
   width: 100%;
+}
+
+.o-dashboard__message {
+  margin-top: 2.2rem;
 }
 
 .o-dashboard__disclaimer {

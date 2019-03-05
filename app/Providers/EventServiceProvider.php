@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\Catalog\Product\AttributeValueCreating;
 use App\Events\User\Welcomed;
+use App\Listeners\Catalog\Product\PreventDuplicateAttributeValue;
 use App\Listeners\SendWelcomeEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Welcomed::class => [
             SendWelcomeEmail::class,
+        ],
+        AttributeValueCreating::class => [
+            PreventDuplicateAttributeValue::class,
         ],
     ];
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCatalogProductTypesTable extends Migration
+class CreateCatalogProductAttributeTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateCatalogProductTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_product_types', function (Blueprint $table) {
+        Schema::create('catalog_product_attribute_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('description');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateCatalogProductTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_product_types');
+        Schema::dropIfExists('catalog_product_attribute_templates');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Catalog\Product;
 
-use App\Catalog\Product\AttributeSet;
 use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
@@ -21,7 +20,6 @@ class Attribute extends Model
      */
     protected $fillable = [
         'name',
-        'description',
     ];
 
     /**
@@ -35,17 +33,17 @@ class Attribute extends Model
     }
 
     /**
-     * Get the attribute sets that belong to the attribute.
+     * Get the attribute templates that belong to the attribute.
      *
-     * @return App\Catalog\Product\AttributeSet
+     * @return App\Catalog\Product\AttributeTemplate
      */
-    public function attributeSets()
+    public function attributeTemplates()
     {
         return $this->belongsToMany(
-            AttributeSet::class,
-            'catalog_product_attribute__catalog_product_attribute_set',
+            AttributeTemplate::class,
+            'catalog_product_attribute__catalog_product_attribute_template',
             'attribute_id',
-            'attribute_set_id'
+            'attribute_template_id'
         );
     }
 }

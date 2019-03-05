@@ -20,6 +20,7 @@ class CreateCatalogCategoriesTable extends Migration
                 ->references('id')->on('companies')
                 ->onDelete('cascade');
             $table->text('name');
+            $table->text('content')->nullable();
             $table->nestedSet();
             $table->timestamps();
         });

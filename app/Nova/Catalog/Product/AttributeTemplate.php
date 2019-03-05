@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Nova\Catalog;
+namespace App\Nova\Catalog\Product;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 
-class ProductType extends Resource
+class AttributeTemplate extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Catalog\ProductType';
+    public static $model = 'App\Catalog\Product\AttributeTemplate';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -38,6 +37,7 @@ class ProductType extends Resource
      */
     public static $search = [
         'id',
+        'name',
     ];
 
     /**
@@ -51,7 +51,6 @@ class ProductType extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name'),
-            Textarea::make('Description'),
         ];
     }
 

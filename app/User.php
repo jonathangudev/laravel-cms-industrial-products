@@ -33,6 +33,16 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Get the company that owns the user.
+     *
+     * @return App\Company
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /**
      * Send the welcome email.
      *
      * @return void

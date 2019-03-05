@@ -29,7 +29,7 @@ class AttributeValue extends Resource
      *
      * @var bool
      */
-    public static $displayInNavigation = true;
+    public static $displayInNavigation = false;
 
     /**
      * The columns that should be searched.
@@ -53,6 +53,8 @@ class AttributeValue extends Resource
             ID::make()->sortable(),
             Text::make('value'),
             BelongsTo::make('Product', 'product', 'App\Nova\Catalog\Product'),
+            BelongsTo::make('Attribute', 'attribute', 'App\Nova\Catalog\Product\Attribute'),
+            BelongsTo::make('Company', 'company', 'App\Nova\Company')->nullable(),
         ];
     }
 

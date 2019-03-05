@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Company;
-use App\Company\User;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RestrictedAssetPolicy
@@ -17,8 +17,10 @@ class RestrictedAssetPolicy
      * @param  \App\Company  $company
      * @return mixed
      */
-    public function view(User $user, Company $company)
+    public function view(User $user, Company $company = null)
     {
-        return $user->company_id == $company->id;
+        $allowed = $user && ($company === null || $user->company_id == $company->id);
+
+        return $allowed;
     }
 }

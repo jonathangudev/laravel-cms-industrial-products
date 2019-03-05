@@ -11,6 +11,10 @@
 	<script src="{{ mix('/js/sort-table.js') }}" defer></script>
 @endpush
 
+@section('breadcrumbs')
+	@include('partials.breadcrumbs', ['name' => 'Search Results', 'type' => 'catalog'])
+@endsection
+
 @section('content')
 	<div class="row">
 		<div class="col-24">

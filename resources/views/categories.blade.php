@@ -13,6 +13,10 @@
     <link rel="prefetch" href="{{ mix('/js/sort-table.js') }}">
 @endpush
 
+@section('breadcrumbs')
+	@include('partials.breadcrumbs', ['name' => 'Categories', 'type' => 'catalog'])
+@endsection
+
 @section('content')
 	<div class="row">
 		<link rel="stylesheet" href="{{ mix('/css/panel.css') }}">

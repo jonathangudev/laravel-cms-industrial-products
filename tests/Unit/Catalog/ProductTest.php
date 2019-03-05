@@ -4,8 +4,7 @@ namespace Tests\Unit\Catalog;
 
 use App\Catalog\Category;
 use App\Catalog\Product;
-use App\Catalog\ProductType;
-use App\Catalog\Product\AttributeSet;
+use App\Catalog\Product\AttributeTemplate;
 use App\Catalog\Product\AttributeValue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -69,31 +68,17 @@ class ProductTest extends TestCase
     }
 
     /**
-     * Test that a catalog product can get its related type
+     * Test that a catalog product can get its related attribute template
      *
      * @return  void
      */
-    public function testItCanGetAProductTypeFromAProduct()
+    public function testItCanGetAProductAttributeTemplateFromAProduct()
     {
         $product = factory(Product::class)->create();
-        $type = $product->type;
+        $attributeTemplate = $product->attributeTemplate;
 
-        $this->assertInstanceOf(ProductType::class, $type);
-        $this->assertEquals($product->product_type_id, $type->id);
-    }
-
-    /**
-     * Test that a catalog product can get its related attribute set
-     *
-     * @return  void
-     */
-    public function testItCanGetAProductAttributeSetFromAProduct()
-    {
-        $product = factory(Product::class)->create();
-        $attributeSet = $product->attributeSet;
-
-        $this->assertInstanceOf(AttributeSet::class, $attributeSet);
-        $this->assertEquals($product->attribute_set_id, $attributeSet->id);
+        $this->assertInstanceOf(AttributeTemplate::class, $attributeTemplate);
+        $this->assertEquals($product->attribute_template_id, $attributeTemplate->id);
     }
 
     /**

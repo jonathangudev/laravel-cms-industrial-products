@@ -94,16 +94,33 @@
   }
 }
 
+.c-home-cards__card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
 @media (max-width: 991.98px) {
   .c-home-cards__card {
+    height: calc(100% - 1.6rem);
     margin-bottom: 1.6rem;
   }
 }
 
 @media (max-width: 767.98px) {
   .c-home-cards__card {
+    height: auto;
     margin-bottom: 4.4rem;
   }
+}
+
+.c-home-cards__cta {
+  margin-top: auto;
 }
 
 .c-home-content {
