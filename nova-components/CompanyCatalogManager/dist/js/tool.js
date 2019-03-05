@@ -3786,6 +3786,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
       var newData = this.mapCategories(data);
       return axios.put("/nova-vendor/company-catalog-manager/" + this.resourceId + "/categories", newData).then(function (response) {
+        _this4.categories = response.data;
         _this4.$toasted.show('Successfully updated categories.', { type: 'success' });
       }).catch(function (error) {
         _this4.$toasted.show('Error updating categories.', { type: 'error' });
