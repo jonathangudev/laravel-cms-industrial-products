@@ -82,7 +82,8 @@ export default {
         this.updateCategories(this.categories)
         .then(() => {
           this.deleteCategory(data.id).then(() => {
-            store.deleteNode(data);
+            const node = this.categories.find(item => item.id === data.id);
+            store.deleteNode(node);
           });
         });
       }
