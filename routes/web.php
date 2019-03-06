@@ -45,7 +45,7 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 
 // Catalog Routes...
 Route::get('/catalog', 'CatalogController@index')->name('catalog');
-Route::get('/catalog/{id}', 'CatalogController@getCategory');
+Route::get('/catalog/{id}', 'CatalogController@getCategory')->name('catalog.category');
 Route::get('catalog/asset/fake/{path?}', function ($path) {
     $client = new \GuzzleHttp\Client();
     $res = $client->request('GET', 'https://placekitten.com/' . $path);

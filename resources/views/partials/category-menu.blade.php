@@ -1,7 +1,7 @@
 <div id="js-category-menu" class="c-category-menu">
     <div class="c-category-menu__wrapper">
         <div class="c-category-menu__top-bar d-lg-none">
-            <p><i class="fas fa-phone"></i>&nbsp;&nbsp;(216 749-6030)</p>
+            <p><i class="fas fa-phone"></i>&nbsp;&nbsp;(216) 749-6030</p>
             <button id="js-category-menu-btn-close" type="button" class="c-btn c-category-menu__btn"><i class="fas fa-fw fa-times"></i></button>
         </div>
         <div class="c-category-menu__mobile-header d-lg-none">
@@ -41,7 +41,36 @@
 
         <nav class="c-category-menu__nav">
             <ul class="c-category-menu__list">
-                <li class="c-category-menu__item">
+                @foreach ($categories as $category)
+                    @if (request()->route('id') === $category->id)
+                        <li class="c-category-menu__item is-active">                        
+                    @else        
+                        <li class="c-category-menu__item">
+                    @endif
+                        <div class="c-category-menu__main">
+                            <a href="{{ route('catalog.category', ['id' => $category]) }}" class="c-category-menu__link">{{ $category->name }}</a>
+                            @if (count($category->children) > 0)
+                                <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
+                                <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
+                            @endif
+                        </div>
+                        @if (count($category->children) > 0) 
+                        
+                            <ul class="c-category-menu__sublist">
+                                @foreach ($category->children as $child)
+                                    @if (request()->route('id') === $child->id)
+                                        <li class="c-category-menu__subitem is-active">                        
+                                    @else        
+                                        <li class="c-category-menu__subitem">
+                                    @endif
+                                        <a href="{{ route('catalog.category', ['id' => $child]) }}" class="c-category-menu__sublink">{{ $child->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+                @endforeach
+                {{-- <li class="c-category-menu__item">
                     <div class="c-category-menu__main">
                         <a href="#" class="c-category-menu__link">Category Name</a>
                         <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
@@ -75,19 +104,7 @@
                     <div class="c-category-menu__main">
                         <a href="#" class="c-category-menu__link">Category Name</a>
                     </div>
-                </li>
-                <li class="c-category-menu__item">
-                    <div class="c-category-menu__main">
-                        <a href="#" class="c-category-menu__link">Category Name</a>
-                        <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
-                        <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
-                    </div>
-                    <ul class="c-category-menu__sublist">
-                        <li class="c-category-menu__subitem">
-                            <a href="#" class="c-category-menu__sublink">Subcategory</a>
-                        </li>
-                    </ul>
-                </li>
+                </li> --}}
             </ul>
         </nav>
     </div>
