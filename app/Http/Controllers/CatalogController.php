@@ -65,13 +65,12 @@ class CatalogController extends Controller
         }
 
         $categories = $category->toTree()->first();
-        //$categories = $category;
 
         // Categories with only products redirect to parent view
         if(count($categories->children) == 0)
         {   
             // Redirect to parent
-            return redirect("/catalog/$categories->parent_id");
+            return redirect()->route("catalog.category" ,['id' => $categories->parent_id]);
         }
 
         $emptyChildrenFlag = true;
