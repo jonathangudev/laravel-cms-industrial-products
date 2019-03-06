@@ -32,7 +32,8 @@ class CatalogController extends Controller
             abort(403);
         }
         
-        $categories = Category::whereisRoot()
+        $categories = Category::defaultOrder()
+            ->isRoot()
             ->where('company_id', $userCompany)
             ->get();
 
@@ -54,16 +55,46 @@ class CatalogController extends Controller
             abort(403);
         }
 
-        $category = Category::descendantsAndSelf($id)
+        $category = Category::defaultOrder()->descendantsAndSelf($id)
             ->where('company_id',$userCompany);
 
-        // If category has no results either the category does not exist or the category does not belong to the user's company
+        // If category has no results, then either the category does not exist or the category does not belong to the user's company
         if($category->count() == 0)
         {
             abort(403);
         }
 
-        return view('categories', ['categories' => $category->toTree()]);
+        $categories = $category->toTree()->first();
+
+        // Categories with only products redirect to parent view
+        if(count($categories->children) == 0)
+        {   
+            // Redirect to parent
+            return redirect("/catalog/$categories->parent_id");
+        }
+
+        $emptyChildrenFlag = true;
+
+        foreach($categories->children as $item)
+        {
+            if(count($item->children) > 0)
+            {
+                $emptyChildrenFlag = false;
+            }
+        }
+
+        //If the category with $id has children with descendants of their own render the categories view with those children
+        if($emptyChildrenFlag == false) 
+        {
+            return view('categories', ['categories' => array($categories)]);
+        }
+
+        //If the category with $id has only children with no descendants of their own render the products view with those children
+        else
+        {
+            return view('products', ['categories' => $categories->with('products')->has('products')->get()]);
+        }
+
     }
 
 }
