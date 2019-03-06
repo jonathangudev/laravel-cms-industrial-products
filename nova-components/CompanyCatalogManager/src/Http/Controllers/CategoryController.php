@@ -19,10 +19,9 @@ class CategoryController extends Controller
     {
         $company = Company::find($id);
         $categories = $company->categories;
-        $category = $categories->first();
 
-        if ($category) {
-            return response()->json($category->get()->toTree());
+        if ($categories) {
+            return response()->json($categories->toTree());
         }
 
         return response()->json([]);
