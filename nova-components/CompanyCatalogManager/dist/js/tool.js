@@ -3718,6 +3718,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7749,6 +7755,21 @@ var render = function() {
                       attrs: { type: "text", name: "name", title: data.name },
                       domProps: { value: data.name },
                       on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.handleSaveClick($event)
+                        },
                         input: function($event) {
                           if ($event.target.composing) {
                             return
