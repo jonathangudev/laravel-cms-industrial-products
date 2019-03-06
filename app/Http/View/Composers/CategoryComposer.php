@@ -31,7 +31,8 @@ class CategoryComposer
     public function compose(View $view)
     {
         if ($company = $this->user->company) {
-            $view->with('categories', $company->categories->toTree());
+            $categories = Category::defaultOrder()->where('company_id', $company->id)->get();
+            $view->with('categories', $categories->toTree());
         }
     }
 }
