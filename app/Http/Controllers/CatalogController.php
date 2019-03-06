@@ -54,18 +54,16 @@ class CatalogController extends Controller
             abort(403);
         }
 
-        // Only get the category by id if the user's assigned company has that category
-        $category = Category::where('company_id', $userCompany)
-            ->find($id)
-            ->get();
+        $category = Category::descendantsAndSelf($id)
+            ->where('company_id',$userCompany);
 
-        if(empty($category)) 
+        // If category has no results either the category does not exist or the category does not belong to the user's company
+        if($category->count() == 0)
         {
             abort(403);
         }
 
         return view('categories', ['categories' => $category->toTree()]);
-
     }
 
 }
