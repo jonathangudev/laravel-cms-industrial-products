@@ -5,6 +5,7 @@ namespace App\Http\View\Composers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Catalog\Category;
 
 class CategoryComposer
 {

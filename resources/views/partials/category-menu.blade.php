@@ -43,7 +43,7 @@
             <ul class="c-category-menu__list">
                 @foreach ($categories as $category)
                     @if (request()->route('id') === $category->id)
-                        <li class="c-category-menu__item is-active">                        
+                        <li class="c-category-menu__item is-active is-open">                        
                     @else        
                         <li class="c-category-menu__item">
                     @endif
@@ -54,8 +54,7 @@
                                 <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
                             @endif
                         </div>
-                        @if (count($category->children) > 0) 
-                        
+                        @if (count($category->children) > 0)
                             <ul class="c-category-menu__sublist">
                                 @foreach ($category->children as $child)
                                     @if (request()->route('id') === $child->id)
@@ -70,41 +69,6 @@
                         @endif
                     </li>
                 @endforeach
-                {{-- <li class="c-category-menu__item">
-                    <div class="c-category-menu__main">
-                        <a href="#" class="c-category-menu__link">Category Name</a>
-                        <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
-                        <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
-                    </div>
-                    <ul class="c-category-menu__sublist">
-                        <li class="c-category-menu__subitem">
-                            <a href="#" class="c-category-menu__sublink">Subcategory</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="c-category-menu__item is-active is-open">
-                    <div class="c-category-menu__main">
-                        <a href="#" class="c-category-menu__link">Category Name</a>
-                        <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
-                        <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
-                    </div>
-                    <ul class="c-category-menu__sublist">
-                        <li class="c-category-menu__subitem">
-                            <a href="#" class="c-category-menu__sublink">Subcategory</a>
-                        </li>
-                        <li class="c-category-menu__subitem is-active">
-                            <a href="#" class="c-category-menu__sublink">Subcategory</a>
-                        </li>
-                        <li class="c-category-menu__subitem">
-                            <a href="#" class="c-category-menu__sublink">Subcategory</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="c-category-menu__item">
-                    <div class="c-category-menu__main">
-                        <a href="#" class="c-category-menu__link">Category Name</a>
-                    </div>
-                </li> --}}
             </ul>
         </nav>
     </div>
