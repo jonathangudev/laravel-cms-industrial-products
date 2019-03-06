@@ -33,7 +33,7 @@ class CatalogController extends Controller
         }
         
         $categories = Category::defaultOrder()
-            ->isRoot()
+            ->whereIsRoot()
             ->where('company_id', $userCompany)
             ->get();
 
@@ -65,6 +65,7 @@ class CatalogController extends Controller
         }
 
         $categories = $category->toTree()->first();
+        //$categories = $category;
 
         // Categories with only products redirect to parent view
         if(count($categories->children) == 0)
@@ -86,7 +87,7 @@ class CatalogController extends Controller
         //If the category with $id has children with descendants of their own render the categories view with those children
         if($emptyChildrenFlag == false) 
         {
-            return view('categories', ['categories' => array($categories)]);
+            return view('categories', ['categories' => $categories->children]);
         }
 
         //If the category with $id has only children with no descendants of their own render the products view with those children
