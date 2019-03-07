@@ -3,6 +3,7 @@
 namespace App\Nova\Catalog;
 
 use App\Nova\Resource;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Jmp\ProductAttributeManager\ProductAttributeManager;
 use Laravel\Nova\Fields\ID;
@@ -59,6 +60,8 @@ class Product extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')->creationRules('required'),
+            Images::make('Thumbnail', 'product-thumbnail') // second parameter is the media collection name
+            ->thumbnail('thumb'), // conversion used to display the image
             ProductAttributeManager::make(),
         ];
     }
