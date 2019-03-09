@@ -61,7 +61,7 @@ class Product extends Resource
             ID::make()->sortable(),
             Text::make('Name')->creationRules('required'),
             Images::make('Thumbnail', 'product-thumbnail') // second parameter is the media collection name
-            ->thumbnail('thumb'), // conversion used to display the image
+                ->thumbnail('thumb'), // conversion used to display the image
             ProductAttributeManager::make(),
         ];
     }

@@ -92,10 +92,6 @@ class Product extends Model implements HasMedia
         $this
             ->addMediaCollection('product-thumbnail')
             ->useDisk('restricted');
-
-        $this
-            ->addMediaCollection('product-gallery')
-            ->useDisk('restricted');
     }
 
 }
