@@ -4,6 +4,7 @@ namespace App\Catalog;
 
 use App\Catalog\Product\AttributeTemplate;
 use App\Catalog\Product\AttributeValue;
+use App\Catalog\Product\SpecSheet;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -53,5 +54,15 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'catalog_category__catalog_product');
+    }
+
+    /**
+     * Get the spec sheets for the product.
+     *
+     * @return App\Catalog\Product\SpecSheet
+     */
+    public function specSheets()
+    {
+        return $this->hasMany(SpecSheet::class);
     }
 }

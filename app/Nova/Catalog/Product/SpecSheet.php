@@ -5,10 +5,8 @@ namespace App\Nova\Catalog\Product;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\File;
-
+use Laravel\Nova\Fields\ID;
 
 class SpecSheet extends Resource
 {
@@ -25,6 +23,13 @@ class SpecSheet extends Resource
      * @var string
      */
     public static $title = 'id';
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = true;
 
     /**
      * The columns that should be searched.
@@ -45,7 +50,7 @@ class SpecSheet extends Resource
     {
         return [
             ID::make()->sortable(),
-            File::make('PDF','pdf'),
+            File::make('PDF', 'pdf'),
             BelongsTo::make('Product', 'product', 'App\Nova\Catalog\Product'),
             BelongsTo::make('Company', 'company', 'App\Nova\Company')->nullable(),
         ];
