@@ -9,7 +9,7 @@
 							<a href="{{ route('catalog') }}"><img src="{{ asset('images/logo/JMP_Logo.svg') }}" alt="JMP Logo"></a>
 						</div>
 						<div class="c-header__company-logo">
-							<img src="https://via.placeholder.com/1600x300" alt="Company Logo">
+							<img src="{{ Auth::user()->company->getLogoUrl() }}" alt="Company Logo">
 						</div>
 					</div>
 				</div>

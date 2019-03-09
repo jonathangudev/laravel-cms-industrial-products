@@ -18,11 +18,10 @@ class CategoryController extends Controller
     public function getCategories($id)
     {
         $company = Company::find($id);
-        $categories = $company->categories;
-        $category = $categories->first();
+        $categories = Category::defaultOrder()->where('company_id', $id)->get();
 
-        if ($category) {
-            return response()->json($category->get()->toTree());
+        if ($categories) {
+            return response()->json($categories->toTree());
         }
 
         return response()->json([]);

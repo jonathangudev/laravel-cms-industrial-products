@@ -5,6 +5,7 @@ namespace App\Http\View\Composers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Catalog\Category;
 
 class CategoryComposer
 {
@@ -31,7 +32,8 @@ class CategoryComposer
     public function compose(View $view)
     {
         if ($company = $this->user->company) {
-            $view->with('categories', $company->categories->toTree());
+            $categories = Category::defaultOrder()->where('company_id', $company->id)->get();
+            $view->with('categories', $categories->toTree());
         }
     }
 }

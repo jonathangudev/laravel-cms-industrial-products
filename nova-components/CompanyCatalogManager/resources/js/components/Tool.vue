@@ -18,7 +18,13 @@
             <strong v-else>+</strong>
           </div>
           
-          <input type="text" name="name" class="appearance-none w-full mr-3" v-model="data.name" :title="data.name">
+          <input
+            type="text"
+            name="name"
+            class="appearance-none w-full mr-3"
+            :title="data.name"
+            v-model="data.name"
+            @keyup.enter="handleSaveClick">
 
           <button @click="$router.push({name: 'detail', params: { resourceName: 'categories', resourceId: data.id }})"
             type="button"
@@ -60,7 +66,7 @@ export default {
   },
 
   methods: {
-    handleSaveClick () {
+    handleSaveClick () {     
       this.updateCategories(this.categories)
     },
 
@@ -73,10 +79,11 @@ export default {
 
     handleDeleteClick (data, store) {
       if (window.confirm("Are you sure you want to delete this category? This will delete all child categories as well.")) {
-        store.deleteNode(data);
         this.updateCategories(this.categories)
         .then(() => {
-          this.deleteCategory(data.id);
+          this.deleteCategory(data.id).then(() => {
+            store.deleteNode(data);
+          });
         });
       }
     },
@@ -84,23 +91,21 @@ export default {
     // Map categories to clean up data 
     mapCategories (categories) {
       return categories.map(category => {
-        let newCat = {...category};
-  
-        newCat.parent = null;
-        newCat._vm = null;
-        newCat.company_id = this.resourceId;
-        newCat.children = this.mapCategories(category.children);
-  
-        return newCat;
+        return {
+          id: category.id || null,
+          name: category.name,
+          company_id: this.resourceId,
+          children: this.mapCategories(category.children),
+        };
       });
     },
 
     // Post updated category tree
     updateCategories (data) {
-      const newData = this.mapCategories(data);
+      const newData = this.mapCategories(data);     
       return axios.put(`/nova-vendor/company-catalog-manager/${this.resourceId}/categories`, newData)
         .then(response => {
-          this.categories = response.data;         
+          this.categories = response.data;
           this.$toasted.show('Successfully updated categories.', {type: 'success'});
         })
         .catch(error => {         
@@ -126,9 +131,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .tree-node-inner{
+  .tree-node-inner {
     cursor: grab;
-    max-width: 500px;
+    width: 500px;
   }
 
   .tree-node-item {
@@ -136,7 +141,7 @@ export default {
     align-items: center;
   }
 
-  .draggable-placeholder-inner{
+  .draggable-placeholder-inner {
     border: 1px dashed #0088F8;
     box-sizing: border-box;
     background: rgba(0, 136, 249, 0.09);

@@ -26,7 +26,10 @@ class Category extends Model implements HasMedia
      *
      * @var array
      */
-    protected $fillable = ['name', 'company_id'];
+    protected $fillable = [
+        'name',
+        'company_id',
+    ];
 
     /**
      * Register the media conversions for this model

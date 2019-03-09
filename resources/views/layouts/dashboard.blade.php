@@ -46,7 +46,7 @@
 							<div class="row">
 								<div class="col">
 									<div class="o-dashboard__message">
-										<h3>Welcome, ##INSERT COMPANY##</h3>
+										<h3>Welcome, {{ Auth::user()->company->name }}</h3>
 									</div>
 								</div>
 							</div>

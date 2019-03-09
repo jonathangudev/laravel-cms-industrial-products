@@ -56,7 +56,7 @@
 			<link rel="stylesheet" href="{{ mix('/css/product-group.css') }}">
 			<link rel="stylesheet" href="{{ mix('/css/product-table.css') }}">
 
-			{{-- LOOP OVER PRODUCT GROUPS HERE --}}
+            {{-- LOOP OVER PRODUCT GROUPS HERE --}}
 			<div id="product-group-1" class="c-product-group">
 				<div class="c-product-group__title">
 					<h3>Example Product Group Name 1</h3>
