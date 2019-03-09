@@ -3,9 +3,9 @@
 namespace App\Nova\Catalog\Product;
 
 use App\Nova\Resource;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 
 class SpecSheet extends Resource
@@ -29,7 +29,7 @@ class SpecSheet extends Resource
      *
      * @var bool
      */
-    public static $displayInNavigation = true;
+    public static $displayInNavigation = false;
 
     /**
      * The columns that should be searched.
@@ -50,7 +50,7 @@ class SpecSheet extends Resource
     {
         return [
             ID::make()->sortable(),
-            File::make('PDF', 'pdf'),
+            Files::make('PDF', 'spec-sheet'),
             BelongsTo::make('Product', 'product', 'App\Nova\Catalog\Product'),
             BelongsTo::make('Company', 'company', 'App\Nova\Company')->nullable(),
         ];
