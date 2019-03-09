@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -93,5 +94,15 @@ class Company extends Model
     public function setUuidAttribute($value)
     {
         $this->generateUuid();
+    }
+
+    /**
+     * Get the logo url for the company
+     *
+     * @return  return string
+     */
+    public function getLogoUrl()
+    {
+        return Storage::disk('restricted')->url($this->logo);
     }
 }
