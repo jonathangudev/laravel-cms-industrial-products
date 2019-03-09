@@ -57,9 +57,6 @@
 			<link rel="stylesheet" href="{{ mix('/css/product-table.css') }}">
 
             {{-- LOOP OVER PRODUCT GROUPS HERE --}}
-            @foreach ($categories as $category)
-                {{$category->products}}
-            @endforeach
 			<div id="product-group-1" class="c-product-group">
 				<div class="c-product-group__title">
 					<h3>Example Product Group Name 1</h3>
