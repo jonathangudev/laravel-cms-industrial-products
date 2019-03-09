@@ -7,6 +7,7 @@ return [
      */
     'restricted_asset_models' => [
         App\Catalog\Category::class,
+        App\Catalog\Product\SpecSheet::class,
     ],
 
     /*

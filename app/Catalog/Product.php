@@ -4,11 +4,11 @@ namespace App\Catalog;
 
 use App\Catalog\Product\AttributeTemplate;
 use App\Catalog\Product\AttributeValue;
+use App\Catalog\Product\SpecSheet;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
-
 
 class Product extends Model implements HasMedia
 {
@@ -31,6 +31,37 @@ class Product extends Model implements HasMedia
         'name',
         'description',
     ];
+
+    /**
+     * Register the media conversions for this model
+     *
+     * @param Media $media
+     * @return void
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(300)
+            ->height(300)
+            ->extractVideoFrameAtSecond(1);
+
+        $this->addMediaConversion('medium')
+            ->width(600)
+            ->height(600)
+            ->extractVideoFrameAtSecond(1);
+    }
+
+    /**
+     * Register the media collections for this model
+     *
+     * @return void
+     */
+    public function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('product-thumbnail')
+            ->useDisk('restricted');
+    }
 
     /**
      * Get the attribute template for the product.
@@ -63,35 +94,12 @@ class Product extends Model implements HasMedia
     }
 
     /**
-     * Register the media conversions for this model
+     * Get the spec sheets for the product.
      *
-     * @param Media $media
-     * @return void
+     * @return App\Catalog\Product\SpecSheet
      */
-    public function registerMediaConversions(Media $media = null)
+    public function specSheets()
     {
-        $this->addMediaConversion('thumb')
-            ->width(300)
-            ->height(300)
-            ->extractVideoFrameAtSecond(1);
-
-        $this->addMediaConversion('medium')
-            ->width(600)
-            ->height(600)
-            ->extractVideoFrameAtSecond(1);
+        return $this->hasMany(SpecSheet::class);
     }
-
-    /**
-     * Register the media collections for this model
-     *
-     * @return void
-     */
-
-    public function registerMediaCollections()
-    {
-        $this
-            ->addMediaCollection('product-thumbnail')
-            ->useDisk('restricted');
-    }
-
 }

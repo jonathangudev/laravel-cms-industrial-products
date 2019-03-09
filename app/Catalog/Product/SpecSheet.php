@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Catalog;
+namespace App\Catalog\Product;
 
+use App\Catalog\Product;
 use App\Company;
 use Illuminate\Database\Eloquent\Model;
-use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Category extends Model implements HasMedia
+class SpecSheet extends Model implements HasMedia
 {
-    use NodeTrait;
     use HasMediaTrait;
 
     /**
@@ -19,7 +18,7 @@ class Category extends Model implements HasMedia
      *
      * @var string
      */
-    protected $table = 'catalog_categories';
+    protected $table = 'catalog_product_spec_sheets';
 
     /**
      * The attributes that are mass assignable.
@@ -27,8 +26,9 @@ class Category extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'name',
+        'product_id',
         'company_id',
+        'pdf',
     ];
 
     /**
@@ -50,19 +50,30 @@ class Category extends Model implements HasMedia
             ->extractVideoFrameAtSecond(1);
     }
 
+    /**
+     * Register the media collections for this model
+     *
+     * @return void
+     */
     public function registerMediaCollections()
     {
         $this
-            ->addMediaCollection('category-thumbnail')
-            ->useDisk('restricted');
-
-        $this
-            ->addMediaCollection('category-gallery')
+            ->addMediaCollection('spec-sheet')
             ->useDisk('restricted');
     }
 
     /**
-     * Get the company that owns the category.
+     * Get the product that owns the sheet.
+     *
+     * @return App\Catalog\Product
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Get the company that owns the sheet.
      *
      * @return App\Company
      */
@@ -71,13 +82,4 @@ class Category extends Model implements HasMedia
         return $this->belongsTo(Company::class);
     }
 
-    /**
-     * Get the products for the category.
-     *
-     * @return App\Catalog\Product
-     */
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'catalog_category__catalog_product');
-    }
 }
