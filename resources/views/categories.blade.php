@@ -20,8 +20,6 @@
 @section('content')
 	<div class="row">
 
-		{{$categories}}
-
 		<link rel="stylesheet" href="{{ mix('/css/panel.css') }}">
 		@for ($i = 1; $i < 9; $i++)			
 			<div class="col-24 col-sm-12 col-md-8 col-xl-6">

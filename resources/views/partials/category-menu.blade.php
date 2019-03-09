@@ -1,5 +1,3 @@
-{{$categories}}
-
 <div id="js-category-menu" class="c-category-menu">
     <div class="c-category-menu__wrapper">
         <div class="c-category-menu__top-bar d-lg-none">

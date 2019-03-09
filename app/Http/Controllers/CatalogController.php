@@ -25,13 +25,12 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        $userCompany = Auth::user()->company_id; 
+        $userCompany = Auth::user()->company_id;
 
-        if(empty($userCompany))
-        {
+        if (empty($userCompany)) {
             abort(403);
         }
-        
+
         $categories = Category::defaultOrder()
             ->whereIsRoot()
             ->where('company_id', $userCompany)
@@ -47,54 +46,59 @@ class CatalogController extends Controller
      */
     public function getCategory($id)
     {
-        $userCompany = Auth::user()->company_id; 
+        $company = Auth::user()->company;
 
-        // Users without a company assigned can not access ANY categories
-        if(empty($userCompany))
-        {
+        /**
+         * Abort unauthorized for users without a company
+         */
+        if (empty($company)) {
             abort(403);
         }
 
-        $category = Category::defaultOrder()->descendantsAndSelf($id)
-            ->where('company_id',$userCompany);
+        $categories = Category::with(['children', 'products'])
+            ->defaultOrder()
+            ->descendantsAndSelf($id)
+            ->where('company_id', $company->id);
 
-        // If category has no results, then either the category does not exist or the category does not belong to the user's company
-        if($category->count() == 0)
-        {
+        /**
+         * If there are no category results, abort
+         */
+        if ($categories->isEmpty()) {
             abort(403);
         }
 
-        $categories = $category->toTree()->first();
+        $category = $categories->firstWhere('id', $id);
 
-        // Categories with only products redirect to parent view
-        if(count($categories->children) == 0)
-        {   
-            // Redirect to parent
-            return redirect()->route("catalog.category" ,['id' => $categories->parent_id]);
+        /**
+         * Redirect categories without children to their parent's view
+         */
+        if ($category->children->isEmpty()) {
+            return redirect()->route("catalog.category", ['id' => $category->parent_id]);
         }
 
-        $emptyChildrenFlag = true;
+        $childrenWithDescendants = $category->children->filter(function($child) {
+            return $child->children->isNotEmpty();
+        });
 
-        foreach($categories->children as $item)
-        {
-            if(count($item->children) > 0)
-            {
-                $emptyChildrenFlag = false;
+        /**
+         * If the category has children with descendants of their own render the categories view
+         * with the children, otherwise render the products view with the children.
+         * 
+         * If rendering the products view, some of the children must have products, otherwise abort
+         * with a 404 error.
+         */
+        if ($childrenWithDescendants->isNotEmpty()) {
+            return view('categories', ['categories' => $category->children]);
+        } else {
+            $childrenWithProducts = $category->children->filter(function($child) {
+                return $child->products->isNotEmpty();
+            });
+
+            if ($childrenWithProducts->isEmpty()) {
+                abort(404, 'The category you are trying to view doesn\'t have any products');
             }
-        }
 
-        //If the category with $id has children with descendants of their own render the categories view with those children
-        if($emptyChildrenFlag == false) 
-        {
-            return view('categories', ['categories' => $categories->children]);
+            return view('products', ['categories' => $childrenWithProducts]);
         }
-
-        //If the category with $id has only children with no descendants of their own render the products view with those children
-        else
-        {
-            return view('products', ['categories' => $categories->with('products')->has('products')->get()]);
-        }
-
     }
-
 }
