@@ -1,0 +1,30 @@
+{
+    "name": "jmp/product-spec-sheet-manager",
+    "description": "A Laravel Nova resource tool.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "ebess/advanced-nova-media-library": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jmp\\ProductSpecSheetManager\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jmp\\ProductSpecSheetManager\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

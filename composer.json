@@ -25,7 +25,8 @@
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^2.25",
         "spatie/nova-tail-tool": "^1.0",
-        "vyuldashev/nova-permission": "^1.4"
+        "vyuldashev/nova-permission": "^1.4",
+        "jmp/product-spec-sheet-manager": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -36,6 +37,10 @@
         "phpunit/phpunit": "^7.0"
     },
     "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        },
         {
             "type": "path",
             "url": "./nova-components/ProductAttributeManager"
@@ -57,8 +62,8 @@
             "url": "./nova-components/CompanyCatalogManager"
         },
         {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
+            "type": "path",
+            "url": "./nova-components/ProductSpecSheetManager"
         }
     ],
     "autoload": {
