@@ -1,29 +1,28 @@
 <?php
 
-namespace App\Nova\Catalog;
+namespace App\Nova\Catalog\Product;
 
 use App\Nova\Resource;
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
-use Jmp\ProductAttributeManager\ProductAttributeManager;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
 
-class Product extends Resource
+class SpecSheet extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Catalog\Product';
+    public static $model = 'App\Catalog\Product\SpecSheet';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * Indicates if the resource should be displayed in the sidebar.
@@ -39,15 +38,7 @@ class Product extends Resource
      */
     public static $search = [
         'id',
-        'name',
     ];
-
-    /**
-     * The relationships that should be eager loaded on index queries.
-     *
-     * @var array
-     */
-    public static $with = ['attributes'];
 
     /**
      * Get the fields displayed by the resource.
@@ -59,10 +50,9 @@ class Product extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name')->creationRules('required'),
-            Images::make('Thumbnail', 'product-thumbnail') // second parameter is the media collection name
-                ->thumbnail('thumb'), // conversion used to display the image
-            ProductAttributeManager::make(),
+            Files::make('PDF', 'spec-sheet'),
+            BelongsTo::make('Product', 'product', 'App\Nova\Catalog\Product'),
+            BelongsTo::make('Company', 'company', 'App\Nova\Company')->nullable(),
         ];
     }
 

@@ -36,7 +36,6 @@ class PathGenerator implements \Spatie\MediaLibrary\PathGenerator\PathGenerator
      */
     protected function getBasePath(Media $media): string
     {
-        // TODO: check if media->model returns a category, or product, and if so set the company data
         $model = $media->model;
         $restrictedAssetModels = Config::get('medialibrary.restricted_asset_models');
         $isRestrictedAssetModel = in_array(get_class($model), $restrictedAssetModels);
