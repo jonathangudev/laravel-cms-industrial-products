@@ -714,7 +714,7 @@ var render = function() {
             "div",
             {
               key: company.uuid,
-              staticClass: "flex-no-grow",
+              staticClass: "w-1/6",
               class: { "ml-2": index !== 0 },
               on: {
                 click: function($event) {
@@ -733,10 +733,11 @@ var render = function() {
                 "card",
                 {
                   staticClass:
-                    "p-4 h-full flex flex-col justify-center shadow-md cursor-pointer"
+                    "p-4 flex justify-center shadow-md cursor-pointer"
                 },
                 [
                   _c("img", {
+                    staticClass: "h-12 w-auto",
                     attrs: {
                       src: "/catalog/asset/" + company.logo,
                       alt: company.name
