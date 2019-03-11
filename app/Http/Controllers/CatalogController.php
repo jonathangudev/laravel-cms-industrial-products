@@ -76,21 +76,27 @@ class CatalogController extends Controller
             return redirect()->route("catalog.category", ['id' => $category->parent_id]);
         }
 
-        $childrenWithDescendants = $category->children->filter(function($child) {
+        $childrenWithDescendants = $category->children->filter(function ($child) {
             return $child->children->isNotEmpty();
         });
+
+        $categoryAncestors = Category::defaultOrder()->ancestorsAndSelf($id);
 
         /**
          * If the category has children with descendants of their own render the categories view
          * with the children, otherwise render the products view with the children.
-         * 
+         *
          * If rendering the products view, some of the children must have products, otherwise abort
          * with a 404 error.
          */
         if ($childrenWithDescendants->isNotEmpty()) {
-            return view('categories', ['categories' => $category->children]);
+            return view('categories', [
+                'categories' => $category->children,
+                'currentCategory' => $category,
+                'categoryAncestors' => $categoryAncestors,
+            ]);
         } else {
-            $childrenWithProducts = $category->children->filter(function($child) {
+            $childrenWithProducts = $category->children->filter(function ($child) {
                 return $child->products->isNotEmpty();
             });
 
@@ -98,7 +104,11 @@ class CatalogController extends Controller
                 abort(404, 'The category you are trying to view doesn\'t have any products');
             }
 
-            return view('products', ['categories' => $childrenWithProducts]);
+            return view('products', [
+                'categories' => $childrenWithProducts,
+                'currentCategory' => $category,
+                'categoryAncestors' => $categoryAncestors,
+            ]);
         }
     }
 }
