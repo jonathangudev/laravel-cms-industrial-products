@@ -32,6 +32,14 @@
 	</div>
 </section>
 
+@if( Session::has('message'))
+	{{Session::get('message')}}
+@endif
+
+@if($errors)
+	{{$errors}}
+@endif
+
 <link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 <div class="container">
 	<div class="row">
@@ -41,7 +49,7 @@
 					<h2>Get In Touch</h2>
 					<p>Fill out the form below and we'll get back to you.</p>
 				</div>
-				<form action="#" class="c-contact-form__form o-form">
+				<form action="" class="c-contact-form__form o-form" method="POST">
 					@csrf
 					<fieldset>
 						<legend>Contact Information</legend>
@@ -49,13 +57,13 @@
 							<div class="col-24 col-md-12">
 								<div class="o-form__group">
 									<label for="contact-fullname">Full Name</label>
-									<input id="contact-fullname" type="text" placeholder="e.g. Wile E. Coyote" required>
+									<input name="contact-fullname" type="text" placeholder="e.g. Wile E. Coyote" required value={{old('contact-fullname')}}>
 								</div>
 							</div>
 							<div class="col-24 col-md-12">
 								<div class="o-form__group">
 									<label for="contact-company">Company</label>
-									<input id="contact-company" type="text" placeholder="e.g. Acme Co." required>
+									<input name="contact-company" type="text" placeholder="e.g. Acme Co." required>
 								</div>
 							</div>
 						</div>
@@ -63,13 +71,13 @@
 							<div class="col-24 col-md-12">
 								<div class="o-form__group">
 									<label for="contact-email">Email Address</label>
-									<input id="contact-email" type="email" placeholder="e.g. wile.e.coyote@acme.com" required>
+									<input name="contact-email" type="email" placeholder="e.g. wile.e.coyote@acme.com" required>
 								</div>
 							</div>
 							<div class="col-24 col-md-12">
 								<div class="o-form__group">
 									<label for="contact-phone">Phone</label>
-									<input id="contact-phone" type="text" placeholder="e.g. 123-456-7890" required>
+									<input name="contact-phone" type="text" placeholder="e.g. 123-456-7890" required>
 								</div>
 							</div>
 						</div>

@@ -23,9 +23,11 @@ Route::get('/products-and-services', function () {
     return view('products-services');
 })->name('products-services');
 
+// Contact Form Routes...
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+Route::post('/contact', 'ContactController@send');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
