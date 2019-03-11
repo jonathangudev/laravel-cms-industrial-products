@@ -79,8 +79,14 @@ $table-img-size:						$leading * 2;
 			}
 		}
 
-		td {
-			border-bottom: $border-width solid $table-border-color;
+		tbody {
+			tr {
+				height: $table-cell-height;
+			}
+	
+			td {
+				border-bottom: $border-width solid $table-border-color;
+			}
 		}
 
 		#{$block}__img {
