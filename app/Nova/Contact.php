@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 
 class Contact extends Resource
 {
@@ -29,14 +29,14 @@ class Contact extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'company','email','phone'
+        'id', 'name', 'company', 'email', 'phone',
     ];
 
     /**
      * Indicates if the resource should be displayed in the sidebar.
-    *
-    * @var bool
-    */
+     *
+     * @var bool
+     */
     public static $displayInNavigation = true;
 
     /**
@@ -49,11 +49,18 @@ class Contact extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name'),
-            Text::make('Email'),
-            Text::make('Company'),
-            Text::make('Phone'),
-            Text::make('Message')
+            Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('Email')
+                ->sortable()
+                ->rules('required', 'email'),
+            Text::make('Company')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('Phone')
+                ->rules('required', 'max:30'),
+            Textarea::make('Message'),
         ];
     }
 
