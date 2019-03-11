@@ -62,12 +62,6 @@
         </div>
         <div class="w-3/4 text-right">
           <button
-            :disabled="hasDocument"
-            type="button"
-            class="btn btn-default btn-primary mr-3"
-            @click="handleAddDocument"
-          >Add Downloadable Document</button>
-          <button
             type="button"
             class="btn btn-default btn-primary"
             @click="handleAddAttribute"
@@ -137,7 +131,6 @@ export default {
   props: ["resourceName", "resourceId", "field"],
   data() {
     return {
-      hasDocument: false,
       isModalOpen: false,
       attributeValueToBeDeletedId: null,
       isAddingNew: false,
@@ -191,10 +184,6 @@ export default {
       return this.attributeValues.filter(element => {
         return id === element.attribute_id;
       });
-    },
-
-    handleAddDocument () {
-      this.hasDocument = true;
     },
 
     handleAddAttribute() {
