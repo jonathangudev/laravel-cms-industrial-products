@@ -34,7 +34,7 @@
           type="button"
           class="btn btn-default btn-danger mr-3"
           @click="handleCancelAttribute"
-        >cancel</button>
+        >Cancel</button>
         <button
           type="button"
           class="btn btn-default btn-primary"
@@ -75,7 +75,7 @@
         </div>
         <div class="flex w-3/4">
           <div class="w-2/3">
-            <strong class="text-xs text-80">VALUE</strong>
+            <strong class="text-xs text-80 uppercase">{{companyName}} VALUE</strong>
           </div>
           <div class="w-1/6">
             <strong v-if="!isDefaultCompany" class="text-xs text-80">HIDDEN</strong>
@@ -146,6 +146,11 @@ export default {
   computed: {
     isDefaultCompany: function() {
       return this.selectedCompanyId === null;
+    },
+
+    companyName: function () {
+      const company = this.companies.find(item => this.selectedCompanyId === item.id);
+      return (company) ? company.name : 'Default';
     },
 
     companyAttributeIds() {

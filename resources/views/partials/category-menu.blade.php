@@ -42,9 +42,9 @@
         <nav class="c-category-menu__nav">
             <ul class="c-category-menu__list">
                 @foreach ($categories as $category)
-                    @if (request()->route('id') === $category->id)
-                        <li class="c-category-menu__item is-active is-open">                        
-                    @else        
+                    @if (request()->route('id') == $category->id || in_array(request()->route('id'), $category->descendants()->pluck('id')->toArray()))
+                        <li class="c-category-menu__item is-active is-open">
+                    @else
                         <li class="c-category-menu__item">
                     @endif
                         <div class="c-category-menu__main">
@@ -57,9 +57,9 @@
                         @if (count($category->children) > 0)
                             <ul class="c-category-menu__sublist">
                                 @foreach ($category->children as $child)
-                                    @if (request()->route('id') === $child->id)
-                                        <li class="c-category-menu__subitem is-active">                        
-                                    @else        
+                                    @if (request()->route('id') == $child->id)
+                                        <li class="c-category-menu__subitem is-active">
+                                    @else
                                         <li class="c-category-menu__subitem">
                                     @endif
                                         <a href="{{ route('catalog.category', ['id' => $child]) }}" class="c-category-menu__sublink">{{ $child->name }}</a>

@@ -13,32 +13,32 @@
     <link rel="prefetch" href="{{ mix('/js/sort-table.js') }}">
 @endpush
 
-@section('breadcrumbs')
-	@include('partials.breadcrumbs', ['name' => 'Categories', 'type' => 'catalog'])
-@endsection
-
 @section('content')
 	<div class="row">
 
 		<link rel="stylesheet" href="{{ mix('/css/panel.css') }}">
-		@for ($i = 1; $i < 9; $i++)			
+		@foreach ($categories as $category)
 			<div class="col-24 col-sm-12 col-md-8 col-xl-6">
 				<div class="c-panel">
 					<div class="c-panel__img">
-						<a href="#">
-							<img src="https://via.placeholder.com/600x600" alt="Image" title="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit">
+						<a href="{{ route('catalog.category', ['id' => $category]) }}">
+							@if ($category->hasMedia('category-thumbnail'))
+								<img src="{{ $category->getFirstMediaUrl('category-thumbnail', 'thumb') }}" alt="{{ $category->name }} Image" title="{{ $category->name }}">
+							@else
+								<img src="{{ asset('images/placeholder.png') }}" alt="{{ $category->name }} Image" title="{{ $category->name }}">
+							@endif
 						</a>
 					</div>
 					<div class="c-panel__footer">
-						<div class="c-panel__title" title="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit">
-							<strong>Category {{ $i }} - Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</strong>
+						<div class="c-panel__title" title="{{ $category->name }}">
+							<strong>{{ $category->name }}</strong>
 						</div>
 						<div class="c-panel__action">
-							<a href="#">View</a>
+							<a href="{{ route('catalog.category', ['id' => $category]) }}">{{ __('View') }}</a>
 						</div>
 					</div>
 				</div>
 			</div>
-		@endfor
+		@endforeach
 	</div>
 @endsection

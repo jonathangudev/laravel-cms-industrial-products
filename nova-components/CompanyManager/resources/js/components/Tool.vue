@@ -12,12 +12,12 @@
       <div
         v-for="(company, index) in companies"
         :key="company.uuid"
-        class="flex-no-grow"
+        class="w-1/6"
         :class="{'ml-2': index !== 0}"
         @click="$router.push({name: 'detail', params: { resourceName: 'companies', resourceId: company.id }})"
       >
-        <card class="p-4 h-full flex flex-col justify-center shadow-md cursor-pointer">
-          <img :src="`/catalog/asset/${company.logo}`" :alt="company.name">
+        <card class="p-4 flex justify-center shadow-md cursor-pointer">
+          <img :src="`/catalog/asset/${company.logo}`" :alt="company.name" class="h-12 w-auto">
         </card>
       </div>
     </div>

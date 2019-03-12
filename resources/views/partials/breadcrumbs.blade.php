@@ -6,19 +6,20 @@
 <nav class="c-breadcrumbs">
 	<ol class="c-breadcrumbs__list">
 
-		@if (isset($type) && $type === 'catalog')
+		@isset($categoryAncestors)
 			<li class="c-breadcrumbs__item"><a href="{{ route('catalog') }}">Home</a></li>
-		@else
-			<li class="c-breadcrumbs__item"><a href="{{ route('home') }}">Home</a></li>
-		@endif
 
-		@isset($categories)
-			@foreach ($categories as $category)
-				<li class="c-breadcrumbs__item"><a href="/">{{ $category }}</a></li>
+			@foreach ($categoryAncestors as $category)
+				@if ($loop->last)
+					<li class="c-breadcrumbs__item"><strong>{{ $category->name }}</strong></li>
+				@else
+					<li class="c-breadcrumbs__item"><a href="{{ route('catalog.category', ['id' => $category]) }}">{{ $category->name }}</a></li>
+				@endif
 			@endforeach
 		@endisset
-
+		
 		@isset($name)
+			<li class="c-breadcrumbs__item"><a href="{{ route('home') }}">Home</a></li>
 			<li class="c-breadcrumbs__item"><strong>{{ $name }}</strong></li>
 		@endif
 

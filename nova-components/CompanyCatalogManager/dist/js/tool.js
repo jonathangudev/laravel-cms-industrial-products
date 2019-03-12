@@ -3994,7 +3994,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (window.confirm("Are you sure you want to delete this category? This will delete all child categories as well.")) {
         this.updateCategories(this.categories).then(function () {
           _this2.deleteCategory(data.id).then(function () {
-            store.deleteNode(data);
+            var node = _this2.categories.find(function (item) {
+              return item.id === data.id;
+            });
+            store.deleteNode(node);
           });
         });
       }
