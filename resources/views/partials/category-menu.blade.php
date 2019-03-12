@@ -42,6 +42,12 @@
         <nav class="c-category-menu__nav">
             <ul class="c-category-menu__list">
                 @foreach ($categories as $category)
+                    @php
+                        $filterdChildren = $category->children->filter(function ($child) {
+                            return count($child->children);
+                        });
+                    @endphp
+
                     @if (request()->route('id') == $category->id || in_array(request()->route('id'), $category->descendants()->pluck('id')->toArray()))
                         <li class="c-category-menu__item is-active is-open">
                     @else
@@ -49,15 +55,15 @@
                     @endif
                         <div class="c-category-menu__main">
                             <a href="{{ route('catalog.category', ['id' => $category]) }}" class="c-category-menu__link">{{ $category->name }}</a>
-                            @if (count($category->children) > 0)
+                            @if (count($category->children) > 0 && count($filterdChildren) > 0)
                                 <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
                                 <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
                             @endif
                         </div>
-                        @if (count($category->children) > 0)
+                        @if (count($category->children) > 0 && count($filterdChildren) > 0)
                             <ul class="c-category-menu__sublist">
-                                @foreach ($category->children as $child)
-                                    @if (request()->route('id') == $child->id)
+                                @foreach ($filterdChildren as $child)
+                                    @if (request()->route('id') == $child->id || in_array(request()->route('id'), $child->descendants()->pluck('id')->toArray()))
                                         <li class="c-category-menu__subitem is-active">
                                     @else
                                         <li class="c-category-menu__subitem">
