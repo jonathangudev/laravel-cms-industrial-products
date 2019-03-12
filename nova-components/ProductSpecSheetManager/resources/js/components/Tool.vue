@@ -36,10 +36,12 @@ export default {
       selectedCompanyId: null,
       companies: [],
       specSheet: {
-        resource: null,
-        resourceName: null,
-        resourceId: null,
-        field: null
+        resource: {},
+        resourceName: '',
+        resourceId: 0,
+        field: {
+          value: []
+        }
       }
     };
   },
@@ -62,21 +64,21 @@ export default {
   mounted() {
     this.fetchData();
 
-    Nova.request().get("/nova-api/spec-sheets/1");
+    // Nova.request().get("/nova-api/spec-sheets/1");
 
-    axios
-      .get("/nova-vendor/product-spec-sheet-manager/fetch/spec-sheets/1")
+    Nova.request()
+      .get("/nova-vendor/product-spec-sheet-manager/fetch/spec-sheets/5")
       .then(response => {
-        const field = _.find(resource.fields, field => {
-          return field.component == "advanced-media-library-field";
+        const field = _.find(response.data.fields, field => {
+          return field.component === "advanced-media-library-field";
         });
 
-        this.specSheet.resource = response;
+        this.specSheet.resource = response.data;
         this.specSheet.resourceName = "spec-sheets";
-        this.specSheet.resourceId = "1";
+        this.specSheet.resourceId = 5;
         this.specSheet.field = field;
 
-        console.log(response);
+        console.log(response.data);
       });
   }
 };

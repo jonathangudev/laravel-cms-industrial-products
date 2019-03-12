@@ -279,10 +279,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       selectedCompanyId: null,
       companies: [],
       specSheet: {
-        resource: null,
-        resourceName: null,
-        resourceId: null,
-        field: null
+        resource: {},
+        resourceName: '',
+        resourceId: 0,
+        field: {
+          value: []
+        }
       }
     };
   },
@@ -307,19 +309,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     this.fetchData();
 
-    Nova.request().get("/nova-api/spec-sheets/1");
+    // Nova.request().get("/nova-api/spec-sheets/1");
 
-    axios.get("/nova-vendor/product-spec-sheet-manager/fetch/spec-sheets/1").then(function (response) {
-      var field = _.find(resource.fields, function (field) {
-        return field.component == "advanced-media-library-field";
+    Nova.request().get("/nova-vendor/product-spec-sheet-manager/fetch/spec-sheets/5").then(function (response) {
+      var field = _.find(response.data.fields, function (field) {
+        return field.component === "advanced-media-library-field";
       });
 
-      _this2.specSheet.resource = response;
+      _this2.specSheet.resource = response.data;
       _this2.specSheet.resourceName = "spec-sheets";
-      _this2.specSheet.resourceId = "1";
+      _this2.specSheet.resourceId = 5;
       _this2.specSheet.field = field;
 
-      console.log(response);
+      console.log(response.data);
     });
   }
 });
