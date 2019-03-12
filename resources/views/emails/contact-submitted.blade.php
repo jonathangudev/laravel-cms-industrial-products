@@ -1,6 +1,5 @@
-Name: {{$name}} <br>
-Company: {{$company}} <br>
-Email: {{$email}} <br>
-Phone: {{$phone}} <br>
-
-{{var_dump($message)}}
+Name: {{$contactName}} <br>
+Company: {{$contactCompany}} <br>
+Email:  {{$contactEmail}} <br>
+Phone:  {{$contactPhone}} <br>
+Message:  {{$contactMessage}}

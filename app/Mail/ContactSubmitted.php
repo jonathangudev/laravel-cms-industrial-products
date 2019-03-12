@@ -14,7 +14,7 @@ class ContactSubmitted extends Mailable
     /**
      * The email contents
      *
-     * @var name
+     * @var name, company, email, phone, message
      */
     protected $name;
     protected $company;
@@ -44,13 +44,13 @@ class ContactSubmitted extends Mailable
     public function build()
     {
         $data = [
-            'name' => $this->name,
-            'company' => $this->company,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'message' => $this->message
+            'contactName' => $this->name,
+            'contactCompany' => $this->company,
+            'contactEmail' => $this->email,
+            'contactPhone' => $this->phone,
+            'contactMessage' => $this->message
         ];
 
-        return $this->view('emails.contact-submitted')->with($data);
+        return $this->view('emails.contact-submitted', $data);
     }
 }

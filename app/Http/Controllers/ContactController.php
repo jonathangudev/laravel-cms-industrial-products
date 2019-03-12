@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Mail\ContactSubmitted;
 
-
 class ContactController extends Controller
 {
 
@@ -46,6 +45,10 @@ class ContactController extends Controller
 
 		$contact->save();
 
+    	$mail = new ContactSubmitted($contact);
+
+    	// Uncomment and use Valuestore to get the actual email recipients below
+
 		/*$pathToFile = '';
 		$valuestore = Valuestore::make($pathToFile);
 
@@ -53,12 +56,15 @@ class ContactController extends Controller
 		$emailCcs   = $valuestore['email-ccs'];
 		$emailBccs	= $valuestore['email-bccs'];*/
 
-    	$mail = new ContactSubmitted($contact);
+    	$emailRecipients = ['jgu@vividfront.com'];
+    	$emailCcs = ['nevin@vivid.com', 'joe@joe.com'];
+    	$emailBccs = [];
 
-    	Mail::to('jgu@vividfront.com')
+    	Mail::to($emailRecipients)
+			->cc($emailCcs)
+			->bcc($emailBccs)
     		->send($mail);
 
     	return redirect()->route('contact')->with('message', 'Your information was submitted!');
     }
 }
-
