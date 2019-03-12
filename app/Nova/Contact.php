@@ -29,7 +29,7 @@ class Contact extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'company','email','phone'
+        'id', 'name', 'company', 'email', 'phone'
     ];
 
     /**

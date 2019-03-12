@@ -49,7 +49,7 @@
 					<h2>Get In Touch</h2>
 					<p>Fill out the form below and we'll get back to you.</p>
 				</div>
-				<form action="" class="c-contact-form__form o-form" method="POST">
+				<form action="{{route('contact')}}" class="c-contact-form__form o-form" method="POST">
 					@csrf
 					<fieldset>
 						<legend>Contact Information</legend>

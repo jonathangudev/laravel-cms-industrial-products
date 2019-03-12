@@ -27,7 +27,7 @@ Route::get('/products-and-services', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
-Route::post('/contact', 'ContactController@send');
+Route::post('/contact', 'ContactController@submit');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

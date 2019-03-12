@@ -10,30 +10,29 @@ use App\Mail\ContactSubmitted;
 
 class ContactController extends Controller
 {
-
-    /**
+	/**
      * Save contact form and send as email.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function send(Request $request)
-    {
+	public function submit(Request $request)
+	{
 
-        $validator = Validator::make($request->all(), [
-    		'contact-fullname'	=> 'required|max:255',
-    		'contact-company'	=> 'required|max:255',
-    		'contact-email'		=> 'required|max:255|email',
-    		'contact-phone'		=> 'required|max:30',
-    		'contact-message'	=> 'nullable'
-    	]);
+		$validator = Validator::make($request->all(), [
+			'contact-fullname'	=> 'required|max:255',
+			'contact-company'	=> 'required|max:255',
+			'contact-email'		=> 'required|max:255|email',
+			'contact-phone'		=> 'required|max:30',
+			'contact-message'	=> 'nullable'
+		]);
 
-        if ($validator->fails()) {
-            return redirect()
-    			->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+		if ($validator->fails()) {
+			return redirect()
+				->back()
+				->withErrors($validator)
+				->withInput();
+		}
 
 		$contact = new Contact;
 
@@ -45,9 +44,9 @@ class ContactController extends Controller
 
 		$contact->save();
 
-    	$mail = new ContactSubmitted($contact);
+		$mail = new ContactSubmitted($contact);
 
-    	// Uncomment and use Valuestore to get the actual email recipients below
+		// Uncomment and use Valuestore to get the actual email recipients below
 
 		/*$pathToFile = '';
 		$valuestore = Valuestore::make($pathToFile);
@@ -56,15 +55,16 @@ class ContactController extends Controller
 		$emailCcs   = $valuestore['email-ccs'];
 		$emailBccs	= $valuestore['email-bccs'];*/
 
-    	$emailRecipients = ['jgu@vividfront.com'];
-    	$emailCcs = ['nevin@vivid.com', 'joe@joe.com'];
-    	$emailBccs = [];
+		$emailRecipients = ['jgu@vividfront.com'];
+		$emailCcs = ['nevin@vivid.com', 'joe@joe.com'];
+		$emailBccs = [];
 
-    	Mail::to($emailRecipients)
+		Mail::to($emailRecipients)
 			->cc($emailCcs)
 			->bcc($emailBccs)
-    		->send($mail);
+			->send($mail);
 
-    	return redirect()->route('contact')->with('message', 'Your information was submitted!');
-    }
+		return redirect()->route('contact')->with('message', 'Your information was submitted!');
+	}
 }
+
