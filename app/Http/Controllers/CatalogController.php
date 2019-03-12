@@ -15,7 +15,7 @@ class CatalogController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth']);
     }
 
     /**
@@ -96,16 +96,20 @@ class CatalogController extends Controller
                 'categoryAncestors' => $categoryAncestors,
             ]);
         } else {
-            $childrenWithProducts = $category->children->filter(function ($child) {
-                return $child->products->isNotEmpty();
+            $filteredCategories = $category->children->filter(function ($child) {
+                return (
+                    $child->content ||
+                    $child->hasMedia('category-gallery') ||
+                    $child->products->count() > 0
+                );
             });
 
-            if ($childrenWithProducts->isEmpty()) {
+            if ($filteredCategories->isEmpty()) {
                 abort(404, 'The category you are trying to view doesn\'t have any products');
             }
 
             return view('products', [
-                'categories' => $childrenWithProducts,
+                'categories' => $filteredCategories,
                 'currentCategory' => $category,
                 'categoryAncestors' => $categoryAncestors,
             ]);
