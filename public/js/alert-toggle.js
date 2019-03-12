@@ -78,11 +78,13 @@ module.exports = __webpack_require__(28);
 
 // Toggle mobile menu
 
-var alertEl = document.getElementById('js-alert');
+if (document.getElementById('js-alert')) {
+	var alertEl = document.getElementById('js-alert');
 
-document.getElementById('js-alert-close').addEventListener('click', function () {
-	alertEl.classList.add('is-closed');
-});
+	document.getElementById('js-alert-close').addEventListener('click', function () {
+		alertEl.classList.add('is-closed');
+	});
+}
 
 /***/ })
 

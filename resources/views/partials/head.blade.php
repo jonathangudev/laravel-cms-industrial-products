@@ -10,6 +10,7 @@
 <link rel="preload" href="{{ asset('fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 <link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 {{-- <link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous"> --}}
+<link rel="preload" href="{{ mix('/css/alert.css') }}" as="style" type="text/css">
 @stack('head-preload')
 
 
@@ -23,6 +24,7 @@
 
 
 {{-- Scripts --}}
+<script src="{{ mix('/js/alert-toggle.js') }}" defer></script>
 @stack('head-scripts')
 
 
@@ -49,8 +51,9 @@
 <meta name="msapplication-wide310x150logo" content="{{ asset('images/favicons/mstile-310x150.png') }}">
 <meta name="msapplication-square310x310logo" content="{{ asset('images/favicons/mstile-310x310.png') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="description" content="JMP Industries custom tailors product lines using advanced materials, cost effective designs, and unmatched craftsmanship.">
 @stack('head-meta')
 
 
-{{-- Favicons + Meta --}}
+{{-- Prefetch --}}
 @stack('head-prefetch')

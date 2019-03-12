@@ -76,114 +76,168 @@
 						</div>
 					@endif
 
-					<div class="c-product-group__section">
-						<h5>Products</h5>
+					@if ($category->products->count() > 0)
+						<div class="c-product-group__section">
+							<h5>Products</h5>
 
-						<div class="c-product-table c-product-table--desktop d-none d-md-block">
-							<table>
-								<thead>
-									<tr>
-										<th scope="col" ><span class="d-none">Product Image</span></th>
-										<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
-										<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
-										<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
-										<th scope="col"><span class="d-none">Email Us About This Product</span></th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach ($category->products as $product)
+							<div class="c-product-table c-product-table--desktop d-none d-md-block">
+								<table>
+									<thead>
+										{{-- <tr>
+											<th scope="col"><span class="d-none">Product Image</span></th>
+											
+											@foreach ($category->attributeNames as $name)
+												<th scope="col" data-sort="" class="js-product-table-sortable-column">{{ $name }}</th>
+											@endforeach
+											
+											<th scope="col"><span class="d-none">Email Us About This Product</span></th>
+										</tr> --}}
+
 										<tr>
-											<td>
-												<div class="c-product-table__img">
-													@if ($product->hasMedia('product-thumbnail'))
-														<a href="{{ $product->getFirstMediaUrl('product-thumbnail') }}" target="_blank" rel="noopener">
-															<img src="{{ $product->getFirstMediaUrl('product-thumbnail', 'medium') }}" alt="{{ $product->name }} Image">
-														</a>
-													@else
-														<img src="{{ asset('images/placeholder.png') }}" alt="{{ $product->name }} Image">
-													@endif
-												</div>
-											</td>
-
-											@foreach ($product->attributes as $attribute)
+											<th scope="col"><span class="d-none">Product Image</span></th>
+											<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
+											<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
+											<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
+											<th scope="col"><span class="d-none">Email Us About This Product</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($category->products as $product)
+											<tr>
 												<td>
-													{{ $attribute->value }}
+													<div class="c-product-table__img">
+														@if ($product->hasMedia('product-thumbnail'))
+															<a href="{{ $product->getFirstMediaUrl('product-thumbnail') }}" target="_blank" rel="noopener">
+																<img src="{{ $product->getFirstMediaUrl('product-thumbnail', 'medium') }}" alt="{{ $product->name }} Image">
+															</a>
+														@else
+															<img src="{{ asset('images/placeholder.png') }}" alt="{{ $product->name }} Image">
+														@endif
+													</div>
+												</td>
+
+												@foreach ($product->attributes as $attribute)
+													<td>
+														{{ $attribute->value }}
+													</td>
+												@endforeach
+
+												<td>
+													<div class="c-product-table__email">
+														<a href="mailto:support@jmpind.com?subject={{ urlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ urlencode('Company: ' . Auth::user()->company->name) }}%0A{{ urlencode('Product: ' . $product->name) }}">
+															<div class="c-product-table__email-text">
+																<span>Email us about this product&nbsp;&nbsp;</span><i class="far fa-envelope"></i>
+															</div>
+															<div class="c-product-table__email-icon">
+																<i class="far fa-envelope"></i>
+															</div>
+														</a>
+													</div>
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+
+							<div class="c-product-table c-product-table--mobile d-md-none">
+								<table>
+									<tbody>
+										{{-- <tr>
+											<th scope="row"></th>
+
+											@foreach ($category->products as $product)
+												<td>
+													<div class="c-product-table__img">
+														@if ($product->hasMedia('product-thumbnail'))
+															<a href="{{ $product->getFirstMediaUrl('product-thumbnail') }}" target="_blank" rel="noopener">
+																<img src="{{ $product->getFirstMediaUrl('product-thumbnail', 'thumb') }}" alt="{{ $product->name }} Image">
+															</a>
+														@else
+															<img src="{{ asset('images/placeholder.png') }}" alt="{{ $product->name }} Image">
+														@endif
+													</div>
 												</td>
 											@endforeach
+										</tr> --}}
 
-											<td>
-												<div class="c-product-table__email">
+										{{-- @foreach ($category->attributeNames as $name)
+												<tr>
+													<th scope="row">{{ $name }}</th>
+
+													@foreach ($category->products->pluck($name) as $value)
+														<td>{{ $value }}</td>
+													@endforeach
+												</tr>
+										@endforeach --}}
+
+										{{-- <tr>
+											<th scope="row"></th>
+
+											@foreach ($category->products as $product)
+												<td>
 													<a href="mailto:support@jmpind.com?subject={{ urlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ urlencode('Company: ' . Auth::user()->company->name) }}%0A{{ urlencode('Product: ' . $product->name) }}">
-														<div class="c-product-table__email-text">
-															<span>Email us about this product&nbsp;&nbsp;</span><i class="far fa-envelope"></i>
-														</div>
-														<div class="c-product-table__email-icon">
-															<i class="far fa-envelope"></i>
-														</div>
+														Email Us
+													</a>
+												</td>
+											@endforeach
+										</tr> --}}
+										
+										<tr>
+											<th scope="row"></th>
+											<td>
+												<div class="c-product-table__img">
+													<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
+														<img src="https://via.placeholder.com/600x600" alt="Image">
+													</a>
+												</div>
+											</td>
+											<td>
+												<div class="c-product-table__img">
+													<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
+														<img src="https://via.placeholder.com/600x600" alt="Image">
+													</a>
+												</div>
+											</td>
+											<td>
+												<div class="c-product-table__img">
+													<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
+														<img src="https://via.placeholder.com/600x600" alt="Image">
 													</a>
 												</div>
 											</td>
 										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						</div>
 
-						<div class="c-product-table c-product-table--mobile d-md-none">
-							<table>
-								<tbody>
-									<tr>
-										<th scope="row"></th>
-										<td>
-											<div class="c-product-table__img">
-												<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
-													<img src="https://via.placeholder.com/600x600" alt="Image">
-												</a>
-											</div>
-										</td>
-										<td>
-											<div class="c-product-table__img">
-												<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
-													<img src="https://via.placeholder.com/600x600" alt="Image">
-												</a>
-											</div>
-										</td>
-										<td>
-											<div class="c-product-table__img">
-												<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
-													<img src="https://via.placeholder.com/600x600" alt="Image">
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">Attribute</th>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-									</tr>
-									<tr>
-										<th scope="row">Attribute</th>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-									</tr>
-									<tr>
-										<th scope="row">Attribute</th>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-									</tr>
-									<tr>
-										<th scope="row"></th>
-										<td><a href="mailto:#">Email Us</a></td>
-										<td><a href="mailto:#">Email Us</a></td>
-										<td><a href="mailto:#">Email Us</a></td>
-									</tr>
-								</tbody>
-							</table>
+										<tr>
+											<th scope="row">Attribute</th>
+											<td>data</td>
+											<td>data</td>
+											<td>data</td>
+										</tr>
+										<tr>
+											<th scope="row">Attribute</th>
+											<td>data</td>
+											<td>data</td>
+											<td>data</td>
+										</tr>
+										<tr>
+											<th scope="row">Attribute</th>
+											<td>data</td>
+											<td>data</td>
+											<td>data</td>
+										</tr>
+
+										<tr>
+											<th scope="row"></th>
+											<td><a href="mailto:#">Email Us</a></td>
+											<td><a href="mailto:#">Email Us</a></td>
+											<td><a href="mailto:#">Email Us</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</div>
+					@endif
 
 					<div class="c-product-group__back-to-top text-center">
 						<a href="#back-to-top">Back to top&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-up"></i></a>
