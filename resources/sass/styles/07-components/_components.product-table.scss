@@ -4,11 +4,11 @@
 
 @import 'globals';
 
-$table-cell-height:						$leading * 2.5;
+$table-cell-height:							$leading * 2.5;
 $table-cell-padding-y:					$leading / 4;
 $table-cell-padding-x:					$grid-gutter-width-rem / 2;
 
-$table-img-size:						$leading * 2;
+$table-img-size:								$leading * 2;
 
 
 .c-product-table {
@@ -79,8 +79,14 @@ $table-img-size:						$leading * 2;
 			}
 		}
 
-		td {
-			border-bottom: $border-width solid $table-border-color;
+		tbody {
+			tr {
+				height: $table-cell-height;
+			}
+	
+			td {
+				border-bottom: $border-width solid $table-border-color;
+			}
 		}
 
 		#{$block}__img {
@@ -141,8 +147,6 @@ $table-img-size:						$leading * 2;
 			max-width: 14rem;
 		}
 	}
-
-
 
 	&__email {
 		text-align: right;

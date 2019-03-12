@@ -56,8 +56,7 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
+h5 {
   margin-top: 0;
   margin-bottom: 2.2rem;
 }
@@ -992,13 +991,11 @@ h2,
 h3,
 h4,
 h5,
-h6,
 .h1,
 .h2,
 .h3,
 .h4,
-.h5,
-.h6 {
+.h5 {
   color: #333;
   font-family: "Titillium Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
@@ -1060,12 +1057,6 @@ h5,
   line-height: 2.2rem;
 }
 
-h6,
-.h6 {
-  font-size: 1.2rem;
-  line-height: 2.2rem;
-}
-
 p + h1,
 ul + h1,
 ol + h1,
@@ -1080,10 +1071,7 @@ ul + h4,
 ol + h4,
 p + h5,
 ul + h5,
-ol + h5,
-p + h6,
-ul + h6,
-ol + h6 {
+ol + h5 {
   margin-top: 4.4rem;
 }
 
@@ -1205,11 +1193,7 @@ input:readonly {
 }
 
 textarea:disabled,
-textarea.disabled,
-textarea.is-disabled,
-input:disabled,
-input.disabled,
-input.is-disabled {
+input:disabled {
   color: #777;
   background-color: rgba(17, 17, 17, 0.15);
   pointer-events: none;
@@ -1294,16 +1278,12 @@ input[type='checkbox']:checked + label:after {
           transform: rotate(45deg);
 }
 
-input[type='checkbox']:disabled + label,
-input[type='checkbox'].disabled + label,
-input[type='checkbox'].is-disabled + label {
+input[type='checkbox']:disabled + label {
   color: #777;
   pointer-events: none;
 }
 
-input[type='checkbox']:disabled + label:before,
-input[type='checkbox'].disabled + label:before,
-input[type='checkbox'].is-disabled + label:before {
+input[type='checkbox']:disabled + label:before {
   background-color: rgba(17, 17, 17, 0.15);
   pointer-events: none;
 }
@@ -1368,16 +1348,12 @@ input[type='radio']:checked + label:after {
   border-radius: 999px;
 }
 
-input[type='radio']:disabled + label,
-input[type='radio'].disabled + label,
-input[type='radio'].is-disabled + label {
+input[type='radio']:disabled + label {
   color: #777;
   pointer-events: none;
 }
 
-input[type='radio']:disabled + label:before,
-input[type='radio'].disabled + label:before,
-input[type='radio'].is-disabled + label:before {
+input[type='radio']:disabled + label:before {
   background-color: rgba(17, 17, 17, 0.15);
   pointer-events: none;
 }
@@ -1421,9 +1397,7 @@ input[type='radio'].is-error + label:before {
   margin-bottom: 2.2rem;
 }
 
-.o-form__group:disabled label,
-.o-form__group.disabled label,
-.o-form__group.is-disabled label {
+.o-form__group:disabled label {
   color: #777;
 }
 
@@ -1500,11 +1474,7 @@ input[type='radio'].is-error + label:before {
 }
 
 .o-form--reverse input:disabled,
-.o-form--reverse input.disabled,
-.o-form--reverse input.is-disabled,
-.o-form--reverse textarea:disabled,
-.o-form--reverse textarea.disabled,
-.o-form--reverse textarea.is-disabled {
+.o-form--reverse textarea:disabled {
   color: rgba(255, 255, 255, 0.6);
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -1604,9 +1574,7 @@ input[type='radio'].is-error + label:before {
   color: #fff;
 }
 
-.c-btn:disabled,
-.c-btn.disabled,
-.c-btn.is-disabled {
+.c-btn:disabled {
   opacity: 0.6;
   pointer-events: none;
 }
