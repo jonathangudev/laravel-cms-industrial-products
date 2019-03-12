@@ -44,7 +44,7 @@
                 @foreach ($categories as $category)
                     @php
                         $filterdChildren = $category->children->filter(function ($child) {
-                            return count($child->children);
+                            return $child->children->isNotEmpty();
                         });
                     @endphp
 
@@ -55,12 +55,12 @@
                     @endif
                         <div class="c-category-menu__main">
                             <a href="{{ route('catalog.category', ['id' => $category]) }}" class="c-category-menu__link">{{ $category->name }}</a>
-                            @if (count($category->children) > 0 && count($filterdChildren) > 0)
+                            @if ($category->children->isNotEmpty() && $filterdChildren->isNotEmpty())
                                 <span class="c-category-menu__icon c-category-menu__icon--expand js-category-menu-icon"><i class="fas fa-plus"></i></span>
                                 <span class="c-category-menu__icon c-category-menu__icon--collapse js-category-menu-icon"><i class="fas fa-minus"></i></span>
                             @endif
                         </div>
-                        @if (count($category->children) > 0 && count($filterdChildren) > 0)
+                        @if ($category->children->isNotEmpty() && $filterdChildren->isNotEmpty())
                             <ul class="c-category-menu__sublist">
                                 @foreach ($filterdChildren as $child)
                                     @if (request()->route('id') == $child->id || in_array(request()->route('id'), $child->descendants()->pluck('id')->toArray()))
