@@ -130,7 +130,7 @@ $table-img-size:								$leading * 2;
 		th {
 			position: sticky;
 			left: 0;
-			width: 10rem;
+			max-width: 10rem;
 			background-color: $table-bg;
 
 			&:after {
@@ -145,7 +145,8 @@ $table-img-size:								$leading * 2;
 		}
 
 		td {
-			max-width: 14rem;
+			min-width: 14rem;
+			word-break: break-word;
 		}
 	}
 
