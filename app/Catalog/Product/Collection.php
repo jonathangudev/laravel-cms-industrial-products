@@ -13,7 +13,9 @@ class Collection extends EloquentCollection
 
     public function withCompanyAttributeFilter($id)
     {
-        # code...
+        return $this->load(['attributes' => function ($query) use ($id) {
+            $query->where('company_id', $id);
+        }]);
     }
 
     public function withAttributes()
