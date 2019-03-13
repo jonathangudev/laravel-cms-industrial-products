@@ -4,6 +4,7 @@ namespace App\Catalog;
 
 use App\Catalog\Product\AttributeTemplate;
 use App\Catalog\Product\AttributeValue;
+use App\Catalog\Product\Collection as ProductCollection;
 use App\Catalog\Product\SpecSheet;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -101,5 +102,16 @@ class Product extends Model implements HasMedia
     public function specSheets()
     {
         return $this->hasMany(SpecSheet::class);
+    }
+
+    /**
+     * Create a new Eloquent Collection instance.
+     *
+     * @param  array  $models
+     * @return \App\Catalog\Product\Collection
+     */
+    public function newCollection(array $models = [])
+    {
+        return new ProductCollection($models);
     }
 }

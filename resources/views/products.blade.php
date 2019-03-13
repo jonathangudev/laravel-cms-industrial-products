@@ -83,21 +83,13 @@
 							<div class="c-product-table c-product-table--desktop d-none d-md-block">
 								<table>
 									<thead>
-										{{-- <tr>
-											<th scope="col"><span class="d-none">Product Image</span></th>
-											
-											@foreach ($category->attributeNames as $name)
-												<th scope="col" data-sort="" class="js-product-table-sortable-column">{{ $name }}</th>
-											@endforeach
-											
-											<th scope="col"><span class="d-none">Email Us About This Product</span></th>
-										</tr> --}}
-
 										<tr>
 											<th scope="col"><span class="d-none">Product Image</span></th>
-											<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
-											<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
-											<th scope="col" data-sort="" class="js-product-table-sortable-column">Attribute</th>
+
+											@foreach ($category->products->getAttributeNames() as $attributeName)
+												<th scope="col" data-sort="" class="js-product-table-sortable-column">{{ $attributeName->name }}</th>
+											@endforeach
+
 											<th scope="col"><span class="d-none">Email Us About This Product</span></th>
 										</tr>
 									</thead>

@@ -43,6 +43,27 @@ class AttributeValue extends Model
     ];
 
     /**
+     * flag to determine if this model can be persisted
+     *
+     * @var bool $canSave
+     */
+    protected $canSave;
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param  array  $attributes
+     * @param  bool   $canSave
+     * @return void
+     */
+    public function __construct(array $attributes = [], bool $canSave = true)
+    {
+        $this->canSave = $canSave;
+
+        parent::__construct($attributes);
+    }
+
+    /**
      * Get the product that owns the value.
      *
      * @return App\Catalog\Product
@@ -77,18 +98,8 @@ class AttributeValue extends Model
      *
      * @return string||null
      */
-    public function getNameAttribute()
+    public function getAttributeNameAttribute()
     {
         return $this->attribute->name;
-    }
-
-    /**
-     * Get the description from the attribute
-     *
-     * @return string||null
-     */
-    public function getDescriptionAttribute()
-    {
-        return $this->attribute->description;
     }
 }
