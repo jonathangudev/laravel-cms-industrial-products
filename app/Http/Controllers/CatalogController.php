@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Catalog\Category;
-use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class CatalogController extends Controller
@@ -91,7 +91,7 @@ class CatalogController extends Controller
          */
         if ($childrenWithDescendants->isNotEmpty()) {
             return view('categories', [
-                'categories' => $category->children,
+                'categories' => $this->applyProductFilters($category->children, $company->id),
                 'currentCategory' => $category,
                 'categoryAncestors' => $categoryAncestors,
             ]);
@@ -109,10 +109,28 @@ class CatalogController extends Controller
             }
 
             return view('products', [
-                'categories' => $filteredCategories,
+                'categories' => $this->applyProductFilters($filteredCategories, $company->id),
                 'currentCategory' => $category,
                 'categoryAncestors' => $categoryAncestors,
             ]);
         }
+    }
+
+    /**
+     * Apply the product collection filters to a category collection
+     *
+     * @param Collection $categories
+     * @param integer $companyId
+     * @return Collection
+     */
+    protected function applyProductFilters(Collection $categories, int $companyId)
+    {
+        return $categories->map(function ($category) use ($companyId) {
+            $products = $category->products->withCompanyAttributeFilter($companyId)->normalizeAttributes();
+
+            $category->products = $products;
+
+            return $category;
+        });
     }
 }
