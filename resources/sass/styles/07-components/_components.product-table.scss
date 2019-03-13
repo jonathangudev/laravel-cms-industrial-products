@@ -46,6 +46,7 @@ $table-img-size:								$leading * 2;
 			top: $leading * 2.5;
 			background-color: $table-header-bg;
 			z-index: 2;
+			white-space: nowrap;
 
 			&:before {
 				content: '';
