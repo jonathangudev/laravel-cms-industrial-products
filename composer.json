@@ -25,6 +25,7 @@
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^2.25",
         "spatie/nova-tail-tool": "^1.0",
+        "spatie/valuestore": "^1.2",
         "vyuldashev/nova-permission": "^1.4"
     },
     "require-dev": {
