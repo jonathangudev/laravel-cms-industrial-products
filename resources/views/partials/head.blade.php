@@ -10,7 +10,6 @@
 <link rel="preload" href="{{ asset('fonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 <link rel="preload" href="{{ asset('fonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 {{-- <link rel="preload" href="{{ asset('fonts/fa-brands-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous"> --}}
-<link rel="preload" href="{{ mix('/css/alert.css') }}" as="style" type="text/css">
 @stack('head-preload')
 
 
