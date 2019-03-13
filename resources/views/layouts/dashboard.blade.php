@@ -36,7 +36,7 @@
 						@if (!Route::currentRouteNamed('catalog'))
 							<div class="row">
 								<div class="col">
-									@yield('breadcrumbs')
+									@include('partials.breadcrumbs')
 								</div>
 							</div>
 						@endif

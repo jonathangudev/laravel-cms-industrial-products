@@ -55,7 +55,11 @@
   color: #b50100;
 }
 
-.c-product-table--desktop td {
+.c-product-table--desktop tbody tr {
+  height: 5.5rem;
+}
+
+.c-product-table--desktop tbody td {
   border-bottom: 0.1rem solid #F2F2F2;
 }
 

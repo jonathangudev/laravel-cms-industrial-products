@@ -1,3 +1,19 @@
+@if ($errors->any())
+    @component('partials.alert', ['type' => 'danger'])
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endcomponent
+@endif
+
+@if (Session::has('contact-success-message'))
+    @component('partials.alert', ['type' => 'success'])
+        {{ Session::get('contact-success-message') }}
+    @endcomponent
+@endif
+
 <link rel="stylesheet" href="{{ mix('/css/footer.css') }}">
 <footer class="c-footer">
     <div class="container">
@@ -50,7 +66,7 @@
                     </div>
                     <div class="col-24 align-self-end">
                         <div class="c-footer__copyright d-none d-lg-block">
-                            &copy; {{ __('2018 JMP Industries, Inc. All Rights Reserved.') }}
+                            &copy; {{ date('Y') }} JMP Industries, Inc. All Rights Reserved.
                         </div>
                     </div>
                 </div>
@@ -63,42 +79,73 @@
                             @csrf
                             <fieldset>
                                 <legend>{{ __('Contact Information') }}</legend>
+                                
                                 <div class="row">
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group">
+                                        <div class="o-form__group {{ $errors->has('footer-fullname') ? ' is-error' : '' }}">
                                             <label for="footer-fullname">{{ __('Full Name') }}</label>
-                                            <input id="footer-fullname" type="text" placeholder="e.g. Wile E. Coyote" name="full_name" required>
+                                            <input name="footer-fullname" id="footer-fullname" type="text" class="{{ $errors->has('footer-fullname') ? ' is-error' : '' }}" placeholder="e.g. Wile E. Coyote" value="{{ old('footer-fullname') }}" required>
+                                            @if ($errors->has('footer-fullname'))
+                                                <p class="o-form__error-text" role="alert">
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-fullname') }}</span>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
+
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group">
+                                        <div class="o-form__group {{ $errors->has('footer-company') ? ' is-error' : '' }}">
                                             <label for="footer-company">{{ __('Company') }}</label>
-                                            <input id="footer-company" type="text" placeholder="e.g. Acme Co." name="company" required>
+                                            <input name="footer-company" id="footer-company" type="text" class="{{ $errors->has('footer-company') ? ' is-error' : '' }}" placeholder="e.g. Acme Co." value="{{ old('footer-company') }}" required>
+                                            @if ($errors->has('footer-company'))
+                                                <p class="o-form__error-text" role="alert">
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-company') }}</span>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group">
+                                        <div class="o-form__group {{ $errors->has('footer-email') ? ' is-error' : '' }}">
                                             <label for="footer-email">{{ __('Email Address') }}</label>
-                                            <input id="footer-email" type="email" placeholder="e.g. wile.e.coyote@acme.com" name="email" required>
+                                            <input name="footer-email" id="footer-email" type="email" class="{{ $errors->has('footer-email') ? ' is-error' : '' }}" placeholder="e.g. wile.e.coyote@acme.com" value="{{ old('footer-email') }}" required>
+                                            @if ($errors->has('footer-email'))
+                                                <p class="o-form__error-text" role="alert">
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-email') }}</span>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
+
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group">
+                                        <div class="o-form__group {{ $errors->has('footer-phone') ? ' is-error' : '' }}">
                                             <label for="footer-phone">{{ __('Phone') }}</label>
-                                            <input id="footer-phone" type="text" placeholder="e.g. 123-456-7890" name="phone" required>
+                                            <input name="footer-phone" id="footer-phone" type="text" class="{{ $errors->has('contact-email') ? ' is-error' : '' }}" placeholder="e.g. 123-456-7890" value="{{ old('footer-phone') }}" required>
+                                            @if ($errors->has('footer-phone'))
+                                                <p class="o-form__error-text" role="alert">
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-phone') }}</span>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col">
-                                        <div class="o-form__group">
+                                        <div class="o-form__group {{ $errors->has('footer-message') ? ' is-error' : '' }}">
                                             <label for="footer-message">{{ __('Add a Message') }}</label>
-                                            <textarea name="footer-message" id="footer-message" rows="5" placeholder="e.g. Add your message here." name="message"></textarea>
+                                            <textarea name="footer-message" id="footer-message" rows="5" class="{{ $errors->has('footer-message') ? ' is-error' : '' }}" placeholder="e.g. Add your message here." value="{{ old('footer-message') }}"></textarea>
+                                            @if ($errors->has('footer-message'))
+                                                <p class="o-form__error-text" role="alert">
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-message') }}</span>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row justify-content-end">
                                     <div class="col-24 col-md-6 col-lg-6">
                                         <button type="submit" class="c-btn c-btn--primary c-btn--block">{{ __('Submit') }}</button>
@@ -109,7 +156,7 @@
                     </div>
                     <div class="col-24">
                         <div class="c-footer__copyright d-block d-lg-none">
-                            &copy; 2018 JMP Industries, Inc. All Rights Reserved.
+                            &copy; {{ date('Y') }} JMP Industries, Inc. All Rights Reserved.
                         </div>
                     </div>
                 </div>
