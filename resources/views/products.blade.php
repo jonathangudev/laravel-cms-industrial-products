@@ -109,9 +109,11 @@
 												</td>
 
 												@foreach ($product->attributes as $attribute)
-													<td>
-														{{ $attribute->value }}
-													</td>
+													@if ($attribute->value)
+														<td>{{ $attribute->value }}</td>
+													@else
+														<td>-</td>
+													@endif
 												@endforeach
 
 												<td>
@@ -135,7 +137,7 @@
 							<div class="c-product-table c-product-table--mobile d-md-none">
 								<table>
 									<tbody>
-										{{-- <tr>
+										<tr>
 											<th scope="row"></th>
 
 											@foreach ($category->products as $product)
@@ -151,19 +153,27 @@
 													</div>
 												</td>
 											@endforeach
-										</tr> --}}
+										</tr>
 
-										{{-- @foreach ($category->attributeNames as $name)
+										@foreach ($category->products->getAttributeNames() as $attributeName)
 												<tr>
-													<th scope="row">{{ $name }}</th>
+													<th scope="row">{{ $attributeName->name }}</th>
 
-													@foreach ($category->products->pluck($name) as $value)
-														<td>{{ $value }}</td>
+													@foreach ($category->products as $product)
+														@php
+																$value = $product->attributes->slice($loop->parent->index, 1)->first()->value;
+														@endphp
+
+														@if ($value)
+															<td>{{ $value }}</td>
+														@else
+															<td>-</td>
+														@endif
 													@endforeach
 												</tr>
-										@endforeach --}}
+										@endforeach
 
-										{{-- <tr>
+										<tr>
 											<th scope="row"></th>
 
 											@foreach ($category->products as $product)
@@ -173,57 +183,6 @@
 													</a>
 												</td>
 											@endforeach
-										</tr> --}}
-										
-										<tr>
-											<th scope="row"></th>
-											<td>
-												<div class="c-product-table__img">
-													<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
-														<img src="https://via.placeholder.com/600x600" alt="Image">
-													</a>
-												</div>
-											</td>
-											<td>
-												<div class="c-product-table__img">
-													<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
-														<img src="https://via.placeholder.com/600x600" alt="Image">
-													</a>
-												</div>
-											</td>
-											<td>
-												<div class="c-product-table__img">
-													<a href="https://via.placeholder.com/600x600" target="_blank" rel="noopener">
-														<img src="https://via.placeholder.com/600x600" alt="Image">
-													</a>
-												</div>
-											</td>
-										</tr>
-
-										<tr>
-											<th scope="row">Attribute</th>
-											<td>data</td>
-											<td>data</td>
-											<td>data</td>
-										</tr>
-										<tr>
-											<th scope="row">Attribute</th>
-											<td>data</td>
-											<td>data</td>
-											<td>data</td>
-										</tr>
-										<tr>
-											<th scope="row">Attribute</th>
-											<td>data</td>
-											<td>data</td>
-											<td>data</td>
-										</tr>
-
-										<tr>
-											<th scope="row"></th>
-											<td><a href="mailto:#">Email Us</a></td>
-											<td><a href="mailto:#">Email Us</a></td>
-											<td><a href="mailto:#">Email Us</a></td>
 										</tr>
 									</tbody>
 								</table>
