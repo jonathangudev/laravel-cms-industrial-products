@@ -6,6 +6,7 @@ use App\Nova\Resource;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Jmp\ProductAttributeManager\ProductAttributeManager;
+use Jmp\ProductSpecSheetManager\ProductSpecSheetManager;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
@@ -62,6 +63,7 @@ class Product extends Resource
             Text::make('Name')->creationRules('required'),
             Images::make('Thumbnail', 'product-thumbnail') // second parameter is the media collection name
                 ->thumbnail('thumb'), // conversion used to display the image
+            ProductSpecSheetManager::make(),
             ProductAttributeManager::make(),
         ];
     }

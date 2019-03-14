@@ -17,7 +17,9 @@
         "build-product-category-manager": "cd nova-components/ProductCategoryManager && npm run dev",
         "build-product-category-manager-prod": "cd nova-components/ProductCategoryManager && npm run prod",
         "build-company-catalog-manager": "cd nova-components/CompanyCatalogManager && npm run dev",
-        "build-company-catalog-manager-prod": "cd nova-components/CompanyCatalogManager && npm run prod"
+        "build-company-catalog-manager-prod": "cd nova-components/CompanyCatalogManager && npm run prod",
+        "build-product-spec-sheet-manager": "cd nova-components/ProductSpecSheetManager && npm run dev",
+        "build-product-spec-sheet-manager-prod": "cd nova-components/ProductSpecSheetManager && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",
