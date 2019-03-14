@@ -271,17 +271,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["resourceName", "resourceId", "field"],
   data: function data() {
     return {
+      hasSpecSheet: false,
       selectedCompanyId: null,
       companies: [],
-      specSheet: {
+      specSheets: [],
+      activeSpecSheet: {
         resource: {},
-        resourceName: '',
-        resourceId: 0,
+        resourceName: 'spec-sheets',
+        resourceId: null,
         field: {
           value: []
         }
@@ -291,38 +314,128 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
-    fetchData: function fetchData() {
+    setActiveSheet: function setActiveSheet(data) {
+      if (data) {
+        // If default company
+        if (!this.selectedCompanyId) {
+          this.hasSpecSheet = true;
+        } else if (data.resource.id.value === this.defaultSheet.id.value) {
+          // If not default company but using default value
+          this.hasSpecSheet = false;
+        } else {
+          // Not default company
+          this.hasSpecSheet = true;
+        }
+
+        // Set spec sheet data
+        this.activeSpecSheet.resource = data.resource;
+        this.activeSpecSheet.resourceId = data.resource.id.value;
+        this.activeSpecSheet.field = _.find(data.resource.fields, function (field) {
+          return field.component === "advanced-media-library-field";
+        });
+      } else {
+        // Set spec sheet data to default
+        this.hasSpecSheet = false;
+        this.activeSpecSheet.resource = {};
+        this.activeSpecSheet.resourceId = null;
+        this.activeSpecSheet.field = {
+          value: []
+        };
+      }
+    },
+    fetchCompanies: function fetchCompanies() {
       var _this = this;
 
-      return axios.get("/nova-vendor/product-spec-sheet-manager/spec-sheet-data").then(function (response) {
+      return Nova.request().get("/nova-vendor/product-spec-sheet-manager/spec-sheet-data").then(function (response) {
         _this.companies = response.data.companies;
       }).catch(function (error) {
         _this.$toasted.show("There was an error fetching the data", {
           type: "error"
         });
       });
+    },
+    fetchAllSpecSheets: function fetchAllSpecSheets() {
+      var _this2 = this;
+
+      // Fetch spec sheets and filter to only those that belong to this product
+      return Nova.request().get("/nova-api/spec-sheets").then(function (response) {
+        _this2.specSheets = response.data.resources.filter(function (item) {
+          return Object.values(item.fields).some(function (field) {
+            return field.resourceName === _this2.resourceName && field.belongsToId == _this2.resourceId;
+          });
+        });
+      }).catch(function (error) {
+        _this2.$toasted.show("There was an error fetching the data", {
+          type: "error"
+        });
+      });
+    },
+    fetchSheetById: function fetchSheetById(id) {
+      var _this3 = this;
+
+      return Nova.request().get("/nova-api/spec-sheets/" + id).catch(function (error) {
+        _this3.$toasted.show("There was an error fetching the data", {
+          type: "error"
+        });
+      });
+    },
+    fetchSelectedSheet: function fetchSelectedSheet() {
+      var _this4 = this;
+
+      // Find spec sheet for selected company
+      var sheet = this.specSheets.find(function (item) {
+        return Object.values(item.fields).some(function (field) {
+          return field.resourceName === "companies" && field.belongsToId === _this4.selectedCompanyId;
+        });
+      });
+
+      // If spec sheet exists, fetch its details
+      if (sheet) {
+        this.fetchSheetById(sheet.id.value).then(function (response) {
+          return _this4.setActiveSheet(response.data);
+        });
+      } else if (this.defaultSheet.id.value) {
+        // If default exists instead, fetch its details
+        this.fetchSheetById(this.defaultSheet.id.value).then(function (response) {
+          return _this4.setActiveSheet(response.data);
+        });
+      } else {
+        // No spec sheet is applicable so show no details
+        this.setActiveSheet();
+      }
+    }
+  },
+
+  watch: {
+    selectedCompanyId: function selectedCompanyId() {
+      this.fetchSelectedSheet();
+    }
+  },
+
+  computed: {
+    defaultSheet: function defaultSheet() {
+      var sheet = this.specSheets.find(function (item) {
+        return Object.values(item.fields).some(function (field) {
+          return field.resourceName === "companies" && field.belongsToId === null;
+        });
+      });
+
+      // Default sheet does not exist, set null data
+      if (!sheet) {
+        sheet = {
+          id: {
+            value: null
+          }
+        };
+      }
+
+      return sheet;
     }
   },
 
   mounted: function mounted() {
-    var _this2 = this;
-
-    this.fetchData();
-
-    // Nova.request().get("/nova-api/spec-sheets/1");
-
-    Nova.request().get("/nova-vendor/product-spec-sheet-manager/fetch/spec-sheets/5").then(function (response) {
-      var field = _.find(response.data.fields, function (field) {
-        return field.component === "advanced-media-library-field";
-      });
-
-      _this2.specSheet.resource = response.data;
-      _this2.specSheet.resourceName = "spec-sheets";
-      _this2.specSheet.resourceId = 5;
-      _this2.specSheet.field = field;
-
-      console.log(response.data);
-    });
+    this.fetchCompanies();
+    this.fetchAllSpecSheets().then(this.fetchSelectedSheet);
   }
 });
 
@@ -334,76 +447,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "flex mb-6" }, [
-        _c("div", { staticClass: "w-1/4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "inline-block mb-1 text-80",
-              attrs: { for: "company-select" }
-            },
-            [_vm._v("Select a company to edit:")]
-          ),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedCompanyId,
-                  expression: "selectedCompanyId"
-                }
-              ],
-              staticClass: "w-full form-control form-select",
-              attrs: { id: "company-select" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedCompanyId = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
+  return _c("div", [
+    _c("div", { staticClass: "flex mb-6" }, [
+      _c("div", { staticClass: "w-1/4" }, [
+        _c(
+          "label",
+          {
+            staticClass: "inline-block mb-1 text-80",
+            attrs: { for: "company-select" }
+          },
+          [_vm._v("Select a company to edit:")]
+        ),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedCompanyId,
+                expression: "selectedCompanyId"
               }
-            },
-            [
-              _c("option", { domProps: { value: null } }, [_vm._v("Default")]),
-              _vm._v(" "),
-              _vm._l(_vm.companies, function(company) {
-                return _c(
-                  "option",
-                  { key: company.id, domProps: { value: company.id } },
-                  [_vm._v(_vm._s(company.name))]
-                )
-              })
             ],
-            2
-          )
-        ])
+            staticClass: "w-full form-control form-select",
+            attrs: { id: "company-select" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedCompanyId = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { domProps: { value: null } }, [_vm._v("Default")]),
+            _vm._v(" "),
+            _vm._l(_vm.companies, function(company) {
+              return _c(
+                "option",
+                { key: company.id, domProps: { value: company.id } },
+                [_vm._v(_vm._s(company.name))]
+              )
+            })
+          ],
+          2
+        )
       ]),
       _vm._v(" "),
-      _c("detail-advanced-media-library-field", {
-        attrs: {
-          resource: _vm.specSheet.resource,
-          resourceName: _vm.specSheet.resourceName,
-          resourceId: _vm.specSheet.resourceId,
-          field: _vm.specSheet.field
-        }
-      })
-    ],
-    1
-  )
+      _c(
+        "div",
+        { staticClass: "w-3/4 text-right" },
+        [
+          !_vm.hasSpecSheet
+            ? _c("create-resource-button", {
+                attrs: {
+                  resourceName: "spec-sheets",
+                  singularName: "Spec Sheet",
+                  authorizedToCreate: "true",
+                  authorizedToRelate: "true",
+                  relationshipType: "",
+                  viaRelationship: "",
+                  viaResource: "",
+                  viaResourceId: ""
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.hasSpecSheet
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$router.push({
+                        name: "edit",
+                        params: {
+                          resourceName: "spec-sheets",
+                          resourceId: _vm.activeSpecSheet.resourceId
+                        }
+                      })
+                    }
+                  }
+                },
+                [_vm._v("\n        Edit Spec Sheet\n      ")]
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { class: _vm.selectedCompanyId && !_vm.hasSpecSheet ? "opacity-75" : "" },
+      [
+        _c("detail-advanced-media-library-field", {
+          attrs: {
+            field: _vm.activeSpecSheet.field,
+            resourceId: _vm.activeSpecSheet.resourceId,
+            resourceName: _vm.activeSpecSheet.resourceName,
+            resource: _vm.activeSpecSheet.resource
+          }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
