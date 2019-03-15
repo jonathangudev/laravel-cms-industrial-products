@@ -8,10 +8,28 @@ use App\Company;
 use App\Events\Catalog\Product\AttributeValueCreating;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 
 class AttributeValue extends Model
 {
     use Notifiable;
+    use Searchable;
+
+    public $asYouType = true;
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+
+        return $array;
+    }
 
     /**
      * The event map for the model.
