@@ -18,16 +18,18 @@
         "jmp/company-manager": "*",
         "jmp/product-attribute-manager": "*",
         "jmp/product-category-manager": "*",
+        "jmp/product-spec-sheet-manager": "*",
         "kalnoy/nestedset": "^4.3",
         "laravel/framework": "5.7.*",
         "laravel/nova": "~1.0",
+        "laravel/scout": "^7.1",
         "laravel/tinker": "^1.0",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^2.25",
         "spatie/nova-tail-tool": "^1.0",
         "spatie/valuestore": "^1.2",
-        "vyuldashev/nova-permission": "^1.4",
-        "jmp/product-spec-sheet-manager": "*"
+        "teamtnt/laravel-scout-tntsearch-driver": "^7.0",
+        "vyuldashev/nova-permission": "^1.4"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
