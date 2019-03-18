@@ -144,6 +144,12 @@ class SearchController extends Controller
         return $categoryProducts;
     }
 
+    /**
+     * Search the products and category
+     *
+     * @param string $query
+     * @return Collection
+     */
     public function queryByCombo($query)
     {
         $cp1 = $this->queryByProduct($query);
@@ -151,7 +157,15 @@ class SearchController extends Controller
 
         $com = array_merge($cp1,$cp2);
 
-        dd($com);
+
+        $categories = array_column($com, 'category');
+        echo $categories[1];
+        echo '<hr>';
+        echo $categories[2];
+
+        $uniqueCats = array_unique($categories,SORT_REGULAR);
+
+        dd($uniqueCats);
     }
 
 }
