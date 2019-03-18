@@ -71,4 +71,6 @@ Route::get('/search-results', function () {
     return view('search-results');
 })->name('search-results');
 
-Route::get('/search-test/{query}', 'CatalogController@queryByCatalog');
+Route::get('/search-cat/{query}', 'SearchController@queryByCatalog');
+Route::get('/search-products/{query}', 'SearchController@queryByProduct');
+Route::get('/search/{query}','SearchController@queryByCombo');
