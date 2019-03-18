@@ -14,7 +14,9 @@ class Category extends Model implements HasMedia
 {
     use NodeTrait;
     use HasMediaTrait;
-    use Searchable;
+    use Searchable {
+        \Laravel\Scout\Searchable::usesSoftDelete insteadof \Kalnoy\Nestedset\NodeTrait; 
+    }
 
     public $asYouType = true;
 
@@ -25,9 +27,7 @@ class Category extends Model implements HasMedia
      */
     public function toSearchableArray()
     {
-        $array = $this->toArray();
-
-        // Customize array...
+        $array = $this->only(['id','content']);
 
         return $array;
     }
