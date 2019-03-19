@@ -58,6 +58,8 @@ class SearchController extends Controller
              */
             $object->products = $category->products->all();
 
+            $object->categoryId = $category->id;
+
             $categoryProducts[] = $object;
         }
 
@@ -134,6 +136,7 @@ class SearchController extends Controller
         {
             $object = new \stdClass();
             $object->category = $category;
+            $object->categoryId = $category->id;
             $object->products[] = $product;
 
             $categoryProducts[] = $object;
@@ -153,12 +156,68 @@ class SearchController extends Controller
         $cp1 = $this->queryByProduct($query);
         $cp2 = $this->queryByCatalog($query);
 
-        $com = array_merge($cp1,$cp2);
+        $mergedCategoryProducts = array_merge($cp1, $cp2);
 
-        var_dump($cp1);
+        $categoryIds1 = array_column($cp1, 'categoryId');
+        $categoryIds2 = array_column($cp2, 'categoryId');
+
+        var_dump($cp1[0]->products);
         echo "<hr>";
-        var_dump( $cp2);
+        var_dump($categoryIds2);
 
+        $uniqueCatIds = array_unique( array_merge($categoryIds1, $categoryIds2) );
+        echo "<hr>";
+        var_dump($uniqueCatIds);
+
+        //foreach category in merged
+            //find matching category in each query 
+
+        $resultCategoryProducts = [];
+
+        foreach($uniqueCatIds as $catId)
+        {
+            /**
+             * Create a new Category-Product Object
+             */
+            $object = new \stdClass();
+            $object->categoryId = $catId;
+            $object->products = [];
+
+            foreach($mergedCategoryProducts as $categoryProduct)
+            {
+
+                if($catId == $categoryProduct->categoryId)
+                {
+
+                    $object->category = $categoryProduct->category;
+
+                    foreach($categoryProduct->products as $product)
+                    {
+                        $object->products = $this->addProductIfNew($object->products, $product);
+                    }
+                }
+            }
+
+            $resultCategoryProducts[] = $object;
+        }
+
+        echo "<hr>";
+        var_dump($resultCategoryProducts);
+
+    }
+
+    protected function addProductIfNew($productArray, $product)
+    {
+        foreach($productArray as $item)
+        {
+            if($item->id == $product->id)
+            {
+                return $productArray;
+            }
+        }
+
+        $productArray[] = $product;
+        return $productArray;
     }
 
 }
