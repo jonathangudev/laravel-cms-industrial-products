@@ -3,9 +3,27 @@
 namespace App\Catalog\Product;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Attribute extends Model
 {
+
+    use Searchable;
+
+    public $asYouType = true;
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return $array;
+    }
+
     /**
      * The table associated with the model.
      *
