@@ -30,22 +30,20 @@ class SearchController extends Controller
 
         $company = Auth::user()->company;
 
-        $results = Category::search($query)->where('company_id', $company->id)->get();
+        /**
+         * Paginate(0) workaround for eager-loading with tntsearch
+         */
+        $results = Category::search($query)->where('company_id', $company->id)->paginate(0)->load('products');
 
         /**
-         * 
          * Filter down results to only get bottom-level categories (product groups)
-         * 
          */
-
         $filtered = $results->filter(function($value,$key) {
             return $value->isLeaf();
         });
 
         /**
-         * 
          * Convert each category to category-product object
-         * 
          */
 
         $categoryProducts = [];
@@ -55,7 +53,9 @@ class SearchController extends Controller
             $object = new \stdClass();
             $object->category = $category;
 
-            // Getting category's collection of products as an array
+            /**
+             *  Getting category's collection of products as an array
+             */
             $object->products = $category->products->all();
 
             $categoryProducts[] = $object;
@@ -76,13 +76,15 @@ class SearchController extends Controller
 
         $company = Auth::user()->company;
 
-        $products = Product::search($query)->get();
+        /**
+         * Paginate(0) workaround for eager-loading with tntsearch
+         */
+        $products = Product::search($query)->paginate(0)->load('categories');;
 
         $categoryProducts = [];
 
         foreach($products as $product)
         {
-
             $categories = $product->categories;
 
             $filteredCategories = $categories->filter(function($value,$key) use ($company) {
@@ -113,9 +115,7 @@ class SearchController extends Controller
         $newCategoryFlag = true;
 
         /**
-         * 
          * Loops through all category-products and adds a product to the products associated with a category if there's a match on the category
-         * 
          */
 
         foreach((array) $categoryProducts as $key => $categoryProduct)
@@ -128,9 +128,7 @@ class SearchController extends Controller
         }
 
         /**
-         * 
          * If the category is not found in category-products, it's a new category, which needs to have the product added to it
-         * 
          */
         if($newCategoryFlag)
         {
@@ -157,15 +155,10 @@ class SearchController extends Controller
 
         $com = array_merge($cp1,$cp2);
 
+        var_dump($cp1);
+        echo "<hr>";
+        var_dump( $cp2);
 
-        $categories = array_column($com, 'category');
-        echo $categories[1];
-        echo '<hr>';
-        echo $categories[2];
-
-        $uniqueCats = array_unique($categories,SORT_REGULAR);
-
-        dd($uniqueCats);
     }
 
 }
