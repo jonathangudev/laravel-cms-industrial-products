@@ -29,8 +29,12 @@ function sortTable (event) {
 
 	// Sort rows
 	rows.sort((rowA, rowB) => {
-		const dataA = rowA.children[cellIndex].innerText;
-		const dataB = rowB.children[cellIndex].innerText;
+		let dataA = rowA.children[cellIndex].innerText.replace(/\W/g, '');
+		let dataB = rowB.children[cellIndex].innerText.replace(/\W/g, '');
+
+		dataA = Number(dataA) || dataA;
+		dataB = Number(dataB) || dataB;
+		
 	
 		if (dataA < dataB) {
 			return -1 * order;
