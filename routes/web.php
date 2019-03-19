@@ -73,4 +73,8 @@ Route::get('/search-results', function () {
 
 Route::get('/search-cat/{query}', 'SearchController@queryByCatalog');
 Route::get('/search-products/{query}', 'SearchController@queryByProduct');
+Route::get('/search-att/{query}', 'SearchController@queryByAttribute');
+Route::get('/search-att-val/{query}', 'SearchController@queryByAttributeValue');
+
+
 Route::get('/search/{query}','SearchController@queryByCombo');

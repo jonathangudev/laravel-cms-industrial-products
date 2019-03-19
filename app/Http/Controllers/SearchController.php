@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Catalog\Category;
 use App\Catalog\Product;
+use App\Catalog\Product\AttributeValue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +34,8 @@ class SearchController extends Controller
         /**
          * Paginate(0) workaround for eager-loading with tntsearch
          */
+
+         // TODO - Fix major issue of how to handle default values
         $results = Category::search($query)->where('company_id', $company->id)->paginate(0)->load('products');
 
         /**
@@ -83,66 +86,38 @@ class SearchController extends Controller
          */
         $products = Product::search($query)->paginate(0)->load('categories');;
 
-        $categoryProducts = [];
-
-        foreach($products as $product)
-        {
-            $categories = $product->categories;
-
-            $filteredCategories = $categories->filter(function($value,$key) use ($company) {
-                return $value->company->id == $company->id;
-            });
-
-            foreach($filteredCategories as $category)
-            {
-                $categoryProducts = $this->addCategoryProduct($categoryProducts, $product, $category);
-            }
-
-        }
+        $categoryProducts = $this->buildCategoryProducts($products, $company);
 
         return $categoryProducts;
 
     }
 
     /**
-     * Adds products to a category
+     * Search the attribute values
      *
-     * @param array
-     * @param Category
-     * @param Product 
-     * @return stdClass
+     * @param string $query
+     * @return Collection
      */
-    protected function addCategoryProduct($categoryProducts, $product, $category)
+    public function queryByAttributeValue($query)
     {
-        $newCategoryFlag = true;
 
-        /**
-         * Loops through all category-products and adds a product to the products associated with a category if there's a match on the category
-         */
+        $company = Auth::user()->company;
 
-        foreach((array) $categoryProducts as $key => $categoryProduct)
+        $attributes = AttributeValue::search($query)->where('company_id', $company->id)->paginate(0)->load('product');
+
+        $products = new \Illuminate\Database\Eloquent\Collection;
+
+        foreach($attributes as $attribute)
         {
-            if($categoryProduct->category->id == $category->id)
-            {
-                $categoryProducts[$key]->products[] = $product;
-                $newCategoryFlag = false;
-            }
+            $products->push($attribute->product);
         }
 
-        /**
-         * If the category is not found in category-products, it's a new category, which needs to have the product added to it
-         */
-        if($newCategoryFlag)
-        {
-            $object = new \stdClass();
-            $object->category = $category;
-            $object->categoryId = $category->id;
-            $object->products[] = $product;
+        $products->load('categories');
 
-            $categoryProducts[] = $object;
-        }
+        $categoryProducts = $this->buildCategoryProducts($products, $company);
 
         return $categoryProducts;
+
     }
 
     /**
@@ -158,16 +133,7 @@ class SearchController extends Controller
 
         $mergedCategoryProducts = array_merge($cp1, $cp2);
 
-        $categoryIds1 = array_column($cp1, 'categoryId');
-        $categoryIds2 = array_column($cp2, 'categoryId');
-
-        var_dump($cp1[0]->products);
-        echo "<hr>";
-        var_dump($categoryIds2);
-
-        $uniqueCatIds = array_unique( array_merge($categoryIds1, $categoryIds2) );
-        echo "<hr>";
-        var_dump($uniqueCatIds);
+        $uniqueCatIds = array_unique( array_column($mergedCategoryProducts, 'categoryId') );
 
         //foreach category in merged
             //find matching category in each query 
@@ -191,18 +157,19 @@ class SearchController extends Controller
 
                     $object->category = $categoryProduct->category;
 
-                    foreach($categoryProduct->products as $product)
+                    /*foreach($categoryProduct->products as $product)
                     {
                         $object->products = $this->addProductIfNew($object->products, $product);
-                    }
+                    }*/
+
+                    $object->products = $this->mergeProducts($object->products, $categoryProduct->products);
                 }
             }
 
             $resultCategoryProducts[] = $object;
         }
 
-        echo "<hr>";
-        var_dump($resultCategoryProducts);
+        dd($resultCategoryProducts);
 
     }
 
@@ -219,5 +186,93 @@ class SearchController extends Controller
         $productArray[] = $product;
         return $productArray;
     }
+
+    protected function buildCategoryProducts($products, $company)
+    {
+
+        $categoryProducts = [];
+
+        foreach($products as $product)
+        {
+            $categories = $product->categories;
+
+            $filteredCategories = $categories->filter(function($value,$key) use ($company) {
+                return $value->company->id == $company->id;
+            });
+
+            foreach($filteredCategories as $category)
+            {
+                // TODO - remove if category - product merging will be done at a later time
+                //$categoryProducts = $this->addCategoryProduct($categoryProducts, $product, $category);
+
+                $object = new \stdClass();
+                $object->category = $category;
+                $object->categoryId = $category->id;
+                $object->products[] = $product;
+    
+                $categoryProducts[] = $object;
+            }
+
+        }
+
+        return $categoryProducts;
+
+    }
+
+    /**
+     * Adds products to a category
+     *
+     * @param array
+     * @param Category
+     * @param Product 
+     * @return stdClass
+     */
+    /*protected function addCategoryProduct($categoryProducts, $product, $category)
+    {
+        $newCategoryFlag = true;
+
+        /**
+         * Loops through all category-products and adds a product to the products associated with a category if there's a match on the category
+         
+
+        foreach((array) $categoryProducts as $key => $categoryProduct)
+        {
+            if($categoryProduct->category->id == $category->id)
+            {
+                $categoryProducts[$key]->products[] = $product;
+                $newCategoryFlag = false;
+            }
+        }
+
+        /**
+         * If the category is not found in category-products, it's a new category, which needs to have the product added to it
+         
+        if($newCategoryFlag)
+        {
+            $object = new \stdClass();
+            $object->category = $category;
+            $object->categoryId = $category->id;
+            $object->products[] = $product;
+
+            $categoryProducts[] = $object;
+        }
+
+        return $categoryProducts;
+    }*/
+
+    protected function mergeProducts($products1, $products2)
+    {
+
+        $products1 = collect($products1);
+        $products2 = collect($products2);
+
+        $mergedProducts = $products1->merge($products2);
+
+        $uniqueProducts = $mergedProducts->unique('id');
+
+        return $uniqueProducts->all();
+
+    }
+
 
 }
