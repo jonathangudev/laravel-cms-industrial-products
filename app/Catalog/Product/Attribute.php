@@ -21,8 +21,6 @@ class Attribute extends Model
     {
         $array = $this->toArray();
 
-        // Customize array...
-
         return $array;
     }
 

@@ -27,8 +27,6 @@ class Category extends Model implements HasMedia
     {
         $array = $this->toArray();
 
-        // Customize array...
-
         return $array;
     }
 
