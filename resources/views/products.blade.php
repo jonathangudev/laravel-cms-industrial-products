@@ -118,7 +118,7 @@
 
 												<td>
 													<div class="c-product-table__email">
-														<a href="mailto:support@jmpind.com?subject={{ urlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ urlencode('Company: ' . Auth::user()->company->name) }}%0A{{ urlencode('Product: ' . $product->name) }}">
+														<a href="mailto:support@jmpind.com?subject={{ rawurlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ rawurlencode('Company: ' . Auth::user()->company->name) }}%0A{{ rawurlencode('Product: ' . $product->name) }}">
 															<div class="c-product-table__email-text">
 																<span>Email us about this product&nbsp;&nbsp;</span><i class="far fa-envelope"></i>
 															</div>
@@ -178,7 +178,7 @@
 
 											@foreach ($category->products as $product)
 												<td>
-													<a href="mailto:support@jmpind.com?subject={{ urlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ urlencode('Company: ' . Auth::user()->company->name) }}%0A{{ urlencode('Product: ' . $product->name) }}">
+													<a href="mailto:support@jmpind.com?subject={{ rawurlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ rawurlencode('Company: ' . Auth::user()->company->name) }}%0A{{ rawurlencode('Product: ' . $product->name) }}">
 														Email Us
 													</a>
 												</td>
