@@ -26,8 +26,6 @@ class AttributeValue extends Model
     {
         $array = $this->toArray();
 
-        // Customize array...
-
         return $array;
     }
 
