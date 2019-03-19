@@ -61,11 +61,6 @@ Route::get(
     'EmailPreviewController@getUserWelcomePreview'
 );
 
-// Sample for building product group css
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
-
 // Sample for building search results css
 Route::get('/search-results', function () {
     return view('search-results');

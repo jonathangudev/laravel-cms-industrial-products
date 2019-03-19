@@ -64,6 +64,6 @@ class ContactController extends Controller
             ->bcc($emailBccs)
             ->send($mail);
 
-        return redirect()->route('contact')->with('message', 'Your information was submitted!');
+        return redirect()->back()->with('contact-form-success-message', 'Your information was submitted!');
     }
 }
