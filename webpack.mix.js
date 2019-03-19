@@ -100,6 +100,7 @@ mix.js('resources/js/menu-toggle.js', 'public/js')
     )
     .purgeCss({
         enabled: true,
+        whitelistPatterns: [/--/],
     })
     .copyDirectory('resources/fonts/fontawesome', 'public/fonts');
 

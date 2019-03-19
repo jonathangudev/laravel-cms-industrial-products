@@ -1,18 +1,20 @@
-@if ($errors->any())
-    @component('partials.alert', ['type' => 'danger'])
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endcomponent
-@endif
+@unless (Route::currentRouteNamed('contact'))
+    @if ($errors->any())
+        @component('partials.alert', ['type' => 'danger'])
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endcomponent
+    @endif
 
-@if (Session::has('contact-success-message'))
-    @component('partials.alert', ['type' => 'success'])
-        {{ Session::get('contact-success-message') }}
-    @endcomponent
-@endif
+    @if (Session::has('contact-form-success-message'))
+        @component('partials.alert', ['type' => 'success'])
+            {{ Session::get('contact-form-success-message') }}
+        @endcomponent
+    @endif
+@endunless
 
 <link rel="stylesheet" href="{{ mix('/css/footer.css') }}">
 <footer class="c-footer">
@@ -75,31 +77,31 @@
                 <div class="row">
                     <div class="col-24">
                         <h3>{{ __('Get In Touch') }}</h3>
-                        <form action="#" class="c-footer__form o-form o-form--reverse">
+                        <form action="{{route('contact')}}" method="POST" class="c-footer__form o-form o-form--reverse">
                             @csrf
                             <fieldset>
                                 <legend>{{ __('Contact Information') }}</legend>
-                                
+
                                 <div class="row">
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group {{ $errors->has('footer-fullname') ? ' is-error' : '' }}">
+                                        <div class="o-form__group {{ $errors->has('contact-fullname') ? ' is-error' : '' }}">
                                             <label for="footer-fullname">{{ __('Full Name') }}</label>
-                                            <input name="footer-fullname" id="footer-fullname" type="text" class="{{ $errors->has('footer-fullname') ? ' is-error' : '' }}" placeholder="e.g. Wile E. Coyote" value="{{ old('footer-fullname') }}" required>
-                                            @if ($errors->has('footer-fullname'))
+                                            <input name="contact-fullname" id="footer-fullname" type="text" class="{{ $errors->has('contact-fullname') ? ' is-error' : '' }}" placeholder="e.g. Wile E. Coyote" value="{{ old('contact-fullname') }}" required>
+                                            @if ($errors->has('contact-fullname'))
                                                 <p class="o-form__error-text" role="alert">
-                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-fullname') }}</span>
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('contact-fullname') }}</span>
                                                 </p>
                                             @endif
                                         </div>
                                     </div>
 
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group {{ $errors->has('footer-company') ? ' is-error' : '' }}">
+                                        <div class="o-form__group {{ $errors->has('contact-company') ? ' is-error' : '' }}">
                                             <label for="footer-company">{{ __('Company') }}</label>
-                                            <input name="footer-company" id="footer-company" type="text" class="{{ $errors->has('footer-company') ? ' is-error' : '' }}" placeholder="e.g. Acme Co." value="{{ old('footer-company') }}" required>
-                                            @if ($errors->has('footer-company'))
+                                            <input name="contact-company" id="footer-company" type="text" class="{{ $errors->has('contact-company') ? ' is-error' : '' }}" placeholder="e.g. Acme Co." value="{{ old('contact-company') }}" required>
+                                            @if ($errors->has('contact-company'))
                                                 <p class="o-form__error-text" role="alert">
-                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-company') }}</span>
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('contact-company') }}</span>
                                                 </p>
                                             @endif
                                         </div>
@@ -108,24 +110,24 @@
 
                                 <div class="row">
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group {{ $errors->has('footer-email') ? ' is-error' : '' }}">
+                                        <div class="o-form__group {{ $errors->has('contact-email') ? ' is-error' : '' }}">
                                             <label for="footer-email">{{ __('Email Address') }}</label>
-                                            <input name="footer-email" id="footer-email" type="email" class="{{ $errors->has('footer-email') ? ' is-error' : '' }}" placeholder="e.g. wile.e.coyote@acme.com" value="{{ old('footer-email') }}" required>
-                                            @if ($errors->has('footer-email'))
+                                            <input name="contact-email" id="footer-email" type="email" class="{{ $errors->has('contact-email') ? ' is-error' : '' }}" placeholder="e.g. wile.e.coyote@acme.com" value="{{ old('contact-email') }}" required>
+                                            @if ($errors->has('contact-email'))
                                                 <p class="o-form__error-text" role="alert">
-                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-email') }}</span>
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('contact-email') }}</span>
                                                 </p>
                                             @endif
                                         </div>
                                     </div>
 
                                     <div class="col-24 col-md-12">
-                                        <div class="o-form__group {{ $errors->has('footer-phone') ? ' is-error' : '' }}">
+                                        <div class="o-form__group {{ $errors->has('contact-phone') ? ' is-error' : '' }}">
                                             <label for="footer-phone">{{ __('Phone') }}</label>
-                                            <input name="footer-phone" id="footer-phone" type="text" class="{{ $errors->has('contact-email') ? ' is-error' : '' }}" placeholder="e.g. 123-456-7890" value="{{ old('footer-phone') }}" required>
-                                            @if ($errors->has('footer-phone'))
+                                            <input name="contact-phone" id="footer-phone" type="text" class="{{ $errors->has('contact-email') ? ' is-error' : '' }}" placeholder="e.g. 123-456-7890" value="{{ old('contact-phone') }}" required>
+                                            @if ($errors->has('contact-phone'))
                                                 <p class="o-form__error-text" role="alert">
-                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-phone') }}</span>
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('contact-phone') }}</span>
                                                 </p>
                                             @endif
                                         </div>
@@ -134,12 +136,12 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <div class="o-form__group {{ $errors->has('footer-message') ? ' is-error' : '' }}">
+                                        <div class="o-form__group {{ $errors->has('contact-message') ? ' is-error' : '' }}">
                                             <label for="footer-message">{{ __('Add a Message') }}</label>
-                                            <textarea name="footer-message" id="footer-message" rows="5" class="{{ $errors->has('footer-message') ? ' is-error' : '' }}" placeholder="e.g. Add your message here." value="{{ old('footer-message') }}"></textarea>
-                                            @if ($errors->has('footer-message'))
+                                            <textarea name="contact-message" id="footer-message" rows="5" class="{{ $errors->has('contact-message') ? ' is-error' : '' }}" placeholder="e.g. Add your message here." value="{{ old('contact-message') }}"></textarea>
+                                            @if ($errors->has('contact-message'))
                                                 <p class="o-form__error-text" role="alert">
-                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('footer-message') }}</span>
+                                                    <i class="fas fa-times"></i>&nbsp;&nbsp;<span>{{ $errors->first('contact-message') }}</span>
                                                 </p>
                                             @endif
                                         </div>
