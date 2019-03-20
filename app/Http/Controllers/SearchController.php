@@ -8,7 +8,6 @@ use App\Catalog\Product\AttributeValue;
 use App\Catalog\Product\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -34,24 +33,23 @@ class SearchController extends Controller
         $company = Auth::user()->company;
 
         /**
-         * Paginate(0) workaround for eager-loading with tntsearch
+         * Build constraints for thhe search
          */
-        $results = Category::search($query)->where('company_id', $company->id)->paginate(0)->load('products');
+        $category = new Category;
+        $category = $category->whereIsLeaf();
+        $constraints = $category;
 
         /**
-         * Filter down results to only get bottom-level categories (product groups)
+         * Paginate(0) workaround for eager-loading with tntsearch
          */
-        $filtered = $results->filter(function($value,$key) {
-            return $value->isLeaf();
-        });
+        $results = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->paginate(0)->load('products');
 
         /**
          * Convert each category to category-product object
          */
-
         $categoryProducts = [];
 
-        foreach ($filtered as $category)
+        foreach ($results as $category)
         {
             $object = new \stdClass();
             $object->category = $category;
@@ -140,7 +138,6 @@ class SearchController extends Controller
             }
 
         }
-
 
         $productIds1 = $matches->pluck('product_id');
 
