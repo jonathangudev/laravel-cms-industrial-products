@@ -19,7 +19,7 @@
 		<p>
 		<ul>
 		@foreach($result->products as $product)
-			<li>{{$product->name}}</li>
+			<li>{{$product->name}} - @foreach($product->attributes as $item) @if( $item->company_id == null) DEFAULT @endif {{$item->company_id}}: {{$item->value}}, @endforeach</li> 
 		@endforeach
 		</ul>
 		<hr>

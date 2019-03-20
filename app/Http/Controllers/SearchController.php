@@ -141,6 +141,7 @@ class SearchController extends Controller
 
         }
 
+
         $productIds1 = $matches->pluck('product_id');
 
         /**
@@ -159,7 +160,9 @@ class SearchController extends Controller
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        return view('search-results',['results' => $categoryProducts]);
+        return $categoryProducts;
+
+        //return view('search-results',['results' => $categoryProducts]);
 
     }
 
@@ -176,7 +179,10 @@ class SearchController extends Controller
 
         $attributes = Attribute::search($query)->get()->pluck('id')->all();
 
-        $productCompanies = DB::table('catalog_product_attribute_values')->select('product_id','company_id')->whereIn('attribute_id',$attributes)->get();
+        /**
+         * Get all products that have this attribute
+         */
+        $productCompanies = AttributeValue::select('product_id','company_id')->whereIn('attribute_id',$attributes)->get();
 
         /**
          * Remove all products that belong to another company.  
@@ -192,11 +198,13 @@ class SearchController extends Controller
 
         $uniqueProducts = $filteredProducts->unique();
 
-        $products = Product::whereIn('id', $uniqueProducts)->with('categories')->get();
+        $products = Product::whereIn('id', $uniqueProducts)->with('categories')->with('attributes')->get();
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        return view('search-results',['results' => $categoryProducts]);
+        return $categoryProducts;
+
+        //return view('search-results',['results' => $categoryProducts]);
 
     }
 
@@ -210,8 +218,10 @@ class SearchController extends Controller
     {
         $cp1 = $this->queryByProduct($query);
         $cp2 = $this->queryByCatalog($query);
+        $cp3 = $this->queryByAttribute($query);
+        $cp4 = $this->queryByAttributeValue($query);
 
-        $mergedCategoryProducts = array_merge($cp1, $cp2);
+        $mergedCategoryProducts = array_merge($cp1, $cp2, $cp3, $cp4);
 
         $uniqueCatIds = array_unique( array_column($mergedCategoryProducts, 'categoryId') );
 
