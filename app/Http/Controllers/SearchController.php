@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Catalog\Category;
 use App\Catalog\Product;
 use App\Catalog\Product\AttributeValue;
+use App\Catalog\Product\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -34,8 +36,6 @@ class SearchController extends Controller
         /**
          * Paginate(0) workaround for eager-loading with tntsearch
          */
-
-         // TODO - Fix major issue of how to handle default values
         $results = Category::search($query)->where('company_id', $company->id)->paginate(0)->load('products');
 
         /**
@@ -103,20 +103,100 @@ class SearchController extends Controller
 
         $company = Auth::user()->company;
 
-        $attributes = AttributeValue::search($query)->where('company_id', $company->id)->paginate(0)->load('product');
+        /**
+         * Get all products that have the attribute value by default
+         */
+        $matches = AttributeValue::search($query)->get()->whereStrict('company_id',null);
 
-        $products = new \Illuminate\Database\Eloquent\Collection;
+        $attributes = $matches->pluck('attribute_id');
+
+        $attributes = $attributes->unique();
+
+        $products   = $matches->pluck('product_id');
+
+        $products   = $products->unique();
+
+        /**
+         * Gets all potential cases where company specified attribute values may have overwritten a specific attribute value
+         */
+        $companySpecified = AttributeValue::where('company_id','=',$company->id)
+            ->whereIn('attribute_id', $attributes)
+            ->whereIn('product_id', $products)
+            ->get();
 
         foreach($attributes as $attribute)
         {
-            $products->push($attribute->product);
+            $attributesProducts = $matches->where('attribute_id','=',$attribute)->pluck('product_id');
+
+            foreach($attributesProducts as $attributesProduct)
+            {
+                /**
+                 * Kick out this row from the matches if company-specified attribute values exist for this attribute-product combination
+                 */
+                $matches = $matches->reject(function($value, $key) use ($companySpecified, $attribute, $attributesProduct){
+                    return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct && $this->companySpecifiedContains($companySpecified, $attribute, $attributesProduct));
+                });
+
+            }
+
         }
 
-        $products->load('categories');
+        $productIds1 = $matches->pluck('product_id');
+
+        /**
+         * Get all products that have the attribute because it was specified by the company
+         */
+        $matches = AttributeValue::search($query)->get()->where('company_id','=',$company->id);
+
+        $productIds2 = $matches->pluck('product_id');
+
+        /**
+         * Merge the results of the two queries
+         */
+        $productIds = $productIds1->merge($productIds2)->unique();
+
+        $products = Product::whereIn('id', $productIds)->with('categories')->get();
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        return $categoryProducts;
+        return view('search-results',['results' => $categoryProducts]);
+
+    }
+
+    /**
+     * Search the attribute values
+     *
+     * @param string $query
+     * @return Collection
+     */
+    public function queryByAttribute($query)
+    {
+
+        $company = Auth::user()->company;
+
+        $attributes = Attribute::search($query)->get()->pluck('id')->all();
+
+        $productCompanies = DB::table('catalog_product_attribute_values')->select('product_id','company_id')->whereIn('attribute_id',$attributes)->get();
+
+        /**
+         * Remove all products that belong to another company.  
+         * NULL company value means that this attribute applies to this product by default.
+         * Thus NULL company value means that this attribute applies to this product for all companies.
+         */
+
+        $filteredProductCompanies = $productCompanies->filter(function($value,$key) use ($company) {
+            return ($value->company_id == $company->id || $value->company_id === null);
+        });
+
+        $filteredProducts = $filteredProductCompanies->pluck('product_id');
+
+        $uniqueProducts = $filteredProducts->unique();
+
+        $products = Product::whereIn('id', $uniqueProducts)->with('categories')->get();
+
+        $categoryProducts = $this->buildCategoryProducts($products, $company);
+
+        return view('search-results',['results' => $categoryProducts]);
 
     }
 
@@ -206,6 +286,13 @@ class SearchController extends Controller
 
         return $uniqueProducts->all();
 
+    }
+
+    protected function companySpecifiedContains($companySpecified, $attribute, $attributesProduct)
+    {
+        return $companySpecified->contains(function ($value, $key) use($attribute, $attributesProduct) {
+            return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct);
+        });
     }
 
 }

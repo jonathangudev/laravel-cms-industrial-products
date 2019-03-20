@@ -15,7 +15,7 @@ class Category extends Model implements HasMedia
     use NodeTrait;
     use HasMediaTrait;
     use Searchable {
-        \Laravel\Scout\Searchable::usesSoftDelete insteadof \Kalnoy\Nestedset\NodeTrait; 
+        \Kalnoy\Nestedset\NodeTrait::usesSoftDelete insteadof \Laravel\Scout\Searchable; 
     }
 
     public $asYouType = true;
