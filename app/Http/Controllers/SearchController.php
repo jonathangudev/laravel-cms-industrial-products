@@ -198,7 +198,7 @@ class SearchController extends Controller
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        $categoryProducts;
+        return $categoryProducts;
 
         //return view('search-results',['results' => $categoryProducts]);
 
