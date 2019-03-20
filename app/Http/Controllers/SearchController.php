@@ -6,7 +6,6 @@ use App\Catalog\Category;
 use App\Catalog\Product;
 use App\Catalog\Product\AttributeValue;
 use App\Catalog\Product\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
@@ -25,7 +24,7 @@ class SearchController extends Controller
      * Search the bottom-level categories (product groups) for the query
      *
      * @param string $query
-     * @return Collection
+     * @return array
      */
     public function queryByCatalog($query)
     {
@@ -33,7 +32,7 @@ class SearchController extends Controller
         $company = Auth::user()->company;
 
         /**
-         * Build constraints for thhe search
+         * Build constraints for the search, restricting to bottom-level categories
          */
         $category = new Category;
         $category = $category->whereIsLeaf();
@@ -72,7 +71,7 @@ class SearchController extends Controller
      * Search the products
      *
      * @param string $query
-     * @return Collection
+     * @return array
      */
     public function queryByProduct($query)
     {
@@ -94,7 +93,7 @@ class SearchController extends Controller
      * Search the attribute values
      *
      * @param string $query
-     * @return Collection
+     * @return array
      */
     public function queryByAttributeValue($query)
     {
@@ -164,10 +163,10 @@ class SearchController extends Controller
     }
 
     /**
-     * Search the attribute values
+     * Search the attribute names
      *
      * @param string $query
-     * @return Collection
+     * @return array
      */
     public function queryByAttribute($query)
     {
@@ -199,17 +198,17 @@ class SearchController extends Controller
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        return $categoryProducts;
+        $categoryProducts;
 
         //return view('search-results',['results' => $categoryProducts]);
 
     }
 
     /**
-     * Search the products and category
+     * Search by (1) Product, (2) Catalog Content, (3) Attribute Name, (4) Attribute Value and display results
      *
      * @param string $query
-     * @return Collection
+     * @return \Illuminate\Http\Response
      */
     public function queryByCombo($query)
     {
@@ -252,6 +251,13 @@ class SearchController extends Controller
 
     }
 
+    /**
+     * Converts an array of products into an array of objects with a Category and Product property
+     *
+     * @param array $products
+     * @param App\Company $company
+     * @return array
+     */
     protected function buildCategoryProducts($products, $company)
     {
 
@@ -281,6 +287,13 @@ class SearchController extends Controller
 
     }
 
+    /**
+     * Merges two arrays of products
+     *
+     * @param array $products1
+     * @param array $products2
+     * @return array
+     */
     protected function mergeProducts($products1, $products2)
     {
 
@@ -295,6 +308,14 @@ class SearchController extends Controller
 
     }
 
+    /**
+     * Merges two arrays of products
+     *
+     * @parem Illuminate\Database\Eloquent\Collection $companySpecified
+     * @param int $attribute
+     * @param int $attributesProduct
+     * @return boolean
+     */
     protected function companySpecifiedContains($companySpecified, $attribute, $attributesProduct)
     {
         return $companySpecified->contains(function ($value, $key) use($attribute, $attributesProduct) {
