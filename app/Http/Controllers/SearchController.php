@@ -6,7 +6,9 @@ use App\Catalog\Category;
 use App\Catalog\Product;
 use App\Catalog\Product\AttributeValue;
 use App\Catalog\Product\Attribute;
+use App\Catalog\Product\Collection as ProductCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 
 class SearchController extends Controller
 {
@@ -35,33 +37,21 @@ class SearchController extends Controller
          * Build constraints for the search, restricting to bottom-level categories and loading product relation
          */
         $category = new Category;
-        $category = $category->whereIsLeaf()->with('products');
+        $category = $category->whereIsLeaf()->with(['products' => function ($query) {
+            $query->with('attributes');
+        }]);
         $constraints = $category;
 
         // Search
         $results = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->get();
 
-        /**
-         * Convert each category to category-product object
-         */
-        $categoryProducts = [];
+        $categories = $this->applyProductFilters($results, $company->id);
 
-        foreach ($results as $category)
-        {
-            $object = new \stdClass();
-            $object->category = $category;
-
-            /**
-             *  Getting category's collection of products as an array
-             */
-            $object->products = $category->products->all();
-
-            $object->categoryId = $category->id;
-
-            $categoryProducts[] = $object;
-        }
-
-        return $categoryProducts;
+        return view('search-results', [
+            'categories' => $categories,
+            'currentCategory' => null,
+            'categoryAncestors' => null,
+        ]);
 
     }
 
@@ -80,16 +70,21 @@ class SearchController extends Controller
          * Build constraints for the search, loading category relation
          */
         $product = new Product;
-        $product = $product->with('categories');
+        $product = $product->with('categories')->with('attributes');
         $constraints = $product;
 
         // Search (pulls all matches without company restriction because these are handled at category level)
         $products = Product::search($query)->constrain($constraints)->get();
 
-        $categoryProducts = $this->buildCategoryProducts($products, $company);
+        $categories = $this->buildCategoryProducts($products, $company);
 
-        return $categoryProducts;
+        $categories = $this->applyProductFilters($categories, $company->id);
 
+        return view('search-results', [
+            'categories' => $categories,
+            'currentCategory' => null,
+            'categoryAncestors' => null,
+        ]);
     }
 
     /**
@@ -126,8 +121,13 @@ class SearchController extends Controller
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        return $categoryProducts;
+        $categories = $this->applyProductFilters($categoryProducts, $company->id);
 
+        return view('search-results', [
+            'categories' => $categories,
+            'currentCategory' => null,
+            'categoryAncestors' => null,
+        ]);
     }
 
     /**
@@ -179,7 +179,7 @@ class SearchController extends Controller
 
         $productIds1 = $matches->pluck('product_id');
 
-        // Get all products that have the attribute because it was specified by the company
+        // Get all products that have the attribute value because it was specified by the company
         $matches = AttributeValue::search($query)->get()->where('company_id','=',$company->id);
 
         $productIds2 = $matches->pluck('product_id');
@@ -189,11 +189,17 @@ class SearchController extends Controller
          */
         $productIds = $productIds1->merge($productIds2)->unique();
 
-        $products = Product::whereIn('id', $productIds)->with('categories')->get();
+        $products = Product::whereIn('id', $productIds)->with('categories')->with('attributes')->get();
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
-        return $categoryProducts;
+        $categories = $this->applyProductFilters($categoryProducts, $company->id);
+        
+        return view('search-results', [
+            'categories' => $categories,
+            'currentCategory' => null,
+            'categoryAncestors' => null,
+        ]);
 
     }
 
@@ -254,7 +260,7 @@ class SearchController extends Controller
     protected function buildCategoryProducts($products, $company)
     {
 
-        $categoryProducts = [];
+        $categoryProducts = new Collection;
 
         foreach($products as $product)
         {
@@ -264,14 +270,15 @@ class SearchController extends Controller
                 return $value->company->id == $company->id;
             });
 
+            $p = $product;
+            unset($p->categories);
+
             foreach($filteredCategories as $category)
             {
-                $object = new \stdClass();
-                $object->category = $category;
-                $object->categoryId = $category->id;
-                $object->products[] = $product;
-    
-                $categoryProducts[] = $object;
+                $newCat = $category;
+                $productCollection = new ProductCollection([$p]);
+                $newCat->setRelation('products', $productCollection);
+                $categoryProducts->push($newCat);
             }
 
         }
@@ -315,5 +322,24 @@ class SearchController extends Controller
             return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct);
         });
     }
+
+    /**
+     * Apply the product collection filters to a category collection
+     *
+     * @param Collection $categories
+     * @param integer $companyId
+     * @return Collection
+     */
+    protected function applyProductFilters($categories, int $companyId)
+    {
+        return $categories->map(function ($category) use ($companyId) {
+            $products = $category->products->withCompanyAttributeFilter($companyId)->normalizeAttributes();
+
+            $category->products = $products;
+
+            return $category;
+        });
+    }
+
 
 }

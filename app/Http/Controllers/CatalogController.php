@@ -134,36 +134,4 @@ class CatalogController extends Controller
         });
     }
 
-    /**
-     * Search the bottom-level categories (product groups) for the query
-     *
-     * @param string $query
-     * @return Collection
-     */
-    public function queryByCatalog($query)
-    {
-
-        // TODO - add get company id
-
-        $results = Category::search($query)->get();
-
-        /**
-         * 
-         * Filter down results to only get bottom-level categories (product groups)
-         * 
-         */
-
-        $filtered = $results->filter(function($value,$key) {
-            return $value->isLeaf();
-        });
-
-        return view('products',['categories' => $filtered, 
-            'currentCategory' => null,
-            'categoryAncestors' => null,
-        ]);
-
-        //return $filtered;
-
-    }
-
 }
