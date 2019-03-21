@@ -32,16 +32,14 @@ class SearchController extends Controller
         $company = Auth::user()->company;
 
         /**
-         * Build constraints for the search, restricting to bottom-level categories
+         * Build constraints for the search, restricting to bottom-level categories and loading product relation
          */
         $category = new Category;
-        $category = $category->whereIsLeaf();
+        $category = $category->whereIsLeaf()->with('products');
         $constraints = $category;
 
-        /**
-         * Paginate(0) workaround for eager-loading with tntsearch
-         */
-        $results = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->paginate(0)->load('products');
+        // Search
+        $results = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->get();
 
         /**
          * Convert each category to category-product object
@@ -79,9 +77,52 @@ class SearchController extends Controller
         $company = Auth::user()->company;
 
         /**
-         * Paginate(0) workaround for eager-loading with tntsearch
+         * Build constraints for the search, loading category relation
          */
-        $products = Product::search($query)->paginate(0)->load('categories');;
+        $product = new Product;
+        $product = $product->with('categories');
+        $constraints = $product;
+
+        // Search (pulls all matches without company restriction because these are handled at category level)
+        $products = Product::search($query)->constrain($constraints)->get();
+
+        $categoryProducts = $this->buildCategoryProducts($products, $company);
+
+        return $categoryProducts;
+
+    }
+
+    /**
+     * Search the attribute names
+     *
+     * @param string $query
+     * @return array
+     */
+    public function queryByAttribute($query)
+    {
+
+        $company = Auth::user()->company;
+
+        $attributes = Attribute::search($query)->get()->pluck('id')->all();
+
+        // Get all products that have this attribute
+        $productCompanies = AttributeValue::select('product_id','company_id')->whereIn('attribute_id',$attributes)->get();
+
+        /**
+         * Remove all products that belong to another company.  
+         * NULL company value means that this attribute applies to this product by default.
+         * Thus NULL company value means that this attribute applies to this product for all companies.
+         */
+
+        $filteredProductCompanies = $productCompanies->filter(function($value,$key) use ($company) {
+            return ($value->company_id == $company->id || $value->company_id === null);
+        });
+
+        $filteredProducts = $filteredProductCompanies->pluck('product_id');
+
+        $uniqueProducts = $filteredProducts->unique();
+
+        $products = Product::whereIn('id', $uniqueProducts)->with('categories')->with('attributes')->get();
 
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
@@ -100,9 +141,7 @@ class SearchController extends Controller
 
         $company = Auth::user()->company;
 
-        /**
-         * Get all products that have the attribute value by default
-         */
+        // Get all products that have the attribute value by default (i.e. company is null)
         $matches = AttributeValue::search($query)->get()->whereStrict('company_id',null);
 
         $attributes = $matches->pluck('attribute_id');
@@ -140,9 +179,7 @@ class SearchController extends Controller
 
         $productIds1 = $matches->pluck('product_id');
 
-        /**
-         * Get all products that have the attribute because it was specified by the company
-         */
+        // Get all products that have the attribute because it was specified by the company
         $matches = AttributeValue::search($query)->get()->where('company_id','=',$company->id);
 
         $productIds2 = $matches->pluck('product_id');
@@ -157,50 +194,6 @@ class SearchController extends Controller
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
         return $categoryProducts;
-
-        //return view('search-results',['results' => $categoryProducts]);
-
-    }
-
-    /**
-     * Search the attribute names
-     *
-     * @param string $query
-     * @return array
-     */
-    public function queryByAttribute($query)
-    {
-
-        $company = Auth::user()->company;
-
-        $attributes = Attribute::search($query)->get()->pluck('id')->all();
-
-        /**
-         * Get all products that have this attribute
-         */
-        $productCompanies = AttributeValue::select('product_id','company_id')->whereIn('attribute_id',$attributes)->get();
-
-        /**
-         * Remove all products that belong to another company.  
-         * NULL company value means that this attribute applies to this product by default.
-         * Thus NULL company value means that this attribute applies to this product for all companies.
-         */
-
-        $filteredProductCompanies = $productCompanies->filter(function($value,$key) use ($company) {
-            return ($value->company_id == $company->id || $value->company_id === null);
-        });
-
-        $filteredProducts = $filteredProductCompanies->pluck('product_id');
-
-        $uniqueProducts = $filteredProducts->unique();
-
-        $products = Product::whereIn('id', $uniqueProducts)->with('categories')->with('attributes')->get();
-
-        $categoryProducts = $this->buildCategoryProducts($products, $company);
-
-        return $categoryProducts;
-
-        //return view('search-results',['results' => $categoryProducts]);
 
     }
 
