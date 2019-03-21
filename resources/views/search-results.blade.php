@@ -76,7 +76,7 @@
 						</div>
 					@endif
 
-					@if ($category->products->count() > 0)
+					@if ($category->filteredProducts->count() > 0)
 						<div class="c-product-group__section">
 							<h5>Products</h5>
 
@@ -86,7 +86,7 @@
 										<tr>
 											<th scope="col"><span class="d-none">Product Image</span></th>
 
-											@foreach ($category->products->getAttributeNames() as $attributeName)
+											@foreach ($category->filteredProducts->getAttributeNames() as $attributeName)
 												<th scope="col" data-sort="" class="js-product-table-sortable-column">{{ $attributeName->name }}</th>
 											@endforeach
 
@@ -94,7 +94,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach ($category->products as $product)
+										@foreach ($category->filteredProducts as $product)
 											<tr>
 												<td>
 													<div class="c-product-table__img">
@@ -134,7 +134,7 @@
 										<tr>
 											<th scope="row"></th>
 
-											@foreach ($category->products as $product)
+											@foreach ($category->filteredProducts as $product)
 												<td>
 													<div class="c-product-table__img">
 														@if ($product->hasMedia('product-thumbnail'))
@@ -149,13 +149,13 @@
 											@endforeach
 										</tr>
 
-										@foreach ($category->products->getAttributeNames() as $attributeName)
+										@foreach ($category->filteredProducts->getAttributeNames() as $attributeName)
 												<tr>
 													<th scope="row">{{ $attributeName->name }}</th>
 
-													@foreach ($category->products as $product)
+													@foreach ($category->filteredProducts as $product)
 														@php
-																$value = $product->attributes->slice($loop->parent->index, 1)->first()->value;
+																$value = $product->attributes->slice($loop->parent->index, 1)->first();//->value;
 														@endphp
 
 														@if ($value)
@@ -164,13 +164,14 @@
 															<td>-</td>
 														@endif
 													@endforeach
+
 												</tr>
 										@endforeach
 
 										<tr>
 											<th scope="row"></th>
 
-											@foreach ($category->products as $product)
+											@foreach ($category->filteredProducts as $product)
 												<td>
 													<a href="mailto:support@jmpind.com?subject={{ urlencode('JMP Industries Inc. - ' . Auth::user()->company->name . ' is interested in ' . $product->name) }}&body={{ urlencode('Company: ' . Auth::user()->company->name) }}%0A{{ urlencode('Product: ' . $product->name) }}">
 														Email Us

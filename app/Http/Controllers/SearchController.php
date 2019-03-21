@@ -47,11 +47,13 @@ class SearchController extends Controller
 
         $categories = $this->applyProductFilters($results, $company->id);
 
-        return view('search-results', [
+        return $categories;
+
+        /*return view('search-results', [
             'categories' => $categories,
             'currentCategory' => null,
             'categoryAncestors' => null,
-        ]);
+        ]);*/
 
     }
 
@@ -80,11 +82,13 @@ class SearchController extends Controller
 
         $categories = $this->applyProductFilters($categories, $company->id);
 
-        return view('search-results', [
+        return $categories;
+
+        /*return view('search-results', [
             'categories' => $categories,
             'currentCategory' => null,
             'categoryAncestors' => null,
-        ]);
+        ]);*/
     }
 
     /**
@@ -123,11 +127,13 @@ class SearchController extends Controller
 
         $categories = $this->applyProductFilters($categoryProducts, $company->id);
 
-        return view('search-results', [
+        return $categories;
+
+        /*return view('search-results', [
             'categories' => $categories,
             'currentCategory' => null,
             'categoryAncestors' => null,
-        ]);
+        ]);*/
     }
 
     /**
@@ -194,12 +200,14 @@ class SearchController extends Controller
         $categoryProducts = $this->buildCategoryProducts($products, $company);
 
         $categories = $this->applyProductFilters($categoryProducts, $company->id);
-        
-        return view('search-results', [
+
+        return $categories;
+
+        /*return view('search-results', [
             'categories' => $categories,
             'currentCategory' => null,
             'categoryAncestors' => null,
-        ]);
+        ]);*/
 
     }
 
@@ -214,40 +222,73 @@ class SearchController extends Controller
         $cp1 = $this->queryByProduct($query);
         $cp2 = $this->queryByCatalog($query);
         $cp3 = $this->queryByAttribute($query);
+
+        //dd($cp3);
         $cp4 = $this->queryByAttributeValue($query);
 
-        $mergedCategoryProducts = array_merge($cp1, $cp2, $cp3, $cp4);
+        /**
+         * Merge all the categories (using push instead of merge because merge will overwrite categories with the same ids)
+         */
+        $mergedCategoryProducts= $cp1;
 
-        $uniqueCatIds = array_unique( array_column($mergedCategoryProducts, 'categoryId') );
+        foreach($cp2 as $item)
+        {
+            $mergedCategoryProducts->push($item);
+        }
 
-        $resultCategoryProducts = [];
+        foreach($cp3 as $item)
+        {
+            $mergedCategoryProducts->push($item);
+        }
+
+        foreach($cp4 as $item)
+        {
+            $mergedCategoryProducts->push($item);
+        }
+
+        $uniqueCatIds = $mergedCategoryProducts->pluck('id')->unique();
+
+        $resultCategories = new Collection;
 
         foreach($uniqueCatIds as $catId)
         {
             /**
              * Create a new Category-Product Object
              */
-            $object = new \stdClass();
-            $object->categoryId = $catId;
-            $object->products = [];
+            $object = new Category;
+            $merged = new ProductCollection();
 
             foreach($mergedCategoryProducts as $categoryProduct)
             {
 
-                if($catId == $categoryProduct->categoryId)
+                if($catId == $categoryProduct->id)
                 {
+  
+                    if(!isset($object->id))
+                    {
+                        $object = new Category;
+                        $object = $categoryProduct;
+                    }
 
-                    $object->category = $categoryProduct->category;
+                    $merged = $merged->merge($categoryProduct->products);
 
-                    $object->products = $this->mergeProducts($object->products, $categoryProduct->products);
                 }
-            }
 
-            $resultCategoryProducts[] = $object;
+            };
+
+            $object->filteredProducts = $merged;
+
+            $resultCategories->push($object);
+
         }
 
-        return view('search-results',['results'=>$resultCategoryProducts]);
+        //dd($resultCategories);
 
+        return view('search-results', [
+            'categories' => $resultCategories,
+            'currentCategory' => null,
+            'categoryAncestors' => null,
+        ]);
     }
 
     /**
@@ -290,15 +331,12 @@ class SearchController extends Controller
     /**
      * Merges two arrays of products
      *
-     * @param array $products1
-     * @param array $products2
+     * @param Collection $products1
+     * @param Collection $products2
      * @return array
      */
     protected function mergeProducts($products1, $products2)
     {
-
-        $products1 = collect($products1);
-        $products2 = collect($products2);
 
         $mergedProducts = $products1->merge($products2);
 
@@ -309,7 +347,7 @@ class SearchController extends Controller
     }
 
     /**
-     * Merges two arrays of products
+     * Determines if the two values (attribute & product) are contained in the collection (of AttributeValues)
      *
      * @parem Illuminate\Database\Eloquent\Collection $companySpecified
      * @param int $attribute
