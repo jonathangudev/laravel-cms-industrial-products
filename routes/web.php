@@ -71,9 +71,9 @@ Route::get('/search-results', function () {
     return view('search-results');
 })->name('search-results');
 
-Route::get('/search-cat/{query}', 'SearchController@queryByCatalog');
-Route::get('/search-products/{query}', 'SearchController@queryByProduct');
-Route::get('/search-att/{query}', 'SearchController@queryByAttribute');
-Route::get('/search-att-val/{query}', 'SearchController@queryByAttributeValue');
+Route::get('/search-cat/{query}', 'CatalogSearchController@queryByCatalog');
+Route::get('/search-products/{query}', 'CatalogSearchController@queryByProduct');
+Route::get('/search-att/{query}', 'CatalogSearchController@queryByAttribute');
+Route::get('/search-att-val/{query}', 'CatalogSearchController@queryByAttributeValue');
 
-Route::get('/search/{query}','SearchController@queryByCombo');
+Route::get('/search/{query}','CatalogSearchController@queryByCombo');

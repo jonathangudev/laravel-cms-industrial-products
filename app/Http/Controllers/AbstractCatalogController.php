@@ -15,7 +15,9 @@ class AbstractCatalogController extends Controller
      */
     protected function applyProductFilters(Collection $categories, int $companyId)
     {
+
         return $categories->map(function ($category) use ($companyId) {
+
             $products = $category->products->withCompanyAttributeFilter($companyId)->normalizeAttributes();
 
             $category->products = $products;
