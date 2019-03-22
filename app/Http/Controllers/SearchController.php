@@ -43,9 +43,9 @@ class SearchController extends Controller
         $constraints = $category;
 
         // Search
-        $results = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->get();
+        $categories = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->get();
 
-        $categories = $this->applyProductFilters($results, $company->id);
+        //$categories = $this->applyProductFilters($results, $company->id);
 
         return $categories;
 
@@ -80,7 +80,7 @@ class SearchController extends Controller
 
         $categories = $this->buildCategoryProducts($products, $company);
 
-        $categories = $this->applyProductFilters($categories, $company->id);
+        //$categories = $this->applyProductFilters($categories, $company->id);
 
         return $categories;
 
@@ -123,9 +123,9 @@ class SearchController extends Controller
 
         $products = Product::whereIn('id', $uniqueProducts)->with('categories')->with('attributes')->get();
 
-        $categoryProducts = $this->buildCategoryProducts($products, $company);
+        $categories = $this->buildCategoryProducts($products, $company);
 
-        $categories = $this->applyProductFilters($categoryProducts, $company->id);
+        //$categories = $this->applyProductFilters($categories, $company->id);
 
         return $categories;
 
@@ -197,9 +197,9 @@ class SearchController extends Controller
 
         $products = Product::whereIn('id', $productIds)->with('categories')->with('attributes')->get();
 
-        $categoryProducts = $this->buildCategoryProducts($products, $company);
+        $categories = $this->buildCategoryProducts($products, $company);
 
-        $categories = $this->applyProductFilters($categoryProducts, $company->id);
+        //$categories = $this->applyProductFilters($categories, $company->id);
 
         return $categories;
 
@@ -219,6 +219,9 @@ class SearchController extends Controller
      */
     public function queryByCombo($query)
     {
+
+        $company = Auth::user()->company;
+
         $cp1 = $this->queryByProduct($query);
         $cp2 = $this->queryByCatalog($query);
         $cp3 = $this->queryByAttribute($query);
@@ -264,25 +267,38 @@ class SearchController extends Controller
                 if($catId == $categoryProduct->id)
                 {
   
+                    /**
+                     * Create the category if it hasn't been set yet
+                     */
                     if(!isset($object->id))
                     {
                         $object = new Category;
                         $object = $categoryProduct;
                     }
 
-                    $merged = $merged->merge($categoryProduct->products);
+                    foreach($categoryProduct->products as $product)
+                    {
+    
+                        //if the product is not in merged, add the product
+                        if(!($merged->contains(function ($value, $key) use ($product) {
+                            return $value->id == $product->id;
+                            })))
+                        {
+                            $merged = $merged->push($product);
+                        }
+                    }
 
                 }
 
-            };
+            }
 
-            $object->filteredProducts = $merged;
+            $object->products = $merged;
 
             $resultCategories->push($object);
 
         }
 
-        //dd($resultCategories);
+        $resultCategories = $this->applyProductFilters($resultCategories, $company->id);
 
         return view('search-results', [
             'categories' => $resultCategories,
