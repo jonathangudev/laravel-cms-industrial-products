@@ -86,7 +86,7 @@ class CatalogSearchController extends AbstractCatalogController
         $attributes = Attribute::search($query)->get()->pluck('id')->all();
 
         // Get all ids of all products that have this attribute
-        $productCompanies = AttributeValue::select('product_id','company_id')->whereIn('attribute_id',$attributes)->get();
+        $productCompanies = AttributeValue::select('product_id', 'company_id')->whereIn('attribute_id', $attributes)->get();
 
         /**
          * Remove all products that belong to another company.  
@@ -94,7 +94,7 @@ class CatalogSearchController extends AbstractCatalogController
          * Thus NULL company value means that this attribute applies to this product for all companies.
          */
 
-        $filteredProductCompanies = $productCompanies->filter(function($value,$key) use ($company) {
+        $filteredProductCompanies = $productCompanies->filter(function ($value, $key) use ($company) {
             return ($value->company_id == $company->id || $value->company_id === null);
         });
 
@@ -121,7 +121,7 @@ class CatalogSearchController extends AbstractCatalogController
         $company = Auth::user()->company;
 
         // Get ids of all products that have the attribute value by default (i.e. company is null)
-        $matches = AttributeValue::search($query)->get()->whereStrict('company_id',null);
+        $matches = AttributeValue::search($query)->get()->whereStrict('company_id', null);
 
         $attributes = $matches->pluck('attribute_id');
 
@@ -134,31 +134,28 @@ class CatalogSearchController extends AbstractCatalogController
         /**
          * Gets all potential cases where company specified attribute values may have overwritten a specific attribute value
          */
-        $companySpecified = AttributeValue::where('company_id','=',$company->id)
+        $companySpecified = AttributeValue::where('company_id', '=', $company->id)
             ->whereIn('attribute_id', $attributes)
             ->whereIn('product_id', $products)
             ->get();
 
-        foreach($attributes- as $attribute)
-        {
-            $attributesProducts = $matches->where('attribute_id','=',$attribute)->pluck('product_id');
+        foreach ($attributes as $attribute) {
+            $attributesProducts = $matches->where('attribute_id', '=', $attribute)->pluck('product_id');
 
-            foreach($attributesProducts as $attributesProduct)
-            {
+            foreach ($attributesProducts as $attributesProduct) {
                 /**
-                 * Kick out this row from the matches if company-specified attribute values exist for this attribute-product combination
-                 */
-                $matches = $matches->reject(function($value, $key) use ($companySpecified, $attribute, $attributesProduct){
+                * Kick out this row from the matches if company-specified attribute values exist for this attribute-product combination
+                */
+                $matches = $matches->reject(function ($value, $key) use ($companySpecified, $attribute, $attributesProduct) {
                     return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct && $this->companySpecifiedContains($companySpecified, $attribute, $attributesProduct));
                 });
-
             }
         }
 
         $productIds1 = $matches->pluck('product_id');
 
         // Get ids of all products that have the attribute value because it was specified by the company
-        $matches = AttributeValue::search($query)->get()->where('company_id','=',$company->id);
+        $matches = AttributeValue::search($query)->get()->where('company_id', '=', $company->id);
 
         $productIds2 = $matches->pluck('product_id');
 
@@ -193,14 +190,13 @@ class CatalogSearchController extends AbstractCatalogController
         /**
          * Merge all the categories (using concat instead of merge because merge will overwrite categories with the same ids)
          */
-        $mergedCategories= $cp1->concat($cp2)->concat($cp3)->concat($cp4);
+        $mergedCategories = $cp1->concat($cp2)->concat($cp3)->concat($cp4);
 
         $uniqueCatIds = $mergedCategories->pluck('id')->unique();
 
         $resultCategories = new Collection;
 
-        foreach($uniqueCatIds as $catId)
-        {
+        foreach ($uniqueCatIds as $catId) {
             /**
              * Create a new Category called categoryObject
              */
@@ -210,28 +206,23 @@ class CatalogSearchController extends AbstractCatalogController
             /**
              * Goes through every category in merged categories and merges in its products
              */
-            foreach($mergedCategories as $mergedCategory)
-            {
+            foreach ($mergedCategories as $mergedCategory) {
 
-                if($catId == $mergedCategory->id)
-                {
+                if ($catId == $mergedCategory->id) {
                     /**
                      * Create the category if it hasn't been set yet
                      */
-                    if(!isset($categoryObject))
-                    {
+                    if (!isset($categoryObject)) {
                         $categoryObject = $mergedCategory;
                     }
 
                     $mergedProducts = $mergedProducts->mergeProducts($mergedCategory->products);
                 }
-
             }
 
             $categoryObject->products = $mergedProducts;
 
             $resultCategories->push($categoryObject);
-
         }
 
 
@@ -255,11 +246,10 @@ class CatalogSearchController extends AbstractCatalogController
     {
         $mergedCategories = new Collection;
 
-        foreach($products as $product)
-        {
+        foreach ($products as $product) {
             $categories = $product->categories;
 
-            $filteredCategories = $categories->filter(function($value,$key) use ($company) {
+            $filteredCategories = $categories->filter(function ($value, $key) use ($company) {
                 return $value->company->id == $company->id;
             });
 
@@ -269,14 +259,12 @@ class CatalogSearchController extends AbstractCatalogController
             $p = $product;
             unset($p->categories);
 
-            foreach($filteredCategories  as $category)
-            {
+            foreach ($filteredCategories  as $category) {
                 $newCat = $category;
                 $productCollection = new ProductCollection([$p]);
                 $newCat->setRelation('products', $productCollection);
                 $mergedCategories->push($newCat);
             }
-
         }
 
         return $mergedCategories;
@@ -292,9 +280,8 @@ class CatalogSearchController extends AbstractCatalogController
      */
     protected function companySpecifiedContains($companySpecified, $attribute, $attributesProduct)
     {
-        return $companySpecified->contains(function ($value, $key) use($attribute, $attributesProduct) {
+        return $companySpecified->contains(function ($value, $key) use ($attribute, $attributesProduct) {
             return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct);
         });
     }
-
 }
