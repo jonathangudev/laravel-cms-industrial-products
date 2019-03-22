@@ -139,10 +139,12 @@ class CatalogSearchController extends AbstractCatalogController
             ->whereIn('product_id', $products)
             ->get();
 
-        $attributes->each(function($attribute, $key) use (&$matches, &$companySpecified){
+        foreach($attributes- as $attribute)
+        {
             $attributesProducts = $matches->where('attribute_id','=',$attribute)->pluck('product_id');
 
-            $attributesProducts->each(function($attributesProduct,$key) use (&$matches, &$companySpecified, &$attribute){
+            foreach($attributesProducts as $attributesProduct)
+            {
                 /**
                  * Kick out this row from the matches if company-specified attribute values exist for this attribute-product combination
                  */
@@ -150,8 +152,8 @@ class CatalogSearchController extends AbstractCatalogController
                     return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct && $this->companySpecifiedContains($companySpecified, $attribute, $attributesProduct));
                 });
 
-            });
-        });
+            }
+        }
 
         $productIds1 = $matches->pluck('product_id');
 
@@ -197,7 +199,8 @@ class CatalogSearchController extends AbstractCatalogController
 
         $resultCategories = new Collection;
 
-        $uniqueCatIds->each(function ($catId, $key) use (&$mergedCategories, &$resultCategories){
+        foreach($uniqueCatIds as $catId)
+        {
             /**
              * Create a new Category called categoryObject
              */
@@ -207,7 +210,8 @@ class CatalogSearchController extends AbstractCatalogController
             /**
              * Goes through every category in merged categories and merges in its products
              */
-            $mergedCategories->each(function($mergedCategory, $key) use (&$catId, &$mergedProducts, &$categoryObject) {
+            foreach($mergedCategories as $mergedCategory)
+            {
 
                 if($catId == $mergedCategory->id)
                 {
@@ -222,13 +226,13 @@ class CatalogSearchController extends AbstractCatalogController
                     $mergedProducts = $mergedProducts->mergeProducts($mergedCategory->products);
                 }
 
-            });
+            }
 
             $categoryObject->products = $mergedProducts;
 
             $resultCategories->push($categoryObject);
 
-        });
+        }
 
 
         $resultCategories = $this->applyProductFilters($resultCategories, $company->id);
@@ -251,7 +255,8 @@ class CatalogSearchController extends AbstractCatalogController
     {
         $mergedCategories = new Collection;
 
-        $products->each(function ($product, $key) use (&$mergedCategories, &$company){
+        foreach($products as $product)
+        {
             $categories = $product->categories;
 
             $filteredCategories = $categories->filter(function($value,$key) use ($company) {
@@ -264,14 +269,15 @@ class CatalogSearchController extends AbstractCatalogController
             $p = $product;
             unset($p->categories);
 
-            $filteredCategories->each(function($category, $key) use (&$p, &$newCat, &$mergedCategories){
+            foreach($filteredCategories  as $category)
+            {
                 $newCat = $category;
                 $productCollection = new ProductCollection([$p]);
                 $newCat->setRelation('products', $productCollection);
                 $mergedCategories->push($newCat);
-            });
+            }
 
-        });
+        }
 
         return $mergedCategories;
     }
