@@ -7,10 +7,11 @@ use App\Catalog\Product;
 use App\Catalog\Product\AttributeValue;
 use App\Catalog\Product\Attribute;
 use App\Catalog\Product\Collection as ProductCollection;
+use App\Http\Controllers\AbstractCatalogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
 
-class SearchController extends Controller
+class SearchController extends AbstractCatalogController
 {
     /**
      * Create a new controller instance.
@@ -30,7 +31,6 @@ class SearchController extends Controller
      */
     public function queryByCatalog($query)
     {
-
         $company = Auth::user()->company;
 
         /**
@@ -45,16 +45,7 @@ class SearchController extends Controller
         // Search
         $categories = Category::search($query)->constrain($constraints)->where('company_id', $company->id)->get();
 
-        //$categories = $this->applyProductFilters($results, $company->id);
-
         return $categories;
-
-        /*return view('search-results', [
-            'categories' => $categories,
-            'currentCategory' => null,
-            'categoryAncestors' => null,
-        ]);*/
-
     }
 
     /**
@@ -65,7 +56,6 @@ class SearchController extends Controller
      */
     public function queryByProduct($query)
     {
-
         $company = Auth::user()->company;
 
         /**
@@ -80,15 +70,7 @@ class SearchController extends Controller
 
         $categories = $this->buildCategoryProducts($products, $company);
 
-        //$categories = $this->applyProductFilters($categories, $company->id);
-
         return $categories;
-
-        /*return view('search-results', [
-            'categories' => $categories,
-            'currentCategory' => null,
-            'categoryAncestors' => null,
-        ]);*/
     }
 
     /**
@@ -99,7 +81,6 @@ class SearchController extends Controller
      */
     public function queryByAttribute($query)
     {
-
         $company = Auth::user()->company;
 
         $attributes = Attribute::search($query)->get()->pluck('id')->all();
@@ -125,15 +106,7 @@ class SearchController extends Controller
 
         $categories = $this->buildCategoryProducts($products, $company);
 
-        //$categories = $this->applyProductFilters($categories, $company->id);
-
         return $categories;
-
-        /*return view('search-results', [
-            'categories' => $categories,
-            'currentCategory' => null,
-            'categoryAncestors' => null,
-        ]);*/
     }
 
     /**
@@ -144,7 +117,6 @@ class SearchController extends Controller
      */
     public function queryByAttributeValue($query)
     {
-
         $company = Auth::user()->company;
 
         // Get all products that have the attribute value by default (i.e. company is null)
@@ -199,16 +171,7 @@ class SearchController extends Controller
 
         $categories = $this->buildCategoryProducts($products, $company);
 
-        //$categories = $this->applyProductFilters($categories, $company->id);
-
         return $categories;
-
-        /*return view('search-results', [
-            'categories' => $categories,
-            'currentCategory' => null,
-            'categoryAncestors' => null,
-        ]);*/
-
     }
 
     /**
@@ -219,7 +182,6 @@ class SearchController extends Controller
      */
     public function queryByCombo($query)
     {
-
         $company = Auth::user()->company;
 
         $cp1 = $this->queryByProduct($query);
@@ -279,7 +241,9 @@ class SearchController extends Controller
                     foreach($categoryProduct->products as $product)
                     {
     
-                        //if the product is not in merged, add the product
+                        /**
+                         *  if the product is not in merged, add the product
+                         **/
                         if(!($merged->contains(function ($value, $key) use ($product) {
                             return $value->id == $product->id;
                             })))
@@ -308,15 +272,14 @@ class SearchController extends Controller
     }
 
     /**
-     * Converts an array of products into an array of objects with a Category and Product property
+     * Converts an array of products into a collection of Categories, each containing one Product
      *
      * @param array $products
      * @param App\Company $company
-     * @return array
+     * @return Collection
      */
     protected function buildCategoryProducts($products, $company)
     {
-
         $categoryProducts = new Collection;
 
         foreach($products as $product)
@@ -327,6 +290,9 @@ class SearchController extends Controller
                 return $value->company->id == $company->id;
             });
 
+            /**
+             * Remove category property from the product to prevent recursion warning
+             */
             $p = $product;
             unset($p->categories);
 
@@ -341,7 +307,6 @@ class SearchController extends Controller
         }
 
         return $categoryProducts;
-
     }
 
     /**
@@ -353,13 +318,11 @@ class SearchController extends Controller
      */
     protected function mergeProducts($products1, $products2)
     {
-
         $mergedProducts = $products1->merge($products2);
 
         $uniqueProducts = $mergedProducts->unique('id');
 
         return $uniqueProducts->all();
-
     }
 
     /**
@@ -376,24 +339,5 @@ class SearchController extends Controller
             return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct);
         });
     }
-
-    /**
-     * Apply the product collection filters to a category collection
-     *
-     * @param Collection $categories
-     * @param integer $companyId
-     * @return Collection
-     */
-    protected function applyProductFilters($categories, int $companyId)
-    {
-        return $categories->map(function ($category) use ($companyId) {
-            $products = $category->products->withCompanyAttributeFilter($companyId)->normalizeAttributes();
-
-            $category->products = $products;
-
-            return $category;
-        });
-    }
-
 
 }
