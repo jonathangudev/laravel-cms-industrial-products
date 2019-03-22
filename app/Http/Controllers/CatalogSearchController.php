@@ -6,10 +6,8 @@ use App\Catalog\Category;
 use App\Catalog\Product;
 use App\Catalog\Product\AttributeValue;
 use App\Catalog\Product\Attribute;
-use App\Catalog\Product\Collection as ProductCollection;
 use App\Http\Controllers\AbstractCatalogController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Collection;
 
 class CatalogSearchController extends AbstractCatalogController
 {
@@ -29,7 +27,7 @@ class CatalogSearchController extends AbstractCatalogController
      * @param string $query
      * @return array
      */
-    public function queryByCatalog($query)
+    protected function queryByCategory($query)
     {
         $company = Auth::user()->company;
 
@@ -54,7 +52,7 @@ class CatalogSearchController extends AbstractCatalogController
      * @param string $query
      * @return array
      */
-    public function queryByProduct($query)
+    protected function queryByProduct($query)
     {
         $company = Auth::user()->company;
 
@@ -68,9 +66,7 @@ class CatalogSearchController extends AbstractCatalogController
         // Search (pulls all matches without company restriction because these are handled at category level)
         $products = Product::search($query)->constrain($constraints)->get();
 
-        $categories = $this->buildMergedCategories($products, $company);
-
-        return $categories;
+        return $products;
     }
 
     /**
@@ -79,7 +75,7 @@ class CatalogSearchController extends AbstractCatalogController
      * @param string $query
      * @return array
      */
-    public function queryByAttribute($query)
+    protected function queryByAttribute($query)
     {
         $company = Auth::user()->company;
 
@@ -105,19 +101,19 @@ class CatalogSearchController extends AbstractCatalogController
         // Get products by id (pulls all matches without company restriction because these are handled at category level)
         $products = Product::whereIn('id', $uniqueProducts)->with('categories')->with('attributes')->get();
 
-        $categories = $this->buildMergedCategories($products, $company);
-
-        return $categories;
+        return $products;
     }
 
     /**
      * Search the attribute values
      *
-     * @param string $query
+     * @param Request $request
      * @return array
      */
-    public function queryByAttributeValue($query)
+    protected function queryByAttributeValue(Request $request)
     {
+        $query = $request->input('query');
+
         $company = Auth::user()->company;
 
         // Get ids of all products that have the attribute value by default (i.e. company is null)
@@ -167,13 +163,11 @@ class CatalogSearchController extends AbstractCatalogController
         // Get products by id (pulls all matches without company restriction because these are handled at category level)
         $products = Product::whereIn('id', $productIds)->with('categories')->with('attributes')->get();
 
-        $categories = $this->buildMergedCategories($products, $company);
-
-        return $categories;
+        return $products;
     }
 
     /**
-     * Search by (1) Product, (2) Catalog Content, (3) Attribute Name, (4) Attribute Value and display results
+     * Search by (1) Product, (2) Attribute Name, (3) Attribute Value and display results, (4) Catalog Content,
      *
      * @param string $query
      * @return \Illuminate\Http\Response
@@ -182,92 +176,36 @@ class CatalogSearchController extends AbstractCatalogController
     {
         $company = Auth::user()->company;
 
-        $cp1 = $this->queryByProduct($query);
-        $cp2 = $this->queryByCatalog($query);
-        $cp3 = $this->queryByAttribute($query);
-        $cp4 = $this->queryByAttributeValue($query);
+        $productsByProduct = $this->queryByProduct($query);
+        $productsByAttribute = $this->queryByAttribute($query);
+        $productsByAttributeValue = $this->queryByAttributeValue($query);
+        $categoriesByCategory = $this->queryByCategory($query);
 
-        /**
-         * Merge all the categories (using concat instead of merge because merge will overwrite categories with the same ids)
-         */
-        $mergedCategories = $cp1->concat($cp2)->concat($cp3)->concat($cp4);
+        $mergedProducts = $productsByProduct->concat($productsByAttribute)->concat($productsByAttributeValue)->unique();
+        $productIds = $mergedProducts->pluck('id');
 
-        $uniqueCatIds = $mergedCategories->pluck('id')->unique();
+        $uniqueCategories = $this->getProductCollectionCategories($mergedProducts, $company);
 
-        $resultCategories = new Collection;
+        // Add in categories from queryByCategory
+        $uniqueCategories = $uniqueCategories->merge($categoriesByCategory)->unique('id');
 
-        $resultCategories = $uniqueCatIds->map(function ($catId) use ($mergedCategories) {
-            /**
-             * Create a new Category called categoryObject
-             */
-            $categoryObject = null;
-            $mergedProducts = new ProductCollection();
+        $categories = $this->applyProductFilters($uniqueCategories, $company->id);
 
-            /**
-             * Goes through every category in merged categories and merges in its products
-             */
-            foreach ($mergedCategories as $mergedCategory) {
+        $categoriesWithProducts = $categories->map(function ($category) use ($productIds) {
+            $filteredProds = $category->products->whereIn('id', $productIds);
 
-                if ($catId == $mergedCategory->id) {
-                    /**
-                     * Create the category if it hasn't been set yet
-                     */
-                    if (!isset($categoryObject)) {
-                        $categoryObject = $mergedCategory;
-                    }
-
-                    $mergedProducts = $mergedProducts->mergeProducts($mergedCategory->products);
-                }
+            if ($filteredProds->isNotEmpty()) {
+                $category->products = $filteredProds;
             }
 
-            $categoryObject->products = $mergedProducts;
-
-            return $categoryObject;
+            return $category;
         });
 
-
-        $resultCategories = $this->applyProductFilters($resultCategories, $company->id);
-
         return view('search-results', [
-            'categories' => $resultCategories,
+            'categories' => $categoriesWithProducts,
             'currentCategory' => null,
             'categoryAncestors' => null,
         ]);
-    }
-
-    /**
-     * Converts an array of products into a collection of Categories, each containing one Product
-     *
-     * @param array $products
-     * @param App\Company $company
-     * @return Collection
-     */
-    protected function buildMergedCategories($products, $company)
-    {
-        $mergedCategories = new Collection;
-
-        foreach ($products as $product) {
-            $categories = $product->categories;
-
-            $filteredCategories = $categories->filter(function ($value, $key) use ($company) {
-                return $value->company->id == $company->id;
-            });
-
-            /**
-             * Remove category property from the product to prevent recursion warning
-             */
-            $p = $product;
-            unset($p->categories);
-
-            foreach ($filteredCategories  as $category) {
-                $newCat = $category;
-                $productCollection = new ProductCollection([$p]);
-                $newCat->setRelation('products', $productCollection);
-                $mergedCategories->push($newCat);
-            }
-        }
-
-        return $mergedCategories;
     }
 
     /**
@@ -283,5 +221,22 @@ class CatalogSearchController extends AbstractCatalogController
         return $companySpecified->contains(function ($value, $key) use ($attribute, $attributesProduct) {
             return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct);
         });
+    }
+
+    /**
+     * Gets the unique categories of a collection of products
+     * 
+     * @param Illuminate\Database\Eloquent\Collection $products
+     * @param App\Company
+     * 
+     * @return Illuminate\Database\Eloquent\Collection 
+     */
+    protected function getProductCollectionCategories($products, $company)
+    {
+        return $products->map(function ($product) use ($company) {
+            return $product->categories->where('company_id', $company->id);
+        })
+            ->flatten(1)
+            ->unique();
     }
 }
