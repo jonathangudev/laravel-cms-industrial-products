@@ -105,19 +105,17 @@ class Collection extends EloquentCollection
     {
         $merged = $this;
 
-       foreach($products as $product)
-       {
-           /**
+        foreach ($products as $product) {
+            /**
             *  if the product is not in merged, add the product
             **/
-           if(!($merged->contains(function ($value, $key) use ($product) {
-               return $value->id == $product->id;
-               })))
-           {
-               $merged = $merged->push($product);
-           }
-       }
+            if (!($merged->contains(function ($value, $key) use ($product) {
+                return $value->id == $product->id;
+            }))) {
+                $merged = $merged->push($product);
+            }
+        }
 
-       return $merged;
+        return $merged;
     }
 }

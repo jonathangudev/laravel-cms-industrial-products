@@ -196,7 +196,7 @@ class CatalogSearchController extends AbstractCatalogController
 
         $resultCategories = new Collection;
 
-        foreach ($uniqueCatIds as $catId) {
+        $resultCategories = $uniqueCatIds->map(function ($catId) use ($mergedCategories) {
             /**
              * Create a new Category called categoryObject
              */
@@ -222,8 +222,8 @@ class CatalogSearchController extends AbstractCatalogController
 
             $categoryObject->products = $mergedProducts;
 
-            $resultCategories->push($categoryObject);
-        }
+            return $categoryObject;
+        });
 
 
         $resultCategories = $this->applyProductFilters($resultCategories, $company->id);
