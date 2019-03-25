@@ -8,6 +8,8 @@ use App\Catalog\Product\AttributeValue;
 use App\Catalog\Product\Attribute;
 use App\Http\Controllers\AbstractCatalogController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 
 class CatalogSearchController extends AbstractCatalogController
 {
@@ -107,13 +109,11 @@ class CatalogSearchController extends AbstractCatalogController
     /**
      * Search the attribute values
      *
-     * @param Request $request
+     * @param string $query
      * @return array
      */
-    protected function queryByAttributeValue(Request $request)
+    protected function queryByAttributeValue($query)
     {
-        $query = $request->input('query');
-
         $company = Auth::user()->company;
 
         // Get ids of all products that have the attribute value by default (i.e. company is null)
@@ -169,11 +169,13 @@ class CatalogSearchController extends AbstractCatalogController
     /**
      * Search by (1) Product, (2) Attribute Name, (3) Attribute Value and display results, (4) Catalog Content,
      *
-     * @param string $query
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function queryByCombo($query)
+    public function search(Request $request)
     {
+        $query = $request->input('query');
+
         $company = Auth::user()->company;
 
         $productsByProduct = $this->queryByProduct($query);
