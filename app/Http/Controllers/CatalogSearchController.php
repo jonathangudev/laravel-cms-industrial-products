@@ -30,7 +30,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the bottom-level categories (product groups) for the query
      *
      * @param string $query
-     * @return Illuminate\Support\Collection
+     * @return BaseCollection
      */
     protected function queryByCategory($query)
     {
@@ -86,25 +86,33 @@ class CatalogSearchController extends AbstractCatalogController
 
         $attributes = Attribute::search($query)->get()->pluck('id')->all();
 
-        // Get all ids of all products that have this attribute
-        $productCompanies = AttributeValue::select('product_id', 'company_id')->whereIn('attribute_id', $attributes)->get();
+        /**
+         * Get all ids of all products / company combinations that have this attribute
+         * */
+        $attributeValues = AttributeValue::whereIn('attribute_id', $attributes)->get();
+
+        $productCompanyIds = $attributeValues->map(function ($attributeValue) {
+            $object = new \stdClass;
+            $object->product_id = $attributeValue->product_id;
+            $object->company_id = $attributeValue->company_id;
+            return $object;
+        });
 
         /**
          * Remove all products that belong to another company.  
          * NULL company value means that this attribute applies to this product by default.
          * Thus NULL company value means that this attribute applies to this product for all companies.
          */
-
-        $filteredProductCompanies = $productCompanies->filter(function ($value, $key) use ($company) {
+        $filteredProductCompanyIds = $productCompanyIds->filter(function ($value, $key) use ($company) {
             return ($value->company_id == $company->id || $value->company_id === null);
         });
 
-        $filteredProducts = $filteredProductCompanies->pluck('product_id');
+        $filteredProductIds = $filteredProductCompanyIds->pluck('product_id');
 
-        $uniqueProducts = $filteredProducts->unique();
+        $uniqueProductIds = $filteredProductIds->unique();
 
         // Get products by id (pulls all matches without company restriction because these are handled at category level)
-        $products = Product::whereIn('id', $uniqueProducts)->with('categories')->with('attributes')->get();
+        $products = Product::whereIn('id', $uniqueProductIds)->with('categories')->with('attributes')->get();
 
         return $products;
     }
@@ -122,31 +130,28 @@ class CatalogSearchController extends AbstractCatalogController
         // Get ids of all products that have the attribute value by default (i.e. company is null)
         $matches = AttributeValue::search($query)->get()->whereStrict('company_id', null);
 
-        $attributes = $matches->pluck('attribute_id');
+        $attributeIds = $matches->pluck('attribute_id')->unique();
 
-        $attributes = $attributes->unique();
-
-        $products   = $matches->pluck('product_id');
-
-        $products   = $products->unique();
+        $productIds   = $matches->pluck('product_id')->unique();
 
         /**
-         * Gets all potential cases where company specified attribute values may have overwritten a specific attribute value
+         * Gets all potential cases where company specified attribute values may have overwritten a specific attribute value.
+         * Each AttributeValue in $matches that is overwritten by an AttributeValue in $companySpecifiedAttributeValues will be removed from $matches.
          */
-        $companySpecified = AttributeValue::where('company_id', '=', $company->id)
-            ->whereIn('attribute_id', $attributes)
-            ->whereIn('product_id', $products)
+        $companySpecifiedAttributeValues = AttributeValue::where('company_id', '=', $company->id)
+            ->whereIn('attribute_id', $attributeIds)
+            ->whereIn('product_id', $productIds)
             ->get();
 
-        foreach ($attributes as $attribute) {
-            $attributesProducts = $matches->where('attribute_id', '=', $attribute)->pluck('product_id');
+        foreach ($attributeIds as $attributeId) {
+            $attributeProductIds = $matches->where('attribute_id', '=', $attributeId)->pluck('product_id');
 
-            foreach ($attributesProducts as $attributesProduct) {
+            foreach ($attributeProductIds as $attributeProductId) {
                 /**
                 * Kick out this row from the matches if company-specified attribute values exist for this attribute-product combination
                 */
-                $matches = $matches->reject(function ($value, $key) use ($companySpecified, $attribute, $attributesProduct) {
-                    return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct && $this->companySpecifiedContains($companySpecified, $attribute, $attributesProduct));
+                $matches = $matches->reject(function ($value, $key) use ($companySpecifiedAttributeValues, $attributeId, $attributeProductId) {
+                    return ($value->attribute_id == $attributeId && $value->product_id == $attributeProductId && $this->companySpecifiedContains($companySpecifiedAttributeValues, $attributeId, $attributeProductId));
                 });
             }
         }
@@ -216,7 +221,7 @@ class CatalogSearchController extends AbstractCatalogController
     /**
      * Determines if the two values (attribute & product) are contained in the collection (of AttributeValues)
      *
-     * @param Illuminate\Database\Eloquent\Collection $companySpecified
+     * @param Collection $companySpecified
      * @param int $attribute
      * @param int $attributesProduct
      * @return boolean
@@ -231,10 +236,10 @@ class CatalogSearchController extends AbstractCatalogController
     /**
      * Gets the unique categories of a collection of products
      * 
-     * @param Illuminate\Support\Collection $products
+     * @param BaseCollection $products
      * @param App\Company
      * 
-     * @return Illuminate\Database\Eloquent\Collection 
+     * @return Collection 
      */
     protected function getProductCollectionCategories(BaseCollection $products, Company $company)
     {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Collection;
 
-class AbstractCatalogController extends Controller
+abstract class AbstractCatalogController extends Controller
 {
     /**
      * Apply the product collection filters to a category collection
@@ -15,9 +15,7 @@ class AbstractCatalogController extends Controller
      */
     protected function applyProductFilters(Collection $categories, int $companyId)
     {
-
         return $categories->map(function ($category) use ($companyId) {
-
             $products = $category->products->withCompanyAttributeFilter($companyId)->normalizeAttributes();
 
             $category->products = $products;
@@ -25,5 +23,4 @@ class AbstractCatalogController extends Controller
             return $category;
         });
     }
-
 }

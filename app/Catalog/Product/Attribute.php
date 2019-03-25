@@ -4,8 +4,6 @@ namespace App\Catalog\Product;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
-use App\Catalog\Product;
-
 
 class Attribute extends Model
 {
@@ -66,14 +64,4 @@ class Attribute extends Model
             'attribute_template_id'
         );
     }
-
-    /**
-     * Get the companies associated with an attribute
-     * 
-     * @return App\Catalog\Product
-     */
-    /*public function products()
-    {
-        return $this->hasMany(Product::Class,'catalog_product_attribute_values','attribute_id','product_id');
-    }*/
 }
