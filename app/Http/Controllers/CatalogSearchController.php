@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Catalog\Category;
 use App\Catalog\Product;
 use App\Catalog\Product\AttributeValue;
@@ -9,6 +10,8 @@ use App\Catalog\Product\Attribute;
 use App\Http\Controllers\AbstractCatalogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection as Collection;
+use Illuminate\Support\Collection as BaseCollection;
 
 
 class CatalogSearchController extends AbstractCatalogController
@@ -52,7 +55,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the products
      *
      * @param string $query
-     * @return Illuminate\Support\Collection
+     * @return BaseCollection
      */
     protected function queryByProduct($query)
     {
@@ -67,8 +70,6 @@ class CatalogSearchController extends AbstractCatalogController
 
         // Search (pulls all matches without company restriction because these are handled at category level)
         $products = Product::search($query)->constrain($constraints)->get();
-
-        echo get_class($products);
 
         return $products;
     }
@@ -220,7 +221,7 @@ class CatalogSearchController extends AbstractCatalogController
      * @param int $attributesProduct
      * @return boolean
      */
-    protected function companySpecifiedContains($companySpecified, $attribute, $attributesProduct)
+    protected function companySpecifiedContains(Collection $companySpecified, int $attribute, int $attributesProduct)
     {
         return $companySpecified->contains(function ($value, $key) use ($attribute, $attributesProduct) {
             return ($value->attribute_id == $attribute && $value->product_id == $attributesProduct);
@@ -230,12 +231,12 @@ class CatalogSearchController extends AbstractCatalogController
     /**
      * Gets the unique categories of a collection of products
      * 
-     * @param Illuminate\Database\Eloquent\Collection $products
+     * @param Illuminate\Support\Collection $products
      * @param App\Company
      * 
      * @return Illuminate\Database\Eloquent\Collection 
      */
-    protected function getProductCollectionCategories($products, $company)
+    protected function getProductCollectionCategories(BaseCollection $products, Company $company)
     {
         return $products->map(function ($product) use ($company) {
             return $product->categories->where('company_id', $company->id);
