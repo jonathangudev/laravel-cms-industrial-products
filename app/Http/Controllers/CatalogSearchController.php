@@ -27,7 +27,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the bottom-level categories (product groups) for the query
      *
      * @param string $query
-     * @return array
+     * @return Illuminate\Support\Collection
      */
     protected function queryByCategory($query)
     {
@@ -52,7 +52,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the products
      *
      * @param string $query
-     * @return array
+     * @return Illuminate\Support\Collection
      */
     protected function queryByProduct($query)
     {
@@ -68,6 +68,8 @@ class CatalogSearchController extends AbstractCatalogController
         // Search (pulls all matches without company restriction because these are handled at category level)
         $products = Product::search($query)->constrain($constraints)->get();
 
+        echo get_class($products);
+
         return $products;
     }
 
@@ -75,7 +77,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the attribute names
      *
      * @param string $query
-     * @return array
+     * @return App\Catalog\Product\Collection 
      */
     protected function queryByAttribute($query)
     {
@@ -110,7 +112,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the attribute values
      *
      * @param string $query
-     * @return array
+     * @return App\Catalog\Product\Collection 
      */
     protected function queryByAttributeValue($query)
     {
