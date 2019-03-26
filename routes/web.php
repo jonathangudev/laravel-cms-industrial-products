@@ -1,5 +1,7 @@
 <?php
 
+use App\Contact\Settings;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,4 +69,3 @@ Route::get('/search-results', function () {
 })->name('search-results');
 
 Route::post('/search', 'CatalogSearchController@search')->name('search');
-

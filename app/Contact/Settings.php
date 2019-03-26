@@ -4,6 +4,5 @@ namespace App\Contact;
 
 use Spatie\Valuestore\Valuestore;
 
-class Contact extends Valuestore
+class Settings extends Valuestore
 { }
-
