@@ -6,7 +6,7 @@ use App\Catalog\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class CatalogController extends Controller
+class CatalogController extends AbstractCatalogController
 {
     /**
      * Create a new controller instance.
@@ -97,11 +97,9 @@ class CatalogController extends Controller
             ]);
         } else {
             $filteredCategories = $category->children->filter(function ($child) {
-                return (
-                    $child->content ||
+                return ($child->content ||
                     $child->hasMedia('category-gallery') ||
-                    $child->products->count() > 0
-                );
+                    $child->products->count() > 0);
             });
 
             if ($filteredCategories->isEmpty()) {
@@ -114,23 +112,5 @@ class CatalogController extends Controller
                 'categoryAncestors' => $categoryAncestors,
             ]);
         }
-    }
-
-    /**
-     * Apply the product collection filters to a category collection
-     *
-     * @param Collection $categories
-     * @param integer $companyId
-     * @return Collection
-     */
-    protected function applyProductFilters(Collection $categories, int $companyId)
-    {
-        return $categories->map(function ($category) use ($companyId) {
-            $products = $category->products->withCompanyAttributeFilter($companyId)->normalizeAttributes();
-
-            $category->products = $products;
-
-            return $category;
-        });
     }
 }

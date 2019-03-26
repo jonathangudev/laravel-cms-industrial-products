@@ -65,3 +65,6 @@ Route::get(
 Route::get('/search-results', function () {
     return view('search-results');
 })->name('search-results');
+
+Route::post('/search', 'CatalogSearchController@search')->name('search');
+
