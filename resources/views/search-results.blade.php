@@ -23,12 +23,12 @@
 	</div>
 	<div class="row">
 		<div class="col-24 col-md-12 col-lg-10">
-			<form action="/" class="o-form">
+			<form action="{{ route('search') }}" method="POST" class="o-form">
 				@csrf
 				<div class="o-form__group">
 					<div class="o-form__search">
 						<label for="jmp-results-search">{{ __('Search Products') }}</label>
-						<input type="search" id="jmp-results-search" placeholder="Search products..." aria-label="Search Products">
+						<input type="search" id="jmp-results-search" name="query" placeholder="Search products..." aria-label="Search Products">
 						<button type="submit" class="c-btn" aria-label="Search"><i class="fas fa-search"></i></button>
 					</div>
 				</div>
@@ -37,25 +37,22 @@
 	</div>
 	<div class="row">
 		<div class="col-24">
-			{{-- GET SEARCH STATS HERE --}}
-			<p><strong>## Search Results for: "XXXXXXXXXX"</strong></p>
+			<p><strong>Search Results for: "{{ $query }}"</strong></p>
 		</div>
 	</div>
 
 	<link rel="stylesheet" href="{{ mix('/css/search-results.css') }}">
 	<link rel="stylesheet" href="{{ mix('/css/product-table.css') }}">
 	<section class="c-search-results">
-		{{-- BEGIN LOOPING OVER PRODUCT GROUPS HERE --}}
-		<div class="row">
-			<div class="col-24">
-				<div class="c-search-results__group">
-					<h3>Example Product Group Name 1</h3>
-
-					{{-- CREATE PRODUCT TABLES HERE --}}
-					<div class="c-product-table c-product-table--desktop d-none d-md-block"></div>
-					<div class="c-product-table c-product-table--mobile d-md-none">
+		@foreach ($categories as $category)
+			<div class="row">
+				<div class="col-24">
+					<div class="c-search-results__group">
+						<h3>{{ $category->name }}</h3>
+						@include('partials.product-table', ['category' => $category])
+					</div>
 				</div>
 			</div>
-		</div>
+		@endforeach
 	</section>
 @endsection

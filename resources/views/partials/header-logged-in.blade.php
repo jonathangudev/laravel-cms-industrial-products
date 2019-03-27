@@ -16,11 +16,11 @@
 				<div class="col-4 col-md-12 col-lg-15 col-xl-16 offset-xl-1">
 					<div class="row">
 						<div class="col col-lg-12">
-							<form action="/" class="o-form d-none d-md-block">
+							<form action="{{ route('search') }}" method="POST" class="o-form d-none d-md-block">
 								@csrf
 								<div class="o-form__search">
 									<label for="jmp-header-search">{{ __('Search Products') }}</label>
-									<input type="search" id="jmp-header-search" placeholder="Search products..." aria-label="Search Products">
+									<input type="search" id="jmp-header-search" name="query" placeholder="Search products..." aria-label="Search Products">
 									<button type="submit" class="c-btn" aria-label="Search"><i class="fas fa-search"></i></button>
 								</div>
 							</form>

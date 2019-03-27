@@ -1,5 +1,5 @@
 // Product Table
-// 
+//
 // Styles for product table
 
 @import 'globals';
@@ -26,7 +26,7 @@ $table-img-size:								$leading * 2;
 		padding: $table-cell-padding-y $table-cell-padding-x;
 	}
 
-	td {		
+	td {
 		a {
 			font-size: $font-size-base;
 		}
@@ -84,7 +84,7 @@ $table-img-size:								$leading * 2;
 			tr {
 				height: $table-cell-height;
 			}
-	
+
 			td {
 				border-bottom: $border-width solid $table-border-color;
 			}
@@ -99,7 +99,7 @@ $table-img-size:								$leading * 2;
 							box-shadow $transition-duration-short ease-in,
 							z-index 0ms linear $transition-duration-short;
 				z-index: 1;
-	
+
 				&:focus,
 				&:hover {
 					z-index: 4;
@@ -107,7 +107,7 @@ $table-img-size:								$leading * 2;
 					box-shadow: $box-shadow;
 					transition: transform $transition-duration-short ease-out,
 								box-shadow $transition-duration-short ease-out;
-	
+
 				}
 			}
 		}
@@ -120,7 +120,7 @@ $table-img-size:								$leading * 2;
 		tr {
 			&:nth-child(even) {
 				background-color: $table-header-bg;
-				
+
 				th {
 					background-color: $table-header-bg;
 				}
@@ -130,8 +130,12 @@ $table-img-size:								$leading * 2;
 		th {
 			position: sticky;
 			left: 0;
-			max-width: 10rem;
+			width: 1%;
+			min-width: 10rem;
+			max-width: 15rem;
 			background-color: $table-bg;
+			overflow-wrap: break-word;
+			hyphens: auto;
 
 			&:after {
 				content: '';
@@ -146,7 +150,7 @@ $table-img-size:								$leading * 2;
 
 		td {
 			min-width: 14rem;
-			word-break: break-word;
+			overflow-wrap: break-word;
 		}
 	}
 
@@ -167,7 +171,7 @@ $table-img-size:								$leading * 2;
 		a {
 			color: $text-muted-color;
 			display: inline-block;
-			
+
 			&:before {
 				content: '';
 				position: absolute;
