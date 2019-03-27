@@ -1,6 +1,7 @@
 <?php
 
-use App\Contact\Settings;
+// TODO - remove
+//use App\Contact\Settings;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use App\Contact\Settings;
  */
 
 Route::get('/', function () {
+
+    // TODO - remove
+    //dd(app(Settings::class));
     return view('home');
 })->name('home');
 
