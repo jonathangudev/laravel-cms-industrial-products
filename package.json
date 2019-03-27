@@ -19,7 +19,9 @@
         "build-company-catalog-manager": "cd nova-components/CompanyCatalogManager && npm run dev",
         "build-company-catalog-manager-prod": "cd nova-components/CompanyCatalogManager && npm run prod",
         "build-product-spec-sheet-manager": "cd nova-components/ProductSpecSheetManager && npm run dev",
-        "build-product-spec-sheet-manager-prod": "cd nova-components/ProductSpecSheetManager && npm run prod"
+        "build-product-spec-sheet-manager-prod": "cd nova-components/ProductSpecSheetManager && npm run prod",
+        "build-contact-settings-manager": "cd nova-components/ContactSettingsManager && npm run dev",
+        "build-contact-settings-manager-prod": "cd nova-components/ContactSettingsManager && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",
