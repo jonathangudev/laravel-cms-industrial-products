@@ -78,7 +78,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the attribute names
      *
      * @param string $query
-     * @return App\Catalog\Product\Collection 
+     * @return App\Catalog\Product\Collection
      */
     protected function queryByAttribute($query)
     {
@@ -99,7 +99,7 @@ class CatalogSearchController extends AbstractCatalogController
         });
 
         /**
-         * Remove all products that belong to another company.  
+         * Remove all products that belong to another company.
          * NULL company value means that this attribute applies to this product by default.
          * Thus NULL company value means that this attribute applies to this product for all companies.
          */
@@ -121,7 +121,7 @@ class CatalogSearchController extends AbstractCatalogController
      * Search the attribute values
      *
      * @param string $query
-     * @return App\Catalog\Product\Collection 
+     * @return App\Catalog\Product\Collection
      */
     protected function queryByAttributeValue($query)
     {
@@ -215,6 +215,7 @@ class CatalogSearchController extends AbstractCatalogController
             'categories' => $categoriesWithProducts,
             'currentCategory' => null,
             'categoryAncestors' => null,
+            'query' => $query
         ]);
     }
 
@@ -235,11 +236,11 @@ class CatalogSearchController extends AbstractCatalogController
 
     /**
      * Gets the unique categories of a collection of products
-     * 
+     *
      * @param BaseCollection $products
      * @param App\Company
-     * 
-     * @return Collection 
+     *
+     * @return Collection
      */
     protected function getProductCollectionCategories(BaseCollection $products, Company $company)
     {
