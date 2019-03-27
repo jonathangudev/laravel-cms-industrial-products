@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e22828dbba2f0136045e54dac368768e",
+    "content-hash": "e257fe4045bda187b0a24840aed85488",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -1126,6 +1126,39 @@
             "autoload": {
                 "psr-4": {
                     "Jmp\\CompanyManager\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
+            "name": "jmp/contact-settings-manager",
+            "version": "dev-feature/contact-admin",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/ContactSettingsManager",
+                "reference": "f6aa7cf32a3fa40fd17e6ce409698c30e9f504f4"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jmp\\ContactSettingsManager\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jmp\\ContactSettingsManager\\": "src/"
                 }
             },
             "license": [
