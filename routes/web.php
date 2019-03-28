@@ -1,8 +1,5 @@
 <?php
 
-// TODO - remove
-use App\Contact\Settings;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,27 +12,6 @@ use App\Contact\Settings;
  */
 
 Route::get('/', function () {
-
-    // TODO - remove
-    //dd(app(Settings::class)->has('key'));
-    //dd(app()->make(Settings::class));
-    //$valuestore = Settings::make(storage_path('app/settings/contact.json'));
-    //$valuestore->put()
-    //$valuestore->put('j1', 'value1');
-    //app()->make(Settings::class);
-
-    //app(Settings::class)->put('emailRecipients', $array);
-    $results = app(Settings::class)->get('emailRecipients');
-
-    dd($results);
-
-    //app(Settings::class)->forget('emailRecipients');
-
-    //app(Settings::class)->forget('j2');
-    //app(Settings::class)->put('j7', 'value7');
-
-    //return view('home');
-    //return count($valuestore);
     return app(Settings::class)->count();
 })->name('home');
 
