@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Contact\Settings;
 
@@ -15,41 +14,10 @@ use App\Contact\Settings;
 |
 */
 
-Route::get('/endpoint', function () {
-        //$this->app(Settings::class)->put('emailRecipients', $request['emailRecipient']);
-    ;
-    return response()->json();
-});
-
-/** 
- * POST ROUTES
-*/
-Route::post('/email-recipient', function (Request $request) {
-    $validated = $request->validate([
-        'email' => 'required|email',
-    ]);
-
-    $newEmail = $validated['email'];
-
-    app(Settings::class)->storeToArray('emailRecipients', $newEmail);
-
-    $result = app(Settings::class)->get('emailRecipients');
-
-    return response()->json($result);
-});
-
-Route::post('/email-cc', function () {
-    return response()->json();
-});
-
-Route::post('/email-bcc', function () {
-    return response()->json();
-});
-
 /** 
  * DELETE ROUTES
 */
-Route::delete('/email-recipient/{index}', function ($index) {
+/*Route::delete('/email-recipient/{index}', function ($index) {
 
     $storedEmails = app(Settings::class)->get('emailRecipients');
 
@@ -63,17 +31,25 @@ Route::delete('/email-recipient/{index}', function ($index) {
     app(Settings::class)->put('emailRecipients', $storedEmails);
 
     /*return response()->json($index);*/
-});
+//});
 
 //TODO - add for cc's
 
 /** 
  * GET ROUTES
-*/
-Route::get('/email-recipient', function () {
-    $result = app(Settings::class)->get('emailRecipients');
+**/
+Route::get('/email-recipient', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@getEmailRecipients');
+Route::get('/email-cc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@getEmailCcs');
+Route::get('/email-bcc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@getEmailBccs');
 
-    return response()->json($result);
-});
+/** 
+ * POST ROUTES
+**/
+Route::post('/email-recipient', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@storeEmailRecipient');
+Route::post('/email-cc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@storeEmailCc');
+Route::post('/email-bcc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@storeEmailBcc');
 
-//TODO - add for bcc's
+/**
+ * DELETE ROUTES
+ */
+Route::delete('/email-recipient/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailRecipient');
