@@ -21,8 +21,15 @@ Route::get('/endpoint', function () {
     return response()->json();
 });
 
+/** 
+ * POST ROUTES
+*/
 Route::post('/email-recipient', function (Request $request) {
-    $newEmail = $request->input('email');
+    $validated = $request->validate([
+        'email' => 'required|email',
+    ]);
+
+    $newEmail = $validated['email'];
 
     app(Settings::class)->storeToArray('emailRecipients', $newEmail);
 
@@ -39,6 +46,34 @@ Route::post('/email-bcc', function () {
     return response()->json();
 });
 
-Route::delete('/email-recipient', function () {
-    return response()->json();
+/** 
+ * DELETE ROUTES
+*/
+Route::delete('/email-recipient/{index}', function ($index) {
+
+    $storedEmails = app(Settings::class)->get('emailRecipients');
+
+    // Initializes empty array in the case when the key does not exist.
+    if (empty($storedEmails)) {
+        $storedEmails = [];
+    }
+
+    array_splice($storedEmails, $index, 1);
+
+    app(Settings::class)->put('emailRecipients', $storedEmails);
+
+    /*return response()->json($index);*/
 });
+
+//TODO - add for cc's
+
+/** 
+ * GET ROUTES
+*/
+Route::get('/email-recipient', function () {
+    $result = app(Settings::class)->get('emailRecipients');
+
+    return response()->json($result);
+});
+
+//TODO - add for bcc's

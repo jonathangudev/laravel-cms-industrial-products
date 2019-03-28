@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -654,21 +654,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: ""
+      email: "",
+      emailRecipients: []
     };
   },
 
 
+  created: function created() {
+    this.getRecipientEmails();
+  },
+
   methods: {
     submitRecipientEmail: function submitRecipientEmail() {
+      var _this = this;
+
       axios.post("/nova-vendor/contact-settings-manager/email-recipient", {
         email: this.email
       }).then(function (response) {
+        //console.log(response);
+        _this.getRecipientEmails();
+      });
+
+      this.email = "";
+    },
+    getRecipientEmails: function getRecipientEmails() {
+      var _this2 = this;
+
+      axios.get("/nova-vendor/contact-settings-manager/email-recipient").then(function (response) {
+        _this2.emailRecipients = response.data;
+      });
+    },
+    deleteRecipientEmail: function deleteRecipientEmail(e) {
+      var _this3 = this;
+
+      var index = e.currentTarget.getAttribute("data-email-recipients-index");
+
+      axios.delete("/nova-vendor/contact-settings-manager/email-recipient/" + index).then(function (response) {
         console.log(response);
+        _this3.getRecipientEmails();
       });
     }
   }
@@ -692,57 +738,83 @@ var render = function() {
       _c(
         "card",
         {
-          staticClass: "flex flex-col items-center justify-center",
+          staticClass: "flex flex-row items-center justify-center",
           staticStyle: { "min-height": "300px" }
         },
         [
-          _c(
-            "h1",
-            { staticClass: "text-black text-4xl text-90 font-light mb-6" },
-            [_vm._v("Set Email Recipients List")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "recipientEmail" } }, [
-              _vm._v("Email address")
+          _c("div", [
+            _c("h3", [_vm._v("Email Recipients")]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "ul",
+                { attrs: { id: "email-recipients" } },
+                _vm._l(_vm.emailRecipients, function(item, index) {
+                  return _c("li", [
+                    _vm._v("\n            " + _vm._s(item) + "\n            "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default btn-danger",
+                        attrs: { "data-email-recipients-index": index },
+                        on: { click: _vm.deleteRecipientEmail }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.email,
-                  expression: "email"
-                }
-              ],
-              staticClass: "form-control form-input form-input-bordered",
-              attrs: {
-                type: "email",
-                id: "recipientEmail",
-                name: "recipientEmail",
-                placeholder: "Enter email"
-              },
-              domProps: { value: _vm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "recipientEmail" } }, [
+                _vm._v("Email address")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
                   }
-                  _vm.email = $event.target.value
+                ],
+                staticClass: "form-control form-input form-input-bordered",
+                attrs: {
+                  type: "email",
+                  id: "recipientEmail",
+                  name: "recipientEmail",
+                  placeholder: "Enter email"
+                },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
                 }
-              }
-            })
+              })
+            ]),
+            _vm._v("31\n      "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-primary",
+                on: { click: _vm.submitRecipientEmail }
+              },
+              [_vm._v("Add")]
+            )
           ]),
-          _vm._v("18\n    "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default btn-primary",
-              on: { click: _vm.submitRecipientEmail }
-            },
-            [_vm._v("Add")]
-          )
+          _vm._v(" "),
+          _c("div"),
+          _vm._v(" "),
+          _c("div")
         ]
       )
     ],

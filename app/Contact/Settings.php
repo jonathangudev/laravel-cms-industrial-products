@@ -6,6 +6,7 @@ use Spatie\Valuestore\Valuestore;
 
 class Settings extends Valuestore
 {
+    // TODO - add descriptions etc.
     public function storeToArray(string $key, string $value)
     {
         $storedEmails = app(Settings::class)->get($key);

@@ -23,7 +23,6 @@ Route::get('/', function () {
     //$valuestore->put()
     //$valuestore->put('j1', 'value1');
     //app()->make(Settings::class);
-    $array = ["string1", "string2"];
 
     //app(Settings::class)->put('emailRecipients', $array);
     $results = app(Settings::class)->get('emailRecipients');
