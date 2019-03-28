@@ -3,7 +3,7 @@
 namespace Jmp\ContactSettingsManager\Http\Middleware;
 
 use Laravel\Nova\Nova;
-use Jmp\ContactSettingsManager\ContactSettingsManager;
+use Jmp\ContactSettingsManager\ContactSettingsManagerTool;
 
 class Authorize
 {
@@ -16,9 +16,10 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        $tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
+        //$tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
 
-        return optional($tool)->authorize($request) ? $next($request) : abort(403);
+        //return optional($tool)->authorize($request) ? $next($request) : abort(403);
+        return resolve(ContactSettingsManagerTool::class)->authorize($request) ? $next($request) : abort(403);
     }
 
     /**

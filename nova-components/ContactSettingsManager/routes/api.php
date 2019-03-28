@@ -15,6 +15,30 @@ use App\Contact\Settings;
 |
 */
 
-Route::post('/', function (Request $request) {
-    $this->app(Settings::class)->put('emailRecipients', $request['emailRecipient']);
+Route::get('/endpoint', function () {
+        //$this->app(Settings::class)->put('emailRecipients', $request['emailRecipient']);
+    ;
+    return response()->json();
+});
+
+Route::post('/email-recipient', function (Request $request) {
+    $newEmail = $request->input('email');
+
+    app(Settings::class)->storeToArray('emailRecipients', $newEmail);
+
+    $result = app(Settings::class)->get('emailRecipients');
+
+    return response()->json($result);
+});
+
+Route::post('/email-cc', function () {
+    return response()->json();
+});
+
+Route::post('/email-bcc', function () {
+    return response()->json();
+});
+
+Route::delete('/email-recipient', function () {
+    return response()->json();
 });

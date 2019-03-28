@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -654,14 +654,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      email: ""
+    };
+  },
+
+
   methods: {
     submitRecipientEmail: function submitRecipientEmail() {
-      Nova.request().post("/nova-vendor/contact-settings-manager").then(function (data) {
-        alert("Success");
+      axios.post("/nova-vendor/contact-settings-manager/email-recipient", {
+        email: this.email
+      }).then(function (response) {
+        console.log(response);
       });
     }
   }
@@ -695,33 +702,47 @@ var render = function() {
             [_vm._v("Set Email Recipients List")]
           ),
           _vm._v(" "),
-          _c("form", [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "recipientEmail" } }, [
-                _vm._v("Email address")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control form-input form-input-bordered",
-                attrs: {
-                  type: "email",
-                  id: "recipientEmail",
-                  name: "recipientEmail",
-                  placeholder: "Enter email"
-                }
-              })
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "recipientEmail" } }, [
+              _vm._v("Email address")
             ]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default btn-primary",
-                attrs: { type: "submit" },
-                on: { click: _vm.submitRecipientEmail }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.email,
+                  expression: "email"
+                }
+              ],
+              staticClass: "form-control form-input form-input-bordered",
+              attrs: {
+                type: "email",
+                id: "recipientEmail",
+                name: "recipientEmail",
+                placeholder: "Enter email"
               },
-              [_vm._v("Add")]
-            )
-          ])
+              domProps: { value: _vm.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.email = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v("18\n    "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-primary",
+              on: { click: _vm.submitRecipientEmail }
+            },
+            [_vm._v("Add")]
+          )
         ]
       )
     ],
