@@ -16,9 +16,10 @@ class Authorize
      */
     public function handle($request, $next)
     {
+        // Removed this code that was built with the artisan nova tool builder
         //$tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
-
         //return optional($tool)->authorize($request) ? $next($request) : abort(403);
+
         return resolve(ContactSettingsManagerTool::class)->authorize($request) ? $next($request) : abort(403);
     }
 

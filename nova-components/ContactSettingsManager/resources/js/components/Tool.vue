@@ -5,33 +5,38 @@
     <card class style="min-height: 300px">
       <div class="w-full p-6">
         <h3>Email Recipients</h3>
-        <table class="table table-fixed w-full" id="email-recipients">
-          <tr v-for="(item, index) in emailRecipients">
-            <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
-            <td class="w-1/4 text-right pr-6 py-0">
-              <button
-                @click="deleteEmailRecipient"
-                class="appearance-none cursor-pointer text-70 hover:text-primary"
-                v-bind:data-email-recipients-index="index"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  aria-labelledby="delete"
-                  role="presentation"
-                  class="fill-current"
+        <template v-if="emailRecipients.length === undefined || emailRecipients.length == 0">
+          <div class="italic mt-3 text-base">No entries in the email recipients list</div>
+        </template>
+        <template v-else>
+          <table class="table table-fixed w-full" id="email-recipients">
+            <tr v-for="(item, index) in emailRecipients">
+              <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
+              <td class="w-1/4 text-right pr-6 py-0">
+                <button
+                  @click="deleteEmailRecipient"
+                  class="appearance-none cursor-pointer text-70 hover:text-primary"
+                  v-bind:data-email-recipients-index="index"
                 >
-                  <path
-                    fill-rule="nonzero"
-                    d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
-                  ></path>
-                </svg>
-              </button>
-            </td>
-          </tr>
-        </table>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    aria-labelledby="delete"
+                    role="presentation"
+                    class="fill-current"
+                  >
+                    <path
+                      fill-rule="nonzero"
+                      d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </template>
         <div class="mt-3 flex justify-end">
           <div class="form-group">
             <label for="emailRecipient">Add an email address to the recipients list:</label>
@@ -49,33 +54,38 @@
 
       <div class="w-full p-6">
         <h3>Email CCs List</h3>
-        <table class="table table-fixed w-full" id="email-ccs">
-          <tr v-for="(item, index) in emailCcs">
-            <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
-            <td class="w-1/4 text-right pr-6 py-0">
-              <button
-                @click="deleteEmailCc"
-                class="appearance-none cursor-pointer text-70 hover:text-primary"
-                v-bind:data-email-ccs-index="index"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  aria-labelledby="delete"
-                  role="presentation"
-                  class="fill-current"
+        <template v-if="emailCcs.length === undefined || emailCcs.length == 0">
+          <div class="italic mt-3 text-base">No entries in the email CCs list</div>
+        </template>
+        <template v-else>
+          <table class="table table-fixed w-full" id="email-ccs">
+            <tr v-for="(item, index) in emailCcs">
+              <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
+              <td class="w-1/4 text-right pr-6 py-0">
+                <button
+                  @click="deleteEmailCc"
+                  class="appearance-none cursor-pointer text-70 hover:text-primary"
+                  v-bind:data-email-ccs-index="index"
                 >
-                  <path
-                    fill-rule="nonzero"
-                    d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
-                  ></path>
-                </svg>
-              </button>
-            </td>
-          </tr>
-        </table>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    aria-labelledby="delete"
+                    role="presentation"
+                    class="fill-current"
+                  >
+                    <path
+                      fill-rule="nonzero"
+                      d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </template>
         <div class="mt-3 flex justify-end">
           <div class="form-group">
             <label for="emailCc">Add an email address to the recipients list:</label>
