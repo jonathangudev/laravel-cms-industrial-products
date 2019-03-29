@@ -31,3 +31,5 @@ Route::post('/email-bcc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactS
  * DELETE ROUTES
  */
 Route::delete('/email-recipient/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailRecipient');
+Route::delete('/email-cc/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailCc');
+Route::delete('/email-bcc/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailBcc');

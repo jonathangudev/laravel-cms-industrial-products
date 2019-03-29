@@ -43,10 +43,30 @@ class ContactSettingsManagerController extends Controller
 
         $newEmail = $validated['email'];
 
-        app(Settings::class)->storeToArray('emailRecipients', $newEmail);
+        $this->storeToEmailArray('emailRecipients', $newEmail);
     }
 
-    // TODO add more
+    public function storeEmailCc(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $newEmail = $validated['email'];
+
+        $this->storeToEmailArray('emailCcs', $newEmail);
+    }
+
+    public function storeEmailBcc(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $newEmail = $validated['email'];
+
+        $this->storeToEmailArray('emailBccs', $newEmail);
+    }
 
     /**
      * DELETE FUNCTIONS
@@ -56,12 +76,48 @@ class ContactSettingsManagerController extends Controller
         $this->deleteFromEmailArray('emailRecipients', $index);
     }
 
-    // TODO add more
+    public function deleteEmailCc($index)
+    {
+        $this->deleteFromEmailArray('emailCcs', $index);
+    }
+
+    public function deleteEmailBcc($index)
+    {
+        $this->deleteFromEmailArray('emailBccs', $index);
+    }
 
     /**
      * HELPER METHODS
      */
+
+    /**
+     * Delete an item from an array (identified by key) in the Settings valuestore at a particular index.
+     * If the index is not in the array, or if the value at that key does not exist, does nothing.
+     *
+     * @param  string  $key
+     * @param  int  $index
+     * @return void
+     */
     protected function deleteFromEmailArray(string $key, int $index)
+    {
+        $storedEmails = app(Settings::class)->get($key);
+
+        if (count($storedEmails) > $index + 1) {
+            array_splice($storedEmails, $index, 1);
+        }
+
+        app(Settings::class)->put($key, $storedEmails);
+    }
+
+    /**
+     * Pushes a value to an array (identified by key) in the Settings valuestore.
+     * If no value exists for that key, creates the array with that value in it.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return void
+     */
+    protected function storeToEmailArray(string $key, string $value)
     {
         $storedEmails = app(Settings::class)->get($key);
 
@@ -70,8 +126,7 @@ class ContactSettingsManagerController extends Controller
             $storedEmails = [];
         }
 
-        // TODO - when index isn't there?
-        array_splice($storedEmails, $index, 1);
+        $storedEmails[] = $value;
 
         app(Settings::class)->put($key, $storedEmails);
     }

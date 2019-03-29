@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\Contact\Settings;
 use App\Mail\ContactSubmitted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -46,18 +47,13 @@ class ContactController extends Controller
 
         $mail = new ContactSubmitted($contact);
 
-        // Uncomment and use Valuestore to get the actual email recipients below
-
-        /*$pathToFile = '';
-        $valuestore = Valuestore::make($pathToFile);
-
-        $emailRecipients = $valuestore['email-recipients'];
-        $emailCcs   = $valuestore['email-ccs'];
-        $emailBccs    = $valuestore['email-bccs'];*/
-
-        $emailRecipients = ['nevin@vividfront.com'];
-        $emailCcs = ['jtesta@vividfront.com'];
-        $emailBccs = [];
+        /**
+         * Pulls values from Settings Valuestore.  If the Valuestore is empty, set to an empty array rather than null
+         * since Mail does not accept null values to senders.
+         */
+        $emailRecipients = app(Settings::class)->get('emailRecipients') ? app(Settings::class)->get('emailRecipients') : [];
+        $emailCcs = app(Settings::class)->get('emailCcs') ? app(Settings::class)->get('emailCcs') : [];
+        $emailBccs = app(Settings::class)->get('emailBccs') ? app(Settings::class)->get('emailBccs') : [];
 
         Mail::to($emailRecipients)
             ->cc($emailCcs)

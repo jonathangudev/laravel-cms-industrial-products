@@ -2,16 +2,16 @@
   <div>
     <heading class="mb-6">Contact Settings Manager</heading>
 
-    <card class="flex flex-row items-center justify-center" style="min-height: 300px">
-      <div class="w-1/3 p-6">
+    <card class style="min-height: 300px">
+      <div class="w-full p-6">
         <h3>Email Recipients</h3>
-        <div>
-          <ul class="list-reset" id="email-recipients">
-            <li class="flex" v-for="(item, index) in emailRecipients">
-              <div class="w-3/4 overflow-x-auto">{{ item }}</div>
+        <table class="table table-fixed w-full" id="email-recipients">
+          <tr v-for="(item, index) in emailRecipients">
+            <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
+            <td class="w-1/4 text-right pr-6 py-0">
               <button
-                @click="deleteRecipientEmail"
-                class="appearance-none cursor-pointer text-70 hover:text-primary w-1/4"
+                @click="deleteEmailRecipient"
+                class="appearance-none cursor-pointer text-70 hover:text-primary"
                 v-bind:data-email-recipients-index="index"
               >
                 <svg
@@ -29,27 +29,67 @@
                   ></path>
                 </svg>
               </button>
-            </li>
-          </ul>
+            </td>
+          </tr>
+        </table>
+        <div class="mt-3 flex justify-end">
+          <div class="form-group">
+            <label for="emailRecipient">Add an email address to the recipients list:</label>
+            <input
+              type="email"
+              v-model="emailRecipient"
+              class="form-control form-input form-input-bordered"
+              placeholder="Enter email"
+              @keyup.enter="submitEmailRecipient"
+            >
+            <button @click.prevent="submitEmailRecipient" class="btn btn-default btn-primary">Add</button>
+          </div>
         </div>
-        <hr>
-        <div class="form-group">
-          <label for="recipientEmail">Email address</label>
-          <input
-            type="email"
-            v-model="email"
-            class="form-control form-input form-input-bordered"
-            id="recipientEmail"
-            name="recipientEmail"
-            placeholder="Enter email"
-          >
-        </div>33
-        <button @click="submitRecipientEmail" class="btn btn-default btn-primary">Add</button>
       </div>
 
-      <div class="w-1/3">content</div>
-
-      <div class="w-1/3">content</div>
+      <div class="w-full p-6">
+        <h3>Email CCs List</h3>
+        <table class="table table-fixed w-full" id="email-ccs">
+          <tr v-for="(item, index) in emailCcs">
+            <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
+            <td class="w-1/4 text-right pr-6 py-0">
+              <button
+                @click="deleteEmailCc"
+                class="appearance-none cursor-pointer text-70 hover:text-primary"
+                v-bind:data-email-ccs-index="index"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  aria-labelledby="delete"
+                  role="presentation"
+                  class="fill-current"
+                >
+                  <path
+                    fill-rule="nonzero"
+                    d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </table>
+        <div class="mt-3 flex justify-end">
+          <div class="form-group">
+            <label for="emailCc">Add an email address to the recipients list:</label>
+            <input
+              type="email"
+              v-model="emailCc"
+              class="form-control form-input form-input-bordered"
+              placeholder="Enter email"
+              @keyup.enter="submitEmailCc"
+            >
+            <button @click.prevent="submitEmailCc" class="btn btn-default btn-primary">Add</button>
+          </div>
+        </div>
+      </div>
     </card>
   </div>
 </template>
@@ -58,42 +98,50 @@
 export default {
   data() {
     return {
-      email: "",
-      emailRecipients: []
+      emailRecipient: "",
+      emailRecipients: [],
+      emailCc: "",
+      emailCcs: [],
+      emailBcc: "",
+      emailBccs: []
     };
   },
 
   created: function() {
-    this.getRecipientEmails();
+    this.getEmailRecipients();
+    this.getEmailCcs();
   },
 
   methods: {
-    submitRecipientEmail() {
+    /**
+     * RECIPIENT EMAILS METHODS
+     */
+    submitEmailRecipient() {
       axios
         .post("/nova-vendor/contact-settings-manager/email-recipient", {
-          email: this.email
+          email: this.emailRecipient
         })
         .then(response => {
-          //console.log(response);
-          this.getRecipientEmails();
+          this.getEmailRecipients();
+          this.emailRecipient = "";
         })
         .catch(error => {
           this.$toasted.show(error.response.data.message, { type: "error" });
-        })
-        .then(() => {
-          this.email = "";
         });
     },
 
-    getRecipientEmails() {
+    getEmailRecipients() {
       axios
         .get("/nova-vendor/contact-settings-manager/email-recipient")
         .then(response => {
           this.emailRecipients = response.data;
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
         });
     },
 
-    deleteRecipientEmail(e) {
+    deleteEmailRecipient(e) {
       let index = e.currentTarget.getAttribute("data-email-recipients-index");
 
       axios
@@ -101,8 +149,51 @@ export default {
           `/nova-vendor/contact-settings-manager/email-recipient/${index}`
         )
         .then(response => {
-          console.log(response);
-          this.getRecipientEmails();
+          this.getEmailRecipients();
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
+    },
+
+    /**
+     * CC EMAILS METHODS
+     */
+    submitEmailCc() {
+      axios
+        .post("/nova-vendor/contact-settings-manager/email-cc", {
+          email: this.emailCc
+        })
+        .then(response => {
+          this.getEmailCcs();
+          this.emailCc = "";
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
+    },
+
+    getEmailCcs() {
+      axios
+        .get("/nova-vendor/contact-settings-manager/email-cc")
+        .then(response => {
+          this.emailCcs = response.data;
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
+    },
+
+    deleteEmailCc(e) {
+      let index = e.currentTarget.getAttribute("data-email-ccs-index");
+
+      axios
+        .delete(`/nova-vendor/contact-settings-manager/email-cc/${index}`)
+        .then(response => {
+          this.getEmailCcs();
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
         });
     }
   }

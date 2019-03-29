@@ -12,7 +12,7 @@
  */
 
 Route::get('/', function () {
-    return app(Settings::class)->count();
+    return view('home');
 })->name('home');
 
 Route::get('/about', function () {
