@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@test');
-
 /** 
  * GET ROUTES
 **/
