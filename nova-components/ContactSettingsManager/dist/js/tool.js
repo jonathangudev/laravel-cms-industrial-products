@@ -851,14 +851,14 @@ var render = function() {
       _c("card", { staticStyle: { "min-height": "300px" } }, [
         _c(
           "div",
-          { staticClass: "w-full p-6" },
+          { staticClass: "w-full py-6" },
           [
-            _c("h3", [_vm._v("Email Recipients")]),
+            _c("h3", { staticClass: "px-6" }, [_vm._v("Email Recipients")]),
             _vm._v(" "),
             _vm.emailRecipients.length === undefined ||
             _vm.emailRecipients.length == 0
               ? [
-                  _c("div", { staticClass: "italic mt-3 text-base" }, [
+                  _c("div", { staticClass: "italic mt-3 text-base px-6" }, [
                     _vm._v("No entries in the email recipients list")
                   ])
                 ]
@@ -866,7 +866,7 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-fixed w-full",
+                      staticClass: "table table-fixed w-full mt-4",
                       attrs: { id: "email-recipients" }
                     },
                     _vm._l(_vm.emailRecipients, function(item, index) {
@@ -923,7 +923,7 @@ var render = function() {
                   )
                 ],
             _vm._v(" "),
-            _c("div", { staticClass: "mt-3 flex justify-end" }, [
+            _c("div", { staticClass: "mt-4 flex justify-end px-6" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "emailRecipient" } }, [
                   _vm._v("Add an email address to the recipients list:")
@@ -981,13 +981,13 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "w-full p-6" },
+          { staticClass: "w-full py-6" },
           [
-            _c("h3", [_vm._v("Email CCs List")]),
+            _c("h3", { staticClass: "px-6" }, [_vm._v("Email CCs List")]),
             _vm._v(" "),
             _vm.emailCcs.length === undefined || _vm.emailCcs.length == 0
               ? [
-                  _c("div", { staticClass: "italic mt-3 text-base" }, [
+                  _c("div", { staticClass: "italic mt-3 text-base px-6" }, [
                     _vm._v("No entries in the email CCs list")
                   ])
                 ]
@@ -995,7 +995,7 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-fixed w-full",
+                      staticClass: "table table-fixed w-full mt-4",
                       attrs: { id: "email-ccs" }
                     },
                     _vm._l(_vm.emailCcs, function(item, index) {
@@ -1052,7 +1052,7 @@ var render = function() {
                   )
                 ],
             _vm._v(" "),
-            _c("div", { staticClass: "mt-3 flex justify-end" }, [
+            _c("div", { staticClass: "mt-4 flex justify-end px-6" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "emailCc" } }, [
                   _vm._v("Add an email address to the recipients list:")

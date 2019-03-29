@@ -3,13 +3,13 @@
     <heading class="mb-6">Contact Settings Manager</heading>
 
     <card class style="min-height: 300px">
-      <div class="w-full p-6">
-        <h3>Email Recipients</h3>
+      <div class="w-full py-6">
+        <h3 class="px-6">Email Recipients</h3>
         <template v-if="emailRecipients.length === undefined || emailRecipients.length == 0">
-          <div class="italic mt-3 text-base">No entries in the email recipients list</div>
+          <div class="italic mt-3 text-base px-6">No entries in the email recipients list</div>
         </template>
         <template v-else>
-          <table class="table table-fixed w-full" id="email-recipients">
+          <table class="table table-fixed w-full mt-4" id="email-recipients">
             <tr v-for="(item, index) in emailRecipients">
               <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
               <td class="w-1/4 text-right pr-6 py-0">
@@ -37,7 +37,7 @@
             </tr>
           </table>
         </template>
-        <div class="mt-3 flex justify-end">
+        <div class="mt-4 flex justify-end px-6">
           <div class="form-group">
             <label for="emailRecipient">Add an email address to the recipients list:</label>
             <input
@@ -52,13 +52,13 @@
         </div>
       </div>
 
-      <div class="w-full p-6">
-        <h3>Email CCs List</h3>
+      <div class="w-full py-6">
+        <h3 class="px-6">Email CCs List</h3>
         <template v-if="emailCcs.length === undefined || emailCcs.length == 0">
-          <div class="italic mt-3 text-base">No entries in the email CCs list</div>
+          <div class="italic mt-3 text-base px-6">No entries in the email CCs list</div>
         </template>
         <template v-else>
-          <table class="table table-fixed w-full" id="email-ccs">
+          <table class="table table-fixed w-full mt-4" id="email-ccs">
             <tr v-for="(item, index) in emailCcs">
               <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
               <td class="w-1/4 text-right pr-6 py-0">
@@ -86,7 +86,7 @@
             </tr>
           </table>
         </template>
-        <div class="mt-3 flex justify-end">
+        <div class="mt-4 flex justify-end px-6">
           <div class="form-group">
             <label for="emailCc">Add an email address to the recipients list:</label>
             <input
