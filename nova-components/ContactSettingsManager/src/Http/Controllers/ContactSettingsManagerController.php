@@ -44,10 +44,6 @@ class ContactSettingsManagerController extends Controller
         $newEmail = $validated['email'];
 
         app(Settings::class)->storeToArray('emailRecipients', $newEmail);
-
-        $result = app(Settings::class)->get('emailRecipients');
-
-        return response()->json($result);
     }
 
     // TODO add more

@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -673,6 +673,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -696,9 +711,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function (response) {
         //console.log(response);
         _this.getRecipientEmails();
+      }).catch(function (error) {
+        _this.$toasted.show(error.response.data.message, { type: "error" });
+      }).then(function () {
+        _this.email = "";
       });
-
-      this.email = "";
     },
     getRecipientEmails: function getRecipientEmails() {
       var _this2 = this;
@@ -742,24 +759,55 @@ var render = function() {
           staticStyle: { "min-height": "300px" }
         },
         [
-          _c("div", [
+          _c("div", { staticClass: "w-1/3 p-6" }, [
             _c("h3", [_vm._v("Email Recipients")]),
             _vm._v(" "),
             _c("div", [
               _c(
                 "ul",
-                { attrs: { id: "email-recipients" } },
+                {
+                  staticClass: "list-reset",
+                  attrs: { id: "email-recipients" }
+                },
                 _vm._l(_vm.emailRecipients, function(item, index) {
-                  return _c("li", [
-                    _vm._v("\n            " + _vm._s(item) + "\n            "),
+                  return _c("li", { staticClass: "flex" }, [
+                    _c("div", { staticClass: "w-3/4 overflow-x-auto" }, [
+                      _vm._v(_vm._s(item))
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-default btn-danger",
+                        staticClass:
+                          "appearance-none cursor-pointer text-70 hover:text-primary w-1/4",
                         attrs: { "data-email-recipients-index": index },
                         on: { click: _vm.deleteRecipientEmail }
                       },
-                      [_vm._v("Delete")]
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "fill-current",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              width: "20",
+                              height: "20",
+                              viewBox: "0 0 20 20",
+                              "aria-labelledby": "delete",
+                              role: "presentation"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                "fill-rule": "nonzero",
+                                d:
+                                  "M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
                     )
                   ])
                 }),
@@ -801,7 +849,7 @@ var render = function() {
                 }
               })
             ]),
-            _vm._v("31\n      "),
+            _vm._v("33\n      "),
             _c(
               "button",
               {
@@ -812,9 +860,9 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div"),
+          _c("div", { staticClass: "w-1/3" }, [_vm._v("content")]),
           _vm._v(" "),
-          _c("div")
+          _c("div", { staticClass: "w-1/3" }, [_vm._v("content")])
         ]
       )
     ],

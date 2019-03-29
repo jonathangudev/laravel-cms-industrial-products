@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Contact\Settings;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,27 +12,6 @@ use App\Contact\Settings;
 | by your tool's "Authorize" middleware by default. Now, go build!
 |
 */
-
-/** 
- * DELETE ROUTES
-*/
-/*Route::delete('/email-recipient/{index}', function ($index) {
-
-    $storedEmails = app(Settings::class)->get('emailRecipients');
-
-    // Initializes empty array in the case when the key does not exist.
-    if (empty($storedEmails)) {
-        $storedEmails = [];
-    }
-
-    array_splice($storedEmails, $index, 1);
-
-    app(Settings::class)->put('emailRecipients', $storedEmails);
-
-    /*return response()->json($index);*/
-//});
-
-//TODO - add for cc's
 
 /** 
  * GET ROUTES
