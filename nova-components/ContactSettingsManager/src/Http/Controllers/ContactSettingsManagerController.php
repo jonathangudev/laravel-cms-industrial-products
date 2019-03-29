@@ -91,7 +91,7 @@ class ContactSettingsManagerController extends Controller
      */
 
     /**
-     * Delete an item from an array (identified by key) in the Settings valuestore at a particular index.
+     * Deletes an item from an array (identified by key) in the Settings valuestore at a particular index.
      * If the index is not in the array, or if the value at that key does not exist, does nothing.
      *
      * @param  string  $key
@@ -111,7 +111,7 @@ class ContactSettingsManagerController extends Controller
 
     /**
      * Pushes a value to an array (identified by key) in the Settings valuestore.
-     * If no value exists for that key, creates the array with that value in it.
+     * If no value exists for that key, creates the array with that value in it and saves it in the Settings valuestore.
      *
      * @param  string  $key
      * @param  string  $value
@@ -129,5 +129,10 @@ class ContactSettingsManagerController extends Controller
         $storedEmails[] = $value;
 
         app(Settings::class)->put($key, $storedEmails);
+    }
+
+    public function test()
+    {
+        $this->deleteFromEmailArray('test', 1);
     }
 }
