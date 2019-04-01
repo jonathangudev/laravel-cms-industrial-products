@@ -12,6 +12,17 @@ use Validator;
 class ContactController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(Settings $settings)
+    {
+        $this->settings = $settings;
+    }
+
+
+    /**
      * Save contact form and send as email.
      *
      * @return \Illuminate\Http\Response
@@ -51,9 +62,9 @@ class ContactController extends Controller
          * Pulls values from Settings Valuestore.  If the Valuestore is empty, set to an empty array rather than null
          * since Mail does not accept null values to senders.
          */
-        $emailRecipients = app(Settings::class)->get('emailRecipients') ? app(Settings::class)->get('emailRecipients') : [];
-        $emailCcs = app(Settings::class)->get('emailCcs') ? app(Settings::class)->get('emailCcs') : [];
-        $emailBccs = app(Settings::class)->get('emailBccs') ? app(Settings::class)->get('emailBccs') : [];
+        $emailRecipients = $this->settings->get('emailRecipients') ?: [];
+        $emailCcs = $this->settings->get('emailCcs') ?: [];
+        $emailBccs = $this->settings->get('emailBccs') ?: [];
 
         Mail::to($emailRecipients)
             ->cc($emailCcs)
