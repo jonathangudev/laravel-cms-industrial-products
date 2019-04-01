@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n", ""]);
 
 // exports
 
@@ -738,6 +738,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -853,12 +858,80 @@ var render = function() {
           "div",
           { staticClass: "w-full py-6" },
           [
-            _c("h3", { staticClass: "px-6" }, [_vm._v("Email Recipients")]),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "border-b flex justify-between px-6 pb-4 border-grey-light"
+              },
+              [
+                _c("h3", { staticClass: "flex items-center" }, [
+                  _vm._v("Email Recipients")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "emailRecipient" } }, [
+                    _vm._v("Add an email address to the recipients list:")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.emailRecipient,
+                        expression: "emailRecipient"
+                      }
+                    ],
+                    staticClass: "form-control form-input form-input-bordered",
+                    attrs: { type: "email", placeholder: "Enter email" },
+                    domProps: { value: _vm.emailRecipient },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.submitEmailRecipient($event)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.emailRecipient = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-primary",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.submitEmailRecipient($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Add")]
+                  )
+                ])
+              ]
+            ),
             _vm._v(" "),
             _vm.emailRecipients.length === undefined ||
             _vm.emailRecipients.length == 0
               ? [
-                  _c("div", { staticClass: "italic mt-3 text-base px-6" }, [
+                  _c("div", { staticClass: "italic my-8 text-base px-6" }, [
                     _vm._v("No entries in the email recipients list")
                   ])
                 ]
@@ -866,7 +939,7 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-fixed w-full mt-4",
+                      staticClass: "table table-fixed w-full mb-8",
                       attrs: { id: "email-recipients" }
                     },
                     _vm._l(_vm.emailRecipients, function(item, index) {
@@ -921,60 +994,7 @@ var render = function() {
                     }),
                     0
                   )
-                ],
-            _vm._v(" "),
-            _c("div", { staticClass: "mt-4 flex justify-end px-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "emailRecipient" } }, [
-                  _vm._v("Add an email address to the recipients list:")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.emailRecipient,
-                      expression: "emailRecipient"
-                    }
-                  ],
-                  staticClass: "form-control form-input form-input-bordered",
-                  attrs: { type: "email", placeholder: "Enter email" },
-                  domProps: { value: _vm.emailRecipient },
-                  on: {
-                    keyup: function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.submitEmailRecipient($event)
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.emailRecipient = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default btn-primary",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.submitEmailRecipient($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Add")]
-                )
-              ])
-            ])
+                ]
           ],
           2
         ),
@@ -983,11 +1003,79 @@ var render = function() {
           "div",
           { staticClass: "w-full py-6" },
           [
-            _c("h3", { staticClass: "px-6" }, [_vm._v("Email CCs List")]),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "border-b flex justify-between px-6 pb-4 border-grey-light"
+              },
+              [
+                _c("h3", { staticClass: "flex items-center" }, [
+                  _vm._v("Email CCs List")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "emailCc" } }, [
+                    _vm._v("Add an email address to the recipients list:")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.emailCc,
+                        expression: "emailCc"
+                      }
+                    ],
+                    staticClass: "form-control form-input form-input-bordered",
+                    attrs: { type: "email", placeholder: "Enter email" },
+                    domProps: { value: _vm.emailCc },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.submitEmailCc($event)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.emailCc = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-primary",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.submitEmailCc($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Add")]
+                  )
+                ])
+              ]
+            ),
             _vm._v(" "),
             _vm.emailCcs.length === undefined || _vm.emailCcs.length == 0
               ? [
-                  _c("div", { staticClass: "italic mt-3 text-base px-6" }, [
+                  _c("div", { staticClass: "italic my-8 text-base px-6" }, [
                     _vm._v("No entries in the email CCs list")
                   ])
                 ]
@@ -995,7 +1083,7 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-fixed w-full mt-4",
+                      staticClass: "table table-fixed w-full mb-8",
                       attrs: { id: "email-ccs" }
                     },
                     _vm._l(_vm.emailCcs, function(item, index) {
@@ -1050,60 +1138,7 @@ var render = function() {
                     }),
                     0
                   )
-                ],
-            _vm._v(" "),
-            _c("div", { staticClass: "mt-4 flex justify-end px-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "emailCc" } }, [
-                  _vm._v("Add an email address to the recipients list:")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.emailCc,
-                      expression: "emailCc"
-                    }
-                  ],
-                  staticClass: "form-control form-input form-input-bordered",
-                  attrs: { type: "email", placeholder: "Enter email" },
-                  domProps: { value: _vm.emailCc },
-                  on: {
-                    keyup: function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.submitEmailCc($event)
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.emailCc = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default btn-primary",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.submitEmailCc($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Add")]
-                )
-              ])
-            ])
+                ]
           ],
           2
         )
