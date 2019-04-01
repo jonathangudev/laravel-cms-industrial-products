@@ -21,7 +21,6 @@ class ContactController extends Controller
         $this->settings = $settings;
     }
 
-
     /**
      * Save contact form and send as email.
      *

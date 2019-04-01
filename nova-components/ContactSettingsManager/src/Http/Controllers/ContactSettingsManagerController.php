@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class ContactSettingsManagerController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(Settings $settings)
+    {
+        $this->settings = $settings;
+    }
+
     /**
      * GET FUNCTIONS
      */
@@ -100,11 +111,11 @@ class ContactSettingsManagerController extends Controller
      */
     protected function deleteFromEmailArray(string $key, int $index)
     {
-        $storedEmails = app(Settings::class)->get($key);
+        $storedEmails = $this->settings->get($key);
 
         if (is_array($storedEmails) && count($storedEmails) > $index) {
             array_splice($storedEmails, $index, 1);
-            app(Settings::class)->put($key, $storedEmails);
+            $this->settings->put($key, $storedEmails);
         }
     }
 
@@ -118,7 +129,7 @@ class ContactSettingsManagerController extends Controller
      */
     protected function storeToEmailArray(string $key, string $value)
     {
-        $storedEmails = app(Settings::class)->get($key);
+        $storedEmails = $this->settings->get($key);
 
         // Initializes empty array in the case when the key does not exist.
         if (empty($storedEmails)) {
@@ -127,6 +138,6 @@ class ContactSettingsManagerController extends Controller
 
         $storedEmails[] = $value;
 
-        app(Settings::class)->put($key, $storedEmails);
+        $this->settings->put($key, $storedEmails);
     }
 }

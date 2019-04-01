@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n", ""]);
 
 // exports
 
@@ -743,6 +743,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -787,11 +789,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.$toasted.show(error.response.data.message, { type: "error" });
       });
     },
-    deleteEmailRecipient: function deleteEmailRecipient(e) {
+    deleteEmailRecipient: function deleteEmailRecipient(index) {
       var _this3 = this;
 
-      var index = e.currentTarget.getAttribute("data-email-recipients-index");
-
+      //let index = e.currentTarget.getAttribute("data-email-recipients-index");
       axios.delete("/nova-vendor/contact-settings-manager/email-recipient/" + index).then(function (response) {
         _this3.getEmailRecipients();
       }).catch(function (error) {
@@ -834,6 +835,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (error) {
         _this6.$toasted.show(error.response.data.message, { type: "error" });
       });
+    },
+    reverseArray: function reverseArray() {
+      this.emailRecipients = this.emailRecipients.reverse();
     }
   }
 });
@@ -943,7 +947,7 @@ var render = function() {
                       attrs: { id: "email-recipients" }
                     },
                     _vm._l(_vm.emailRecipients, function(item, index) {
-                      return _c("tr", [
+                      return _c("tr", { key: index + "-emailrecipient" }, [
                         _c(
                           "td",
                           { staticClass: "w-3/4 overflow-x-auto py-0" },
@@ -960,7 +964,11 @@ var render = function() {
                                 staticClass:
                                   "appearance-none cursor-pointer text-70 hover:text-primary",
                                 attrs: { "data-email-recipients-index": index },
-                                on: { click: _vm.deleteEmailRecipient }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteEmailRecipient(index)
+                                  }
+                                }
                               },
                               [
                                 _c(
@@ -1141,7 +1149,9 @@ var render = function() {
                 ]
           ],
           2
-        )
+        ),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.reverseArray } }, [_vm._v("reverso")])
       ])
     ],
     1

@@ -26,11 +26,11 @@
 
         <template v-else>
           <table class="table table-fixed w-full mb-8" id="email-recipients">
-            <tr v-for="(item, index) in emailRecipients">
+            <tr v-for="(item, index) in emailRecipients" :key="`${index}-emailrecipient`">
               <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
               <td class="w-1/4 text-right pr-6 py-0">
                 <button
-                  @click="deleteEmailRecipient"
+                  @click="deleteEmailRecipient(index)"
                   class="appearance-none cursor-pointer text-70 hover:text-primary"
                   v-bind:data-email-recipients-index="index"
                 >
@@ -105,6 +105,8 @@
           </table>
         </template>
       </div>
+
+      <button @click="reverseArray">reverso</button>
     </card>
   </div>
 </template>
@@ -156,9 +158,8 @@ export default {
         });
     },
 
-    deleteEmailRecipient(e) {
-      let index = e.currentTarget.getAttribute("data-email-recipients-index");
-
+    deleteEmailRecipient(index) {
+      //let index = e.currentTarget.getAttribute("data-email-recipients-index");
       axios
         .delete(
           `/nova-vendor/contact-settings-manager/email-recipient/${index}`
@@ -210,6 +211,10 @@ export default {
         .catch(error => {
           this.$toasted.show(error.response.data.message, { type: "error" });
         });
+    },
+
+    reverseArray() {
+      this.emailRecipients = this.emailRecipients.reverse();
     }
   }
 };
