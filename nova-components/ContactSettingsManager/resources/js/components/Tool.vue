@@ -8,11 +8,11 @@
           <h3 class="flex items-center">Email Recipients</h3>
 
           <div class="form-group">
-            <label for="emailRecipient">Add an email address to the recipients list:</label>
+            <label for="emailRecipient" class="mr-3">Add an email address to the recipients list:</label>
             <input
               type="email"
               v-model="emailRecipient"
-              class="form-control form-input form-input-bordered"
+              class="form-control form-input form-input-bordered mr-3"
               placeholder="Enter email"
               @keyup.enter="submitEmailRecipient"
             >
@@ -21,18 +21,17 @@
         </div>
 
         <template v-if="emailRecipients.length === undefined || emailRecipients.length == 0">
-          <div class="italic my-8 text-base px-6">No entries in the email recipients list</div>
+          <div class="italic my-8 text-base px-8">No entries in the email recipients list</div>
         </template>
 
         <template v-else>
-          <table class="table table-fixed w-full mb-8" id="email-recipients">
-            <tr v-for="(item, index) in emailRecipients" :key="`${index}-emailrecipient`">
+          <table class="table table-fixed emails-table w-full mb-8" id="email-recipients">
+            <tr v-for="(item, index) in emailRecipients" :key="`${index}`">
               <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
-              <td class="w-1/4 text-right pr-6 py-0">
+              <td class="w-1/4 text-right py-0">
                 <button
                   @click="deleteEmailRecipient(index)"
                   class="appearance-none cursor-pointer text-70 hover:text-primary"
-                  v-bind:data-email-recipients-index="index"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -60,11 +59,11 @@
           <h3 class="flex items-center">Email CCs List</h3>
 
           <div class="form-group">
-            <label for="emailCc">Add an email address to the recipients list:</label>
+            <label for="emailCc" class="mr-3">Add an email address to the recipients list:</label>
             <input
               type="email"
               v-model="emailCc"
-              class="form-control form-input form-input-bordered"
+              class="form-control form-input form-input-bordered mr-3"
               placeholder="Enter email"
               @keyup.enter="submitEmailCc"
             >
@@ -73,17 +72,16 @@
         </div>
 
         <template v-if="emailCcs.length === undefined || emailCcs.length == 0">
-          <div class="italic my-8 text-base px-6">No entries in the email CCs list</div>
+          <div class="italic my-8 text-base px-8">No entries in the email CCs list</div>
         </template>
         <template v-else>
-          <table class="table table-fixed w-full mb-8" id="email-ccs">
-            <tr v-for="(item, index) in emailCcs">
+          <table class="table table-fixed emails-table w-full mb-8" id="email-ccs">
+            <tr v-for="(item, index) in emailCcs" :key="`${index}`">
               <td class="w-3/4 overflow-x-auto py-0">{{ item }}</td>
-              <td class="w-1/4 text-right pr-6 py-0">
+              <td class="w-1/4 text-right py-0">
                 <button
-                  @click="deleteEmailCc"
+                  @click="deleteEmailCc(index)"
                   class="appearance-none cursor-pointer text-70 hover:text-primary"
-                  v-bind:data-email-ccs-index="index"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,8 +103,6 @@
           </table>
         </template>
       </div>
-
-      <button @click="reverseArray">reverso</button>
     </card>
   </div>
 </template>
@@ -159,7 +155,6 @@ export default {
     },
 
     deleteEmailRecipient(index) {
-      //let index = e.currentTarget.getAttribute("data-email-recipients-index");
       axios
         .delete(
           `/nova-vendor/contact-settings-manager/email-recipient/${index}`
@@ -200,9 +195,7 @@ export default {
         });
     },
 
-    deleteEmailCc(e) {
-      let index = e.currentTarget.getAttribute("data-email-ccs-index");
-
+    deleteEmailCc(index) {
       axios
         .delete(`/nova-vendor/contact-settings-manager/email-cc/${index}`)
         .then(response => {
@@ -211,10 +204,6 @@ export default {
         .catch(error => {
           this.$toasted.show(error.response.data.message, { type: "error" });
         });
-    },
-
-    reverseArray() {
-      this.emailRecipients = this.emailRecipients.reverse();
     }
   }
 };
@@ -225,5 +214,10 @@ export default {
 
 .border-grey-light {
   border-color: #dae1e7;
+}
+
+.emails-table td {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 </style>

@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n.emails-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n", ""]);
 
 // exports
 
@@ -741,10 +741,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -792,7 +788,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     deleteEmailRecipient: function deleteEmailRecipient(index) {
       var _this3 = this;
 
-      //let index = e.currentTarget.getAttribute("data-email-recipients-index");
       axios.delete("/nova-vendor/contact-settings-manager/email-recipient/" + index).then(function (response) {
         _this3.getEmailRecipients();
       }).catch(function (error) {
@@ -825,19 +820,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this5.$toasted.show(error.response.data.message, { type: "error" });
       });
     },
-    deleteEmailCc: function deleteEmailCc(e) {
+    deleteEmailCc: function deleteEmailCc(index) {
       var _this6 = this;
-
-      var index = e.currentTarget.getAttribute("data-email-ccs-index");
 
       axios.delete("/nova-vendor/contact-settings-manager/email-cc/" + index).then(function (response) {
         _this6.getEmailCcs();
       }).catch(function (error) {
         _this6.$toasted.show(error.response.data.message, { type: "error" });
       });
-    },
-    reverseArray: function reverseArray() {
-      this.emailRecipients = this.emailRecipients.reverse();
     }
   }
 });
@@ -874,9 +864,11 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "emailRecipient" } }, [
-                    _vm._v("Add an email address to the recipients list:")
-                  ]),
+                  _c(
+                    "label",
+                    { staticClass: "mr-3", attrs: { for: "emailRecipient" } },
+                    [_vm._v("Add an email address to the recipients list:")]
+                  ),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -887,7 +879,8 @@ var render = function() {
                         expression: "emailRecipient"
                       }
                     ],
-                    staticClass: "form-control form-input form-input-bordered",
+                    staticClass:
+                      "form-control form-input form-input-bordered mr-3",
                     attrs: { type: "email", placeholder: "Enter email" },
                     domProps: { value: _vm.emailRecipient },
                     on: {
@@ -935,7 +928,7 @@ var render = function() {
             _vm.emailRecipients.length === undefined ||
             _vm.emailRecipients.length == 0
               ? [
-                  _c("div", { staticClass: "italic my-8 text-base px-6" }, [
+                  _c("div", { staticClass: "italic my-8 text-base px-8" }, [
                     _vm._v("No entries in the email recipients list")
                   ])
                 ]
@@ -943,61 +936,56 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-fixed w-full mb-8",
+                      staticClass: "table table-fixed emails-table w-full mb-8",
                       attrs: { id: "email-recipients" }
                     },
                     _vm._l(_vm.emailRecipients, function(item, index) {
-                      return _c("tr", { key: index + "-emailrecipient" }, [
+                      return _c("tr", { key: "" + index }, [
                         _c(
                           "td",
                           { staticClass: "w-3/4 overflow-x-auto py-0" },
                           [_vm._v(_vm._s(item))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "w-1/4 text-right pr-6 py-0" },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "appearance-none cursor-pointer text-70 hover:text-primary",
-                                attrs: { "data-email-recipients-index": index },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteEmailRecipient(index)
-                                  }
+                        _c("td", { staticClass: "w-1/4 text-right py-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "appearance-none cursor-pointer text-70 hover:text-primary",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteEmailRecipient(index)
                                 }
-                              },
-                              [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "fill-current",
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "fill-current",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "20",
+                                    height: "20",
+                                    viewBox: "0 0 20 20",
+                                    "aria-labelledby": "delete",
+                                    role: "presentation"
+                                  }
+                                },
+                                [
+                                  _c("path", {
                                     attrs: {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      width: "20",
-                                      height: "20",
-                                      viewBox: "0 0 20 20",
-                                      "aria-labelledby": "delete",
-                                      role: "presentation"
+                                      "fill-rule": "nonzero",
+                                      d:
+                                        "M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
                                     }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        "fill-rule": "nonzero",
-                                        d:
-                                          "M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
-                                      }
-                                    })
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -1023,9 +1011,11 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "emailCc" } }, [
-                    _vm._v("Add an email address to the recipients list:")
-                  ]),
+                  _c(
+                    "label",
+                    { staticClass: "mr-3", attrs: { for: "emailCc" } },
+                    [_vm._v("Add an email address to the recipients list:")]
+                  ),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -1036,7 +1026,8 @@ var render = function() {
                         expression: "emailCc"
                       }
                     ],
-                    staticClass: "form-control form-input form-input-bordered",
+                    staticClass:
+                      "form-control form-input form-input-bordered mr-3",
                     attrs: { type: "email", placeholder: "Enter email" },
                     domProps: { value: _vm.emailCc },
                     on: {
@@ -1083,7 +1074,7 @@ var render = function() {
             _vm._v(" "),
             _vm.emailCcs.length === undefined || _vm.emailCcs.length == 0
               ? [
-                  _c("div", { staticClass: "italic my-8 text-base px-6" }, [
+                  _c("div", { staticClass: "italic my-8 text-base px-8" }, [
                     _vm._v("No entries in the email CCs list")
                   ])
                 ]
@@ -1091,57 +1082,56 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-fixed w-full mb-8",
+                      staticClass: "table table-fixed emails-table w-full mb-8",
                       attrs: { id: "email-ccs" }
                     },
                     _vm._l(_vm.emailCcs, function(item, index) {
-                      return _c("tr", [
+                      return _c("tr", { key: "" + index }, [
                         _c(
                           "td",
                           { staticClass: "w-3/4 overflow-x-auto py-0" },
                           [_vm._v(_vm._s(item))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "w-1/4 text-right pr-6 py-0" },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "appearance-none cursor-pointer text-70 hover:text-primary",
-                                attrs: { "data-email-ccs-index": index },
-                                on: { click: _vm.deleteEmailCc }
-                              },
-                              [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "fill-current",
+                        _c("td", { staticClass: "w-1/4 text-right py-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "appearance-none cursor-pointer text-70 hover:text-primary",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteEmailCc(index)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "fill-current",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "20",
+                                    height: "20",
+                                    viewBox: "0 0 20 20",
+                                    "aria-labelledby": "delete",
+                                    role: "presentation"
+                                  }
+                                },
+                                [
+                                  _c("path", {
                                     attrs: {
-                                      xmlns: "http://www.w3.org/2000/svg",
-                                      width: "20",
-                                      height: "20",
-                                      viewBox: "0 0 20 20",
-                                      "aria-labelledby": "delete",
-                                      role: "presentation"
+                                      "fill-rule": "nonzero",
+                                      d:
+                                        "M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
                                     }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        "fill-rule": "nonzero",
-                                        d:
-                                          "M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
-                                      }
-                                    })
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -1149,9 +1139,7 @@ var render = function() {
                 ]
           ],
           2
-        ),
-        _vm._v(" "),
-        _c("button", { on: { click: _vm.reverseArray } }, [_vm._v("reverso")])
+        )
       ])
     ],
     1
