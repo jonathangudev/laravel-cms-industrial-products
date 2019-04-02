@@ -12,6 +12,7 @@ class ContactSettingsManagerController extends Controller
     /**
      * Create a new controller instance.
      *
+     * @param Settings $settings
      * @return void
      */
     public function __construct(Settings $settings)
@@ -22,6 +23,12 @@ class ContactSettingsManagerController extends Controller
     /**
      * GET FUNCTIONS
      */
+
+    /**
+     * Get all email recipients
+     *
+     * @return json
+     */
     public function getEmailRecipients()
     {
         $result = app(Settings::class)->get('emailRecipients');
@@ -29,6 +36,11 @@ class ContactSettingsManagerController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * Get all email ccs
+     *
+     * @return json
+     */
     public function getEmailCcs()
     {
         $result = app(Settings::class)->get('emailCcs');
@@ -36,6 +48,11 @@ class ContactSettingsManagerController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * Get all email ccs
+     *
+     * @return json
+     */
     public function getEmailBccs()
     {
         $result = app(Settings::class)->get('emailBccs');
@@ -45,6 +62,13 @@ class ContactSettingsManagerController extends Controller
 
     /**
      * STORE FUNCTIONS
+     */
+
+    /**
+     * Saves the email from the request into the email recipients array in the Contact\Settings valuestore
+     * 
+     * @param Request $request
+     * @return void
      */
     public function storeEmailRecipient(Request $request)
     {
@@ -57,6 +81,12 @@ class ContactSettingsManagerController extends Controller
         $this->storeToEmailArray('emailRecipients', $newEmail);
     }
 
+    /**
+     * Saves the email from the request into the email ccs array in the Contact\Settings valuestore
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function storeEmailCc(Request $request)
     {
         $validated = $request->validate([
@@ -68,6 +98,12 @@ class ContactSettingsManagerController extends Controller
         $this->storeToEmailArray('emailCcs', $newEmail);
     }
 
+    /**
+     * Saves the email from the request into the email bccs array in the Contact\Settings valuestore
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function storeEmailBcc(Request $request)
     {
         $validated = $request->validate([
@@ -82,16 +118,35 @@ class ContactSettingsManagerController extends Controller
     /**
      * DELETE FUNCTIONS
      */
+
+    /**
+     * Deletes the email at the specified index from the email recipients array in the Contact\Settings valuestore
+     * 
+     * @param $index
+     * @return void
+     */
     public function deleteEmailRecipient($index)
     {
         $this->deleteFromEmailArray('emailRecipients', $index);
     }
 
+    /**
+     * Deletes the email at the specified index from the email ccs array in the Contact\Settings valuestore
+     * 
+     * @param $index
+     * @return void
+     */
     public function deleteEmailCc($index)
     {
         $this->deleteFromEmailArray('emailCcs', $index);
     }
 
+    /**
+     * Deletes the email at the specified index from the email bccs array in the Contact\Settings valuestore
+     * 
+     * @param $index
+     * @return void
+     */
     public function deleteEmailBcc($index)
     {
         $this->deleteFromEmailArray('emailBccs', $index);

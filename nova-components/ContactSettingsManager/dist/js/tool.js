@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n.emails-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.border-grey-light {\n  border-color: #dae1e7;\n}\n.emails-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n", ""]);
 
 // exports
 
@@ -741,6 +741,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -758,11 +808,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     this.getEmailRecipients();
     this.getEmailCcs();
+    this.getEmailBccs();
   },
 
   methods: {
     /**
-     * RECIPIENT EMAILS METHODS
+     * SUBMIT EMAILS METHODS
      */
     submitEmailRecipient: function submitEmailRecipient() {
       var _this = this;
@@ -776,20 +827,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.$toasted.show(error.response.data.message, { type: "error" });
       });
     },
-    getEmailRecipients: function getEmailRecipients() {
+    submitEmailCc: function submitEmailCc() {
       var _this2 = this;
 
-      axios.get("/nova-vendor/contact-settings-manager/email-recipient").then(function (response) {
-        _this2.emailRecipients = response.data;
+      axios.post("/nova-vendor/contact-settings-manager/email-cc", {
+        email: this.emailCc
+      }).then(function (response) {
+        _this2.getEmailCcs();
+        _this2.emailCc = "";
       }).catch(function (error) {
         _this2.$toasted.show(error.response.data.message, { type: "error" });
       });
     },
-    deleteEmailRecipient: function deleteEmailRecipient(index) {
+    submitEmailBcc: function submitEmailBcc() {
       var _this3 = this;
 
-      axios.delete("/nova-vendor/contact-settings-manager/email-recipient/" + index).then(function (response) {
-        _this3.getEmailRecipients();
+      axios.post("/nova-vendor/contact-settings-manager/email-bcc", {
+        email: this.emailBcc
+      }).then(function (response) {
+        _this3.getEmailBccs();
+        _this3.emailBcc = "";
       }).catch(function (error) {
         _this3.$toasted.show(error.response.data.message, { type: "error" });
       });
@@ -797,16 +854,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     /**
-     * CC EMAILS METHODS
+     * GET EMAILS METHODS
      */
-    submitEmailCc: function submitEmailCc() {
+    getEmailRecipients: function getEmailRecipients() {
       var _this4 = this;
 
-      axios.post("/nova-vendor/contact-settings-manager/email-cc", {
-        email: this.emailCc
-      }).then(function (response) {
-        _this4.getEmailCcs();
-        _this4.emailCc = "";
+      axios.get("/nova-vendor/contact-settings-manager/email-recipient").then(function (response) {
+        _this4.emailRecipients = response.data;
       }).catch(function (error) {
         _this4.$toasted.show(error.response.data.message, { type: "error" });
       });
@@ -820,13 +874,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this5.$toasted.show(error.response.data.message, { type: "error" });
       });
     },
-    deleteEmailCc: function deleteEmailCc(index) {
+    getEmailBccs: function getEmailBccs() {
       var _this6 = this;
 
-      axios.delete("/nova-vendor/contact-settings-manager/email-cc/" + index).then(function (response) {
-        _this6.getEmailCcs();
+      axios.get("/nova-vendor/contact-settings-manager/email-bcc").then(function (response) {
+        _this6.emailBccs = response.data;
       }).catch(function (error) {
         _this6.$toasted.show(error.response.data.message, { type: "error" });
+      });
+    },
+
+
+    /**
+     * DELETE EMAILS METHODS
+     */
+    deleteEmailRecipient: function deleteEmailRecipient(index) {
+      var _this7 = this;
+
+      axios.delete("/nova-vendor/contact-settings-manager/email-recipient/" + index).then(function (response) {
+        _this7.getEmailRecipients();
+      }).catch(function (error) {
+        _this7.$toasted.show(error.response.data.message, { type: "error" });
+      });
+    },
+    deleteEmailCc: function deleteEmailCc(index) {
+      var _this8 = this;
+
+      axios.delete("/nova-vendor/contact-settings-manager/email-cc/" + index).then(function (response) {
+        _this8.getEmailCcs();
+      }).catch(function (error) {
+        _this8.$toasted.show(error.response.data.message, { type: "error" });
+      });
+    },
+    deleteEmailBcc: function deleteEmailBcc(index) {
+      var _this9 = this;
+
+      axios.delete("/nova-vendor/contact-settings-manager/email-bcc/" + index).then(function (response) {
+        _this9.getEmailBccs();
+      }).catch(function (error) {
+        _this9.$toasted.show(error.response.data.message, { type: "error" });
       });
     }
   }
@@ -1102,6 +1188,152 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   return _vm.deleteEmailCc(index)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "fill-current",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "20",
+                                    height: "20",
+                                    viewBox: "0 0 20 20",
+                                    "aria-labelledby": "delete",
+                                    role: "presentation"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      "fill-rule": "nonzero",
+                                      d:
+                                        "M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "w-full py-6" },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "border-b flex justify-between px-6 pb-4 border-grey-light"
+              },
+              [
+                _c("h3", { staticClass: "flex items-center" }, [
+                  _vm._v("Email BCCs List")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "label",
+                    { staticClass: "mr-3", attrs: { for: "emailBcc" } },
+                    [_vm._v("Add an email address to the recipients list:")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.emailBcc,
+                        expression: "emailBcc"
+                      }
+                    ],
+                    staticClass:
+                      "form-control form-input form-input-bordered mr-3",
+                    attrs: { type: "email", placeholder: "Enter email" },
+                    domProps: { value: _vm.emailBcc },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.submitEmailBcc($event)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.emailBcc = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-primary",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.submitEmailBcc($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Add")]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm.emailBccs.length === undefined || _vm.emailBccs.length == 0
+              ? [
+                  _c("div", { staticClass: "italic my-8 text-base px-8" }, [
+                    _vm._v("No entries in the email BCCs list")
+                  ])
+                ]
+              : [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "table table-fixed emails-table w-full mb-8",
+                      attrs: { id: "email-bccs" }
+                    },
+                    _vm._l(_vm.emailBccs, function(item, index) {
+                      return _c("tr", { key: "" + index }, [
+                        _c(
+                          "td",
+                          { staticClass: "w-3/4 overflow-x-auto py-0" },
+                          [_vm._v(_vm._s(item))]
+                        ),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "w-1/4 text-right py-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "appearance-none cursor-pointer text-70 hover:text-primary",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteEmailBcc(index)
                                 }
                               }
                             },

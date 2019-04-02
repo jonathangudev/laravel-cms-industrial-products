@@ -5,4 +5,11 @@
     <span class="sidebar-label">
         Contact Settings Manager
     </span>
-</router-link> 
+</router-link>
+<ul class="list-reset mb-8">
+    <li class="leading-wide mb-4 text-sm">
+        <router-link :to="{name: 'index', params: {resourceName: 'contacts'}}" class="text-white ml-8 no-underline dim">
+            Manage
+        </router-link>
+    </li>
+</ul> 
