@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contact\Settings;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Registers App\Contact\Settings, which extends spatie\valuestore
+        $this->app->singleton(Settings::class, function () {
+            return Settings::make(storage_path('app/settings/contact.json'));
+        });
     }
 }
