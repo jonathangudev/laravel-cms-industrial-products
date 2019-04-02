@@ -2,14 +2,28 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
+use App\Contact;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ContactSubmitted extends Mailable
+class ContactSubmitted extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * The name of the connection the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $connection = 'database';
+
+    /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'emails';
 
     /**
      * The email contents
@@ -25,9 +39,10 @@ class ContactSubmitted extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param Contact $contact
      * @return void
      */
-    public function __construct($contact)
+    public function __construct(Contact $contact)
     {
         $this->name = $contact->name;
         $this->company =  $contact->company;
@@ -51,6 +66,6 @@ class ContactSubmitted extends Mailable
             'contactMessage' => $this->message
         ];
 
-        return $this->view('emails.contact-submitted', $data);
+        return $this->markdown('emails.contact-submitted', $data);
     }
 }
