@@ -124,6 +124,20 @@ class Product extends Model implements HasMedia
     }
 
     /**
+     * Get the spec sheet for a specified company id
+     * 
+     * @param int $companyId
+     * @return App\Catalog\Product\SpecSheet
+     */
+    public function getSpecSheet($companyId)
+    {
+        // Attempt to get spec sheet by company
+        $companySpecifiedSpecSheets = $this->specSheets()->where('company_id', $companyId)->orWhere('company_id', null)->get();
+
+        return $companySpecifiedSpecSheets->where('company_id', $companyId)->first() ?: $companySpecifiedSpecSheets->where('company_id', null)->first();
+    }
+
+    /**
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $models
