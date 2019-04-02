@@ -17,7 +17,7 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'contact-settings-manager');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'contact-settings-manager');
 
         $this->app->booted(function () {
             $this->routes();
@@ -40,8 +40,9 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/contact-settings-manager')
-                ->group(__DIR__.'/../routes/api.php');
+            ->prefix('nova-vendor/contact-settings-manager')
+            ->namespace('Jmp\ContactSettingsManager\Http\Controllers')
+            ->group(__DIR__ . '/../routes/api.php');
     }
 
     /**

@@ -16,20 +16,20 @@ use Illuminate\Support\Facades\Route;
 /** 
  * GET ROUTES
 **/
-Route::get('/email-recipient', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@getEmailRecipients');
-Route::get('/email-cc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@getEmailCcs');
-Route::get('/email-bcc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@getEmailBccs');
+Route::get('/email-recipient', 'ContactSettingsManagerController@getEmailRecipients');
+Route::get('/email-cc', 'ContactSettingsManagerController@getEmailCcs');
+Route::get('/email-bcc', 'ContactSettingsManagerController@getEmailBccs');
 
 /** 
  * POST ROUTES
 **/
-Route::post('/email-recipient', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@storeEmailRecipient');
-Route::post('/email-cc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@storeEmailCc');
-Route::post('/email-bcc', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@storeEmailBcc');
+Route::post('/email-recipient', 'ContactSettingsManagerController@storeEmailRecipient');
+Route::post('/email-cc', 'ContactSettingsManagerController@storeEmailCc');
+Route::post('/email-bcc', 'ContactSettingsManagerController@storeEmailBcc');
 
 /**
  * DELETE ROUTES
  */
-Route::delete('/email-recipient/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailRecipient');
-Route::delete('/email-cc/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailCc');
-Route::delete('/email-bcc/{index}', '\Jmp\ContactSettingsManager\Http\Controllers\ContactSettingsManagerController@deleteEmailBcc');
+Route::delete('/email-recipient/{index}', 'ContactSettingsManagerController@deleteEmailRecipient');
+Route::delete('/email-cc/{index}', 'ContactSettingsManagerController@deleteEmailCc');
+Route::delete('/email-bcc/{index}', 'ContactSettingsManagerController@deleteEmailBcc');
