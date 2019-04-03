@@ -2,13 +2,13 @@
 
 namespace App\Nova\Pages;
 
-use Laravel\Nova\Resource;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
+use Laravel\Nova\Resource;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Image;
 
 
 class HomePage extends Resource
@@ -45,8 +45,6 @@ class HomePage extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-
             new Panel(
                 'Subheading',
                 [Text::make('Subheading')]
@@ -62,13 +60,13 @@ class HomePage extends Resource
                 Trix::make('Our Products Text')->alwaysShow(),
             ]),
 
-            new Panel('Our Products', [
+            new Panel('Contact Us', [
                 Text::make('Contact Us Title'),
                 Trix::make('Contact Us Text')->alwaysShow(),
             ]),
 
             new Panel('Footer', [
-                //Image::make('Footer Image'),
+                Images::make('Images', 'footer-image'), // second parameter is the media collection name
                 Text::make('Footer Title'),
                 Trix::make('Footer Text')->alwaysShow(),
             ]),
