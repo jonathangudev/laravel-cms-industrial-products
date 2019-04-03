@@ -29,7 +29,7 @@ class PreventDuplicateHomePage
         $existingValue = HomePage::first();
 
         if ($existingValue) {
-            throw new HomePageCreationFailed("You can only have one home page at a time.  Modify your current home page or delete it and create a new one.");
+            throw new HomePageCreationFailed("Your site may have only one home page at a time.  Modify your current home page or delete it and create a new one.");
         }
     }
 }
