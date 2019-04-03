@@ -22,7 +22,6 @@ class CreateHomePagesTable extends Migration
             $table->text('our_products_text')->nullable();
             $table->string('contact_us_title')->nullable();
             $table->text('contact_us_text')->nullable();
-            $table->string('footer_image')->nullable();
             $table->string('footer_title')->nullable();
             $table->text('footer_text')->nullable();
             $table->timestamps();
