@@ -27,6 +27,9 @@ class EventServiceProvider extends ServiceProvider
         HomePageCreating::class => [
             PreventDuplicateHomePage::class,
         ],
+        AboutUsPageCreating::class => [
+            PreventDuplicateAboutUsPage::class,
+        ],
     ];
 
     /**

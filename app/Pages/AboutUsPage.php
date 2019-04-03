@@ -5,7 +5,7 @@ namespace App\Pages;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-//use App\Events\Pages\AboutUsPageCreating;
+use App\Events\Pages\AboutUsPageCreating;
 
 class AboutUsPage extends Model implements HasMedia
 {
@@ -36,6 +36,6 @@ class AboutUsPage extends Model implements HasMedia
      * @var array
      */
     protected $dispatchesEvents = [
-        //'creating' => HomePageCreating::class,
+        'creating' => AboutUsPageCreating::class,
     ];
 }
