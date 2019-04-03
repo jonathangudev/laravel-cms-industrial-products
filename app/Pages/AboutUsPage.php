@@ -5,9 +5,9 @@ namespace App\Pages;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use App\Events\Pages\HomePageCreating;
+//use App\Events\Pages\AboutUsPageCreating;
 
-class HomePage extends Model implements HasMedia
+class AboutUsPage extends Model implements HasMedia
 {
     use HasMediaTrait;
 
@@ -16,7 +16,7 @@ class HomePage extends Model implements HasMedia
      *
      * @var string
      */
-    protected $table = 'pages_home_pages';
+    protected $table = 'pages_about_us_pages';
 
     /**
      * Register the media collections for this model
@@ -26,7 +26,7 @@ class HomePage extends Model implements HasMedia
     public function registerMediaCollections()
     {
         $this
-            ->addMediaCollection('footer-image')
+            ->addMediaCollection('about-us-image')
             ->useDisk('public');
     }
 
@@ -36,6 +36,6 @@ class HomePage extends Model implements HasMedia
      * @var array
      */
     protected $dispatchesEvents = [
-        'creating' => HomePageCreating::class,
+        //'creating' => HomePageCreating::class,
     ];
 }
