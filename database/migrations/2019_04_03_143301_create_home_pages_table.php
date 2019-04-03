@@ -13,7 +13,7 @@ class CreateHomePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('home_pages', function (Blueprint $table) {
+        Schema::create('pages_home_pages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subheading')->nullable();
             $table->string('about_us_title')->nullable();
@@ -36,6 +36,6 @@ class CreateHomePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('home_pages');
+        Schema::dropIfExists('pages_home_pages');
     }
 }
