@@ -5,6 +5,7 @@ namespace App\Pages;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use App\Events\Pages\HomePageCreating;
 
 class HomePage extends Model implements HasMedia
 {
@@ -28,4 +29,13 @@ class HomePage extends Model implements HasMedia
             ->addMediaCollection('footer-image')
             ->useDisk('restricted');
     }
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'creating' => HomePageCreating::class,
+    ];
 }

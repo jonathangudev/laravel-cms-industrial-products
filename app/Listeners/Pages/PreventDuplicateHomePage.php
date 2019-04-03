@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Listeners\Pages;
+
+use App\Pages\HomePage;
+use App\Events\Pages\HomePageCreating;
+use App\Exceptions\Pages\HomePageCreationFailed;
+
+class PreventDuplicateHomePage
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  HomePageCreating  $event
+     * @return void
+     */
+    public function handle(HomePageCreating $event)
+    {
+        $existingValue = HomePage::first();
+
+        if ($existingValue) {
+            throw new HomePageCreationFailed("You can only have one home page at a time.  Modify your current home page or delete it and create a new one.");
+        }
+    }
+}
