@@ -21,7 +21,7 @@ class AboutUsPageCreating
      *
      * @return void
      */
-    public function __construct(AbousUsPage $aboutUsPage)
+    public function __construct(AboutUsPage $aboutUsPage)
     {
         $this->aboutUsPage = $aboutUsPage;
     }

@@ -52,7 +52,7 @@ class AboutUsPage extends Resource
                 Trix::make('Content Block 2 Text')->alwaysShow(),
             ]),
             new Panel('Image', [
-                Images::make('Images', 'about-us-image'), // second parameter is the media collection name
+                Images::make('Image', 'about-us-image'), // second parameter is the media collection name
             ]),
         ];
     }
@@ -99,5 +99,15 @@ class AboutUsPage extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'About Us Page';
     }
 }

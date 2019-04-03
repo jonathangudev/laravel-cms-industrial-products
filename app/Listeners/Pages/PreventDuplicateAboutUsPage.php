@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Pages;
 
-use App\Pages\AboutUs;
-use App\Events\Pages\AboutUsPage;
+use App\Pages\AboutUsPage;
+use App\Events\Pages\AboutUsPageCreating;
 use App\Exceptions\Pages\AboutUsPageCreationFailed;
 
 class PreventDuplicateAboutUsPage
@@ -21,15 +21,15 @@ class PreventDuplicateAboutUsPage
     /**
      * Handle the event.
      *
-     * @param  AboutUsPage  $event
+     * @param  AboutUsPageCreating  $event
      * @return void
      */
-    public function handle(AboutUsPage $event)
+    public function handle(AboutUsPageCreating $event)
     {
         $existingValue = AboutUsPage::first();
 
         if ($existingValue) {
-            throw new AboutUsPageCreationFailed("Your site may have only one About Us page at a time.  Modify your current home page or delete it and create a new one.");
+            throw new AboutUsPageCreationFailed("Your site may have only one 'About Us' page at a time.  Modify your current 'About Us' page or delete it and create a new one.");
         }
     }
 }
