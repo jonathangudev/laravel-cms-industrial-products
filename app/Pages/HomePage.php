@@ -27,7 +27,7 @@ class HomePage extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('footer-image')
-            ->useDisk('restricted');
+            ->useDisk('public');
     }
 
     /**
