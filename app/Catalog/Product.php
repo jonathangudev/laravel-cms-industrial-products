@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Catalog;
-
 
 use App\Catalog\Product\AttributeTemplate;
 use App\Catalog\Product\AttributeValue;
@@ -13,7 +11,6 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 use Laravel\Scout\Searchable;
-
 
 class Product extends Model implements HasMedia
 {
@@ -121,6 +118,21 @@ class Product extends Model implements HasMedia
     public function specSheets()
     {
         return $this->hasMany(SpecSheet::class);
+    }
+
+    /**
+     * Get the spec sheet for a specified company id
+     * 
+     * @param int $companyId
+     * @return App\Catalog\Product\SpecSheet
+     */
+    public function getSpecSheet($companyId)
+    {
+        // Gets spec sheet by company AND the default spec sheet (will return multiple results)
+        $companySpecifiedSpecSheets = $this->specSheets()->where('company_id', $companyId)->orWhere('company_id', null)->get();
+
+        // If there is no company-specific spec sheet, get the default spec sheet, if it exists
+        return $companySpecifiedSpecSheets->where('company_id', $companyId)->first() ?: $companySpecifiedSpecSheets->where('company_id', null)->first();
     }
 
     /**
