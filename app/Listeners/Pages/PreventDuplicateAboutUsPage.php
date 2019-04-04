@@ -26,9 +26,9 @@ class PreventDuplicateAboutUsPage
      */
     public function handle(AboutUsPageCreating $event)
     {
-        $existingValue = AboutUsPage::first();
+        $existingAboutUsPage = AboutUsPage::first();
 
-        if ($existingValue) {
+        if ($existingAboutUsPage) {
             throw new AboutUsPageCreationFailed("Your site may have only one 'About Us' page at a time.  Modify your current 'About Us' page or delete it and create a new one.");
         }
     }
