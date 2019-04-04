@@ -26,9 +26,9 @@ class PreventDuplicateHomePage
      */
     public function handle(HomePageCreating $event)
     {
-        $existingValue = HomePage::first();
+        $existingHomePage = HomePage::first();
 
-        if ($existingValue) {
+        if ($existingHomePage) {
             throw new HomePageCreationFailed("Your site may have only one home page at a time.  Modify your current home page or delete it and create a new one.");
         }
     }
