@@ -44,7 +44,7 @@ class Row extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Title'),
-            HasMany::make('Content'),
+            HasMany::make('Contents'),
         ];
     }
 

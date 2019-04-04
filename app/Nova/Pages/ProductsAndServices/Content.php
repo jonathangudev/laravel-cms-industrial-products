@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Nova\App\Pages\ProductsAndServices;
+namespace App\Nova\Pages\ProductsAndServices;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Content extends Resource
 {
@@ -13,7 +15,7 @@ class Content extends Resource
      *
      * @var string
      */
-    public static $model = 'App\App/Pages/ProductsAndServices/Content';
+    public static $model = 'App\Pages\ProductsAndServices\Content';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,6 +43,8 @@ class Content extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Name'),
+            Images::make('Image', 'about-us-image'), // second parameter is the media collection name
         ];
     }
 
