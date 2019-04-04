@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Events\Catalog\Product\AttributeValueCreating;
 use App\Events\Pages\HomePageCreating;
+use App\Events\Pages\AboutUsPageCreating;
 use App\Events\User\Welcomed;
 use App\Listeners\Catalog\Product\PreventDuplicateAttributeValue;
 use App\Listeners\Pages\PreventDuplicateHomePage;
+use App\Listeners\Pages\PreventDuplicateAboutUsPage;
 use App\Listeners\SendWelcomeEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         HomePageCreating::class => [
             PreventDuplicateHomePage::class,
+        ],
+        AboutUsPageCreating::class => [
+            PreventDuplicateAboutUsPage::class,
         ],
     ];
 
