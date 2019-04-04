@@ -35,6 +35,13 @@ class AboutUsPage extends Resource
     ];
 
     /**
+     * The group that the resource belongs to.
+     * 
+     * @var group
+     */
+    public static $group = "Pages";
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request

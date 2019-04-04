@@ -34,6 +34,13 @@ class Row extends Resource
     ];
 
     /**
+     * The group that the resource belongs to.
+     * 
+     * @var group
+     */
+    public static $group = "Pages";
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -90,5 +97,15 @@ class Row extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Products And Services Page - Content Row';
     }
 }
