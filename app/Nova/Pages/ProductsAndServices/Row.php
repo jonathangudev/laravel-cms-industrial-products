@@ -1,29 +1,28 @@
 <?php
 
-namespace App\Nova\Pages;
+namespace App\Nova\Pages\ProductsAndServices;
 
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
-use Illuminate\Http\Request;
 use Laravel\Nova\Resource;
-use Laravel\Nova\Panel;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\HasMany;
+use Illuminate\Http\Request;
 
-class AboutUsPage extends Resource
+class Row extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Pages\AboutUsPage';
+    public static $model = 'App\Pages\ProductsAndServices\Row';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -31,7 +30,7 @@ class AboutUsPage extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title'
     ];
 
     /**
@@ -50,17 +49,9 @@ class AboutUsPage extends Resource
     public function fields(Request $request)
     {
         return [
-            new Panel('Content Block 1', [
-                Text::make('Content Block 1 Title'),
-                Trix::make('Content Block 1 Text')->alwaysShow(),
-            ]),
-            new Panel('Content Block 2', [
-                Text::make('Content Block 2 Title'),
-                Trix::make('Content Block 2 Text')->alwaysShow(),
-            ]),
-            new Panel('Image', [
-                Images::make('Image', 'about-us-image'), // second parameter is the media collection name
-            ]),
+            ID::make()->sortable(),
+            Text::make('Title')->sortable(),
+            HasMany::make('Contents'),
         ];
     }
 
@@ -115,6 +106,6 @@ class AboutUsPage extends Resource
      */
     public static function label()
     {
-        return 'About Us Page';
+        return 'Products And Services Page - Content Row';
     }
 }
