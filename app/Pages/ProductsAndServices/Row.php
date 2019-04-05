@@ -20,6 +20,6 @@ class Row extends Model
      */
     public function contents()
     {
-        return $this->hasMany(Content::class);
+        return $this->hasMany(Content::class)->orderBy('sort_order', 'asc');
     }
 }
