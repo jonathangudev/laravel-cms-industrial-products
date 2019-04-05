@@ -62,9 +62,10 @@ class Collection extends EloquentCollection
             $defaultAttributes = $attributes->whereStrict('company_id', null);
             $companySpecifiedAttributes = $attributes->where('company_id', $id);
 
-            // removes all default attributes that have been overridden by a company-specified attribute
+            // removes all default attribute values that have been overridden by a company-specified attribute value
             $cleanedDefaultAttributes = $defaultAttributes->whereNotIn('attribute_id', $companySpecifiedAttributes->pluck('attribute_id'));
 
+            // combines non-overridden default attribute values with all company-specified attribute values
             $product->attributes = $companySpecifiedAttributes->merge($cleanedDefaultAttributes);
 
             return $product;
