@@ -16,8 +16,10 @@ class CreatePagesProductsAndServicesContentsTable extends Migration
         Schema::create('pages_products_and_services_contents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('row_id');
+            $table->unsignedInteger('row_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('row_id')->references('id')->on('pages_products_and_services_rows');
         });
     }
 

@@ -22,7 +22,7 @@ class Row extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -30,7 +30,7 @@ class Row extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title'
     ];
 
     /**
@@ -50,7 +50,7 @@ class Row extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title'),
+            Text::make('Title')->sortable(),
             HasMany::make('Contents'),
         ];
     }
