@@ -19,7 +19,10 @@ class CreatePagesProductsAndServicesContentsTable extends Migration
             $table->unsignedInteger('row_id');
             $table->timestamps();
 
-            $table->foreign('row_id')->references('id')->on('pages_products_and_services_rows');
+            $table->foreign('row_id')
+                ->references('id')
+                ->on('pages_products_and_services_rows')
+                ->onDelete('cascade');;
         });
     }
 
