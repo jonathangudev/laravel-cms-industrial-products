@@ -6,7 +6,9 @@ use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Illuminate\Http\Request;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Content extends Resource
 {
@@ -61,6 +63,7 @@ class Content extends Resource
             ID::make()->sortable(),
             Text::make('Name')->sortable(),
             Images::make('Image', 'about-us-image'), // second parameter is the media collection name
+            Number::make('Sort Order')->sortable()->min(0)->step(1),
         ];
     }
 
@@ -116,5 +119,32 @@ class Content extends Resource
     public static function label()
     {
         return 'Products And Services Page - Content Block';
+    }
+
+    /**
+     * Default ordering for index query.
+     *
+     * @var array
+     */
+    public static $sort = [
+        'sort_order' => 'asc'
+    ];
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (empty($request->get('orderBy'))) {
+            $query->getQuery()->orders = [];
+
+            return $query->orderBy(key(static::$sort), reset(static::$sort));
+        }
+
+        return $query;
     }
 }

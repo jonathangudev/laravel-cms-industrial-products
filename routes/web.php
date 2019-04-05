@@ -24,7 +24,7 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/products-and-services', function () {
-    return view('products-services', ['pageRows' => Row::with('contents')->get()]);
+    return view('products-services', ['pageRows' => Row::with(['contents'])->orderBy('sort_order', 'asc')->get()]);
 })->name('products-services');
 
 // Contact Form Routes...
