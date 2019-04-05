@@ -51,9 +51,25 @@ class Collection extends EloquentCollection
      */
     public function withCompanyAttributeFilter(int $id)
     {
-        return $this->load(['attributes' => function ($query) use ($id) {
+        $products = $this->load(['attributes' => function ($query) use ($id) {
             $query->whereNull('company_id')->orWhere('company_id', $id);
         }]);
+
+        return $products->map(function ($product) use ($id) {
+
+            $attributes = $product->attributes;
+
+            $defaultAttributes = $attributes->whereStrict('company_id', null);
+            $companySpecifiedAttributes = $attributes->where('company_id', $id);
+
+            // removes all default attribute values that have been overridden by a company-specified attribute value
+            $cleanedDefaultAttributes = $defaultAttributes->whereNotIn('attribute_id', $companySpecifiedAttributes->pluck('attribute_id'));
+
+            // combines non-overridden default attribute values with all company-specified attribute values
+            $product->attributes = $companySpecifiedAttributes->merge($cleanedDefaultAttributes);
+
+            return $product;
+        });
     }
 
     /**
