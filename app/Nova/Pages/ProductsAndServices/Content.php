@@ -41,6 +41,15 @@ class Content extends Resource
     public static $group = "Pages";
 
     /**
+     * Hides the resource in the sidebar menu.
+     * 
+     * @var displayInNavigation
+     */
+    public static $displayInNavigation = false;
+
+
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
