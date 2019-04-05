@@ -1,5 +1,9 @@
 <?php
 
+use App\Pages\HomePage;
+use App\Pages\AboutUsPage;
+use App\Pages\ProductsAndServices\Row;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,15 +16,15 @@
  */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', ['homePage' => HomePage::first()]);
 })->name('home');
 
 Route::get('/about', function () {
-    return view('about');
+    return view('about', ['aboutUs' => AboutUsPage::first()]);
 })->name('about');
 
 Route::get('/products-and-services', function () {
-    return view('products-services');
+    return view('products-services', ['pageRows' => Row::with('contents')->get()]);
 })->name('products-services');
 
 // Contact Form Routes...
