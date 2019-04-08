@@ -111,6 +111,6 @@ class Company extends Model
      */
     public function userLogins()
     {
-        return $this->hasManyThrough('App\Logs\UserLogin', 'App\User');
+        return $this->hasManyThrough('App\Logs\UserLogin', 'App\User')->orderBy('created_at', 'desc');
     }
 }

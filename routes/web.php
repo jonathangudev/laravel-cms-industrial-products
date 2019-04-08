@@ -69,6 +69,6 @@ Route::get(
 
 Route::post('/search', 'CatalogSearchController@search')->name('search');
 
-Route::get('log', function () {
-    dd(Company::find(10)->userLogins);
+Route::get('log/{company}', function ($companyId) {
+    echo Company::find($companyId)->userLogins;
 });
