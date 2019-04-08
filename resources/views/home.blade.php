@@ -97,7 +97,7 @@
 			<div class="row align-items-center">
 				<div class="col-lg-12">
 					<div class="c-home-content__img">
-						<img src="{{ $homePage->images[0] }}" alt="Home Image">
+						<img src="{{ $homePage->getFirstMediaUrl('footer-image') }}" alt="Home Image">
 					</div>
 				</div>
 				<div class="col-lg-11 col-xl-10 offset-lg-1 offset-xl-2">

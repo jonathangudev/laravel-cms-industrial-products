@@ -49,7 +49,7 @@
 					</div>
 					<div class="col-24 col-md-14 col-lg-10 col-xl-9 offset-md-5 offset-lg-2">
 						<div class="c-about-content__img">
-							<img src="{{ $aboutUs->images[0] }}" alt="About Us Image">
+							<img src="{{ $aboutUs->getFirstMediaUrl('about-us-image') }}" alt="About Us Image">
 						</div>
 					</div>
 				</div>

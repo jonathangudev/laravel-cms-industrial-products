@@ -37,14 +37,14 @@ class Content extends Resource
 
     /**
      * The group that the resource belongs to.
-     * 
+     *
      * @var group
      */
     public static $group = "Pages";
 
     /**
      * Hides the resource in the sidebar menu.
-     * 
+     *
      * @var displayInNavigation
      */
     public static $displayInNavigation = false;
@@ -62,7 +62,7 @@ class Content extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')->sortable(),
-            Images::make('Image', 'about-us-image'), // second parameter is the media collection name
+            Images::make('Image', 'products-and-services-content-image'), // second parameter is the media collection name
             Number::make('Sort Order')->sortable()->min(0)->step(1),
         ];
     }
