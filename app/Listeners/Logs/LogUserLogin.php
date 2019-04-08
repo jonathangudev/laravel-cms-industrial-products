@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Logs;
 
-use App\Events\UserLoggedIn;
+use Illuminate\Auth\Events\Login;
 use App\Logs\UserLogin;
 
 class LogUserLogin
@@ -23,11 +23,12 @@ class LogUserLogin
      * @param  object  $event
      * @return void
      */
-    public function handle(UserLoggedIn $event)
+    public function handle(Login $event)
     {
         $user_id = $event->user->id;
 
         $logEntry = new UserLogin;
+        $logEntry->user_id = $user_id;
 
         $logEntry->save();
     }

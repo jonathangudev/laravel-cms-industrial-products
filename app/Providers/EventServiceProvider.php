@@ -11,7 +11,7 @@ use App\Listeners\Catalog\Product\PreventDuplicateAttributeValue;
 use App\Listeners\Pages\PreventDuplicateHomePage;
 use App\Listeners\Pages\PreventDuplicateAboutUsPage;
 use App\Listeners\SendWelcomeEmail;
-use App\Listeners\Logs\UserLogin;
+use App\Listeners\Logs\LogUserLogin;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -36,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
             PreventDuplicateAboutUsPage::class,
         ],
         Login::class => [
-            UserLogin::class,
+            LogUserLogin::class,
         ],
     ];
 
