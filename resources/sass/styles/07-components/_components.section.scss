@@ -27,10 +27,11 @@
     }
   }
 
-  p {
+  &__content {
     color: $text-muted-color;
     font-size: $font-size-lg;
     line-height: $leading * 1.5;
+    margin-bottom: $leading;
 
     @include media-breakpoint-down(sm) {
       font-size: $font-size-base;

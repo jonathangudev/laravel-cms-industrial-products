@@ -55,7 +55,7 @@
 				<section class="c-contact-form">
 					<div class="c-section">
 						<h2>Get In Touch</h2>
-						<p>Fill out the form below and we'll get back to you.</p>
+						<div class="c-section__content">Fill out the form below and we'll get back to you.</div>
 					</div>
 					<form action="{{route('contact')}}" class="c-contact-form__form o-form" method="POST">
 						@csrf

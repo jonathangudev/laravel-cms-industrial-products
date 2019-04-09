@@ -1,5 +1,5 @@
 // Homepage
-// 
+//
 // Styles for all homepage sections
 
 @import 'globals';
@@ -95,16 +95,21 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    
+
     @include media-breakpoint-down(md) {
       height: calc(100% - #{$grid-gutter-width-rem});
       margin-bottom: $grid-gutter-width-rem;
     }
-    
+
     @include media-breakpoint-down(sm) {
       height: auto;
       margin-bottom: $leading * 2;
     }
+  }
+
+  &__content {
+    color: $text-muted-color;
+    margin-bottom: $leading;
   }
 
   &__cta {
@@ -161,7 +166,7 @@
         left: -$grid-gutter-width-rem * 4;
         z-index: 1;
       }
-    
+
       &:after {
         content: '';
         position: absolute;

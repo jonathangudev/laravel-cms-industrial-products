@@ -22,7 +22,7 @@
 				</div>
 			</div>
 		</section>
-	
+
 		<section>
 			<div class="container">
 				<div class="row">
@@ -32,33 +32,30 @@
 				</div>
 			</div>
 		</section>
-	
+
 		<link rel="stylesheet" href="{{ mix('/css/section.css') }}">
 		<section class="c-about-content">
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-24 col-lg-12 col-xl-13">
 						<div class="c-about-content__text c-section">
-							<h2>Our Company</h2>
-							<p>Founded in 1989, the JMP companies are comprised of a team of world-class professionals spanning many industries, dedicated to Craftsmanship, Innovation and Customer Service.</p>
-		
-							<h2>Our Expertise</h2>
-							<p>The JMP team specializes in NASA/DOD Space Flight Hardware, Chemical Catalyst Extrusion and Processing, Alternative Energy Systems and Proprietary Micro and Nano Reactor Technologies.</p>
+							<h2>{{ $aboutUs->content_block_1_title }}</h2>
+							<div class="c-section__content">{!! $aboutUs->content_block_1_text !!}</div>
+							<br/>
+							<h2>{{ $aboutUs->content_block_2_title }}</h2>
+							<div class="c-section__content">{!! $aboutUs->content_block_2_text !!}</div>
 							<a href="{{ route('products-services') }}" class="c-btn c-btn--primary c-btn--ghost">View Products &amp; Services</a>
 						</div>
 					</div>
 					<div class="col-24 col-md-14 col-lg-10 col-xl-9 offset-md-5 offset-lg-2">
 						<div class="c-about-content__img">
-							<picture>
-								<source srcset="{{ asset('images/about_image.webp') }}" type="image/webp">
-								<img src="{{ asset('images/about_image.jpeg') }}" alt="About Us Image">
-							</picture>
+							<img src="{{ $aboutUs->getFirstMediaUrl('about-us-image') }}" alt="About Us Image">
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-	
+
 		{{-- <section class="c-about-testimonial">
 			<div class="c-about-testimonial__stripe-wrapper d-none d-sm-block">
 				<div class="c-about-testimonial__stripe c-about-testimonial__stripe--gray"></div>
@@ -81,7 +78,7 @@
 				</div>
 			</div>
 		</section> --}}
-		
+
 		{{-- <section class="c-about-team">
 			<div class="container">
 				<div class="row">
