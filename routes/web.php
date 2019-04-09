@@ -31,7 +31,19 @@ Route::get('/products-and-services', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
-Route::post('/contact', 'ContactController@submit');
+Route::post('/contact', 'ContactController@submitContact');
+Route::post('/contact/footer', 'ContactController@submitContactFooter')->name('contact.footer');
+
+// Thank You Routes
+// For Contact Page form
+Route::get('/thank-you', function () {
+    return view('thank-you');
+})->name('thank-you');
+
+// For footer form
+Route::get('/thank-you/footer', function () {
+    return view('thank-you');
+})->name('thank-you.footer');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

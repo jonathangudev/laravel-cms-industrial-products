@@ -24,10 +24,9 @@ class ContactController extends Controller
     /**
      * Save contact form and send as email.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-
-    public function submit(Request $request)
+    private function submit(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -69,7 +68,15 @@ class ContactController extends Controller
             ->cc($emailCcs)
             ->bcc($emailBccs)
             ->send($mail);
+    }
 
-        return redirect()->back()->with('contact-form-success-message', 'Your information was submitted!');
+    public function submitContact(Request $request) {
+        $this->submit($request);
+        return redirect()->route('thank-you');
+    }
+
+    public function submitContactFooter(Request $request) {
+        $this->submit($request);
+        return redirect()->route('thank-you.footer');
     }
 }

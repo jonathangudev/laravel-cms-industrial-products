@@ -20,12 +20,6 @@
 		@endcomponent
 	@endif
 
-	@if (Session::has('contact-form-success-message'))
-		@component('partials.alert', ['type' => 'success'])
-			{{ Session::get('contact-form-success-message') }}
-		@endcomponent
-	@endif
-
 	<link rel="stylesheet" href="{{ mix('/css/contact.css') }}">
 	<link rel="stylesheet" href="{{ mix('/css/subheader.css') }}">
 	<section class="c-subheader c-contact-hero">
