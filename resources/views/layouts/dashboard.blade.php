@@ -19,6 +19,10 @@
 	</head>
 
 	<body>
+		{{-- Google Tag Manager (noscript) --}}
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ env('GTM_ID') }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		{{-- End Google Tag Manager (noscript) --}}
+
 		<div id="back-to-top"></div>
 		@include('partials.header-logged-in')
 
@@ -57,7 +61,7 @@
 								@yield('content')
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col">
 								<div class="o-dashboard__disclaimer">
