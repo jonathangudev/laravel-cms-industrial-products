@@ -6,11 +6,15 @@
 			<link rel="preload" href="{{ mix('/css/auth.css') }}" as="style" type="text/css">
 			<link rel="preload" href="{{ asset('images/technical-drawing.svg') }}" as="image" type="image/svg+xml">
 		@endprepend
-		
+
 		@include('partials.head')
 	</head>
 
 	<body>
+		{{-- Google Tag Manager (noscript) --}}
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FWQ5W2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		{{-- End Google Tag Manager (noscript) --}}
+
 		<link rel="stylesheet" href="{{ mix('/css/auth.css') }}">
 		<main class="o-main">
 			<div class="c-auth">
