@@ -1,0 +1,12 @@
+// Thank You Page
+//
+// Styles for thank you page
+
+@import 'globals';
+
+.c-thank-you {
+  &-content {
+    padding-top: $leading * 3;
+    padding-bottom: $leading * 3;
+  }
+}

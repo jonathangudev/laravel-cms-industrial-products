@@ -95,6 +95,10 @@ mix.js('resources/js/menu-toggle.js', 'public/js')
         'public/css/search-results.css',
     )
     .sass(
+        'resources/sass/styles/07-components/_components.thank-you.scss',
+        'public/css/thank-you.css',
+    )
+    .sass(
         'resources/sass/styles/07-components/_components.admin.scss',
         'public/css/admin.css',
     )

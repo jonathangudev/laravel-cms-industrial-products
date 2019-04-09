@@ -8,12 +8,6 @@
             </ul>
         @endcomponent
     @endif
-
-    @if (Session::has('contact-form-success-message'))
-        @component('partials.alert', ['type' => 'success'])
-            {{ Session::get('contact-form-success-message') }}
-        @endcomponent
-    @endif
 @endunless
 
 <link rel="stylesheet" href="{{ mix('/css/footer.css') }}">
@@ -77,7 +71,7 @@
                 <div class="row">
                     <div class="col-24">
                         <h3>{{ __('Get In Touch') }}</h3>
-                        <form action="{{route('contact')}}" method="POST" class="c-footer__form o-form o-form--reverse">
+                        <form action="{{route('contact.footer')}}" method="POST" class="c-footer__form o-form o-form--reverse">
                             @csrf
                             <fieldset>
                                 <legend>{{ __('Contact Information') }}</legend>
