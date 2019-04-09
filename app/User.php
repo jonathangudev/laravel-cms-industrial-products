@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Mail\WelcomeUser;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasRoles;
+
+    public $ip_address;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +53,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendWelcomeEmail()
     {
         Mail::to($this)->send(new WelcomeUser($this));
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        $this->ip_address = $request->getClientIp();
     }
 }
