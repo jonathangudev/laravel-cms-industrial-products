@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Logs\UserLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/endpoint', function (Request $request) {
 //     //
 // });
+
+Route::get('/', function () {
+    echo "hello world";
+});
+
+Route::get('/user/{id}', function ($id) {
+    $result = UserLogin::where('user_id', $id)->get();
+    return response()->json($result);
+});
