@@ -4,7 +4,6 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Jmp\LogUserLogins\LogUserLogins;
 use Jmp\CompanyCatalogManager\CompanyCatalogManager;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;

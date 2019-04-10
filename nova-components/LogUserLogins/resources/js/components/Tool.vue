@@ -1,5 +1,4 @@
 <template>
-    <div>Log User Logins</div>
 </template>
 
 <script>
