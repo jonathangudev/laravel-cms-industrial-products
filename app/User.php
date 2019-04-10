@@ -15,8 +15,6 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use HasRoles;
 
-    public $ip_address;
-
     /**
      * The attributes that are mass assignable.
      *

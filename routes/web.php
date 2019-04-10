@@ -4,8 +4,6 @@ use App\Pages\HomePage;
 use App\Pages\AboutUsPage;
 use App\Pages\ProductsAndServices\Row;
 
-use App\Company;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,7 +66,3 @@ Route::get(
 );
 
 Route::post('/search', 'CatalogSearchController@search')->name('search');
-
-Route::get('log/{company}', function ($companyId) {
-    echo Company::find($companyId)->userLogins;
-});
