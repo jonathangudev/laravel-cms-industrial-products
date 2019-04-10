@@ -27,7 +27,7 @@ class LogUserLogin
     public function handle(Login $event)
     {
         $user_id = $event->user->id;
-        $ip_address = $this->request->ips();
+        $ip_address = $this->request->ip();
 
         $logEntry = new UserLogin;
         $logEntry->user_id = $user_id;
