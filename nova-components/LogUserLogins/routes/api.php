@@ -14,14 +14,6 @@ use App\Logs\UserLogin;
 |
 */
 
-// Route::get('/endpoint', function (Request $request) {
-//     //
-// });
-
-Route::get('/', function () {
-    echo "hello world";
-});
-
 Route::get('/user/{id}', function ($id) {
     $result = UserLogin::where('user_id', $id)->get();
     return response()->json($result);

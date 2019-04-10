@@ -77,8 +77,6 @@ class Company extends Resource
                 })
                 ->prunable(),
 
-            LogUserLogins::make(),
-
             CompanyCatalogManager::make(),
         ];
     }

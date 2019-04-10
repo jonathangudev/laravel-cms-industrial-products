@@ -13,7 +13,7 @@ class LogUserLogins extends ResourceTool
      */
     public function name()
     {
-        return 'Log User Logins';
+        return 'User Logins';
     }
 
     /**
