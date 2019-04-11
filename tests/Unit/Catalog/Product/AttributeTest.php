@@ -78,6 +78,11 @@ class AttributeTest extends TestCase
         $attribute = Attribute::find($attributeValue->attribute_id);
 
         $this->assertInstanceOf(AttributeValue::class, $attribute->value);
+
+        // Update automatically set values
+        $attributeValue->is_hidden = $attribute->value->is_hidden;
+        $attributeValue->company_id = $attribute->value->company_id;
+
         $this->assertEquals($attributeValue->toArray(), $attribute->value->toArray());
     }
 }

@@ -21,7 +21,14 @@ class UserTest extends TestCase
      */
     public function itCanGetACompanyFromAUser()
     {
+        // Create user without company
         $user = factory(User::class)->create();
+
+        // Update company in user
+        $user->company_id = factory(Company::class)->create()->id;
+
+        $user->save();
+
         $company = $user->company;
 
         $this->assertInstanceOf(Company::class, $company);

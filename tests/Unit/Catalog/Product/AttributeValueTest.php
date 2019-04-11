@@ -98,7 +98,7 @@ class AttributeValueTest extends TestCase
         $attributeValue = factory(AttributeValue::class)->create();
         $attribute = $attributeValue->attribute;
 
-        $this->assertEquals($attributeValue->name, $attribute->name);
+        $this->assertEquals($attributeValue->getAttributeNameAttribute(), $attribute->name);
     }
 
     /**
