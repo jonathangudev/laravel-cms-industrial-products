@@ -41,7 +41,18 @@ class Product extends Resource
     public static $search = [
         'id',
         'name',
+        'part_number'
     ];
+
+    /**
+     * Get the search result subtitle for the resource.
+     *
+     * @return string
+     */
+    public function subtitle()
+    {
+        return "Part Number: {$this->part_number}";
+    }
 
     /**
      * The relationships that should be eager loaded on index queries.
@@ -61,6 +72,7 @@ class Product extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')->creationRules('required'),
+            Text::make('Part Number'),
             Images::make('Thumbnail', 'product-thumbnail') // second parameter is the media collection name
                 ->thumbnail('thumb'), // conversion used to display the image
             ProductSpecSheetManager::make(),
