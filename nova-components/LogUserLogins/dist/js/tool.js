@@ -165,7 +165,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.ips-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n.ips-table td {\n  border-top-width: 0px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.ips-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n.ips-table td {\n  border-top-width: 0px;\n}\n", ""]);
 
 // exports
 
@@ -647,23 +647,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["resourceName", "resourceId", "field"],
 
   data: function data() {
     return {
-      logData: {}
+      logData: {},
+      entries: {},
+      prevLink: "",
+      nextLink: ""
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     axios.get("/nova-vendor/log-user-logins/user/" + this.resourceId).then(function (response) {
-      return _this.logData = response.data;
+      _this.entries = response.data.data;
+      _this.logData = response.data;
+      _this.nextLink = _this.logData.next_page_url;
+      _this.prevLink = _this.logData.last_page_url;
     }).catch(function (error) {
       _this.$toasted.show(error.response.data.message, { type: "error" });
     });
+  },
+
+
+  methods: {
+    getNextLoginsPage: function getNextLoginsPage() {
+      var _this2 = this;
+
+      axios.get(this.nextLink).then(function (response) {
+        _this2.entries = response.data.data;
+        _this2.logData = response.data;
+        _this2.nextLink = _this2.logData.next_page_url;
+        _this2.prevLink = _this2.logData.prev_page_url;
+      }).catch(function (error) {
+        _this2.$toasted.show(error.response.data.message, { type: "error" });
+      });
+    },
+    getPrevLoginsPage: function getPrevLoginsPage() {
+      var _this3 = this;
+
+      axios.get(this.prevLink).then(function (response) {
+        _this3.entries = response.data.data;
+        _this3.logData = response.data;
+        _this3.nextLink = _this3.logData.next_page_url;
+        _this3.prevLink = _this3.logData.prev_page_url;
+      }).catch(function (error) {
+        _this3.$toasted.show(error.response.data.message, { type: "error" });
+      });
+    }
   }
 });
 
@@ -678,11 +724,11 @@ var render = function() {
   return _c("div", [
     _c(
       "table",
-      { staticClass: "table table-fixed ips-table w-full mb-8" },
+      { staticClass: "table table-fixed ips-table w-full" },
       [
         _vm._m(0),
         _vm._v(" "),
-        _vm._l(_vm.logData, function(item, index) {
+        _vm._l(_vm.entries, function(item, index) {
           return _c("tr", [
             _c("td", [_vm._v(_vm._s(item.ip_address))]),
             _vm._v(" "),
@@ -691,7 +737,39 @@ var render = function() {
         })
       ],
       2
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "rounded-b" }, [
+      _c("nav", { staticClass: "flex justify-between items-center" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-link py-3 px-4 text-80 opacity-50",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.getPrevLoginsPage($event)
+              }
+            }
+          },
+          [_vm._v("Previous")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-link py-3 px-4 text-80 opacity-50",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.getNextLoginsPage($event)
+              }
+            }
+          },
+          [_vm._v("Next")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [

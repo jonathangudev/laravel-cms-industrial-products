@@ -15,6 +15,6 @@ use App\Logs\UserLogin;
 */
 
 Route::get('/user/{id}', function ($id) {
-    $result = UserLogin::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+    $result = UserLogin::where('user_id', $id)->orderBy('created_at', 'desc')->paginate(2);
     return response()->json($result);
 });

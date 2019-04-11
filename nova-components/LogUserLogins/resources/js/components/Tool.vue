@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-fixed ips-table w-full mb-8">
+    <table class="table table-fixed ips-table w-full">
       <tr class="border-top-transparent">
         <td class="border-top-transparent">
           <h4 class="font-normal text-80">IP Address</h4>
@@ -9,11 +9,23 @@
           <h4 class="font-normal text-80">Login Time</h4>
         </td>
       </tr>
-      <tr v-for="(item, index) in logData">
+      <tr v-for="(item, index) in entries">
         <td>{{item.ip_address}}</td>
         <td>{{item.created_at}}</td>
       </tr>
     </table>
+    <div class="rounded-b">
+      <nav class="flex justify-between items-center">
+        <button
+          class="btn btn-link py-3 px-4 text-80 opacity-50"
+          @click.prevent="getPrevLoginsPage"
+        >Previous</button>
+        <button
+          class="btn btn-link py-3 px-4 text-80 opacity-50"
+          @click.prevent="getNextLoginsPage"
+        >Next</button>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -23,17 +35,55 @@ export default {
 
   data() {
     return {
-      logData: {}
+      logData: {},
+      entries: {},
+      prevLink: "",
+      nextLink: ""
     };
   },
 
   mounted() {
     axios
       .get("/nova-vendor/log-user-logins/user/" + this.resourceId)
-      .then(response => (this.logData = response.data))
+      .then(response => {
+        this.entries = response.data.data;
+        this.logData = response.data;
+        this.nextLink = this.logData.next_page_url;
+        this.prevLink = this.logData.last_page_url;
+      })
       .catch(error => {
         this.$toasted.show(error.response.data.message, { type: "error" });
       });
+  },
+
+  methods: {
+    getNextLoginsPage() {
+      axios
+        .get(this.nextLink)
+        .then(response => {
+          this.entries = response.data.data;
+          this.logData = response.data;
+          this.nextLink = this.logData.next_page_url;
+          this.prevLink = this.logData.prev_page_url;
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
+    },
+
+    getPrevLoginsPage() {
+      axios
+        .get(this.prevLink)
+        .then(response => {
+          this.entries = response.data.data;
+          this.logData = response.data;
+          this.nextLink = this.logData.next_page_url;
+          this.prevLink = this.logData.prev_page_url;
+        })
+        .catch(error => {
+          this.$toasted.show(error.response.data.message, { type: "error" });
+        });
+    }
   }
 };
 </script>
