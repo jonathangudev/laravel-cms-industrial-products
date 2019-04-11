@@ -14,7 +14,7 @@ class UserTest extends TestCase
     use WithFaker;
 
     /**
-     * Test that a company user can get its related company
+     * Test that a user can get its related company
      *
      * @test
      * @return  void
