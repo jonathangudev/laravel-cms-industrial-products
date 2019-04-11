@@ -8,6 +8,8 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Jmp\LogUserLogins\LogUserLogins;
+
 
 class User extends Resource
 {
@@ -63,6 +65,8 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:6'),
 
             BelongsTo::make('Company')->nullable(),
+
+            LogUserLogins::make(),
         ];
     }
 

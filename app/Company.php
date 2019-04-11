@@ -44,7 +44,7 @@ class Company extends Model
     protected function generateUuid()
     {
         if (empty($this->attributes['uuid'])) {
-            $this->attributes['uuid'] = (string) Uuid::uuid4();
+            $this->attributes['uuid'] = (string)Uuid::uuid4();
         }
 
         return true;
@@ -104,5 +104,13 @@ class Company extends Model
     public function getLogoUrl()
     {
         return Storage::disk('restricted')->url($this->logo);
+    }
+
+    /**
+     * Get all of the user login attempts for the company
+     */
+    public function userLogins()
+    {
+        return $this->hasManyThrough('App\Logs\UserLogin', 'App\User')->orderBy('created_at', 'desc');
     }
 }

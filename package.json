@@ -21,7 +21,9 @@
         "build-product-spec-sheet-manager": "cd nova-components/ProductSpecSheetManager && npm run dev",
         "build-product-spec-sheet-manager-prod": "cd nova-components/ProductSpecSheetManager && npm run prod",
         "build-contact-settings-manager": "cd nova-components/ContactSettingsManager && npm run dev",
-        "build-contact-settings-manager-prod": "cd nova-components/ContactSettingsManager && npm run prod"
+        "build-contact-settings-manager-prod": "cd nova-components/ContactSettingsManager && npm run prod",
+        "build-log-user-logins": "cd nova-components/LogUserLogins && npm run dev",
+        "build-log-user-logins-prod": "cd nova-components/LogUserLogins && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",

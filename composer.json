@@ -30,7 +30,8 @@
         "spatie/valuestore": "^1.2",
         "teamtnt/laravel-scout-tntsearch-driver": "^7.0",
         "vyuldashev/nova-permission": "^1.4",
-        "jmp/contact-settings-manager": "*"
+        "jmp/contact-settings-manager": "*",
+        "jmp/log-user-logins": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -72,6 +73,10 @@
         {
             "type": "path",
             "url": "./nova-components/ContactSettingsManager"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/LogUserLogins"
         }
     ],
     "autoload": {

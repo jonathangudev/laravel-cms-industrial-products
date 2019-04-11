@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Mail\WelcomeUser;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
