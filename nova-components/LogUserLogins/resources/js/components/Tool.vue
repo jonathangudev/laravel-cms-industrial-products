@@ -14,12 +14,13 @@
         <td>{{item.created_at}}</td>
       </tr>
     </table>
-    <div class="rounded-b">
+    <div class="rounded-b mt-3">
       <nav class="flex justify-between items-center">
         <button
           class="btn btn-link py-3 px-4 text-80 opacity-50"
           @click.prevent="getPrevLoginsPage"
         >Previous</button>
+        <span class="font-normal text-80">{{currPage}} / {{lastPage}}</span>
         <button
           class="btn btn-link py-3 px-4 text-80 opacity-50"
           @click.prevent="getNextLoginsPage"
@@ -38,7 +39,9 @@ export default {
       logData: {},
       entries: {},
       prevLink: "",
-      nextLink: ""
+      nextLink: "",
+      currPage: "",
+      lastPage: ""
     };
   },
 
@@ -48,6 +51,8 @@ export default {
       .then(response => {
         this.entries = response.data.data;
         this.logData = response.data;
+        this.currPage = this.logData.current_page;
+        this.lastPage = this.logData.last_page;
         this.nextLink = this.logData.next_page_url;
         this.prevLink = this.logData.last_page_url;
       })
@@ -58,31 +63,39 @@ export default {
 
   methods: {
     getNextLoginsPage() {
-      axios
-        .get(this.nextLink)
-        .then(response => {
-          this.entries = response.data.data;
-          this.logData = response.data;
-          this.nextLink = this.logData.next_page_url;
-          this.prevLink = this.logData.prev_page_url;
-        })
-        .catch(error => {
-          this.$toasted.show(error.response.data.message, { type: "error" });
-        });
+      if (this.nextLink) {
+        axios
+          .get(this.nextLink)
+          .then(response => {
+            this.entries = response.data.data;
+            this.logData = response.data;
+            this.currPage = this.logData.current_page;
+            this.lastPage = this.logData.last_page;
+            this.nextLink = this.logData.next_page_url;
+            this.prevLink = this.logData.prev_page_url;
+          })
+          .catch(error => {
+            this.$toasted.show(error.response.data.message, { type: "error" });
+          });
+      }
     },
 
     getPrevLoginsPage() {
-      axios
-        .get(this.prevLink)
-        .then(response => {
-          this.entries = response.data.data;
-          this.logData = response.data;
-          this.nextLink = this.logData.next_page_url;
-          this.prevLink = this.logData.prev_page_url;
-        })
-        .catch(error => {
-          this.$toasted.show(error.response.data.message, { type: "error" });
-        });
+      if (this.prevLink) {
+        axios
+          .get(this.prevLink)
+          .then(response => {
+            this.entries = response.data.data;
+            this.logData = response.data;
+            this.currPage = this.logData.current_page;
+            this.lastPage = this.logData.last_page;
+            this.nextLink = this.logData.next_page_url;
+            this.prevLink = this.logData.prev_page_url;
+          })
+          .catch(error => {
+            this.$toasted.show(error.response.data.message, { type: "error" });
+          });
+      }
     }
   }
 };

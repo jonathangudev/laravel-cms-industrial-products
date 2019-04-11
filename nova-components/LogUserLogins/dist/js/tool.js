@@ -165,7 +165,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.ips-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n.ips-table td {\n  border-top-width: 0px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.ips-table td {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n.ips-table td {\n  border-top-width: 0px;\n}\n", ""]);
 
 // exports
 
@@ -659,6 +659,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["resourceName", "resourceId", "field"],
@@ -668,7 +669,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       logData: {},
       entries: {},
       prevLink: "",
-      nextLink: ""
+      nextLink: "",
+      currPage: "",
+      lastPage: ""
     };
   },
   mounted: function mounted() {
@@ -677,6 +680,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     axios.get("/nova-vendor/log-user-logins/user/" + this.resourceId).then(function (response) {
       _this.entries = response.data.data;
       _this.logData = response.data;
+      _this.currPage = _this.logData.current_page;
+      _this.lastPage = _this.logData.last_page;
       _this.nextLink = _this.logData.next_page_url;
       _this.prevLink = _this.logData.last_page_url;
     }).catch(function (error) {
@@ -689,26 +694,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getNextLoginsPage: function getNextLoginsPage() {
       var _this2 = this;
 
-      axios.get(this.nextLink).then(function (response) {
-        _this2.entries = response.data.data;
-        _this2.logData = response.data;
-        _this2.nextLink = _this2.logData.next_page_url;
-        _this2.prevLink = _this2.logData.prev_page_url;
-      }).catch(function (error) {
-        _this2.$toasted.show(error.response.data.message, { type: "error" });
-      });
+      if (this.nextLink) {
+        axios.get(this.nextLink).then(function (response) {
+          _this2.entries = response.data.data;
+          _this2.logData = response.data;
+          _this2.currPage = _this2.logData.current_page;
+          _this2.lastPage = _this2.logData.last_page;
+          _this2.nextLink = _this2.logData.next_page_url;
+          _this2.prevLink = _this2.logData.prev_page_url;
+        }).catch(function (error) {
+          _this2.$toasted.show(error.response.data.message, { type: "error" });
+        });
+      }
     },
     getPrevLoginsPage: function getPrevLoginsPage() {
       var _this3 = this;
 
-      axios.get(this.prevLink).then(function (response) {
-        _this3.entries = response.data.data;
-        _this3.logData = response.data;
-        _this3.nextLink = _this3.logData.next_page_url;
-        _this3.prevLink = _this3.logData.prev_page_url;
-      }).catch(function (error) {
-        _this3.$toasted.show(error.response.data.message, { type: "error" });
-      });
+      if (this.prevLink) {
+        axios.get(this.prevLink).then(function (response) {
+          _this3.entries = response.data.data;
+          _this3.logData = response.data;
+          _this3.currPage = _this3.logData.current_page;
+          _this3.lastPage = _this3.logData.last_page;
+          _this3.nextLink = _this3.logData.next_page_url;
+          _this3.prevLink = _this3.logData.prev_page_url;
+        }).catch(function (error) {
+          _this3.$toasted.show(error.response.data.message, { type: "error" });
+        });
+      }
     }
   }
 });
@@ -739,7 +752,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "rounded-b" }, [
+    _c("div", { staticClass: "rounded-b mt-3" }, [
       _c("nav", { staticClass: "flex justify-between items-center" }, [
         _c(
           "button",
@@ -754,6 +767,10 @@ var render = function() {
           },
           [_vm._v("Previous")]
         ),
+        _vm._v(" "),
+        _c("span", { staticClass: "font-normal text-80" }, [
+          _vm._v(_vm._s(_vm.currPage) + " / " + _vm._s(_vm.lastPage))
+        ]),
         _vm._v(" "),
         _c(
           "button",
