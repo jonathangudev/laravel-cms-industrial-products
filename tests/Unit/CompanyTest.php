@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Catalog\Category;
 use App\Company;
-use App\Company\User;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

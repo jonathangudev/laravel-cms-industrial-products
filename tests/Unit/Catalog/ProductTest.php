@@ -25,7 +25,6 @@ class ProductTest extends TestCase
     {
         $data = [
             'name' => $this->faker->words(2, true),
-            'description' => $this->faker->text,
         ];
 
         $product = factory(Product::class)->create($data);

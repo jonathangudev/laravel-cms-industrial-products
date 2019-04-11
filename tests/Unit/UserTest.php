@@ -3,7 +3,7 @@
 namespace Tests\Unit\Company;
 
 use App\Company;
-use App\Company\User;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,7 +14,7 @@ class UserTest extends TestCase
     use WithFaker;
 
     /**
-     * Test that a company user can get its related company
+     * Test that a user can get its related company
      *
      * @test
      * @return  void
