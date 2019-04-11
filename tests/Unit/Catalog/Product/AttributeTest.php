@@ -23,7 +23,6 @@ class AttributeTest extends TestCase
     {
         $data = [
             'name' => $this->faker->words(2, true),
-            'description' => $this->faker->text,
         ];
 
         $attribute = factory(Attribute::class)->create($data);

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Company;
 
 use App\Company;
-use App\Company\User;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
